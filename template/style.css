@@ -1,0 +1,43 @@
+html{
+    margin:0px;
+    padding: 0px; 
+}
+.nav-background{
+    background-image: url('images/background3.png');
+    background-repeat:no-repeat;
+    background-attachment: fixed;
+    background-position: center; 
+    background-size: cover;
+    margin:0px;
+    padding: 0px;
+    height: 600px;
+}
+
+nav{
+   background: transparent; 
+   -webkit-box-shadow:0 0 0 0px;
+   box-shadow:0 0 0 0px;
+   padding:0 100px 0 120px;
+   
+}
+
+nav a:hover {
+    background: rgba(10, 8, 8, 0.897);
+    color: red;
+  }
+
+.nav-wrapper{
+    padding-bottom: 400px;
+    padding-top:  20px;
+}
+.header{
+    padding-top: 60px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+section1{
+    padding-top:20px;
+}
+.page-footer{
+    background-color: #505050;
+}
