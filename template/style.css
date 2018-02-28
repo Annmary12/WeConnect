@@ -80,10 +80,10 @@ background: rgb(216, 215, 215);
     border-radius: 10px;
 }
 .login-header{
-    padding-top:40px;
-    color:#4c0019;
+    padding-top:100px;
+    color:#fff;
     font-family:'Courier New', Courier, monospace;
-    font-size:50px;
+    font-size:25px;
 }
 
 .btn{
@@ -94,3 +94,21 @@ background: rgb(216, 215, 215);
 .btn:hover{
     background-color:#6a6a68;
 }
+
+.input-field input[type=text]:focus:not([readonly]) {
+    border-color: #4c0019;
+    box-shadow: #4c0019;
+ }
+
+ .signup-left-box{
+    background-image: url('images/login.jpg');
+    background-repeat:no-repeat;
+   
+    background-size: 100% 600px;
+    margin:0px;
+    margin-left: -2px; 
+    padding: 0px;
+    height: 600px;
+}
+
+    
