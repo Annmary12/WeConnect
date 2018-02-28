@@ -2,6 +2,15 @@ html{
     margin:0px;
     padding: 0px; 
 }
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
 .nav-background{
     background-image: url('images/background3.png');
     background-repeat:no-repeat;
@@ -40,4 +49,48 @@ section1{
 }
 .page-footer{
     background-color: #505050;
+}
+
+.login{
+    padding-top: 40px;
+    margin-top:50px;
+    margin-bottom: 40px;
+}
+
+#login-card{
+    padding-top:40px;
+    
+}
+
+.login-left-box{
+    background-image: url('images/login3.jpg');
+    background-repeat:no-repeat;
+   
+    background-size: auto;
+    margin:0px;
+    margin-left: -2px; 
+    padding: 0px;
+    height: 400px;
+}
+
+.login-background{
+background: rgb(216, 215, 215);
+}
+.card{
+    border-radius: 10px;
+}
+.login-header{
+    padding-top:40px;
+    color:#4c0019;
+    font-family:'Courier New', Courier, monospace;
+    font-size:50px;
+}
+
+.btn{
+    background-color: #4c0019;
+    padding-top:0px;
+    
+}
+.btn:hover{
+    background-color:#6a6a68;
 }
