@@ -26,3 +26,17 @@
 .card-image{
     height: 200px;
 }
+
+.register-business{
+    padding-top: 170px;
+    padding-right:40px;
+    color:red;
+}
+
+.register-section{
+    padding-top:50px;
+    position:relative;
+}
+#button{
+    background-color:grey;
+}

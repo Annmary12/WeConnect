@@ -15,6 +15,11 @@
         <body>
         <div class="nav-business">
             <div class="navbar-fixed">
+                    <ul id="dropdown1" class="dropdown-content">
+                            <li><a href="newBusiness.html">New Business</a></li>
+                            <li><a href="business.html">Business</a></li>
+                            
+                          </ul>
                 <nav>
                         <div class="nav-wrapper">
                           <a href="#" class="brand-logo">weCo<span class="logo">nn</span>ect</a>
@@ -24,7 +29,9 @@
                             <li><a href="contact.html">Contact</a></li>
                             <li><a href="business.html">Business</a></li>
                             <li><a href="login.html">Login</a></li>
-                            <li><a href="signup.html">Register</a></li>
+                            <li><a href="signup.html">SignUp</a></li>
+                            <li><a href="profile.html">Profile</a></li>
+                            
                           </ul>
                         </div>
                       </nav>
@@ -32,7 +39,7 @@
 
                     <div class="container search-box">
                             
-                    <div class="row search">
+                    <div class="card row search">
                         <div class="col s10 offset-s1">
                             <h3 class="center-align">Search For Business</h3>
                             
@@ -83,7 +90,7 @@
     </div>
         <div class="container business-section">
             <div class="row section1">
-                <h2 class="center-align">Feactures</h2>
+                <h4 class="">IT</h4>
                 <div class="row">
                     <div class="col s4">
                             <div class="card" style="overflow: visible;">
@@ -151,6 +158,8 @@
                                   </div>
                     </div>
                 </div>
+
+                <h4 class="">Marketing</h4>
                 <div class="row">
                         <div class="col s4">
                                 <div class="card" style="overflow: visible;">
@@ -254,6 +263,7 @@
         <script>
         $(document).ready(function() {
             $('select').material_select();
+            $(".dropdown-button").dropdown();
         });
         </script>
         </body>
