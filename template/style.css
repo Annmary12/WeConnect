@@ -6,11 +6,15 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+   
   }
 
   main {
     flex: 1 0 auto;
   }
+  .logo{
+    color:red;
+}
 .nav-background{
     background-image: url('images/background3.png');
     background-repeat:no-repeat;
@@ -87,7 +91,7 @@ background: rgb(216, 215, 215);
 }
 
 .btn{
-    background-color: #4c0019;
+    background-color: #ff0000;
     padding-top:0px;
     
 }
@@ -96,19 +100,19 @@ background: rgb(216, 215, 215);
 }
 
 .input-field input[type=text]:focus:not([readonly]) {
-    border-color: #4c0019;
-    box-shadow: #4c0019;
+    border-color: #ff0000;
+    box-shadow: #ff0000;
  }
 
  .signup-left-box{
     background-image: url('images/login.jpg');
     background-repeat:no-repeat;
    
-    background-size: 100% 600px;
+    background-size: auto 600px;
     margin:0px;
     margin-left: -2px; 
     padding: 0px;
-    height: 600px;
+    height: 520px;
 }
 
     
