@@ -7,6 +7,8 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+// require our routes
+require('./server/routes')(app);
 
 app.get('/', (req, res) => {
   res.send('Welcome to wecconect app...');
