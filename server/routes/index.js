@@ -7,5 +7,6 @@ module.exports = (app) => {
   }));
 
   app.get('/businesses', businessController.getBusiness);
+  app.post('/businesses/', businessController.create);
   // app.get('/users', userController.fetch);
 };
