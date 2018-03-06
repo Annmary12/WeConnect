@@ -18,7 +18,7 @@ body {
 }
 
 .nav-background{
-    background-image: url('images/background3.png');
+    background-image: url('../images/background3.png');
     background-repeat:no-repeat;
     background-position: center; 
     background-size: cover;
@@ -67,7 +67,7 @@ section1{
 }
 
 .login-left-box{
-    background-image: url('images/login3.jpg');
+    background-image: url('../images/login3.jpg');
     background-repeat:no-repeat;
    
     background-size: auto;
@@ -105,7 +105,7 @@ background: rgb(216, 215, 215);
  }
 
  .signup-left-box{
-    background-image: url('images/login.jpg');
+    background-image: url('../images/login.jpg');
     background-repeat:no-repeat;
    
     background-size: auto 600px;

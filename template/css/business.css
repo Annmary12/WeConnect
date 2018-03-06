@@ -1,5 +1,5 @@
 .nav-business{
-    background-image: url('images/business.jpg');
+    background-image: url('../images/business.jpg');
     background-repeat:no-repeat; 
     background-size: cover;
     margin:0px;
