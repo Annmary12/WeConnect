@@ -33,6 +33,28 @@ class Business {
       error: false
     });
   }
+
+  static update(req, res) {
+    for (let i = 0; i < businesses.length; i += 1) {
+      if (businesses[i].id === parseInt(req.params.businessId, 10)) {
+        businesses[i].name = req.body.name;
+        businesses[i].description = req.body.description;
+        businesses[i].location = req.body.location;
+        businesses[i].category = req.body.category;
+
+        return res.json({
+          businesses,
+          message: 'Business Successfully Updated',
+          error: false
+        });
+      }
+    }
+
+    return res.status(404).json({
+      message: 'Business not found',
+      error: true
+    });
+  }
 }
 
 export default Business;
