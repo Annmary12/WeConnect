@@ -74,6 +74,10 @@ class Business {
       error: true
     });
   }
+
+  // static searchByLocation(req, res) {
+  //   const location = req.body.location;
+  // }
 }
 
 export default Business;
