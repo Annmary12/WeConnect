@@ -4,7 +4,7 @@ import businesses from '../model/business';
 class Review {
   static create(req, res) {
     for (let i = 0; i < businesses.length; i += 1) {
-      if (businesses[i].id === parseInt(req.params.id, 10)) {
+      if (businesses[i].id === parseInt(req.params.businessId, 10)) {
         reviews.push({
           id: reviews.length + 1,
           userId: 2,
@@ -20,9 +20,30 @@ class Review {
       }
     }
 
-    return res.status(404).json({
+    return res.json({
       message: 'Business You want to review is not found',
       error: true
+    });
+  }
+
+  static fetch(req, res) {
+    const getreviews = [];
+    for (let i = 0; i < reviews.length; i += 1) {
+      if (reviews[i].businessId === parseInt(req.params.businessId, 10)) {
+        getreviews.push(reviews[i]);
+      }
+    }
+    if (getreviews.length > 0) {
+      return res.json({
+        getreviews,
+        message: 'list of reviews for this business',
+        error: false
+      });
+    }
+
+    return res.json({
+      message: 'No review found for this business',
+      error: false
     });
   }
 }

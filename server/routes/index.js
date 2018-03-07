@@ -11,6 +11,8 @@ module.exports = (app) => {
   app.post('/businesses/', businessController.create);
   app.put('/businesses/:businessId', businessController.update);
   app.delete('/businesses/:businessId', businessController.delete);
-  app.post('businesses/:id/reviews', reviewController.create);
+
+  app.post('/businesses/:businessId/reviews', reviewController.create);
+  app.get('/businesses/:businessId/reviews', reviewController.fetch);
   // app.get('/users', userController.fetch);
 };
