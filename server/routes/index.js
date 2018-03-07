@@ -9,5 +9,6 @@ module.exports = (app) => {
   app.get('/businesses', businessController.getBusiness);
   app.post('/businesses/', businessController.create);
   app.put('/businesses/:businessId', businessController.update);
+  app.delete('/businesses/:businessId', businessController.delete);
   // app.get('/users', userController.fetch);
 };

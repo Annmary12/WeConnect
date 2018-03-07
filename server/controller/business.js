@@ -21,7 +21,7 @@ class Business {
       });
     }
     businesses.push({
-      id: uuid.v4(),
+      id: businesses.length + 1,
       name: business.name,
       description: business.description,
       location: business.location,
@@ -45,6 +45,25 @@ class Business {
         return res.json({
           businesses,
           message: 'Business Successfully Updated',
+          error: false
+        });
+      }
+    }
+
+    return res.status(404).json({
+      message: 'Business not found',
+      error: true
+    });
+  }
+
+  static delete(req, res) {
+    for (let i = 0; i < businesses.length; i += 1) {
+      if (businesses[i].id === parseInt(req.params.businessId, 10)) {
+        businesses.splice(i, 1);
+
+        res.json({
+          businesses,
+          message: 'Business Succefully Deleted',
           error: false
         });
       }
