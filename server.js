@@ -10,9 +10,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // require our routes
 require('./server/routes')(app);
 
-app.get('/', (req, res) => {
-  res.send('Welcome to wecconect app...');
-});
+app.get('*', (req, res) => res.status(404).send({
+  message: 'Welcome to the beginning of nothingness.',
+}));
 
 const port = process.env.PORT || 8000;
 
