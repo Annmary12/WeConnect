@@ -23,7 +23,7 @@ class User {
     const loggedUser = [];
 
     for (let i = 0; i < users.length; i += 1) {
-      if (users[i].email === user.email && users[i].password === user.password) {
+      if (users[i].email.toLowerCase() === user.email.toLowerCase() && users[i].password.toLowerCase() === user.password.toLowerCase()) {
         loggedUser.push(users[i]);
       }
     }
