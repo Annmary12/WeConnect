@@ -9,7 +9,8 @@ module.exports = (app) => {
   }));
 
   app.post('/auth/signup', userController.signup);
-  
+  app.post('/auth/signin', userController.singin);
+
   app.get('/businesses', businessController.getBusiness);
   app.post('/businesses/', businessController.create);
   app.put('/businesses/:businessId', businessController.update);

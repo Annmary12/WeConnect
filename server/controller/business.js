@@ -18,6 +18,7 @@ class Business {
     if (!business.name) {
       return res.status(400).send({
         message: 'Required Field',
+        error: true
       });
     }
     businesses.push({
