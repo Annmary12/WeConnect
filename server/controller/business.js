@@ -10,7 +10,55 @@ class Business {
    * @param {*} res
    */
   static getBusiness(req, res) {
-    res.json({ businesses });
+    const { category, location } = req.query;
+    const loc = [];
+    const cat = [];
+
+    if (location) {
+      for (let i = 0; i < businesses.length; i += 1) {
+        if (businesses[i].location.toLowerCase() === location.toLowerCase()) {
+          loc.push(businesses[i]);
+        }
+      }
+      if (loc.length > 0) {
+        res.json({
+          loc,
+          message: `List of business(es) in ${location}`,
+          error: false
+        });
+      }
+
+      return res.json({
+        message: `No sure business under ${location} location`,
+        error: true
+      });
+    }
+
+    if (category) {
+      for (let i = 0; i < businesses.length; i += 1) {
+        if (businesses[i].category.toLowerCase() === category.toLowerCase()) {
+          cat.push(businesses[i]);
+        }
+      }
+
+      if (cat.length > 0) {
+        res.json({
+          cat,
+          message: `List of business(es) in ${category}`,
+          error: false
+        });
+      }
+
+      return res.json({
+        message: `No sure business under ${category} category`,
+        error: true
+      });
+    }
+    res.json({
+      businesses,
+      message: 'List of all bussinesses',
+      error: false
+    });
   }
 
   static create(req, res) {
