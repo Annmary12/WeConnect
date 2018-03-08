@@ -1,1 +1,13 @@
 w8zRrnx8hfmhStN43O-nyg
+language: node_js
+cache: bundler
+node_js:
+  - 6.11.4
+services:
+  - postgresql
+script:
+after_success:
+npm run coverage
+env:
+  global:
+
