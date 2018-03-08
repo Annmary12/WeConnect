@@ -14,7 +14,7 @@ app.get('*', (req, res) => res.status(404).send({
   message: 'Welcome to the beginning of nothingness.',
 }));
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3700;
 
 app.listen(port, () => {
   winston.info(`Connected on port ${port}`);

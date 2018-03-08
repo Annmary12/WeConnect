@@ -1,5 +1,6 @@
 // const businessController = require('../controller/business');
 import businessController from '../controller/business';
+import userController from '../controller/user';
 import reviewController from '../controller/review';
 
 module.exports = (app) => {
@@ -7,6 +8,8 @@ module.exports = (app) => {
     message: 'Welcome to we-connect Api',
   }));
 
+  app.post('/auth/signup', userController.signup);
+  
   app.get('/businesses', businessController.getBusiness);
   app.post('/businesses/', businessController.create);
   app.put('/businesses/:businessId', businessController.update);
