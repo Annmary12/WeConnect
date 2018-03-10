@@ -16,7 +16,7 @@ class User {
       password: user.password
     });
 
-    return res.json({
+    return res.status(200).json({
       users,
       message: 'Sucessfully Registered',
       error: false
@@ -39,13 +39,13 @@ class User {
     }
 
     if (loggedUser.length > 0) {
-      return res.json({
+      return res.status(200).json({
         loggedUser,
         message: `Hello ${loggedUser[0].name}, Welcome to weConnect`,
         error: false
       });
     }
-    return res.status(404).json({
+    return res.status(400).json({
       message: 'You are not a register user',
       error: true
     });
