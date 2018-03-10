@@ -2,6 +2,9 @@
 
 [![Build Status](https://travis-ci.org/Annmary12/WeConnect.svg?branch=master)](https://travis-ci.org/Annmary12/WeConnect)
 
+[![Coverage Status](https://coveralls.io/repos/github/Annmary12/WeConnect/badge.svg?branch=master)](https://coveralls.io/github/Annmary12/WeConnect?branch=master)
+
+[![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/Annmary12/WeConnect)
 
 WeConnect brings your business to live with collaboration of various individuals. It creates an avenue for awareness of your business and creates the ability for users to write reviews about the businesses the have interacted with.
 
