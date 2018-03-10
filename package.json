@@ -2,9 +2,9 @@
   "name": "weconnect",
   "version": "1.0.0",
   "description": "",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
-    "start": "nodemon --watch server --exec babel-node server.js",
+    "start": "nodemon --watch server --exec babel-node app.js",
     "lint": "eslint ./ || true",
     "test": "mocha ./server/test --compilers js:babel-register"
   },

@@ -2,6 +2,11 @@ import reviews from '../model/review';
 import businesses from '../model/business';
 
 class Review {
+/**
+   * @returns {Object} createReview
+   * @param {*} req
+   * @param {*} res
+   */
   static create(req, res) {
     for (let i = 0; i < businesses.length; i += 1) {
       if (businesses[i].id === parseInt(req.params.businessId, 10)) {
@@ -26,6 +31,11 @@ class Review {
     });
   }
 
+  /**
+   * @returns {Object} getreviews
+   * @param {*} req
+   * @param {*} res
+   */
   static fetch(req, res) {
     const getreviews = [];
     for (let i = 0; i < reviews.length; i += 1) {

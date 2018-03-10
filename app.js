@@ -5,7 +5,7 @@ import bodyParser from 'body-parser';
 const app = express();
 const router = express.Router();
 
-const port = process.env.PORT || 3700;
+const port = process.env.PORT || 8000;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -31,3 +31,4 @@ app.listen(port, () => {
   winston.info(`Connected on port ${port}`);
 });
 
+export default app;

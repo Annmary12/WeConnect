@@ -2,6 +2,11 @@ import users from '../model/user';
 
 
 class User {
+  /**
+   * @returns {Object} signup
+   * @param {*} req
+   * @param {*} res
+   */
   static signup(req, res) {
     const user = req.body;
     users.push({
@@ -18,6 +23,11 @@ class User {
     });
   }
 
+  /**
+   * @returns {Object} signin
+   * @param {*} req
+   * @param {*} res
+   */
   static singin(req, res) {
     const user = req.body;
     const loggedUser = [];

@@ -5,7 +5,7 @@ import businesses from '../model/business';
 
 class Business {
 /**
-   * @returns {Object} businesses
+   * @returns {Object} getbusinesses
    * @param {*} req
    * @param {*} res
    */
@@ -21,15 +21,15 @@ class Business {
         }
       }
       if (loc.length > 0) {
-        res.json({
+        return res.status(200).json({
           loc,
           message: `List of business(es) in ${location}`,
           error: false
         });
       }
 
-      return res.json({
-        message: `No sure business under ${location} location`,
+      return res.status(400).json({
+        message: `No sure business under this(${location}) location`,
         error: true
       });
     }
@@ -42,25 +42,30 @@ class Business {
       }
 
       if (cat.length > 0) {
-        res.json({
+        return res.status(200).json({
           cat,
           message: `List of business(es) in ${category}`,
           error: false
         });
       }
 
-      return res.json({
-        message: `No sure business under ${category} category`,
+      return res.status(400).json({
+        message: `No sure business under this(${category}) category`,
         error: true
       });
     }
-    res.json({
+    return res.status(200).json({
       businesses,
       message: 'List of all bussinesses',
       error: false
     });
   }
 
+  /**
+   * @returns {Object} createBusiness
+   * @param {*} req
+   * @param {*} res
+   */
   static create(req, res) {
     const business = req.body;
     if (!business.name) {
@@ -76,13 +81,18 @@ class Business {
       location: business.location,
       category: business.category
     });
-    return res.json({
+    return res.status(200).json({
       businesses,
       message: 'Successfully Created a business',
       error: false
     });
   }
 
+  /**
+   * @returns {Object} updatebusiness
+   * @param {*} req
+   * @param {*} res
+   */
   static update(req, res) {
     for (let i = 0; i < businesses.length; i += 1) {
       if (businesses[i].id === parseInt(req.params.businessId, 10)) {
@@ -105,12 +115,18 @@ class Business {
     });
   }
 
+  /**
+   * @returns {Object} deleteBusiness
+   * @param {*} req
+   * @param {*} res
+   */
+
   static delete(req, res) {
     for (let i = 0; i < businesses.length; i += 1) {
       if (businesses[i].id === parseInt(req.params.businessId, 10)) {
         businesses.splice(i, 1);
 
-        res.json({
+        return res.status(200).json({
           businesses,
           message: 'Business Succefully Deleted',
           error: false
