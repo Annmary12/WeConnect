@@ -17,7 +17,7 @@ class Review {
           content: req.body.content
         });
 
-        res.json({
+        return res.json({
           reviews,
           message: 'Review Created Sucessfully',
           error: false

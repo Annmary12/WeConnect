@@ -1,12 +1,14 @@
 language: node_js
-cache: bundler
 node_js:
-  - 6.11.4
-services:
-  - postgresql
+- "stable"
+install:
+  - npm install
 script:
-after_success:
-npm run coverage
+  - npm test
 env:
-  global:
+  - NODE_ENV=test
+cache:
+  directories:
+    - "node_modules"
+
 
