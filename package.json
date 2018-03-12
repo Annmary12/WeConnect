@@ -1,50 +1,50 @@
-{
-  "name": "weconnect",
-  "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
-  "scripts": {
-    "start": "nodemon --watch server --exec babel-node app.js",
-    "lint": "eslint ./ || true",
-    "test": "mocha ./server/test --exit --compilers js:babel-register"
+{  
+  "name":"weconnect",
+  "version":"1.0.0",
+  "description":"",
+  "main":"app.js",
+  "scripts":{  
+     "start":"nodemon --watch server --exec babel-node app.js",
+     "lint":"eslint ./ || true",
+     "test":"mocha ./server/test --compilers js:babel-register"
   },
-  "devDependencies": {
-    "babel": "^6.23.0",
-    "babel-eslint": "^8.2.2",
-    "codeclimate-test-reporter": "^0.5.0",
-    "coveralls": "^3.0.0",
-    "eslint": "^4.18.2",
-    "eslint-config-airbnb-base": "^12.1.0",
-    "eslint-plugin-import": "^2.9.0",
-    "mocha-lcov-reporter": "^1.3.0",
-    "nodemon": "^1.17.1"
+  "devDependencies":{  
+     "babel":"^6.23.0",
+     "babel-eslint":"^8.2.2",
+     "codeclimate-test-reporter":"^0.5.0",
+     "coveralls":"^3.0.0",
+     "eslint":"^4.18.2",
+     "eslint-config-airbnb-base":"^12.1.0",
+     "eslint-plugin-import":"^2.9.0",
+     "mocha-lcov-reporter":"^1.3.0",
+     "nodemon":"^1.17.1"
   },
-  "dependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-core": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-2": "^6.24.1",
-    "babel-register": "^6.26.0",
-    "body-parser": "^1.18.2",
-    "chai": "^4.1.2",
-    "chai-http": "^3.0.0",
-    "cross-env": "^5.1.3",
-    "dotenv": "^5.0.1",
-    "eslint-plugin-prettier": "^2.6.0",
-    "express": "^4.16.2",
-    "mocha": "^5.0.2",
-    "node-uuid": "^1.4.8",
-    "nyc": "^11.4.1",
-    "winston": "^2.4.0"
+  "dependencies":{  
+     "babel-cli":"^6.26.0",
+     "babel-core":"^6.26.0",
+     "babel-preset-es2015":"^6.24.1",
+     "babel-preset-stage-2":"^6.24.1",
+     "babel-register":"^6.26.0",
+     "body-parser":"^1.18.2",
+     "chai":"^4.1.2",
+     "chai-http":"^3.0.0",
+     "cross-env":"^5.1.3",
+     "dotenv":"^5.0.1",
+     "eslint-plugin-prettier":"^2.6.0",
+     "express":"^4.16.2",
+     "mocha":"^5.0.2",
+     "node-uuid":"^1.4.8",
+     "nyc":"^11.4.1",
+     "winston":"^2.4.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Annmary12/WeConnect.git"
+  "repository":{  
+     "type":"git",
+     "url":"git+https://github.com/Annmary12/WeConnect.git"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Annmary12/WeConnect/issues"
+  "author":"",
+  "license":"ISC",
+  "bugs":{  
+     "url":"https://github.com/Annmary12/WeConnect/issues"
   },
-  "homepage": "https://github.com/Annmary12/WeConnect#readme"
+  "homepage":"https://github.com/Annmary12/WeConnect#readme"
 }
