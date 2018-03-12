@@ -11,7 +11,7 @@ before_script:
 script:
  - npm run test
  - npm run check-coverage
-after_success:
- - npm run coverage
- - npm run report-coverage
- - npm run coveralls
+# after_success:
+#  - npm run coverage
+#  - npm run report-coverage
+#  - npm run coveralls
