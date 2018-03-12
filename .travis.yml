@@ -1,14 +1,8 @@
 language: node_js
 node_js:
-  - "stable"
-install:
-  - npm install
-script:
-  - npm test
-env:
-  - NODE_ENV=test
-cache:
-  directories:
-    - "node_modules"
+  - "6"
+after_success:
+  - npm install -g codeclimate-test-reporter
+  - codeclimate-test-reporter < ./coverage/lcov.info
 
 
