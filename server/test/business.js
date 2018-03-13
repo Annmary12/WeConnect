@@ -5,7 +5,7 @@ import server from '../../app';
 const { expect } = chai;
 const should = chai.should();
 chai.use(chaiHttp);
-const BASE_URL = '/api';
+const BASE_URL = '/api/v1';
 
 describe('/GET Businesses', () => {
   it('it should get all businesses', (done) => {

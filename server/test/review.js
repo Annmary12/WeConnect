@@ -4,7 +4,7 @@ import server from '../../app';
 
 const { expect } = chai;
 chai.use(chaiHttp);
-const BASE_URL = '/api';
+const BASE_URL = '/api/v1';
 
 describe('POST/ review for a particular business', () => {
   it('it should create a review for a business', (done) => {
