@@ -442,10 +442,14 @@
           }
         ],
         "responses": {
-          "default": {
+          "200": {
             "description": "Sucessfully Registered"
+          },
+          "400": {
+            "description": "Name Field is required"
           }
         }
+        
       }
     },
     "/auth/signin": {
@@ -478,7 +482,7 @@
         ],
         "responses": {
           "200": {
-            "description": "successful logged in",
+            "description": "Hello Annmary Agunanna, Welcome to weConnect",
             "schema": {
               "type": "string"
             },
@@ -496,7 +500,7 @@
             }
           },
           "400": {
-            "description": "Invalid email/password supplied"
+            "description": "You are not a register user"
           }
         }
       }

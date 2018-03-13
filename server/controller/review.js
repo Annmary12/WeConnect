@@ -17,7 +17,7 @@ class Review {
           content: req.body.content
         });
 
-        return res.json({
+        return res.status(200).json({
           reviews,
           message: 'Review Created Sucessfully',
           error: false
@@ -25,7 +25,7 @@ class Review {
       }
     }
 
-    return res.json({
+    return res.status(400).json({
       message: 'Business You want to review is not found',
       error: true
     });

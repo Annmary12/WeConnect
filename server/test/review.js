@@ -6,11 +6,12 @@ const { expect } = chai;
 chai.use(chaiHttp);
 const BASE_URL = '/api/v1';
 
-describe('POST/ review for a particular business', () => {
+describe('POST api/v1/businesses/:businessId/reviews', () => {
   it('it should create a review for a business', (done) => {
     const review = {
       id: 1,
       userId: 1,
+      businessId: 2,
       content: 'Their Products are very nice'
     };
     chai.request(server)
@@ -22,6 +23,22 @@ describe('POST/ review for a particular business', () => {
         done();
       });
   });
+  // it('it should not create review for non existing business', (done) => {
+  //   // const review = {
+  //   //   id: 1,
+  //   //   userId: 1,
+  //   //   businessId: 4,
+  //   //   content: 'Their Products are very nice'
+  //   // };
+  //   chai.request(server)
+  //     .post(`${BASE_URL}/businesses/2/reviews`)
+  //     .send()
+  //     .end((err, res) => {
+  //       expect(res).to.have.status(200);
+  //       expect(res.body.message).to.equal('Business You want to review is not found');
+  //       done();
+  //     });
+  // });
 });
 
 describe('GET/ reviews of a business', () => {

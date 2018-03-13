@@ -33,7 +33,7 @@ describe('/GET Businesses', () => {
       .get(`${BASE_URL}/businesses?location=newyork`)
       .end((err, res) => {
         expect(res).to.have.status(400);
-        expect(res.body.message).to.equal('No sure business under this(newyork) location');
+        expect(res.body.message).to.equal('No such business under this(newyork) location');
         done();
       });
   });

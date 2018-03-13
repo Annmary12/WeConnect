@@ -9,6 +9,12 @@ class User {
    */
   static signup(req, res) {
     const user = req.body;
+    if (!user.name) {
+      return res.status(400).json({
+        message: 'Name Field is required',
+        error: true
+      });
+    }
     users.push({
       id: users.length + 1,
       name: user.name,

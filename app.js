@@ -8,7 +8,7 @@ import swaggerDocument from './swagger.json';
 const app = express();
 const router = express.Router();
 
-app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const port = process.env.PORT || 8000;
 
@@ -31,6 +31,8 @@ router.get('*', (req, res) => res.status(404).send({
 
 app.use('/api/v1', router);
 
+
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.listen(port, () => {
   winston.info(`Connected on port ${port}`);
