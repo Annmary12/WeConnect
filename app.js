@@ -1,9 +1,14 @@
 import express from 'express';
 import winston from 'winston';
 import bodyParser from 'body-parser';
+import swaggerUi from 'swagger-ui-express';
+
+import swaggerDocument from './swagger.json';
 
 const app = express();
 const router = express.Router();
+
+app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 const port = process.env.PORT || 8000;
 
@@ -24,7 +29,7 @@ router.get('*', (req, res) => res.status(404).send({
   error: true
 }));
 
-app.use('/api', router);
+app.use('/api/v1', router);
 
 
 app.listen(port, () => {

@@ -29,7 +29,7 @@ class Business {
       }
 
       return res.status(400).json({
-        message: `No sure business under this(${location}) location`,
+        message: `No such business under this(${location}) location`,
         error: true
       });
     }
