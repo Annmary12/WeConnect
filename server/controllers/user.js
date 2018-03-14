@@ -1,4 +1,4 @@
-import users from '../model/user';
+import users from '../models/user';
 
 
 class User {
