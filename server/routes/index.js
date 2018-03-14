@@ -1,7 +1,7 @@
 // const businessController = require('../controller/business');
-import businessController from '../controller/business';
-import userController from '../controller/user';
-import reviewController from '../controller/review';
+import businessController from '../controllers/business';
+import userController from '../controllers/user';
+import reviewController from '../controllers/review';
 
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
