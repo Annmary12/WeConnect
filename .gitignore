@@ -1,1 +1,17 @@
+## Node modules
 node_modules
+
+## Coverage
+coverage
+
+## Coveralls
+.coveralls.yml
+
+## Nyc_output
+.nyc_output
+
+## Env variables
+.env
+
+## Config file
+server/config

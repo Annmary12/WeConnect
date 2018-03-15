@@ -1,4 +1,5 @@
-// 'use strict';
+
+
 module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.createTable('Users', {
     id: {
@@ -23,7 +24,7 @@ module.exports = {
       allowNull: false,
       type: Sequelize.STRING
     },
-    profilepic: {
+    image: {
       type: Sequelize.STRING
     },
     createdAt: {

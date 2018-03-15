@@ -29,6 +29,7 @@
       "babel-preset-es2015": "^6.24.1",
       "babel-preset-stage-2": "^6.24.1",
       "babel-register": "^6.26.0",
+      "bcrypt": "^1.0.3",
       "body-parser": "^1.18.2",
       "chai": "^4.1.2",
       "chai-http": "^3.0.0",
@@ -43,8 +44,8 @@
       "pg": "^7.4.1",
       "pg-hstore": "^2.3.2",
       "sequelize": "^4.36.1",
-      "winston": "^2.4.0",
-      "swagger-ui-express": "^2.0.15"
+      "swagger-ui-express": "^2.0.15",
+      "winston": "^2.4.0"
    },
    "repository": {
       "type": "git",
