@@ -33,5 +33,4 @@ CSS
     * search for a business
 
 ## API documentation
-Used swagger for documentation
-link: <a href="https://weconnect12-server.herokuapp.com/docs/" target="_blank">gh-pages</a>
+Used swagger for documentation <a href="https://weconnect12-server.herokuapp.com/docs/" target="_blank">link</a>
