@@ -1,6 +1,6 @@
 # WeConnect
 
-[![Build Status](https://travis-ci.org/Annmary12/WeConnect.svg?branch=coverall)](https://travis-ci.org/Annmary12/WeConnect) [![Coverage Status](https://coveralls.io/repos/github/Annmary12/WeConnect/badge.svg?branch=coverall)](https://coveralls.io/github/Annmary12/WeConnect?branch=coverall) [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/Annmary12/WeConnect)
+[![Build Status](https://travis-ci.org/Annmary12/WeConnect.svg?branch=coverall)](https://travis-ci.org/Annmary12/WeConnect) [![Coverage Status](https://coveralls.io/repos/github/Annmary12/WeConnect/badge.svg?branch=coverall)](https://coveralls.io/github/Annmary12/WeConnect?branch=coverall) [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/Annmary12/WeConnect) [![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/codeclimate/codeclimate/test_coverage)
 
 
 WeConnect brings your business to live with collaboration of various individuals. It creates an avenue for awareness of your business and creates the ability for users to write reviews about the businesses the have interacted with.
