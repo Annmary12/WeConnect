@@ -1,9 +1,13 @@
-// const businesses = require('../model/business');
-import businesses from '../models/business';
+import dotenv from 'dotenv';
+import jwt from 'jsonwebtoken';
+
 import models from '../models/index';
 
 const businessModel = models.Business;
+dotenv.config();
+const secret = process.env.secretKey;
 // const uuid = require('node-uuid');
+
 
 class Business {
 /**
@@ -12,62 +16,64 @@ class Business {
    * @param {*} res
    */
   static getBusiness(req, res) {
-    const { category, location } = req.query;
-    const loc = [];
-    const cat = [];
+    // const { category, location } = req.query;
+    // const loc = [];
+    // const cat = [];
 
-    if (location) {
-      for (let i = 0; i < businesses.length; i += 1) {
-        if (businesses[i].location.toLowerCase() === location.toLowerCase()) {
-          loc.push(businesses[i]);
-        }
-      }
-      if (loc.length > 0) {
-        return res.status(200).json({
-          loc,
-          message: `List of business(es) in ${location}`,
-          error: false
-        });
-      }
+    // if (location) {
+    //   for (let i = 0; i < businesses.length; i += 1) {
+    //     if (businesses[i].location.toLowerCase() === location.toLowerCase()) {
+    //       loc.push(businesses[i]);
+    //     }
+    //   }
+    //   if (loc.length > 0) {
+    //     return res.status(200).json({
+    //       loc,
+    //       message: `List of business(es) in ${location}`,
+    //       error: false
+    //     });
+    //   }
 
-      return res.status(400).json({
-        message: `No such business under this(${location}) location`,
-        error: true
-      });
-    }
+    //   return res.status(400).json({
+    //     message: `No such business under this(${location}) location`,
+    //     error: true
+    //   });
+    // }
 
-    if (category) {
-      for (let i = 0; i < businesses.length; i += 1) {
-        if (businesses[i].category.toLowerCase() === category.toLowerCase()) {
-          cat.push(businesses[i]);
-        }
-      }
+    // if (category) {
+    //   for (let i = 0; i < businesses.length; i += 1) {
+    //     if (businesses[i].category.toLowerCase() === category.toLowerCase()) {
+    //       cat.push(businesses[i]);
+    //     }
+    //   }
 
-      if (cat.length > 0) {
-        return res.status(200).json({
-          cat,
-          message: `List of business(es) in ${category}`,
-          error: false
-        });
-      }
+    //   if (cat.length > 0) {
+    //     return res.status(200).json({
+    //       cat,
+    //       message: `List of business(es) in ${category}`,
+    //       error: false
+    //     });
+    //   }
 
-      return res.status(400).json({
-        message: `No sure business under this(${category}) category`,
-        error: true
-      });
-    }
+    //   return res.status(400).json({
+    //     message: `No sure business under this(${category}) category`,
+    //     error: true
+    //   });
+    // }
 
     // return all the business
-    return businessModel
-      .all()
-      .then(business => req.status(200).json({
-        business,
-        message: 'List of all bussinesses',
+    return businessModel.find()
+      .then(businesses => req.status(200).json({
+        businesses,
+        message: 'List of all bussinesses'
       }))
-      .catch(err => res.status().json({
+      .catch(err => res.status(400).json({
+        message: 'message errors',
         error: err
+
       }));
   }
+
 
   /**
    * @returns {Object} createBusiness
@@ -75,78 +81,40 @@ class Business {
    * @param {*} res
    */
   static create(req, res) {
-    const business = req.body;
-    if (!business.name) {
-      return res.status(400).send({
-        message: 'Required Field',
-        error: true
-      });
-    }
-    businesses.push({
-      id: businesses.length + 1,
-      name: business.name,
-      description: business.description,
-      location: business.location,
-      category: business.category
-    });
-    return res.status(200).json({
-      businesses,
-      message: 'Successfully Created a business',
-      error: false
-    });
-  }
-
-  /**
-   * @returns {Object} updatebusiness
-   * @param {*} req
-   * @param {*} res
-   */
-  static update(req, res) {
-    for (let i = 0; i < businesses.length; i += 1) {
-      if (businesses[i].id === parseInt(req.params.businessId, 10)) {
-        businesses[i].name = req.body.name;
-        businesses[i].description = req.body.description;
-        businesses[i].location = req.body.location;
-        businesses[i].category = req.body.category;
-
-        return res.json({
-          businesses,
-          message: 'Business Successfully Updated',
-          error: false
+    jwt.verify(req.token, secret, (err, authData) => {
+      if (err) {
+        // Wrong token
+        res.status(403).json({
+          message: 'Token mismatch'
         });
-      }
-    }
-
-    return res.status(404).json({
-      message: 'Business not found',
-      error: true
-    });
-  }
-
-  /**
-   * @returns {Object} deleteBusiness
-   * @param {*} req
-   * @param {*} res
-   */
-
-  static delete(req, res) {
-    for (let i = 0; i < businesses.length; i += 1) {
-      if (businesses[i].id === parseInt(req.params.businessId, 10)) {
-        businesses.splice(i, 1);
-
-        return res.status(200).json({
-          businesses,
-          message: 'Business Succefully Deleted',
-          error: false
+      } else {
+        const business = new businessModel({
+          userId: authData.user.id, // get the id of the user from the authData token
+          name: req.body.name,
+          description: req.body.description,
+          phone_number: req.body.phone_number,
+          address: req.body.address,
+          image: req.body.image,
+          location: req.body.location,
+          category: req.body.category,
+          website: req.body.website
         });
-      }
-    }
 
-    return res.status(404).json({
-      message: 'Business not found',
-      error: true
+
+        business.save()
+          .then(busi => res.status(201).json({
+            busi,
+            authData,
+            message: 'Successfully Created',
+            error: false
+          }))
+          .catch(err => res.status(400).json({
+            error: err
+          }));
+      }
     });
   }
+
 
   // static searchByLocation(req, res) {
   //   const location = req.body.location;
