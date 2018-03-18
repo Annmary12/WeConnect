@@ -29,7 +29,7 @@ module.exports = (sequelize, DataTypes) => {
     });
 
     Review.belongsTo(models.Business, {
-      foreignKey: 'businessId',
+      foreignKey: 'buisnessId',
       onDelete: 'CASCADE',
     });
   };

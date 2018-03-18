@@ -32,7 +32,7 @@ class User {
             lastname: req.body.lastname,
             email: req.body.email,
             password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10)),
-            image: req.body.profilepic
+            image: req.body.image
           });
           user.save()
             .then((newUser) => {

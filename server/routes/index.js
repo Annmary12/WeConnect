@@ -18,7 +18,7 @@ module.exports = (app) => {
   app.delete('/businesses/:businessId', token.verifyTok, businessController.delete);
 
   app.post('/businesses/:businessId/reviews', reviewController.create);
-  // app.get('/businesses/:businessId/reviews', reviewController.fetch);
+  app.get('/businesses/:businessId/reviews', reviewController.fetch);
   // app.get('/users', userController.fetch);
 };
 

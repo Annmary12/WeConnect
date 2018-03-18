@@ -30,6 +30,9 @@ module.exports = (sequelize, DataTypes) => {
     website: {
       type: DataTypes.STRING
     },
+    userId: {
+      type: DataTypes.INTEGER,
+    },
   }, {});
   Business.associate = (models) => {
     // associations can be defined here

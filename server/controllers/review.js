@@ -40,7 +40,6 @@ class Review {
         // res.status(200).send(business);
       })
       .catch(err => res.status(400).json({
-        message: 'message error',
         error: err
       }));
   }
@@ -51,6 +50,30 @@ class Review {
    * @param {*} res
    */
   static fetch(req, res) {
+    businesses.findOne({ where: { id: req.params.businessId } })
+      .then((business) => {
+        if (business) {
+          return reviewModel.find({ where: { buisnessId: business.id } })
+            .then((reviews) => {
+              res.status(200).json({
+                reviews,
+                message: `List of review(s) for ${business.name}`,
+                error: false
+              });
+            })
+            .catch(err => res.status(400).json({
+              error: err
+            }));
+        }
+
+        return res.status(404).json({
+          message: 'Business Not Found',
+          error: true
+        });
+      })
+      .catch(err => res.status(400).json({
+        error: err
+      }));
     //     const getreviews = [];
     //     for (let i = 0; i < reviews.length; i += 1) {
     //       if (reviews[i].businessId === parseInt(req.params.businessId, 10)) {
