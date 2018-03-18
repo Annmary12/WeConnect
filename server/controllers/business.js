@@ -171,7 +171,51 @@ class Business {
     });
   }
 
- 
+  /**
+   * @returns {Object} deleteBusiness
+   * @param {*} req
+   * @param {*} res
+   */
+
+  static delete(req, res) {
+    jwt.verify(req.token, secret, (err, authData) => {
+      if (err) {
+        // Wrong token
+        res.status(403).json({
+          message: 'Token mismatch'
+        });
+      } else {
+        businessModel.findById(req.params.businessId)
+          .then((business) => {
+            if (business) {
+              if (business.userId === authData.user.id) {
+                return business.destroy()
+                  .then(() => res.status(200).json({
+                    message: 'Sucessfully Deleted',
+                    error: false,
+                  }))
+                  .catch(err => res.status(400).json({
+                    error: err
+                  }));
+              }
+
+              return res.status(409).json({
+                message: 'Unauthorized User',
+                error: true
+              });
+            }
+
+            return res.status(400).json({
+              message: 'Business Not Found',
+              error: true
+            });
+          })
+          .catch(err => res.status(400).json({
+            error: err
+          }));
+      }
+    });
+  }
 
   // static searchByLocation(req, res) {
   //   const location = req.body.location;
