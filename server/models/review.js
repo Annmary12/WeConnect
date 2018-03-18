@@ -1,7 +1,26 @@
 
 module.exports = (sequelize, DataTypes) => {
   const Review = sequelize.define('Review', {
-    context: DataTypes.TEXT
+    context: {
+      allowNull: false,
+      type: DataTypes.TEXT
+    },
+    userId: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+    },
+    buisnessId: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+    },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE
+    }
   }, {});
   Review.associate = (models) => {
     // associations can be defined here
@@ -14,5 +33,6 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
     });
   };
+
   return Review;
 };

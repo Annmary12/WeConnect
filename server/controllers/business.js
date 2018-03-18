@@ -190,7 +190,7 @@ class Business {
             if (business) {
               if (business.userId === authData.user.id) {
                 return business.destroy()
-                  .then(() => res.status(200).json({
+                  .then(() => res.status(204).json({
                     message: 'Sucessfully Deleted',
                     error: false,
                   }))
@@ -199,7 +199,7 @@ class Business {
                   }));
               }
 
-              return res.status(409).json({
+              return res.status(401).json({
                 message: 'Unauthorized User',
                 error: true
               });
