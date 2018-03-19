@@ -96,10 +96,10 @@ class Business {
   static update(req, res) {
     for (let i = 0; i < businesses.length; i += 1) {
       if (businesses[i].id === parseInt(req.params.businessId, 10)) {
-        businesses[i].name = req.body.name;
-        businesses[i].description = req.body.description;
-        businesses[i].location = req.body.location;
-        businesses[i].category = req.body.category;
+        businesses[i].name = req.body.name || businesses[i].name;
+        businesses[i].description = req.body.description || businesses[i].description;
+        businesses[i].location = req.body.location || businesses[i].location;
+        businesses[i].category = req.body.category || businesses[i].category;
 
         return res.json({
           businesses,

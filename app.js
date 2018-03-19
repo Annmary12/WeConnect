@@ -10,7 +10,7 @@ const router = express.Router();
 
 // app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 8200;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
