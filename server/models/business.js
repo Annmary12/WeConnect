@@ -33,6 +33,14 @@ module.exports = (sequelize, DataTypes) => {
     userId: {
       type: DataTypes.INTEGER,
     },
+    createdAt: {
+      allowNull: false,
+      type: DataTypes.DATE
+    },
+    updatedAt: {
+      allowNull: false,
+      type: DataTypes.DATE
+    }
   }, {});
   Business.associate = (models) => {
     // associations can be defined here
@@ -41,9 +49,10 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
     });
 
-    Business.hasMany(models.Review, {
-      foreignKey: 'reviewId',
-    });
+    // Business.hasMany(models.Review, {
+    //   foreignKey: 'reviewId',
+    //   onDelete: 'CASCADE',
+    // });
   };
   return Business;
 };

@@ -53,7 +53,7 @@ class Review {
     businesses.findOne({ where: { id: req.params.businessId } })
       .then((business) => {
         if (business) {
-          return reviewModel.find({ where: { buisnessId: business.id } })
+          return reviewModel.findAll({ where: { buisnessId: business.id } })
             .then((reviews) => {
               res.status(200).json({
                 reviews,
