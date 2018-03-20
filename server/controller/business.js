@@ -9,11 +9,12 @@ class Business {
    * @param {*} req
    * @param {*} res
    */
-  static getBusiness(req, res) {
+  static getBusinesses(req, res) {
     const { category, location } = req.query;
     const loc = [];
     const cat = [];
 
+    // To search for business based on on location
     if (location) {
       for (let i = 0; i < businesses.length; i += 1) {
         if (businesses[i].location.toLowerCase() === location.toLowerCase()) {
@@ -34,6 +35,7 @@ class Business {
       });
     }
 
+    // To search for business based on category
     if (category) {
       for (let i = 0; i < businesses.length; i += 1) {
         if (businesses[i].category.toLowerCase() === category.toLowerCase()) {
@@ -62,6 +64,30 @@ class Business {
   }
 
   /**
+   * @returns {Object} getBusiness
+   * @param {*} req
+   * @param {*} res
+   */
+
+  static getBusiness(req, res) {
+    for (let i = 0; i < businesses.length; i += 1) {
+      if (businesses[i].id === parseInt(req.params.businessId, 10)) {
+        const business = businesses[i];
+
+        return res.status(200).json({
+          business,
+          error: false
+        });
+      }
+    }
+
+    return res.status(200).json({
+      message: 'Business Not Found',
+      error: false
+    });
+  }
+
+  /**
    * @returns {Object} createBusiness
    * @param {*} req
    * @param {*} res
@@ -74,15 +100,18 @@ class Business {
         error: true
       });
     }
-    businesses.push({
+
+    const newBusiness = {
       id: businesses.length + 1,
       name: business.name,
       description: business.description,
       location: business.location,
       category: business.category
-    });
+    };
+
+    businesses.push(newBusiness);
     return res.status(200).json({
-      businesses,
+      newBusiness,
       message: 'Successfully Created a business',
       error: false
     });
@@ -101,8 +130,9 @@ class Business {
         businesses[i].location = req.body.location || businesses[i].location;
         businesses[i].category = req.body.category || businesses[i].category;
 
-        return res.json({
-          businesses,
+        const updateBusiness = businesses[i];
+        return res.status(200).json({
+          updateBusiness,
           message: 'Business Successfully Updated',
           error: false
         });
@@ -123,26 +153,22 @@ class Business {
 
   static delete(req, res) {
     for (let i = 0; i < businesses.length; i += 1) {
+      // search for the business
       if (businesses[i].id === parseInt(req.params.businessId, 10)) {
         businesses.splice(i, 1);
 
         return res.status(200).json({
-          businesses,
           message: 'Business Succefully Deleted',
           error: false
         });
       }
     }
-
+    // if the business does not exist
     return res.status(404).json({
       message: 'Business not found',
       error: true
     });
   }
-
-  // static searchByLocation(req, res) {
-  //   const location = req.body.location;
-  // }
 }
 
 export default Business;

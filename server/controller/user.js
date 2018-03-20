@@ -15,15 +15,18 @@ class User {
         error: true
       });
     }
-    users.push({
+
+    const newUser = {
       id: users.length + 1,
       name: user.name,
       email: user.email,
       password: user.password
-    });
+    };
+    users.push(newUser);
 
     return res.status(200).json({
-      users,
+      name: newUser.name,
+      email: newUser.email,
       message: 'Sucessfully Registered',
       error: false
     });
@@ -46,7 +49,8 @@ class User {
 
     if (loggedUser.length > 0) {
       return res.status(200).json({
-        loggedUser,
+        name: loggedUser[0].name,
+        email: loggedUser[0].email,
         message: `Hello ${loggedUser[0].name}, Welcome to weConnect`,
         error: false
       });

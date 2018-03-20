@@ -9,9 +9,10 @@ module.exports = (app) => {
   }));
 
   app.post('/auth/signup', userController.signup);
-  app.post('/auth/signin', userController.singin);
+  app.post('/auth/login', userController.singin);
 
-  app.get('/businesses', businessController.getBusiness);
+  app.get('/businesses', businessController.getBusinesses);
+  app.get('/businesses/:businessId', businessController.getBusiness);
   app.post('/businesses/', businessController.create);
   app.put('/businesses/:businessId', businessController.update);
   app.delete('/businesses/:businessId', businessController.delete);
