@@ -1,12 +1,8 @@
-html{
-    margin:0px;
-    padding: 0px; 
-}
+
 body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
-   
   }
 
   main {
@@ -22,8 +18,6 @@ body {
     background-repeat:no-repeat;
     background-position: center; 
     background-size: cover;
-    margin:0px;
-    padding: 0px;
     height: 600px;
 }
 nav{
@@ -53,7 +47,9 @@ section1{
 }
 .page-footer{
     background-color: #505050;
+    /* height: 180px; */
 }
+
 
 .login{
     padding-top: 40px;
@@ -69,11 +65,7 @@ section1{
 .login-left-box{
     background-image: url('../images/login3.jpg');
     background-repeat:no-repeat;
-   
     background-size: auto;
-    margin:0px;
-    margin-left: -2px; 
-    padding: 0px;
     height: 400px;
 }
 
@@ -92,7 +84,6 @@ background: rgb(216, 215, 215);
 
 .btn{
     background-color: #ff0000;
-    padding-top:0px;
     
 }
 .btn:hover{
@@ -109,9 +100,6 @@ background: rgb(216, 215, 215);
     background-repeat:no-repeat;
    
     background-size: auto 600px;
-    margin:0px;
-    margin-left: -2px; 
-    padding: 0px;
     height: 520px;
 }
 

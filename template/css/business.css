@@ -2,8 +2,6 @@
     background-image: url('../images/business.jpg');
     background-repeat:no-repeat; 
     background-size: cover;
-    margin:0px;
-    padding: 0px;
     height: 450px;
     
 }
@@ -14,9 +12,13 @@
     padding-top:15px;
     padding-bottom:15px;
     position: relative;
-    background:rgb(20, 20, 20);
+    background: #505050;
     border: 2px solid #ff0000;
     
+}
+
+#activator{
+    height: 200px;
 }
 
 .business-section{
