@@ -15,7 +15,7 @@ class Business {
    * @param {*} req
    * @param {*} res
    */
-  static getBusiness(req, res) {
+  static getBusinesses(req, res) {
     return businessModel.findAll()
       .then((businesses) => {
         if (businesses) {
@@ -29,9 +29,34 @@ class Business {
           message: 'Business Not Found'
         });
       })
-      .catch(err => res.status(400).json({
-        message: 'message errors',
-        error: err
+      .catch(error => res.status(400).json({
+        error
+
+      }));
+  }
+
+  /**
+   * @returns {Object} getbusiness
+   * @param {*} req
+   * @param {*} res
+   */
+  static getBusiness(req, res) {
+    return businessModel.findById(req.params.businessId)
+      .then((businesses) => {
+        if (businesses) {
+          return res.status(200).json({
+            businesses,
+            error: false
+          });
+        }
+
+        return res.status(404).json({
+          message: 'Business Not Found',
+          error: true
+        });
+      })
+      .catch(error => res.status(400).json({
+        error
 
       }));
   }
