@@ -1,4 +1,5 @@
 import express from 'express';
+import validator from 'express-validator';
 import winston from 'winston';
 import bodyParser from 'body-parser';
 import swaggerUi from 'swagger-ui-express';
@@ -15,6 +16,7 @@ const port = process.env.PORT || 8200;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+app.use(validator());
 // middleware to use for all requests
 router.use((req, res, next) => {
   winston.info('Welcome to We-Connect');

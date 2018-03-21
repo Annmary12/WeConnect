@@ -1,8 +1,8 @@
 import businesses from '../model/business';
 
 module.exports = {
-    filter(req, res){
-        const { category, location } = req.query;
+  filter(req, res) {
+    const { category, location } = req.query;
     const loc = [];
     const cat = [];
 
@@ -48,6 +48,6 @@ module.exports = {
         error: true
       });
     }
-
-    }
+  }
 }
+;

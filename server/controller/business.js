@@ -10,7 +10,6 @@ class Business {
    * @param {*} res
    */
   static getBusinesses(req, res) {
-    
     return res.status(200).json({
       businesses,
       message: 'List of all bussinesses',
@@ -49,12 +48,6 @@ class Business {
    */
   static create(req, res) {
     const business = req.body;
-    if (!business.name) {
-      return res.status(400).send({
-        message: 'Required Field',
-        error: true
-      });
-    }
 
     const newBusiness = {
       id: businesses.length + 1,
