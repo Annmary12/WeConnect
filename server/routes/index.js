@@ -22,5 +22,4 @@ module.exports = (app) => {
 
   app.post('/businesses/:businessId/reviews', reviewController.create);
   app.get('/businesses/:businessId/reviews', reviewController.fetch);
-  // app.get('/users', userController.fetch);
 };

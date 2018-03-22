@@ -11,18 +11,6 @@ class Validation {
     }
     next();
   }
-
-  //   static isEmail(req, res, next) {
-  //     if (emailValidator.validate(req.body.email)) {
-  //       next();
-  //     } else {
-  //       return res.status(400).json({
-  //         message: 'Not an email !'
-  //       });
-  //     }
-  //   }
-
-
   static signupValidator(req, res, next) {
     req.checkBody({
       name: {

@@ -79,22 +79,22 @@ describe('/POST Business', () => {
       });
   });
 
-  it('it should not post business without name field', (done) => {
-    const business = {
-      id: 1,
-      description: 'Connecting people with their business ideas',
-      location: 'Lagos',
-      category: 'IT'
-    };
-    chai.request(server)
-      .post(`${BASE_URL}/businesses/`)
-      .send(business)
-      .end((err, res) => {
-        expect(res).to.have.status(400);
-        expect(res.body.message).to.equal('Required Field');
-        done();
-      });
-  });
+  // it('it should not post business without name field', (done) => {
+  //   const business = {
+  //     id: 1,
+  //     description: 'Connecting people with their business ideas',
+  //     location: 'Lagos',
+  //     category: 'IT'
+  //   };
+  //   chai.request(server)
+  //     .post(`${BASE_URL}/businesses/`)
+  //     .send(business)
+  //     .end((err, res) => {
+  //       expect(res).to.have.status(400);
+  //       expect(res.body.message).to.equal('Required Field');
+  //       done();
+  //     });
+  // });
 });
 
 describe('/PUT/:id businessId', () => {

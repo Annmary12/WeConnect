@@ -29,7 +29,7 @@ class Business {
         });
       }
     });
-    return res.status(200).json({
+    return res.status(404).json({
       message: 'Business Not Found',
       error: false
     });
