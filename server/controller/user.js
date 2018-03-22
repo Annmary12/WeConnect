@@ -9,13 +9,6 @@ class User {
    */
   static signup(req, res) {
     const user = req.body;
-    if (!user.name) {
-      return res.status(400).json({
-        message: 'Name Field is required',
-        error: true
-      });
-    }
-
     const newUser = {
       id: users.length + 1,
       name: user.name,
@@ -37,15 +30,12 @@ class User {
    * @param {*} req
    * @param {*} res
    */
-  static singin(req, res) {
-    const user = req.body;
-    const loggedUser = [];
+  static login(req, res) {
+    const inputData = req.body;
 
-    for (let i = 0; i < users.length; i += 1) {
-      if (users[i].email.toLowerCase() === user.email.toLowerCase() && users[i].password.toLowerCase() === user.password.toLowerCase()) {
-        loggedUser.push(users[i]);
-      }
-    }
+    const loggedUser = users.filter(user =>
+      user.email.toLowerCase() === inputData.email.toLowerCase()
+      && user.password.toLowerCase() === inputData.password.toLowerCase());
 
     if (loggedUser.length > 0) {
       return res.status(200).json({

@@ -1,21 +1,16 @@
 import businesses from '../model/business';
 
 module.exports = {
-  filter(req, res) {
+  filter(req, res, next) {
     const { category, location } = req.query;
-    const loc = [];
-    const cat = [];
 
     // To search for business based on on location
     if (location) {
-      for (let i = 0; i < businesses.length; i += 1) {
-        if (businesses[i].location.toLowerCase() === location.toLowerCase()) {
-          loc.push(businesses[i]);
-        }
-      }
-      if (loc.length > 0) {
+      const getBusiness = businesses.filter(business =>
+        business.location.toLowerCase() === location.toLowerCase());
+      if (getBusiness.length > 0) {
         return res.status(200).json({
-          loc,
+          getBusiness,
           message: `List of business(es) in ${location}`,
           error: false
         });
@@ -29,15 +24,11 @@ module.exports = {
 
     // To search for business based on category
     if (category) {
-      for (let i = 0; i < businesses.length; i += 1) {
-        if (businesses[i].category.toLowerCase() === category.toLowerCase()) {
-          cat.push(businesses[i]);
-        }
-      }
-
-      if (cat.length > 0) {
+      const getBusiness = businesses.filter(business =>
+        business.category.toLowerCase() === category.toLowerCase());
+      if (getBusiness.length > 0) {
         return res.status(200).json({
-          cat,
+          getBusiness,
           message: `List of business(es) in ${category}`,
           error: false
         });
@@ -48,6 +39,6 @@ module.exports = {
         error: true
       });
     }
+    next();
   }
-}
-;
+};

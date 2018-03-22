@@ -1,7 +1,4 @@
-// const businesses = require('../model/business');
 import businesses from '../model/business';
-
-// const uuid = require('node-uuid');
 
 class Business {
 /**
@@ -24,17 +21,14 @@ class Business {
    */
 
   static getBusiness(req, res) {
-    for (let i = 0; i < businesses.length; i += 1) {
-      if (businesses[i].id === parseInt(req.params.businessId, 10)) {
-        const business = businesses[i];
-
+    businesses.forEach((business) => {
+      if (business.id === parseInt(req.params.businessId, 10)) {
         return res.status(200).json({
           business,
           error: false
         });
       }
-    }
-
+    });
     return res.status(200).json({
       message: 'Business Not Found',
       error: false
@@ -71,25 +65,29 @@ class Business {
    * @param {*} res
    */
   static update(req, res) {
-    for (let i = 0; i < businesses.length; i += 1) {
-      if (businesses[i].id === parseInt(req.params.businessId, 10)) {
-        businesses[i].name = req.body.name || businesses[i].name;
-        businesses[i].description = req.body.description || businesses[i].description;
-        businesses[i].location = req.body.location || businesses[i].location;
-        businesses[i].category = req.body.category || businesses[i].category;
+    const {
+      description, location, category, name
+    } = req.body;
 
-        const updateBusiness = businesses[i];
+    businesses.forEach((business) => {
+      if (business.id === parseInt(req.params.businessId, 10)) {
+        business.name = name || business.name;
+        business.description = description || business.description;
+        business.location = location || business.location;
+        business.category = category || business.category;
+
         return res.status(200).json({
-          updateBusiness,
+          business,
           message: 'Business Successfully Updated',
           error: false
         });
       }
-    }
+    });
 
     return res.status(404).json({
       message: 'Business not found',
       error: true
+
     });
   }
 
@@ -100,17 +98,15 @@ class Business {
    */
 
   static delete(req, res) {
-    for (let i = 0; i < businesses.length; i += 1) {
-      // search for the business
-      if (businesses[i].id === parseInt(req.params.businessId, 10)) {
-        businesses.splice(i, 1);
-
+    businesses.forEach((business) => {
+      if (business.id === parseInt(req.params.businessId, 10)) {
+        businesses.splice(business, 1);
         return res.status(200).json({
           message: 'Business Succefully Deleted',
           error: false
         });
       }
-    }
+    });
     // if the business does not exist
     return res.status(404).json({
       message: 'Business not found',

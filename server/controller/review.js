@@ -8,22 +8,23 @@ class Review {
    * @param {*} res
    */
   static create(req, res) {
-    for (let i = 0; i < businesses.length; i += 1) {
-      if (businesses[i].id === parseInt(req.params.businessId, 10)) {
-        reviews.push({
+    businesses.forEach((business) => {
+      if (business.id === parseInt(req.params.businessId, 10)) {
+        const newReview = {
           id: reviews.length + 1,
           userId: 2,
           businessId: req.params.businessId,
           content: req.body.content
-        });
+        };
+        reviews.push(newReview);
 
         return res.status(200).json({
-          reviews,
+          newReview,
           message: 'Review Created Sucessfully',
           error: false
         });
       }
-    }
+    });
 
     return res.status(400).json({
       message: 'Business You want to review is not found',
@@ -37,19 +38,16 @@ class Review {
    * @param {*} res
    */
   static fetch(req, res) {
-    const getreviews = [];
-    for (let i = 0; i < reviews.length; i += 1) {
-      if (reviews[i].businessId === parseInt(req.params.businessId, 10)) {
-        getreviews.push(reviews[i]);
-      }
-    }
-    if (getreviews.length > 0) {
+    const allreviews =
+    reviews.filter(review => review.businessId === parseInt(req.params.businessId, 10));
+    if (allreviews.length > 0) {
       return res.json({
-        getreviews,
+        allreviews,
         message: 'list of reviews for this business',
         error: false
       });
     }
+
 
     return res.json({
       message: 'No review found for this business',
