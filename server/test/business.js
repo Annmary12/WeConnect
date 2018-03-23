@@ -3,7 +3,8 @@ import chaiHttp from 'chai-http';
 import server from '../../app';
 
 const { expect } = chai;
-const should = chai.should();
+require('chai').should();
+
 chai.use(chaiHttp);
 const BASE_URL = '/api/v1';
 
@@ -59,6 +60,27 @@ describe('/GET Businesses', () => {
   });
 });
 
+describe('/GET Business', () => {
+  it('it should get a particular businesses', (done) => {
+    chai.request(server)
+      .get(`${BASE_URL}/businesses/1`)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        done();
+      });
+  });
+
+  it('it should not get this particular businesses', (done) => {
+    chai.request(server)
+      .get(`${BASE_URL}/businesses/50`)
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body.message).to.equal('Business Not Found');
+        done();
+      });
+  });
+});
+
 describe('/POST Business', () => {
   it('it should create new business', (done) => {
     const business = {
@@ -74,27 +96,78 @@ describe('/POST Business', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body.message).to.equal('Successfully Created a business');
-        expect(res.body).should.be.a('object');
+        expect(res.body).to.be.a('object');
+        expect(res.body.newBusiness.name).to.equal('WeConnect');
+        expect(res.body.newBusiness.description).to.equal('Connecting people with their business ideas');
+        expect(res.body.newBusiness.location).to.equal('Lagos');
+        expect(res.body.newBusiness.category).to.equal('IT');
         done();
       });
   });
 
-  // it('it should not post business without name field', (done) => {
-  //   const business = {
-  //     id: 1,
-  //     description: 'Connecting people with their business ideas',
-  //     location: 'Lagos',
-  //     category: 'IT'
-  //   };
-  //   chai.request(server)
-  //     .post(`${BASE_URL}/businesses/`)
-  //     .send(business)
-  //     .end((err, res) => {
-  //       expect(res).to.have.status(400);
-  //       expect(res.body.message).to.equal('Required Field');
-  //       done();
-  //     });
-  // });
+  it('it should not post business without name field', (done) => {
+    const business = {
+      id: 1,
+      description: 'Connecting people with their business ideas',
+      location: 'Lagos',
+      category: 'IT'
+    };
+    chai.request(server)
+      .post(`${BASE_URL}/businesses/`)
+      .send(business)
+      .end((err, res) => {
+        expect(res).to.have.status(409);
+        done();
+      });
+  });
+
+  it('it should not post business without description of the business', (done) => {
+    const business = {
+      id: 1,
+      description: '',
+      location: 'Lagos',
+      category: 'IT'
+    };
+    chai.request(server)
+      .post(`${BASE_URL}/businesses/`)
+      .send(business)
+      .end((err, res) => {
+        expect(res).to.have.status(409);
+        done();
+      });
+  });
+
+  it('it should not post business without Location', (done) => {
+    const business = {
+      id: 1,
+      description: 'Connecting people with their business ideas',
+      location: '',
+      category: 'IT'
+    };
+    chai.request(server)
+      .post(`${BASE_URL}/businesses/`)
+      .send(business)
+      .end((err, res) => {
+        expect(res).to.have.status(409);
+        done();
+      });
+  });
+
+  it('it should not post business without category', (done) => {
+    const business = {
+      id: 1,
+      description: 'Connecting people with their business ideas',
+      location: 'Lagos',
+      category: ''
+    };
+    chai.request(server)
+      .post(`${BASE_URL}/businesses/`)
+      .send(business)
+      .end((err, res) => {
+        expect(res).to.have.status(409);
+        done();
+      });
+  });
 });
 
 describe('/PUT/:id businessId', () => {

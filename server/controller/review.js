@@ -8,24 +8,23 @@ class Review {
    * @param {*} res
    */
   static create(req, res) {
-    businesses.forEach((business) => {
-      if (business.id === parseInt(req.params.businessId, 10)) {
-        const newReview = {
-          id: reviews.length + 1,
-          userId: 2,
-          businessId: req.params.businessId,
-          content: req.body.content
-        };
-        reviews.push(newReview);
+    const getbusiness = businesses.find(business =>
+      business.id === parseInt(req.params.businessId, 10));
+    if (getbusiness) {
+      const newReview = {
+        id: reviews.length + 1,
+        userId: 2,
+        businessId: req.params.businessId,
+        content: req.body.content
+      };
+      reviews.push(newReview);
 
-        return res.status(200).json({
-          newReview,
-          message: 'Review Created Sucessfully',
-          error: false
-        });
-      }
-    });
-
+      return res.status(200).json({
+        newReview,
+        message: 'Review Created Sucessfully',
+        error: false
+      });
+    }
     return res.status(400).json({
       message: 'Business You want to review is not found',
       error: true

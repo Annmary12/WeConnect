@@ -21,14 +21,14 @@ class Business {
    */
 
   static getBusiness(req, res) {
-    businesses.forEach((business) => {
-      if (business.id === parseInt(req.params.businessId, 10)) {
-        return res.status(200).json({
-          business,
-          error: false
-        });
-      }
-    });
+    const getbusiness = businesses.find(business =>
+      business.id === parseInt(req.params.businessId, 10));
+    if (getbusiness) {
+      res.status(200).json({
+        getbusiness,
+        error: false
+      });
+    }
     return res.status(404).json({
       message: 'Business Not Found',
       error: false
@@ -69,21 +69,21 @@ class Business {
       description, location, category, name
     } = req.body;
 
-    businesses.forEach((business) => {
-      if (business.id === parseInt(req.params.businessId, 10)) {
-        business.name = name || business.name;
-        business.description = description || business.description;
-        business.location = location || business.location;
-        business.category = category || business.category;
+    const getbusiness = businesses.find(business =>
+      business.id === parseInt(req.params.businessId, 10));
 
-        return res.status(200).json({
-          business,
-          message: 'Business Successfully Updated',
-          error: false
-        });
-      }
-    });
+    if (getbusiness) {
+      getbusiness.name = name || getbusiness.name;
+      getbusiness.description = description || getbusiness.description;
+      getbusiness.location = location || getbusiness.location;
+      getbusiness.category = category || getbusiness.category;
 
+      return res.status(200).json({
+        getbusiness,
+        message: 'Business Successfully Updated',
+        error: false
+      });
+    }
     return res.status(404).json({
       message: 'Business not found',
       error: true
@@ -98,15 +98,15 @@ class Business {
    */
 
   static delete(req, res) {
-    businesses.forEach((business) => {
-      if (business.id === parseInt(req.params.businessId, 10)) {
-        businesses.splice(business, 1);
-        return res.status(200).json({
-          message: 'Business Succefully Deleted',
-          error: false
-        });
-      }
-    });
+    const getbusiness = businesses.find(business =>
+      business.id === parseInt(req.params.businessId, 10));
+    if (getbusiness) {
+      businesses.splice(getbusiness, 1);
+      return res.status(200).json({
+        message: 'Business Succefully Deleted',
+        error: false
+      });
+    }
     // if the business does not exist
     return res.status(404).json({
       message: 'Business not found',

@@ -24,23 +24,23 @@ describe('POST /api/v1/auth/signup', () => {
         done();
       });
   });
-  // it('Name Field is Required', (done) => {
-  //   const user = {
-  //     id: 1,
-  //     name: '',
-  //     email: 'annmaryamaka@gmail',
-  //     password: 'secret'
-  //   };
-  //   chai.request(server)
-  //     .post(`${BASE_URL}/auth/signup`)
-  //     .send(user)
-  //     .end((err, res) => {
-  //       // expect(res.body.name).not.be.empty();
-  //       expect(res).to.have.status(400);
-  //       expect(res.body.message).to.equal('Name Field is required');
-  //       done();
-  //     });
-  // });
+  it('Check whether email exist', (done) => {
+    const user = {
+      id: 1,
+      name: '',
+      email: 'annmaryamaka@gmail.com',
+      password: 'secret'
+    };
+    chai.request(server)
+      .post(`${BASE_URL}/auth/signup`)
+      .send(user)
+      .end((err, res) => {
+        // expect(res.body.name).not.be.empty();
+        expect(res).to.have.status(409);
+        expect(res.body.message).to.equal('Email is already existing');
+        done();
+      });
+  });
 });
 
 describe('POST /api/v1/auth/login', () => {
@@ -57,6 +57,8 @@ describe('POST /api/v1/auth/login', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body.message).to.equal(`Hello ${user.name}, Welcome to weConnect`);
+        expect(res.body.email).to.equal('annmaryamaka@gmail.com');
+        expect(res.body.name).to.equal('Annmary Agunanna');
         done();
       });
   });
