@@ -1,25 +1,32 @@
 import models from '../models/index';
 
-const Users = models.User;
+const userModel = models.User;
 
 class Validation {
   static emailExist(req, res, next) {
-    for (let i = 0; i < Users.length; i += 1) {
-      if (Users[i].email === req.body.email) {
-        return res.status(409).json({
-          message: 'Email is already existing',
-        });
-      }
-    }
-    next();
+    return userModel.findOne({ where: { email: req.body.email } })
+      .then((userExist) => {
+        if (userExist) {
+          return res.status(409).json({
+            message: 'Email is already existing'
+          });
+        }
+        next();
+      })
+      .catch(error => res.status(400).json({
+        error
+      }));
   }
-
 
   static signupValidator(req, res, next) {
     req.checkBody({
-      name: {
+      firstname: {
         notEmpty: true,
-        errorMessage: 'Your Name is required'
+        errorMessage: 'Your First Name is required'
+      },
+      lastname: {
+        notEmpty: true,
+        errorMessage: 'Your Last Name is required'
       },
       email: {
         notEmpty: true,
@@ -35,7 +42,11 @@ class Validation {
           errorMessage: 'Provide a valid password with minimum of 8 characters'
         },
         errorMessage: 'Your Password is required'
-      }
+      },
+      image: {
+        notEmpty: true,
+        errorMessage: 'Image is required'
+      },
     });
 
     const errors = req.validationErrors();
@@ -63,6 +74,18 @@ class Validation {
         notEmpty: true,
         errorMessage: 'Add description of your business'
       },
+      phone_number: {
+        notEmpty: true,
+        errorMessage: 'Phone Number Required'
+      },
+      address: {
+        notEmpty: true,
+        errorMessage: 'Address Required'
+      },
+      image: {
+        notEmpty: true,
+        errorMessage: 'Image Required'
+      },
       location: {
         notEmpty: true,
         errorMessage: 'Location Field Required'
@@ -70,7 +93,8 @@ class Validation {
       category: {
         notEmpty: true,
         errorMessage: 'Category Field Required'
-      }
+      },
+
 
     });
 

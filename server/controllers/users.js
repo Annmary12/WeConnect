@@ -10,58 +10,57 @@ const secret = process.env.secretKey;
 
 /**
  * @class User
+ * @description - creates User components for signup and login user
  */
 
 class User {
   /**
+    * @description Signup a new user
     * @returns {Object} signup
     * @param {*} req
    * @param {*} res
    */
   static signup(req, res) {
-    // to check whether the user is existing
-    userModel.findOne({ where: { email: req.body.email } })
-      .then((existUser) => {
-        if (existUser) {
-          res.status(409).json({
-            message: 'User is already existing'
+    const {
+      firstname, lastname, email, password, image
+    } = req.body;
+
+    const user = new userModel({
+      firstname,
+      lastname,
+      email,
+      password: bcrypt.hashSync(password, bcrypt.genSaltSync(10)),
+      image
+    });
+
+    return user.save()
+      .then((newUser) => {
+        if (newUser) {
+          const token = jwt.sign({ newUser }, secret);
+          return res.status(201).json({
+            name: newUser.firstname,
+            email: newUser.email,
+            message: `Hello ${newUser.firstname}, Welcome to we-connect`,
+            token,
+            success: true
           });
-        } else {
-          const user = new userModel({
-            firstname: req.body.firstname,
-            lastname: req.body.lastname,
-            email: req.body.email,
-            password: bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10)),
-            image: req.body.image
-          });
-          user.save()
-            .then((newUser) => {
-              if (newUser) {
-                const token = jwt.sign({ newUser }, secret);
-                return res.status(201).json({
-                  success: true,
-                  message: 'Signup Successfully',
-                  token
-                });
-              }
-            })
-            .catch((err) => {
-              res.status(500).json({
-                error: err
-              });
-            });
         }
       })
-      .catch(error => res.status(400).send(error));
+      .catch((err) => {
+        res.status(500).json({
+          error: err
+        });
+      });
   }
 
   /**
+    * @description Logs in an existing user
     * @returns {Object} signin
     * @param {*} req
    * @param {*} res
    */
 
-  static signin(req, res) {
+  static login(req, res) {
     userModel.findOne({ where: { email: req.body.email } })
       .then((user) => {
         if (!user) {
@@ -74,7 +73,8 @@ class User {
             expiresIn: '6h'
           });
           return res.status(200).json({
-            message: 'Auth Successful',
+            name: `${user.firstname} ${user.lastname}`,
+            message: `Hello ${user.firstname}, Welcome to we-connect`,
             token
           });
         }
@@ -83,6 +83,13 @@ class User {
         });
       })
       .catch();
+  }
+
+  static jwtSign(user) {
+    const token = jwt.sign({ user }, secret, {
+      expiresIn: '6h'
+    });
+    return token;
   }
 }
 

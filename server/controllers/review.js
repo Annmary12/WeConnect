@@ -3,11 +3,16 @@ import models from '../models/index';
 const reviewModel = models.Review;
 const businesses = models.Business;
 
+/**
+ * @description - creates Business Review components for get and create a review for a business
+ */
+
 class Review {
 /**
+   * @description Creates review for a business
    * @returns {Object} createReview
-   * @param {*} req
-   * @param {*} res
+   * @param {*} req - api request
+   * @param {*} res - route response
    */
   static create(req, res) {
     return businesses.findOne({ where: { id: req.params.businessId } })
@@ -45,9 +50,10 @@ class Review {
   }
 
   /**
+   * @description Gets reviews for a business
    * @returns {Object} getreviews
-   * @param {*} req
-   * @param {*} res
+   * @param {*} req - api request
+   * @param {*} res - route response
    */
   static fetch(req, res) {
     businesses.findOne({ where: { id: req.params.businessId } })
@@ -74,24 +80,6 @@ class Review {
       .catch(err => res.status(400).json({
         error: err
       }));
-    //     const getreviews = [];
-    //     for (let i = 0; i < reviews.length; i += 1) {
-    //       if (reviews[i].businessId === parseInt(req.params.businessId, 10)) {
-    //         getreviews.push(reviews[i]);
-    //       }
-    //     }
-    //     if (getreviews.length > 0) {
-    //       return res.json({
-    //         getreviews,
-    //         message: 'list of reviews for this business',
-    //         error: false
-    //       });
-    //     }
-
-    //     return res.json({
-    //       message: 'No review found for this business',
-    //       error: false
-    //     });
   }
 }
 

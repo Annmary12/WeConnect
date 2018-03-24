@@ -6,14 +6,16 @@ import models from '../models/index';
 const businessModel = models.Business;
 dotenv.config();
 const secret = process.env.secretKey;
-// const uuid = require('node-uuid');
 
-
+/**
+ * @description - creates the Business components for read, create, update and delete businesses
+ */
 class Business {
 /**
+   * @description Gets all the businesses
    * @returns {Object} getbusinesses
-   * @param {*} req
-   * @param {*} res
+   * @param {*} req - api request
+   * @param {*} res - route response
    */
   static getBusinesses(req, res) {
     return businessModel.findAll()
@@ -36,9 +38,10 @@ class Business {
   }
 
   /**
+   * @description Get a particular business
    * @returns {Object} getbusiness
-   * @param {*} req
-   * @param {*} res
+   * @param {*} req - api request
+   * @param {*} res - api response
    */
   static getBusiness(req, res) {
     return businessModel.findById(req.params.businessId)
@@ -63,11 +66,15 @@ class Business {
 
 
   /**
+   * @description Creates a new business
    * @returns {Object} createBusiness
-   * @param {*} req
-   * @param {*} res
+   * @param {*} req - api request
+   * @param {*} res - route response
    */
   static create(req, res) {
+    const {
+      name, description, address, image, location, category, website
+    } = req.body;
     jwt.verify(req.token, secret, (err, authData) => {
       if (err) {
         // Wrong token
@@ -75,23 +82,22 @@ class Business {
           message: 'Token mismatch'
         });
       } else {
-        const business = new businessModel({
+        const getbusiness = new businessModel({
           userId: authData.user.id, // get the id of the user from the authData token
-          name: req.body.name,
-          description: req.body.description,
           phone_number: req.body.phone_number,
-          address: req.body.address,
-          image: req.body.image,
-          location: req.body.location,
-          category: req.body.category,
-          website: req.body.website
+          name,
+          description,
+          address,
+          image,
+          location,
+          category,
+          website
         });
 
 
-        business.save()
-          .then(busi => res.status(201).json({
-            busi,
-            authData,
+        getbusiness.save()
+          .then(business => res.status(201).json({
+            business,
             message: 'Successfully Created',
             error: false
           }))
@@ -103,9 +109,10 @@ class Business {
   }
 
   /**
+   * @description Updates a particular business
    * @returns {Object} updatebusiness
-   * @param {*} req
-   * @param {*} res
+   * @param {*} req - api response
+   * @param {*} res - route response
    */
   static update(req, res) {
     jwt.verify(req.token, secret, (err, authData) => {
@@ -159,9 +166,10 @@ class Business {
   }
 
   /**
+   * @description Deletes a particular user
    * @returns {Object} deleteBusiness
-   * @param {*} req
-   * @param {*} res
+   * @param {*} req - api request
+   * @param {*} res - route response
    */
 
   static delete(req, res) {
@@ -203,10 +211,6 @@ class Business {
       }
     });
   }
-
-  // static searchByLocation(req, res) {
-  //   const location = req.body.location;
-  // }
 }
 
 export default Business;

@@ -3,7 +3,6 @@ import chaiHttp from 'chai-http';
 import server from '../../app';
 
 const { expect } = chai;
-const should = chai.should();
 chai.use(chaiHttp);
 const BASE_URL = '/api/v1';
 

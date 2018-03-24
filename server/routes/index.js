@@ -12,7 +12,7 @@ module.exports = (app) => {
   }));
 
   app.post('/auth/signup', validator.emailExist, validator.signupValidator, userController.signup);
-  app.post('/auth/login', userController.signin);
+  app.post('/auth/login', userController.login);
 
   app.get('/businesses', filterBy.filter, businessController.getBusinesses);
   app.get('/businesses/:businessId', businessController.getBusiness);
