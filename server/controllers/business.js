@@ -95,7 +95,7 @@ class Business {
         });
 
 
-        getbusiness.save()
+        return getbusiness.save()
           .then(business => res.status(201).json({
             business,
             message: 'Successfully Created',
@@ -180,7 +180,7 @@ class Business {
           message: 'Token mismatch'
         });
       } else {
-        businessModel.findById(req.params.businessId)
+        return businessModel.findById(req.params.businessId)
           .then((business) => {
             if (business) {
               if (business.userId === authData.user.id) {
