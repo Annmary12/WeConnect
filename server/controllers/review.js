@@ -56,12 +56,18 @@ class Review {
    * @param {*} res - route response
    */
   static fetch(req, res) {
-    businesses.findOne({ where: { id: req.params.businessId } })
+    return businesses.findOne({ where: { id: req.params.businessId } })
       .then((business) => {
         if (business) {
           return reviewModel.findAll({ where: { buisnessId: business.id } })
             .then((reviews) => {
-              res.status(200).json({
+              if (reviews.length < 1) {
+                return res.status(200).json({
+                  message: `No review(s) for ${business.name}`,
+                  error: false
+                });
+              }
+              return res.status(200).json({
                 reviews,
                 message: `List of review(s) for ${business.name}`,
                 error: false

@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 
-import models from '../models/index';
+// import models from '../models/index';
 
-const businessModel = models.Business;
+// const businessModel = models.Business;
 dotenv.config();
 const secret = process.env.secretKey;
 

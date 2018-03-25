@@ -172,7 +172,7 @@ class Business {
    * @param {*} res - route response
    */
 
-  static delete(req, res) {
+  static deleteBusiness(req, res) {
     jwt.verify(req.token, secret, (err, authData) => {
       if (err) {
         // Wrong token
