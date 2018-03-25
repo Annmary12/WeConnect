@@ -15,3 +15,7 @@ coverage
 
 ## Config file
 server/config
+
+## VScode file
+.vscode
+

@@ -3,10 +3,10 @@ import models from '../models/index';
 const businessModel = models.Business;
 
 module.exports = {
-  filter(req, res) {
+  filter(req, res, next) {
     const { category, location } = req.query;
     if (location) {
-      businessModel.findAll({
+      return businessModel.findAll({
         where: {
           location: {
             $iLike: `%${location}%`,
@@ -34,7 +34,7 @@ module.exports = {
     }
 
     if (category) {
-      businessModel.findAll({
+      return businessModel.findAll({
         where: {
           category: {
             $iLike: `%${category}%`,
@@ -55,11 +55,11 @@ module.exports = {
             error: false
           });
         })
-        .catch(error =>
-          res.status(400).json({
-            error
-          }));
+        .catch(error => res.status(400).json({
+          error
+        }));
     }
+    next();
   }
 
 
