@@ -1,11 +1,9 @@
 import dotenv from 'dotenv';
-import jwt from 'jsonwebtoken';
-
 import models from '../models/index';
 
 const businessModel = models.Business;
 dotenv.config();
-const secret = process.env.secretKey;
+
 
 /**
  * @description - creates the Business components for read, create, update and delete businesses
@@ -75,37 +73,30 @@ class Business {
     const {
       name, description, address, image, location, category, website
     } = req.body;
-    jwt.verify(req.token, secret, (err, authData) => {
-      if (err) {
-        // Wrong token
-        res.status(403).json({
-          message: 'Token mismatch'
-        });
-      } else {
-        const getbusiness = new businessModel({
-          userId: authData.user.id, // get the id of the user from the authData token
-          phone_number: req.body.phone_number,
-          name,
-          description,
-          address,
-          image,
-          location,
-          category,
-          website
-        });
 
-
-        return getbusiness.save()
-          .then(business => res.status(201).json({
-            business,
-            message: 'Successfully Created',
-            error: false
-          }))
-          .catch(err => res.status(400).json({
-            error: err
-          }));
-      }
+    const authData = req.user;
+    const getbusiness = new businessModel({
+      userId: authData.user.id, // get the id of the user from the authData token
+      phone_number: req.body.phone_number,
+      name,
+      description,
+      address,
+      image,
+      location,
+      category,
+      website
     });
+
+
+    return getbusiness.save()
+      .then(business => res.status(201).json({
+        business,
+        message: 'Successfully Created',
+        error: false
+      }))
+      .catch(err => res.status(400).json({
+        error: err
+      }));
   }
 
   /**
@@ -115,54 +106,46 @@ class Business {
    * @param {*} res - route response
    */
   static update(req, res) {
-    jwt.verify(req.token, secret, (err, authData) => {
-      if (err) {
-        // Wrong token
-        res.status(403).json({
-          message: 'Token mismatch'
+    const authData = req.user;
+    businessModel.findById(req.params.businessId)
+      .then((business) => {
+        if (business) {
+          if (business.userId === authData.user.id) {
+            return business.update({
+              name: req.body.name || business.name,
+              description: req.body.description || business.description,
+              phone_number: req.body.phone_number || business.phone_number,
+              address: req.body.address || business.address,
+              image: req.body.image || business.image,
+              location: req.body.location || business.location,
+              category: req.body.category || business.category,
+              website: req.body.website || business.website
+
+            })
+              .then(() => res.status(200).json({
+                business,
+                message: 'Sucessfully Updated',
+                error: false,
+              }))
+              .catch(err => res.status(400).json({
+                error: err
+              }));
+          }
+
+          return res.status(409).json({
+            message: 'Unauthorized User',
+            error: true
+          });
+        }
+
+        return res.status(400).json({
+          message: 'Business Not Found',
+          error: true
         });
-      } else {
-        businessModel.findById(req.params.businessId)
-          .then((business) => {
-            if (business) {
-              if (business.userId === authData.user.id) {
-                return business.update({
-                  name: req.body.name || business.name,
-                  description: req.body.description || business.description,
-                  phone_number: req.body.phone_number || business.phone_number,
-                  address: req.body.address || business.address,
-                  image: req.body.image || business.image,
-                  location: req.body.location || business.location,
-                  category: req.body.category || business.category,
-                  website: req.body.website || business.website
-
-                })
-                  .then(() => res.status(200).json({
-                    business,
-                    message: 'Sucessfully Updated',
-                    error: false,
-                  }))
-                  .catch(err => res.status(400).json({
-                    error: err
-                  }));
-              }
-
-              return res.status(409).json({
-                message: 'Unauthorized User',
-                error: true
-              });
-            }
-
-            return res.status(400).json({
-              message: 'Business Not Found',
-              error: true
-            });
-          })
-          .catch(err => res.status(400).json({
-            error: err
-          }));
-      }
-    });
+      })
+      .catch(err => res.status(400).json({
+        error: err
+      }));
   }
 
   /**
@@ -173,43 +156,36 @@ class Business {
    */
 
   static deleteBusiness(req, res) {
-    jwt.verify(req.token, secret, (err, authData) => {
-      if (err) {
-        // Wrong token
-        res.status(403).json({
-          message: 'Token mismatch'
+    const authData = req.user;
+    return businessModel.findById(req.params.businessId)
+      .then((business) => {
+        if (business) {
+          if (business.userId === authData.user.id) {
+            return business.destroy()
+              .then(businessDeleted => res.status(204).json({
+                businessDeleted,
+                message: 'Sucessfully Deleted',
+                error: false,
+              }))
+              .catch(err => res.status(400).json({
+                err
+              }));
+          }
+
+          return res.status(401).json({
+            message: 'Unauthorized User',
+            error: true
+          });
+        }
+
+        return res.status(400).json({
+          message: 'Business Not Found',
+          error: true
         });
-      } else {
-        return businessModel.findById(req.params.businessId)
-          .then((business) => {
-            if (business) {
-              if (business.userId === authData.user.id) {
-                return business.destroy()
-                  .then(() => res.status(204).json({
-                    message: 'Sucessfully Deleted',
-                    error: false,
-                  }))
-                  .catch(err => res.status(400).json({
-                    error: err
-                  }));
-              }
-
-              return res.status(401).json({
-                message: 'Unauthorized User',
-                error: true
-              });
-            }
-
-            return res.status(400).json({
-              message: 'Business Not Found',
-              error: true
-            });
-          })
-          .catch(err => res.status(400).json({
-            error: err
-          }));
-      }
-    });
+      })
+      .catch(err => res.status(400).json({
+        error: err
+      }));
   }
 }
 

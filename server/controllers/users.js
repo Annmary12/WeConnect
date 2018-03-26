@@ -82,7 +82,7 @@ class User {
           message: 'Incorrect Password'
         });
       })
-      .catch();
+      .catch(err => res.status(500).json({ err }));
   }
 
   static jwtSign(user) {

@@ -5,6 +5,7 @@ import server from '../../app';
 const { expect } = chai;
 chai.use(chaiHttp);
 const BASE_URL = '/api/v1';
+// let token;
 
 describe('POST /api/v1/auth/signup', () => {
   it('Test to register a new users', (done) => {
@@ -159,6 +160,10 @@ describe('POST /api/v1/auth/signin', () => {
       .post(`${BASE_URL}/auth/login`)
       .send(user)
       .end((err, res) => {
+        if (err) {
+          return done(err);
+        }
+        // token = res.body.token;
         expect(res).to.have.status(200);
         expect(res.body.message).to.equal(`Hello ${user.firstname}, Welcome to we-connect`);
         done();

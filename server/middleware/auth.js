@@ -33,7 +33,13 @@ class Authorization {
           message: 'Token mismatch'
         });
       }
-      return authData;
+      req.user = authData;
+    });
+    next();
+  }
+  static sign(req, res, next) {
+    req.token = jwt.sign({ user }, secret, {
+      expiresIn: '6h'
     });
     next();
   }
