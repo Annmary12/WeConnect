@@ -1,17 +1,22 @@
 language: node_js
 node_js:
- - "6"
+ - "stable"
 notifications:
  email: false
 cache:
  directories:
    - node_modules
+install:
+- npm install
+- NODE_ENV=test DB_USERNAME=postgres DB_PASSWORD=Annmary DB_TEST_NAME=weconnect-test secretKey=secret
+
 before_script:
- - npm install
+- psql -c 'create database weconnect-test;' -U postgres
+- psql -c "CREATE USER postgres WITH PASSWORD 'Annmary';" -U postgres
 script:
  - npm run test
  - npm run check-coverage
-# after_success:
-#  - npm run coverage
+after_success:
+ - npm run coverage
 #  - npm run report-coverage
 #  - npm run coveralls
