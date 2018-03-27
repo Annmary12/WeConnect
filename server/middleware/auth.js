@@ -1,14 +1,11 @@
 import dotenv from 'dotenv';
 import jwt from 'jsonwebtoken';
 
-// import models from '../models/index';
-
-// const businessModel = models.Business;
 dotenv.config();
 const secret = process.env.secretKey;
 
 class Authorization {
-  static verifyTok(req, res, next) {
+  static setHeader(req, res, next) {
     // Get auth header value
     const bearerHeader = req.headers.authorization;
     // Check if bearer is undefined
@@ -34,12 +31,6 @@ class Authorization {
         });
       }
       req.user = authData;
-    });
-    next();
-  }
-  static sign(req, res, next) {
-    req.token = jwt.sign({ user }, secret, {
-      expiresIn: '6h'
     });
     next();
   }

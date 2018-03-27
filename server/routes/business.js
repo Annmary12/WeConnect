@@ -8,14 +8,14 @@ const businessRouter = express.Router();
 const {
   getBusinesses, getBusiness, create, deleteBusiness, update
 } = businessController;
-const { verifyTok, verify } = token;
+const { setHeader, verify } = token;
 const { businessValidator } = validator;
 
-businessRouter.route('/').post(verifyTok, verify, businessValidator, create);
+businessRouter.route('/').post(setHeader, verify, businessValidator, create);
 businessRouter.route('').get(filter, getBusinesses);
 businessRouter.route('/:businessId').get(getBusiness);
-businessRouter.route('/:businessId').put(verifyTok, verify, update);
-businessRouter.route('/:businessId').delete(verifyTok, verify, deleteBusiness);
+businessRouter.route('/:businessId').put(setHeader, verify, update);
+businessRouter.route('/:businessId').delete(setHeader, verify, deleteBusiness);
 
 export default businessRouter;
 

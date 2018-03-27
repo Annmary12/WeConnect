@@ -71,13 +71,14 @@ class Business {
    */
   static create(req, res) {
     const {
-      name, description, address, image, location, category, website
+      name, description, address, image, location, category, website,
+      phoneNumber
     } = req.body;
 
     const authData = req.user;
     const getbusiness = new businessModel({
       userId: authData.user.id, // get the id of the user from the authData token
-      phone_number: req.body.phone_number,
+      phoneNumber,
       name,
       description,
       address,

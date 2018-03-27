@@ -74,7 +74,7 @@ class Validation {
         notEmpty: true,
         errorMessage: 'Add description of your business'
       },
-      phone_number: {
+      phoneNumber: {
         notEmpty: true,
         errorMessage: 'Phone Number Required'
       },
