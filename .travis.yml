@@ -12,7 +12,7 @@ install:
 
 before_script:
 - psql -c 'create database weconnectTest;' -U postgres
-- psql -c "CREATE USER postgres WITH PASSWORD 'Annmary';" -U postgres
+- psql -c "CREATE USER annmary WITH PASSWORD 'secret';" -U postgres
 script:
  - npm run test
  - npm run check-coverage
