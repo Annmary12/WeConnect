@@ -70,7 +70,7 @@ class User {
         }
         if (bcrypt.compareSync(req.body.password, user.password)) {
           const token = jwt.sign({ user }, secret, {
-            expiresIn: '6h'
+            expiresIn: '4h'
           });
           return res.status(200).json({
             name: `${user.firstname} ${user.lastname}`,
@@ -82,14 +82,7 @@ class User {
           message: 'Incorrect Password'
         });
       })
-      .catch();
-  }
-
-  static jwtSign(user) {
-    const token = jwt.sign({ user }, secret, {
-      expiresIn: '6h'
-    });
-    return token;
+      .catch(err => res.status(500).json({ err }));
   }
 }
 
