@@ -8,10 +8,10 @@ cache:
    - node_modules
 install:
 - npm install
-- NODE_ENV=test DB_USERNAME=postgres DB_PASSWORD=Annmary DB_TEST_NAME=weconnect-test secretKey=secret
+- NODE_ENV=test DB_USERNAME=postgres DB_PASSWORD=Annmary DB_TEST_NAME=weconnectTest secretKey=secret
 
 before_script:
-- psql -c 'create database weconnect-test;' -U postgres
+- psql -c 'create database weconnectTest;' -U postgres
 - psql -c "CREATE USER postgres WITH PASSWORD 'Annmary';" -U postgres
 script:
  - npm run test
