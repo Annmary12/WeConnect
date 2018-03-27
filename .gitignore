@@ -13,9 +13,6 @@ coverage
 ## Env variables
 .env
 
-## Config file
-server/config
-
 ## VScode file
 .vscode
 
