@@ -6,8 +6,11 @@ notifications:
 cache:
  directories:
    - node_modules
+services:
+   - postgresql
 install:
 - npm install
+env:
 - NODE_ENV=test DB_USERNAME=postgres DB_PASSWORD=Annmary DB_TEST_NAME=weconnectTest secretKey=secret
 
 before_script:
@@ -15,7 +18,7 @@ before_script:
 - psql -c "CREATE USER annmary WITH PASSWORD 'secret';" -U postgres
 script:
  - npm run test
- - npm run check-coverage
+
 after_success:
  - npm run coverage
 #  - npm run report-coverage
