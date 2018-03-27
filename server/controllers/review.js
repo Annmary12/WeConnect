@@ -4,6 +4,14 @@ const reviewModel = models.Review;
 const businesses = models.Business;
 
 /**
+   * @description Status Code Used
+   * 201 - Created
+   * 200 - Ok
+   * 404 - Not Found
+   * 400 - bad request
+   * /
+
+/**
  * @description - creates Business Review components for get and create a review for a business
  */
 
@@ -14,7 +22,7 @@ class Review {
    * @param {*} req - api request
    * @param {*} res - route response
    */
-  static create(req, res) {
+  static createReview(req, res) {
     return businesses.findOne({ where: { id: req.params.businessId } })
       .then((business) => {
         // creates review of an existing business
@@ -55,14 +63,14 @@ class Review {
    * @param {*} req - api request
    * @param {*} res - route response
    */
-  static fetch(req, res) {
+  static fetchReviews(req, res) {
     return businesses.findOne({ where: { id: req.params.businessId } })
       .then((business) => {
         if (business) {
           return reviewModel.findAll({ where: { buisnessId: business.id } })
             .then((reviews) => {
               if (reviews.length < 1) {
-                return res.status(200).json({
+                return res.status(204).json({
                   message: `No review(s) for ${business.name}`,
                   error: false
                 });

@@ -6,16 +6,16 @@ import validator from '../middleware/validation';
 
 const businessRouter = express.Router();
 const {
-  getBusinesses, getBusiness, create, deleteBusiness, update
+  getBusinesses, getBusiness, createBusiness, deleteBusiness, updateBusiness
 } = businessController;
-const { setHeader, verify } = token;
+const { setHeader, verifyToken } = token;
 const { businessValidator } = validator;
 
-businessRouter.route('/').post(setHeader, verify, businessValidator, create);
+businessRouter.route('/').post(setHeader, verifyToken, businessValidator, createBusiness);
 businessRouter.route('').get(filter, getBusinesses);
 businessRouter.route('/:businessId').get(getBusiness);
-businessRouter.route('/:businessId').put(setHeader, verify, update);
-businessRouter.route('/:businessId').delete(setHeader, verify, deleteBusiness);
+businessRouter.route('/:businessId').put(setHeader, verifyToken, updateBusiness);
+businessRouter.route('/:businessId').delete(setHeader, verifyToken, deleteBusiness);
 
 export default businessRouter;
 

@@ -4,10 +4,18 @@ import models from '../models/index';
 const businessModel = models.Business;
 dotenv.config();
 
+/**
+   * @description Status Code Used
+   * 201 - Created
+   * 200 - Ok
+   * 404 - Not Found
+   * 400 - bad request
+   */
 
 /**
  * @description - creates the Business components for read, create, update and delete businesses
  */
+
 class Business {
 /**
    * @description Gets all the businesses
@@ -69,7 +77,7 @@ class Business {
    * @param {*} req - api request
    * @param {*} res - route response
    */
-  static create(req, res) {
+  static createBusiness(req, res) {
     const {
       name, description, address, image, location, category, website,
       phoneNumber
@@ -106,7 +114,7 @@ class Business {
    * @param {*} req - api response
    * @param {*} res - route response
    */
-  static update(req, res) {
+  static updateBusiness(req, res) {
     const authData = req.user;
     businessModel.findById(req.params.businessId)
       .then((business) => {
@@ -133,13 +141,13 @@ class Business {
               }));
           }
 
-          return res.status(409).json({
+          return res.status(401).json({
             message: 'Unauthorized User',
             error: true
           });
         }
 
-        return res.status(400).json({
+        return res.status(404).json({
           message: 'Business Not Found',
           error: true
         });
@@ -179,7 +187,7 @@ class Business {
           });
         }
 
-        return res.status(400).json({
+        return res.status(404).json({
           message: 'Business Not Found',
           error: true
         });

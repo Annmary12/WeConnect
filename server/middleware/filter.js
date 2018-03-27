@@ -2,6 +2,7 @@ import models from '../models/index';
 
 const businessModel = models.Business;
 
+
 module.exports = {
   filter(req, res, next) {
     const { category, location } = req.query;

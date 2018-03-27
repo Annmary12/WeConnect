@@ -5,7 +5,7 @@
    "main": "app.js",
    "scripts": {
       "start": "babel-node app.js",
-      "start-dev": "nodemon --watch server --exec babel-node app.js",
+      "start-dev": "nyc nodemon --watch server --exec babel-node app.js",
       "lint": "eslint ./ || true",
       "test": "set NODE_ENV=test&& sequelize db:migrate:undo:all&& sequelize db:migrate&& nyc mocha ./server/test --exit --compilers js:babel-register --exit",
       "coverage": "nyc report --reporter=text-lcov | coveralls",
