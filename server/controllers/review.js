@@ -27,15 +27,15 @@ class Review {
       .then((business) => {
         // creates review of an existing business
         if (business) {
-          const review = new reviewModel({
+          const newReview = new reviewModel({
             context: req.body.context,
             userId: business.userId,
             buisnessId: business.id
           });
 
-          return review.save()
-            .then(rev => res.status(201).json({
-              rev,
+          return newReview.save()
+            .then(review => res.status(201).json({
+              review,
               message: 'Sucessfully Created',
               error: false
             }))
@@ -69,7 +69,7 @@ class Review {
         if (business) {
           return reviewModel.findAll({ where: { buisnessId: business.id } })
             .then((reviews) => {
-              if (reviews.length < 1) {
+              if (reviews.length < 0) {
                 return res.status(204).json({
                   message: `No review(s) for ${business.name}`,
                   error: false
