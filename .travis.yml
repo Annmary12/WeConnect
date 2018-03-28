@@ -11,6 +11,7 @@ after_success:
   - npm run coverage
 
 env:
+  NODE_ENV=test
   global:
 # language: node_js
 # node_js:
