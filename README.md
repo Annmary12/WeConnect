@@ -46,5 +46,8 @@ The UI pages is hosted on <a href="https://annmary12.github.io/WeConnect/templat
 * Set up your .env file using the sample provided in the project
 * Start the server by running `npm run start-dev`
 
+## Test
+* Run test with this command `npm run test`
+
 ## API documentation
 Used swagger for documentation <a href="https://weconnect12-server.herokuapp.com/docs/" target="_blank">link</a>
