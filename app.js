@@ -27,11 +27,16 @@ router.use((req, res, next) => {
   next();
 });
 
+router.get('/', (req, res) => res.status(200).send({
+  message: 'Welcome to weConnect Api',
+  error: false
+}));
 
 router.get('*', (req, res) => res.status(404).send({
   message: 'Bad Request',
   error: true
 }));
+
 
 app.use('/api/v1/auth', userRoutes);
 app.use('/api/v1/businesses', businessRoutes);
