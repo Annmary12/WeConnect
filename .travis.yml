@@ -1,29 +1,10 @@
 language: node_js
 node_js:
   - 8.5.0
-services:
-  - postgresql
-
 script:
   - npm run test
 
 after_success:
   - npm run coverage
 
-env:
-  NODE_ENV=test
-  global:
-# language: node_js
-# node_js:
-#  - "stable"
-# notifications:
-#  email: false
 
-# services:
-#    - postgresql
-   
-# script:
-#  - npm run test
-
-# after_success:
-#  - npm run coverage
