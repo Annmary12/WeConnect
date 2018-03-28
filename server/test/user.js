@@ -27,7 +27,7 @@ describe('POST /api/v1/auth/signup', () => {
       });
   });
 
-  it('Test for Name field Required', (done) => {
+  it('Test for Email  Existing', (done) => {
     const user = {
       firstname: 'Annmary',
       lastname: 'Agunanna',

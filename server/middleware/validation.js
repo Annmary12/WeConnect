@@ -43,10 +43,6 @@ class Validation {
         },
         errorMessage: 'Your Password is required'
       },
-      image: {
-        notEmpty: true,
-        errorMessage: 'Image is required'
-      },
     });
 
     const errors = req.validationErrors();
@@ -81,10 +77,6 @@ class Validation {
       address: {
         notEmpty: true,
         errorMessage: 'Address Required'
-      },
-      image: {
-        notEmpty: true,
-        errorMessage: 'Image Required'
       },
       location: {
         notEmpty: true,

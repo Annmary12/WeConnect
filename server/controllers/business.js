@@ -26,7 +26,7 @@ class Business {
   static getBusinesses(req, res) {
     return businessModel.findAll()
       .then((businesses) => {
-        if (businesses) {
+        if (businesses.length > 0) {
           return res.status(200).json({
             businesses,
             message: 'List of all bussinesses'
@@ -171,8 +171,7 @@ class Business {
         if (business) {
           if (business.userId === authData.user.id) {
             return business.destroy()
-              .then(businessDeleted => res.status(204).json({
-                businessDeleted,
+              .then(() => res.status(200).json({
                 message: 'Sucessfully Deleted',
                 error: false,
               }))

@@ -34,7 +34,7 @@ class User {
       firstname, lastname, email, password, image
     } = req.body;
 
-    const user = new userModel({
+    const newUser = new userModel({
       firstname,
       lastname,
       email,
@@ -42,14 +42,14 @@ class User {
       image
     });
 
-    return user.save()
-      .then((newUser) => {
-        if (newUser) {
-          const token = jwt.sign({ newUser }, secret);
+    return newUser.save()
+      .then((user) => {
+        if (user) {
+          const token = jwt.sign({ user }, secret);
           return res.status(201).json({
             name: newUser.firstname,
             email: newUser.email,
-            message: `Hello ${newUser.firstname}, Welcome to we-connect`,
+            message: `Hello ${user.firstname}, Welcome to we-connect`,
             token,
             success: true
           });

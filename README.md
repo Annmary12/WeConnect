@@ -1,9 +1,9 @@
 # WeConnect
 
-[![Build Status](https://travis-ci.org/Annmary12/WeConnect.svg?branch=develop)](https://travis-ci.org/Annmary12/WeConnect) [![Coverage Status](https://coveralls.io/repos/github/Annmary12/WeConnect/badge.svg?branch=develop)](https://coveralls.io/github/Annmary12/WeConnect?branch=develop) [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/Annmary12/WeConnect) [![Test Coverage](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/test_coverage)](https://codeclimate.com/github/codeclimate/codeclimate/test_coverage)
+[![Build Status](https://travis-ci.org/Annmary12/WeConnect.svg?branch=develop)](https://travis-ci.org/Annmary12/WeConnect) [![Coverage Status](https://coveralls.io/repos/github/Annmary12/WeConnect/badge.svg?branch=develop)](https://coveralls.io/github/Annmary12/WeConnect?branch=develop) [![Code Climate](https://codeclimate.com/github/codeclimate/codeclimate/badges/gpa.svg)](https://codeclimate.com/github/Annmary12/WeConnect) 
 
 
-WeConnect brings your business to live with collaboration of various individuals. It creates an avenue for awareness and creates the ability for users to write reviews about the businesses they have interacted with.
+WeConnect brings your business to live by collaborating with various individuals/business partner. It creates an avenue for awareness and creates the ability for users to write reviews about the businesses they have interacted with.
 
 ## Feactures
 1. Users should be able to
@@ -38,11 +38,12 @@ The UI pages is hosted on <a href="https://annmary12.github.io/WeConnect/templat
 ## Installation
 * Install npm
 `NodeJS` and `PostgreSQL` on your computer
-* Clone this repository
-* Navigate to the directory
+* Clone this repository `https://github.com/Annmary12/WeConnect`
+* Navigate to the root directory
 * Install all dependencies with `npm install`
 * Globally `install sequelize-cli`
 * Using `sequelize db:migrate` migrate the database
+* Set up your .env file using the sample provided in the project
 * Start the server by running `npm run start-dev`
 
 ## API documentation
