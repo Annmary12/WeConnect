@@ -22,7 +22,7 @@ class Authorization {
     }
   }
 
-  static verify(req, res, next) {
+  static verifyToken(req, res, next) {
     jwt.verify(req.token, secret, (err, authData) => {
       if (err) {
         // Wrong token

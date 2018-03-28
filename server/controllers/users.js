@@ -9,6 +9,15 @@ dotenv.config();
 const secret = process.env.secretKey;
 
 /**
+   * @description Status Code Used
+   * 201 - Created
+   * 200 - Ok
+   * 204 - No Content
+   * 404 - Not Found
+   * 400 - bad request
+   * /
+
+/**
  * @class User
  * @description - creates User components for signup and login user
  */
