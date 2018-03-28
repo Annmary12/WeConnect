@@ -171,7 +171,7 @@ class Business {
         if (business) {
           if (business.userId === authData.user.id) {
             return business.destroy()
-              .then(() => res.status(201).json({
+              .then(() => res.status(200).json({
                 message: 'Sucessfully Deleted',
                 error: false,
               }))

@@ -54,17 +54,18 @@
 //     });
 //   });
 
+
 //   describe('POST api/v1/businesses/:businessId/reviews', () => {
 //     it('test to create a review for a business', (done) => {
 //       const review = {
 //         context: 'Their Products are very nice'
 //       };
 //       chai.request(server)
-//         .post(`${BASE_URL}/businesses/3/reviews`)
+//         .post(`${BASE_URL}/businesses//reviews`)
 //         .send(review)
 //         .end((err, res) => {
-//           expect(res).to.have.status(201);
-//           expect(res.body.message).to.equal('Review Created Sucessfully');
+//           expect(res).to.have.status(404);
+//           expect(res.body.message).to.equal('Business Not Found');
 //           done();
 //         });
 //     });

@@ -23,10 +23,17 @@ class Review {
    * @param {*} res - route response
    */
   static createReview(req, res) {
+    const authData = req.user;
     return businesses.findOne({ where: { id: req.params.businessId } })
       .then((business) => {
         // creates review of an existing business
         if (business) {
+          if (business.userId === authData.user.id) {
+            return res.status(404).json({
+              message: 'You can not review yourself',
+              error: true
+            });
+          }
           const newReview = new reviewModel({
             context: req.body.context,
             userId: business.userId,
@@ -70,7 +77,7 @@ class Review {
           return reviewModel.findAll({ where: { buisnessId: business.id } })
             .then((reviews) => {
               if (reviews.length < 0) {
-                return res.status(204).json({
+                return res.status(200).json({
                   message: `No review(s) for ${business.name}`,
                   error: false
                 });

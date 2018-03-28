@@ -27,11 +27,6 @@ router.use((req, res, next) => {
   next();
 });
 
-router.get('/', (req, res) => res.status(200).send({
-  message: 'Welcome to weConnect Api',
-  error: false
-}));
-
 router.get('*', (req, res) => res.status(404).send({
   message: 'Bad Request',
   error: true
@@ -41,6 +36,11 @@ router.get('*', (req, res) => res.status(404).send({
 app.use('/api/v1/auth', userRoutes);
 app.use('/api/v1/businesses', businessRoutes);
 app.use('/api/v1/businesses', reviewRoutes);
+
+router.get('/', (req, res) => res.status(200).send({
+  message: 'Welcome to weConnect Api',
+  error: false
+}));
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 

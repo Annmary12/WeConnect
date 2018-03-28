@@ -234,6 +234,59 @@ describe('Business Test', () => {
         });
     });
   });
+  describe('Review API Test', () => {
+    it('test to check whether you are authorized to review for a business', (done) => {
+      const review = {
+        context: 'Their Products are very nice'
+      };
+      chai.request(server)
+        .post(`${BASE_URL}/businesses/1/reviews`)
+        .set('Authorization', authtoken)
+        .send(review)
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          expect(res.body.message).to.equal('You can not review yourself');
+          done();
+        });
+    });
+
+    it('test to check whether business exit', (done) => {
+      const review = {
+        context: 'Their Products are very nice'
+      };
+      chai.request(server)
+        .post(`${BASE_URL}/businesses/4/reviews`)
+        .set('Authorization', authtoken)
+        .send(review)
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          expect(res.body.message).to.equal('Business Not Found');
+          done();
+        });
+    });
+  });
+
+  describe('GET/ reviews of a business', () => {
+    it('test to get business', (done) => {
+      chai.request(server)
+        .get(`${BASE_URL}/businesses/1/reviews`)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.message).to.equal('List of review(s) for Molcom');
+          done();
+        });
+    });
+
+    it('test to get business', (done) => {
+      chai.request(server)
+        .get(`${BASE_URL}/businesses/4/reviews`)
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          expect(res.body.message).to.equal('Business Not Found');
+          done();
+        });
+    });
+  });
 
   describe('/GET Businesses', () => {
     it('Test to get all businesses', (done) => {
@@ -354,7 +407,7 @@ describe('Business Test', () => {
         .delete(`${BASE_URL}/businesses/1`)
         .set('Authorization', authtoken)
         .end((err, res) => {
-          expect(res).to.have.status(201);
+          expect(res).to.have.status(200);
           expect(res.body.message).to.equal('Sucessfully Deleted');
           done();
         });
