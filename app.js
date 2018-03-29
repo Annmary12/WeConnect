@@ -37,7 +37,7 @@ app.use('/api/v1/auth', userRoutes);
 app.use('/api/v1/businesses', businessRoutes);
 app.use('/api/v1/businesses', reviewRoutes);
 
-router.get('/', (req, res) => res.status(200).send({
+app.get('/', (req, res) => res.status(200).send({
   message: 'Welcome to weConnect Api',
   error: false
 }));
