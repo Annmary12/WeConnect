@@ -2,18 +2,18 @@
     background-image: url('../images/business.jpg');
     background-repeat:no-repeat; 
     background-size: cover;
-    height: 450px;
+    height: 350px;
     
 }
 
 .search{
     color:#fff;
-    margin-top: 280px;
+    margin-top: 215px;
     padding-top:15px;
     padding-bottom:15px;
     position: relative;
     background: #505050;
-    border: 2px solid #ff0000;
+   
     
 }
 
@@ -25,14 +25,14 @@
 }
 
 .business-section{
-    margin-top: 200px;
+    margin-top: 120px;
     
 }
 
 .register-business{
     padding-top: 170px;
     padding-right:40px;
-    color:red;
+    color:#f4613d;
 }
 
 .register-section{
@@ -64,4 +64,8 @@ p{
     height: 150px;
     width:150px;
     }
+    #search-button{
+        padding-top:25px;
+    }
+
 

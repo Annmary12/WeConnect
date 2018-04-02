@@ -10,7 +10,7 @@ body {
   }
   
   .logo{
-    color:red;
+    color:#f4613d;
 }
 
 .nav-background{
@@ -29,7 +29,7 @@ nav{
  }
  nav a:hover {
     background: rgba(10, 8, 8, 0.897);
-    color: red;
+    color: #f4613d;
   }
 
   .nav-wrapper{
@@ -83,7 +83,7 @@ background: rgb(216, 215, 215);
 }
 
 .btn{
-    background-color: #ff0000;
+    background-color: #f4613d;
     
 }
 .btn:hover{
@@ -91,8 +91,8 @@ background: rgb(216, 215, 215);
 }
 
 .input-field input[type=text]:focus:not([readonly]) {
-    border-color: #ff0000;
-    box-shadow: #ff0000;
+    border-color: #f4613d;
+    box-shadow: #f4613d;
  }
 
  .signup-left-box{
@@ -102,4 +102,6 @@ background: rgb(216, 215, 215);
     background-size: auto 600px;
     height: 520px;
 }
-
+.sub-header{
+    color:#505052;
+}
