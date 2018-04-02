@@ -18,15 +18,15 @@
 }
 
 #activator{
-    height: 200px;
+    height: 150px;
+}
+.card-image{
+    height: 150px; 
 }
 
 .business-section{
     margin-top: 200px;
     
-}
-.card-image{
-    height: 200px;
 }
 
 .register-business{
