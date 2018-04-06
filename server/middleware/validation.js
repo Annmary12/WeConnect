@@ -7,7 +7,7 @@ class Validation {
     return userModel.findOne({ where: { email: req.body.email } })
       .then((userExist) => {
         if (userExist) {
-          return res.status(409).json({
+          return res.status(404).json({
             message: 'Email is already existing'
           });
         }
@@ -53,7 +53,7 @@ class Validation {
           error: error.msg
         });
       });
-      return res.status(409)
+      return res.status(404)
         .json(allErrors);
     }
 
@@ -99,7 +99,7 @@ class Validation {
         });
       });
 
-      return res.status(409)
+      return res.status(404)
         .json(allErrors);
     }
     next();

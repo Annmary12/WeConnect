@@ -28,7 +28,7 @@ class Review {
       .then((business) => {
         // creates review of an existing business
         if (business) {
-          if (business.userId === authData.user.id) {
+          if (business.userId === authData.payload.id) {
             return res.status(404).json({
               message: 'You can not review yourself',
               error: true
