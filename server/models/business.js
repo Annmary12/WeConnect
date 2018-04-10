@@ -1,10 +1,12 @@
-
-
-module.exports = (sequelize, DataTypes) => {
+export default (sequelize, DataTypes) => {
   const Business = sequelize.define('Business', {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: {
+        args: true,
+        msg: 'Business name already exists'
+      },
     },
     description: {
       type: DataTypes.TEXT,
@@ -28,20 +30,15 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     website: {
-      type: DataTypes.STRING
-    },
-    userId: {
-      type: DataTypes.INTEGER,
-    },
-    createdAt: {
-      allowNull: false,
-      type: DataTypes.DATE
-    },
-    updatedAt: {
-      allowNull: false,
-      type: DataTypes.DATE
+      type: DataTypes.STRING,
+      validate: {
+        isUrl: {
+          args: true,
+          msg: 'website must be a url'
+        },
+      }
     }
-  }, {});
+  });
   Business.associate = (models) => {
     // associations can be defined here
     Business.belongsTo(models.User, {
@@ -49,10 +46,10 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: 'CASCADE',
     });
 
-    // Business.hasMany(models.Review, {
-    //   foreignKey: 'reviewId',
-    //   onDelete: 'CASCADE',
-    // });
+    Business.hasMany(models.Review, {
+      foreignKey: 'businessId',
+      as: 'review',
+    });
   };
   return Business;
 };

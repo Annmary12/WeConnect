@@ -50,6 +50,13 @@ class Business {
    * @param {*} res - api response
    */
   static getBusiness(req, res) {
+    // const numbers = /^[0-9]+$/;
+    // if (!req.params.businessId.match(numbers)) {
+    //   return res.status(400).json({
+    //     message: 'Invalid Id'
+    //   });
+    // }
+
     return businessModel.findById(req.params.businessId)
       .then((businesses) => {
         if (businesses) {
@@ -85,7 +92,7 @@ class Business {
 
     const authData = req.user;
     const getbusiness = new businessModel({
-      userId: authData.user.id, // get the id of the user from the authData token
+      userId: authData.payload.id, // get the id of the user from the authData token
       phoneNumber,
       name,
       description,
@@ -119,7 +126,7 @@ class Business {
     businessModel.findById(req.params.businessId)
       .then((business) => {
         if (business) {
-          if (business.userId === authData.user.id) {
+          if (business.userId === authData.payload.id) {
             return business.update({
               name: req.body.name || business.name,
               description: req.body.description || business.description,
@@ -169,7 +176,7 @@ class Business {
     return businessModel.findById(req.params.businessId)
       .then((business) => {
         if (business) {
-          if (business.userId === authData.user.id) {
+          if (business.userId === authData.payload.id) {
             return business.destroy()
               .then(() => res.status(200).json({
                 message: 'Sucessfully Deleted',

@@ -3,11 +3,21 @@ import models from '../models/index';
 const userModel = models.User;
 
 class Validation {
+  static idChecker(req, res, next) {
+    const { businessId } = req.params;
+    const numbers = /^[0-9]+$/;
+    if (!businessId.match(numbers)) {
+      return res.status(400).json({
+        message: 'Invalid Id'
+      });
+    }
+    next();
+  }
   static emailExist(req, res, next) {
     return userModel.findOne({ where: { email: req.body.email } })
       .then((userExist) => {
         if (userExist) {
-          return res.status(409).json({
+          return res.status(404).json({
             message: 'Email is already existing'
           });
         }
@@ -53,7 +63,7 @@ class Validation {
           error: error.msg
         });
       });
-      return res.status(409)
+      return res.status(404)
         .json(allErrors);
     }
 
@@ -99,7 +109,7 @@ class Validation {
         });
       });
 
-      return res.status(409)
+      return res.status(404)
         .json(allErrors);
     }
     next();

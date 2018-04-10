@@ -28,7 +28,7 @@ class Review {
       .then((business) => {
         // creates review of an existing business
         if (business) {
-          if (business.userId === authData.user.id) {
+          if (business.userId === authData.payload.id) {
             return res.status(404).json({
               message: 'You can not review yourself',
               error: true
@@ -71,14 +71,15 @@ class Review {
    * @param {*} res - route response
    */
   static fetchReviews(req, res) {
+    const { buisnessId } = req.params;
     return businesses.findOne({ where: { id: req.params.businessId } })
       .then((business) => {
         if (business) {
-          return reviewModel.findAll({ where: { buisnessId: business.id } })
+          return reviewModel.findAll({ where: { buisnessId } })
             .then((reviews) => {
-              if (reviews.length < 0) {
+              if (!reviews.length) {
                 return res.status(200).json({
-                  message: `No review(s) for ${business.name}`,
+                  message: `No review(s) found for ${business.name}`,
                   error: false
                 });
               }

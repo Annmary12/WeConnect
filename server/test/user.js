@@ -39,7 +39,7 @@ describe('POST /api/v1/auth/signup', () => {
       .post(`${BASE_URL}/auth/signup`)
       .send(user)
       .end((err, res) => {
-        expect(res).to.have.status(409);
+        expect(res).to.have.status(404);
         expect(res.body.message).to.equal('Email is already existing');
         done();
       });
@@ -57,7 +57,7 @@ describe('POST /api/v1/auth/signup', () => {
       .post(`${BASE_URL}/auth/signup`)
       .send(user)
       .end((err, res) => {
-        expect(res).to.have.status(409);
+        expect(res).to.have.status(404);
         done();
       });
   });
@@ -74,7 +74,7 @@ describe('POST /api/v1/auth/signup', () => {
       .post(`${BASE_URL}/auth/signup`)
       .send(user)
       .end((err, res) => {
-        expect(res).to.have.status(409);
+        expect(res).to.have.status(404);
         done();
       });
   });
@@ -91,7 +91,7 @@ describe('POST /api/v1/auth/signup', () => {
       .post(`${BASE_URL}/auth/signup`)
       .send(user)
       .end((err, res) => {
-        expect(res).to.have.status(409);
+        expect(res).to.have.status(404);
         done();
       });
   });
@@ -108,7 +108,7 @@ describe('POST /api/v1/auth/signup', () => {
       .post(`${BASE_URL}/auth/signup`)
       .send(user)
       .end((err, res) => {
-        expect(res).to.have.status(409);
+        expect(res).to.have.status(404);
         done();
       });
   });
@@ -125,7 +125,7 @@ describe('POST /api/v1/auth/signup', () => {
       .post(`${BASE_URL}/auth/signup`)
       .send(user)
       .end((err, res) => {
-        expect(res).to.have.status(409);
+        expect(res).to.have.status(404);
         done();
       });
   });
@@ -142,7 +142,7 @@ describe('POST /api/v1/auth/signup', () => {
       .post(`${BASE_URL}/auth/signup`)
       .send(user)
       .end((err, res) => {
-        expect(res).to.have.status(409);
+        expect(res).to.have.status(404);
         done();
       });
   });

@@ -45,7 +45,10 @@ class User {
     return newUser.save()
       .then((user) => {
         if (user) {
-          const token = jwt.sign({ user }, secret);
+          const payload = {
+            id: user.id
+          };
+          const token = jwt.sign({ payload }, secret);
           return res.status(201).json({
             name: newUser.firstname,
             email: newUser.email,
@@ -78,7 +81,10 @@ class User {
           });
         }
         if (bcrypt.compareSync(req.body.password, user.password)) {
-          const token = jwt.sign({ user }, secret, {
+          const payload = {
+            id: user.id
+          };
+          const token = jwt.sign({ payload }, secret, {
             expiresIn: '4h'
           });
           return res.status(200).json({

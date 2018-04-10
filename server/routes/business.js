@@ -9,13 +9,13 @@ const {
   getBusinesses, getBusiness, createBusiness, deleteBusiness, updateBusiness
 } = businessController;
 const { setHeader, verifyToken } = token;
-const { businessValidator } = validator;
+const { businessValidator, idChecker } = validator;
 
 businessRouter.route('/').post(setHeader, verifyToken, businessValidator, createBusiness);
 businessRouter.route('').get(filter, getBusinesses);
-businessRouter.route('/:businessId').get(getBusiness);
-businessRouter.route('/:businessId').put(setHeader, verifyToken, updateBusiness);
-businessRouter.route('/:businessId').delete(setHeader, verifyToken, deleteBusiness);
+businessRouter.route('/:businessId').get(idChecker, getBusiness);
+businessRouter.route('/:businessId').put(idChecker, setHeader, verifyToken, updateBusiness);
+businessRouter.route('/:businessId').delete(idChecker, setHeader, verifyToken, deleteBusiness);
 
 export default businessRouter;
 
