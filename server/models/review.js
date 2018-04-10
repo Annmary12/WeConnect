@@ -8,29 +8,33 @@ module.exports = (sequelize, DataTypes) => {
     userId: {
       allowNull: false,
       type: DataTypes.INTEGER,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'User',
+        Key: 'id',
+        as: 'userId',
+      },
     },
     buisnessId: {
       allowNull: false,
       type: DataTypes.INTEGER,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'Business',
+        Key: 'id',
+        as: 'businessId',
+      },
     },
-    createdAt: {
-      allowNull: false,
-      type: DataTypes.DATE
-    },
-    updatedAt: {
-      allowNull: false,
-      type: DataTypes.DATE
-    }
   }, {});
   Review.associate = (models) => {
     // associations can be defined here
-    Review.belongsTo(models.User, {
-      foreignKey: 'userId',
-    });
-
     Review.belongsTo(models.Business, {
       foreignKey: 'buisnessId',
       onDelete: 'CASCADE',
+    });
+
+    Review.belongsTo(models.User, {
+      foreignKey: 'userId',
     });
   };
 

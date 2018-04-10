@@ -50,12 +50,13 @@ class Business {
    * @param {*} res - api response
    */
   static getBusiness(req, res) {
-    const id = parseInt(req.params.businessId, 10);
-    if  (isNaN(id)) {
-      return res.status(404).json({
-        message: 'Input a valid id'
-      });
-    }
+    // const numbers = /^[0-9]+$/;
+    // if (!req.params.businessId.match(numbers)) {
+    //   return res.status(400).json({
+    //     message: 'Invalid Id'
+    //   });
+    // }
+
     return businessModel.findById(req.params.businessId)
       .then((businesses) => {
         if (businesses) {

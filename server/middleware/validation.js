@@ -3,6 +3,16 @@ import models from '../models/index';
 const userModel = models.User;
 
 class Validation {
+  static idChecker(req, res, next) {
+    const { businessId } = req.params;
+    const numbers = /^[0-9]+$/;
+    if (!businessId.match(numbers)) {
+      return res.status(400).json({
+        message: 'Invalid Id'
+      });
+    }
+    next();
+  }
   static emailExist(req, res, next) {
     return userModel.findOne({ where: { email: req.body.email } })
       .then((userExist) => {
