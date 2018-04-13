@@ -2,10 +2,10 @@ const path = require('path');
 
 module.exports = {
   entry: {
-    index: './client/src/index.js' // webpack entry point. Module to start building dependency graph
+    index: './client/src/script.js' // webpack entry point. Module to start building dependency graph
   },
   output: {
-    path: path.resolve(__dirname, 'build'), // Folder to store generated bundle
+    path: path.resolve(__dirname, './client/public'), // Folder to store generated bundle
     filename: 'bundle.js' // Name of generated bundle after build
   },
   module: { // where we defined file patterns and their loaders
@@ -13,6 +13,7 @@ module.exports = {
       {
         test: /\.js?$/,
         exclude: /node_modules/,
+        include: path.join(__dirname, 'client'),
         loader: 'babel-loader',
         query: {
           presets: ['es2015', 'react']
@@ -34,8 +35,8 @@ module.exports = {
       },
       {
         test: /\.svg|.png|.jpg$/,
-        loader: 'url-loader',
-        exclude: /node_modules/
+        //  loader: 'url-loader',
+        //  exclude: /node_modules/
       }
     ]
   },

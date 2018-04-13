@@ -1,4 +1,7 @@
 import express from 'express';
+import path from 'path';
+import webpack from 'webpack';
+import webpackMiddleware from 'webpack-dev-middleware';
 import validator from 'express-validator';
 import winston from 'winston';
 import bodyParser from 'body-parser';
@@ -8,6 +11,8 @@ import swaggerDocument from './swagger.json';
 import userRoutes from './server/routes/user';
 import businessRoutes from './server/routes/business';
 import reviewRoutes from './server/routes/review';
+import webPackConfig from './webpack.config';
+
 
 dotenv.config();
 const app = express();
@@ -15,6 +20,7 @@ const router = express.Router();
 
 
 const port = process.env.PORT || 8200;
+app.use(webpackMiddleware(webpack(webPackConfig)));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -37,10 +43,14 @@ app.use('/api/v1/auth', userRoutes);
 app.use('/api/v1/businesses', businessRoutes);
 app.use('/api/v1/businesses', reviewRoutes);
 
-app.get('/', (req, res) => res.status(200).send({
-  message: 'Welcome to weConnect Api',
-  error: false
-}));
+// app.get('/', (req, res) => res.status(200).send({
+//   message: 'Welcome to weConnect Api',
+//   error: false
+// }));
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, './client/public/index.html'));
+});
 
 app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
