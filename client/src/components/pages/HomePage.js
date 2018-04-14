@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import NavigationPage from './Navigation';
 import FeacturedBusiness from './FeacturedBusiness';
+import Footer from './Footer';
 // import StyleCss from '../../../public/styles/index.scss';
 // import BusinessCss from '../css/business.css';
 
@@ -18,8 +19,8 @@ const Home = () => {
               
            </div>
         </div>
-      
-        
+      <FeacturedBusiness />
+        <Footer />
         </div>
     );
 }

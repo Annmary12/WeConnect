@@ -56,7 +56,7 @@ app.use('/api/v1/businesses', reviewRoutes);
 //   error: false
 // }));
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './client/public/index.html'));
 });
 
