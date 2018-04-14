@@ -12,10 +12,18 @@ import userRoutes from './server/routes/user';
 import businessRoutes from './server/routes/business';
 import reviewRoutes from './server/routes/review';
 import webPackConfig from './webpack.config';
+// import webpackConfigDev from './webpack.dev';
+// import webpackConfigProd from './webpack.prod';
 
 
 dotenv.config();
 const app = express();
+
+// if (process.env.NODE_ENV !== 'production') {
+//   app.use(webpackMiddleware(webpack(webpackConfigDev)));
+// } else {
+//   app.use(webpackMiddleware(webpack(webpackConfigProd)));
+// }
 const router = express.Router();
 
 
