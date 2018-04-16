@@ -7,6 +7,7 @@ import SignUpPage from './components/pages/SignUp';
 import BusinessProfile from './components/pages/BusinessProfile';
 import ProfilePage from './components/pages/Profile';
 import CreateBusinessPage from './components/pages/CreateBusiness';
+import EditBusinessPage from './components/pages/EditBusiness';
 
 const Router = () => {
     return(
@@ -18,6 +19,7 @@ const Router = () => {
             <Route path="/businessProfile" exact component={BusinessProfile} />
             <Route path="/profile" exact component={ProfilePage} />
             <Route path="/createBusiness" exact component={CreateBusinessPage} />
+            <Route path="/editBusiness" exact component={EditBusinessPage} />
     </div>
     )
     
