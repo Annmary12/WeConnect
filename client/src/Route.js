@@ -6,6 +6,7 @@ import BusinessPage from './components/pages/Business';
 import SignUpPage from './components/pages/SignUp';
 import BusinessProfile from './components/pages/BusinessProfile';
 import ProfilePage from './components/pages/Profile';
+import CreateBusinessPage from './components/pages/CreateBusiness';
 
 const Router = () => {
     return(
@@ -16,6 +17,7 @@ const Router = () => {
             <Route path="/signUp" exact component={SignUpPage} />
             <Route path="/businessProfile" exact component={BusinessProfile} />
             <Route path="/profile" exact component={ProfilePage} />
+            <Route path="/createBusiness" exact component={CreateBusinessPage} />
     </div>
     )
     

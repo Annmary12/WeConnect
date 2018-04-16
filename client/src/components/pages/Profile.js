@@ -2,6 +2,7 @@ import React from 'react';
 import Navigation from './Navigation';
 import Footer from './Footer';
 import UserCard from './UserCard';
+import { Link } from 'react-router-dom';
 
 const Profile = () => {
     return(
@@ -27,9 +28,9 @@ const Profile = () => {
            <div class="container profile-section">
             <div class="row section1">
               <div class="row right-align">
-                 <a href="registerBusiness.html" class="btn waves-effect waves-light btn_large " type="submit" name="action">Create New Business
+                 <Link to='/createBusiness' class="btn waves-effect waves-light btn_large " type="submit" name="action">Create New Business
                   <i class="material-icons left">add</i>
-                 </a>
+                 </Link>
               </div>
                 <h4 class="">List of Your business</h4>
                 <hr/><br/>

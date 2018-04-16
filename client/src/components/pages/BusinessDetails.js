@@ -1,5 +1,5 @@
 import React from 'react';
-import ReviewForm from './ReviewForm';
+import ReviewForm from './forms/ReviewForm';
 
 const BusinessDetails = () => {
     return(
