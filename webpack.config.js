@@ -10,6 +10,11 @@ module.exports = {
     path: path.resolve(__dirname, './dist'), // Folder to store generated bundle
     filename: 'bundle.js' // Name of generated bundle after build
   },
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    // Use NoErrorsPlugin for webpack 1.x
+    new webpack.NoEmitOnErrorsPlugin()
+  ],
   module: { // where we defined file patterns and their loaders
     rules: [
       {
