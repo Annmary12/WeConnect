@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import Router from './Route';
 import Stylecss from '../public/styles/index.scss';
 import BusinessCss from '../public/styles/business.scss';
+import ProfileCss from '../public/styles/profile.scss';
 
 // class App extends Component() {
 //     render(){

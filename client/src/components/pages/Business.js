@@ -12,51 +12,51 @@ const Business = () => {
             <Search />
             </div>
 
-            <div class="container business-section">
-            <div class="row section1">
-              <div class="row sub-header-row">
-                <div  class="col s6"> <h5 class="sub-header">IT</h5></div>
-                <div class="col s6 right-align"> <button class="btn-flat waves-effect waves-light" type="submit" name="action">view all
-                    <i class="material-icons right">chevron_right</i>
+            <div className="container business-section">
+            <div className="row section1">
+              <div className="row sub-header-row">
+                <div  className="col s6"> <h5 className="sub-header">IT</h5></div>
+                <div className="col s6 right-align"> <button className="btn-flat waves-effect waves-light" type="submit" name="action">view all
+                    <i className="material-icons right">chevron_right</i>
                   </button></div>
               </div>
                
                 <hr /><br />
-                <div class="row">
-                    <div class="col s12 m6 l4">
+                <div className="row">
+                    <div className="col s12 m6 l4">
                     <Card />
                     </div>
 
-                    <div class="col s12 m6 l4">
+                    <div className="col s12 m6 l4">
                     <Card />
                     </div>
 
-                    <div class="col s12 m6 l4">
+                    <div className="col s12 m6 l4">
                     <Card />
                     </div>
 
                     </div>
-                    <div class="row sub-header-row">
-                        <div  class="col s6">  <h5 class="sub-header">Marketing</h5></div>
-                        <div class="col s6 right-align"> <button class="btn-flat waves-effect waves-light" type="submit" name="action">view all
-                            <i class="material-icons right">chevron_right</i>
+                    <div className="row sub-header-row">
+                        <div  className="col s6">  <h5 className="sub-header">Marketing</h5></div>
+                        <div className="col s6 right-align"> <button className="btn-flat waves-effect waves-light" type="submit" name="action">view all
+                            <i className="material-icons right">chevron_right</i>
                         </button></div>
                     </div>
                
                 <hr /><br />
-                <div class="row">
-                        <div class="col s12 m6 l4">
+                <div className="row">
+                        <div className="col s12 m6 l4">
                         <Card />
                     </div>
 
-                     <div class="col s12 m6 l4">
+                     <div className="col s12 m6 l4">
                         <Card />
                     </div>
 
-                     <div class="col s12 m6 l4">
+                     <div className="col s12 m6 l4">
                         <Card />
                     </div>
-                    
+
                     </div>
                     </div>
                     </div>
