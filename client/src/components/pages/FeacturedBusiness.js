@@ -6,7 +6,7 @@ const FeacturedBusiness = () => {
         <div>
         <div className="container"><br /><br />
             <div className="row section1">
-                <h4 className="">Feacture Business</h4>
+                <h4 className="">Feature Business</h4>
                 <hr /><br />
 
             <div className="row">

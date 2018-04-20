@@ -53,6 +53,11 @@ class Validation {
         },
         errorMessage: 'Your Password is required'
       },
+      confirm_password: {
+        notEmpty: true,
+        errorMessage: 'Confirm Password is required'
+        
+      }
     });
 
     const errors = req.validationErrors();
@@ -60,15 +65,17 @@ class Validation {
       const allErrors = [];
       errors.forEach((error) => {
         allErrors.push({
-          error: error.msg
+         [error.param]: error.msg
         });
       });
       return res.status(404)
-        .json(allErrors);
+        .json(allErrors[0]);
     }
 
     next();
   }
+
+  
 
   static businessValidator(req, res, next) {
     req.checkBody({
@@ -105,7 +112,7 @@ class Validation {
       const allErrors = [];
       errors.forEach((error) => {
         allErrors.push({
-          error: error.msg
+          [error.param]: error.msg
         });
       });
 

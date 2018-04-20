@@ -21,7 +21,7 @@ const Business = () => {
                   </button></div>
               </div>
                
-                <hr /><br />
+                <hr /><br/>
                 <div className="row">
                     <div className="col s12 m6 l4">
                     <Card />
@@ -43,7 +43,7 @@ const Business = () => {
                         </button></div>
                     </div>
                
-                <hr /><br />
+                <hr /><br/>
                 <div className="row">
                         <div className="col s12 m6 l4">
                         <Card />

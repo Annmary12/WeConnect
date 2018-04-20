@@ -1,23 +1,24 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import Router from './Route';
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
 import Stylecss from '../public/styles/index.scss';
 import BusinessCss from '../public/styles/business.scss';
 import ProfileCss from '../public/styles/profile.scss';
 
-// class App extends Component() {
-//     render(){
-//         return(
-//             <h1>Hello... Welcome to weconnect</h1>
-//         );
-//     }
-// }
+const store = createStore(
+    (state = {}) => state,
+    applyMiddleware(thunk)
+);
 
 const App = () => {
     return(
-    <div>
+        <Provider store={store}>
          <Router />
-     </div>
+         </Provider>
+     
         );
     
   

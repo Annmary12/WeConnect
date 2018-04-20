@@ -12,7 +12,6 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    // Use NoErrorsPlugin for webpack 1.x
     new webpack.NoEmitOnErrorsPlugin()
   ],
   module: { // where we defined file patterns and their loaders

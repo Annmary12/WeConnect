@@ -25,6 +25,14 @@
             $('select').material_select();
             $(".dropdown-button").dropdown();
         });
+
+        $( '.input-field input' ).each(function(){
+            ( $( this ).val()  == '' ) ? $( this ).addClass('empty') : $(this).removeClass('empty');
+        });
+        $( '.input-field input' ).on('focus blur ', function(){
+            ( $( this ).val()  == '' ) ? $( this ).addClass('empty') : $(this).removeClass('empty');
+        });
+
         </script>
 </body>
 </html>

@@ -5,7 +5,7 @@ const ReviewList = () => {
         <div>
              <div class="row">
                             <div class="col s12 m2 l2">
-                                <img src={require('../../../public/images/bu.jpg')} class="image"/>
+                                <img src={require('../../../public/images/bu.jpg')} class="imageReview"/>
                                 
                             </div>
     
