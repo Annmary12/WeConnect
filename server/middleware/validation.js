@@ -65,7 +65,7 @@ class Validation {
       const allErrors = [];
       errors.forEach((error) => {
         allErrors.push({
-         [error.param]: error.msg
+         message: error.msg
         });
       });
       return res.status(404)
@@ -112,7 +112,7 @@ class Validation {
       const allErrors = [];
       errors.forEach((error) => {
         allErrors.push({
-          [error.param]: error.msg
+          message: error.msg
         });
       });
 
