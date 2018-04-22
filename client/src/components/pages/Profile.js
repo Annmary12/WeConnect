@@ -3,12 +3,14 @@ import Navigation from './Navigation';
 import Footer from './Footer';
 import UserCard from './UserCard';
 import { Link } from 'react-router-dom';
+import FlashMessageList from './flash/FlashMessageList';
 
 const Profile = () => {
     return(
         <div>
             <div className="profile-nav">
             <Navigation />
+            <FlashMessageList />
 
             <div class="container">
                             

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import InputFieldGroup from  './InputFieldGroup';
-import { browserHistory } from 'react-router';
 
 class SignUpForm extends Component{
     constructor(props){
@@ -35,9 +34,12 @@ class SignUpForm extends Component{
                type: 'sucess',
                text: 'You have successfully signup, welcome'
            })
-           this.context.router.history.push('/businessProfile');
+           this.context.router.history.push('/profile');
        },
-       (error) =>  this.setState({errors: error.response.data, isLoading: false})
+       (error) =>  {
+           Materialize.toast(errors.response.data.message, 4000, 'red accent-3 rounded');
+           this.setState({errors: error.response.data, isLoading: false});
+        }
     );
       
     }

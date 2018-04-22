@@ -5,8 +5,3 @@ export function userSignupRequest(userData){
         return axios.post('api/v1/auth/signup', userData)
     }
 }
-// const userSignupRequest = (userData) => {
-  
-// }
-
-// export default userSignupRequest;

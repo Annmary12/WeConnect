@@ -28,6 +28,36 @@ class Validation {
       }));
   }
 
+  static loginValidator(req, res, next) {
+    req.checkBody({
+      email: {
+        notEmpty: true,
+        isEmail: {
+          errorMessage: 'Provide a valid a Email Address'
+        },
+        errorMessage: 'Your Email Address is required'
+      },
+
+      password: {
+        notEmpty: true,
+        errorMessage: 'Your Password is required'
+      },
+    })
+    const errors = req.validationErrors();
+    if (errors) {
+      const allErrors = [];
+      errors.forEach((error) => {
+        allErrors.push({
+         message: error.msg
+        });
+      });
+      return res.status(404)
+        .json(allErrors[0]);
+    }
+
+    next();
+  }
+
   static signupValidator(req, res, next) {
     req.checkBody({
       firstname: {

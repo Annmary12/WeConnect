@@ -1,32 +1,43 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import InputField from './InputFieldGroup';
+import PropTypes from 'prop-types';
 
 class LoginForm extends Component{
     constructor(props){
         super(props);
         this.state = {
-            data: {
-                email: '',
-                password: ''
-            },
+        email: '',
+        password: '',
         loading: false,
         errors: {},
         }
         this.onChange = this.onChange.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
     }
 
-    // onEmailChange = (event) => {
-    //     this.setState({signInEmail: event.target.value})
-    //   }
-
+    
     onChange(event)  {
     this.setState({ [event.target.name]: event.target.value });
 }
-// onChangeEmail = (event) => {
-//     this.setState()
-// }
+
+onSubmit(event){
+    this.setState({errors: {}, isLoading:true});
+    event.preventDefault();
+    this.props.userLoginRequest(this.state).then(
+        () => {
+        this.context.router.history.push('/profile');
+    },
+(errors) => {
+Materialize.toast(errors.response.data.message, 4000, 'red accent-3 rounded');
+this.setState({errors: error.response.data, isLoading: false});
+}
+);
+   
+}
+
     render() {
-        const { data } = this.state;
+        const { email, password, isLoading } = this.state;
         return(
             <div className="container login">
            
@@ -37,31 +48,41 @@ class LoginForm extends Component{
                                              <div className="col s5 login-left-box">
                                                      <p className="login-header"></p>
                                              </div>
+                                             <form onSubmit={this.onSubmit}>
                                              <div className="col s7" id="login-card">
-                                                        
-                                                         <div className="input-field">
-                                                                 <i className="material-icons prefix">email</i>
-                                                                 <input id="icon_prefix" type="email" name="email" value={this.email} onChange={this.onChange} className="validate" />
-                                                                 <label for="icon_prefix">Email</label>
-                                                               </div><br />
+                                                            <InputField 
+                                                                    onChange={this.onChange}
+                                                                    icon = 'email'
+                                                                    type= 'email'
+                                                                    name='email'
+                                                                    value={email}
+                                                                    label='Email'
+                                                                />
+                                                       
+                                                               <br />
+                                                               <InputField 
+                                                                    onChange={this.onChange}
+                                                                    icon = 'lock'
+                                                                    type= 'password'
+                                                                    name='password'
+                                                                    value={password}
+                                                                    label='Password'
+                                                                    />
 
-                                                               <div className="input-field">
-                                                                     <i className="material-icons prefix">lock</i>
-                                                                     <input id="icon_prefix" type="text" className="validate" />
-                                                                     <label for="icon_prefix">Password</label>
-                                                                   </div><br />
+                                                               <br />
                                                                    <div className="input-field">
-                                                                         <Link to='/profile' className="btn waves-effect waves-light btn_large" type="submit" name="action">login
+                                                                         <button className="btn waves-effect waves-light btn_large" type="submit" name="action">login
                                                                                  <i className="material-icons left">send</i>
-                                                                         </Link>
+                                                                         </button>
                                                                    </div><br />
                                                                    <span>Click here to <Link to='/signUp'>register</Link></span>
                                                                    <br />
                                                                   
                                                 
                                              </div>
-                                       
+                                             </form>
                                      </div>
+                                   
                                
                      </div>
                </div>
@@ -69,5 +90,11 @@ class LoginForm extends Component{
     }
 }
 
+LoginForm.propTypes = {
+    userLoginRequest: PropTypes.func.isRequired,
+}
+LoginForm.contextTypes = {
+    router: PropTypes.object.isRequired
+}
 
 export default LoginForm;
