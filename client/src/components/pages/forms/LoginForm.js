@@ -29,8 +29,9 @@ onSubmit(event){
         this.context.router.history.push('/profile');
     },
 (errors) => {
-Materialize.toast(errors.response.data.message, 4000, 'red accent-3 rounded');
-this.setState({errors: error.response.data, isLoading: false});
+    console.log(errors);
+// Materialize.toast(errors.response.data.message, 4000, 'red accent-3 rounded');
+// this.setState({errors: error.response.data, isLoading: false});
 }
 );
    
