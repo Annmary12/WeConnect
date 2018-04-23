@@ -8,6 +8,7 @@ class Navigation extends Component{
     logout(e){
         e.preventDefault();
         this.props.logout();
+        this.context.router.history.push('/');
     }
 
     render() {
@@ -55,6 +56,10 @@ function mapStateToProps(state) {
 Navigation.propTypes = {
     auth: PropTypes.object.isRequired,
     logout: PropTypes.func.isRequired,
+}
+
+Navigation.contextTypes = {
+    router: PropTypes.object.isRequired,
 }
 
 export default connect(mapStateToProps, {logout})(Navigation);
