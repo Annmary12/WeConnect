@@ -211,4 +211,49 @@ describe('POST /api/v1/auth/signin', () => {
         done();
       });
   });
+
+  it('Test for valid Mail Address', (done) => {
+    const checkuser = {
+      email: 'tochiadamsgmail.com',
+      password: 'secret123',
+    };
+
+    chai.request(server)
+      .post(`${BASE_URL}/auth/login`)
+      .send(checkuser)
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        done();
+      });
+  });
+
+  it('Test for Email Field Required', (done) => {
+    const checkuser = {
+      email: '',
+      password: 'secret123',
+    };
+
+    chai.request(server)
+      .post(`${BASE_URL}/auth/login`)
+      .send(checkuser)
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        done();
+      });
+  });
+
+  it('Test for Password Field Required', (done) => {
+    const checkuser = {
+      email: 'tochiadamsgmail.com',
+      password: '',
+    };
+
+    chai.request(server)
+      .post(`${BASE_URL}/auth/login`)
+      .send(checkuser)
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        done();
+      });
+  });
 });
