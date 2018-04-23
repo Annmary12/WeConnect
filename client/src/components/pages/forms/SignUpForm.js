@@ -30,10 +30,10 @@ class SignUpForm extends Component{
         e.preventDefault();
        this.props.userSignupRequest(this.state)
        .then(() => {
-           this.props.addFlashMessage({
-               type: 'sucess',
-               text: 'You have successfully signup, welcome'
-           })
+        //    this.props.addFlashMessage({
+        //        type: 'sucess',
+        //        text: 'You have successfully signup, welcome'
+        //    })
            this.context.router.history.push('/profile');
        },
        (error) =>  {
@@ -135,7 +135,7 @@ class SignUpForm extends Component{
 
 SignUpForm.propTypes = {
     userSignupRequest: PropTypes.func.isRequired,
-    addFlashMessage: PropTypes.func.isRequired
+   //  addFlashMessage: PropTypes.func.isRequired
 }
 SignUpForm.contextTypes = {
     router: PropTypes.object.isRequired
