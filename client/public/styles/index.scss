@@ -1,0 +1,129 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+  main {
+    flex: 1 0 auto;
+  }
+  
+  .logo{
+    color:#f4613d;
+}
+
+.nav-background{
+    background-image: url('../images/background3.png');
+    background-repeat:no-repeat;
+    background-position: center; 
+    background-size: cover;
+    height: 600px;
+}
+nav{
+    background: transparent; 
+    -webkit-box-shadow:0 0 0 0px;
+    box-shadow:0 0 0 0px;
+    padding:0 100px 0 120px;
+    
+ }
+ nav a:hover {
+    background: rgba(10, 8, 8, 0.897);
+    color: #f4613d;
+  }
+
+  .nav-wrapper{
+    
+    padding-top:  20px;
+}
+
+.header{
+    padding-top: 60px;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+section1{
+    padding-top:20px;
+}
+.page-footer{
+    background-color: #505050;
+    /* height: 180px; */
+}
+
+
+.login{
+    padding-top: 40px;
+    margin-top:50px;
+    margin-bottom: 40px;
+}
+
+#login-card{
+    padding-top:40px;
+    
+}
+
+.login-left-box{
+    background-image: url('../images/login3.jpg');
+    background-repeat:no-repeat;
+    background-size: auto;
+    height: 400px;
+}
+
+.login-background{
+background: rgb(216, 215, 215);
+}
+.card{
+    border-radius: 10px;
+}
+.login-header{
+    padding-top:100px;
+    color:#fff;
+    font-family:'Courier New', Courier, monospace;
+    font-size:25px;
+}
+
+.btn{
+    background-color: #f4613d;
+    
+}
+.btn:hover{
+    background-color:#6a6a68;
+}
+
+
+ .signup-left-box{
+    background-image: url('../images/login.jpg');
+    background-repeat:no-repeat;
+   
+    background-size: auto 680px;
+    height: 620px;
+}
+.sub-header{
+    color:#505052;
+}
+.alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.alert-success {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+.alert-info {
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
+}
+.alert-warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
+.alert-danger {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+

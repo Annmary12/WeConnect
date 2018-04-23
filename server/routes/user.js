@@ -3,7 +3,7 @@ import userController from '../controllers/users';
 import validation from '../middleware/validation';
 
 const { signup, login } = userController;
-const { emailExist, signupValidator } = validation;
+const { emailExist, signupValidator, loginValidator } = validation;
 const userRouter = express.Router();
 
 
@@ -12,6 +12,9 @@ userRouter.route('/signup').post(
   signupValidator,
   signup
 );
-userRouter.route('/login').post(login);
+userRouter.route('/login').post(
+  loginValidator,
+  login
+);
 
 export default userRouter;

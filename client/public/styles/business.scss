@@ -1,0 +1,102 @@
+.nav-business{
+    background-image: url('../images/business.jpg');
+    background-repeat:no-repeat; 
+    background-size: cover;
+    height: 350px;
+    
+}
+
+.search{
+    color:#fff;
+    margin-top: 215px;
+    padding-top:15px;
+    padding-bottom:15px;
+    position: relative;
+    background: #505050;
+   
+    
+}
+
+#activator{
+    height: 150px;
+}
+.card-image{
+    height: 150px; 
+}
+
+.business-section{
+    margin-top: 120px;
+    
+}
+
+.register-business{
+    padding-top: 170px;
+    padding-right:40px;
+    color:#f4613d;
+}
+
+.register-section{
+    padding-top:50px;
+    position:relative;
+}
+#button{
+    background-color:grey;
+}
+p{
+    line-height:1.5;
+    margin:30px 0;
+}
+
+.p-body{
+    font-size:20px;
+    color:#212529;
+    font-family: Lora,'Times New Roman',serif;
+}
+.label{
+    padding:10px;
+    background: #ffe180;
+    border-radius: 15px;
+}
+.imageReview{
+    border-radius: 50%;
+    background-size: cover;
+    height: 80px;
+    width:80px;
+    margin-top:30px;
+    }
+
+    .profile-image{
+        border-radius: 50%;
+        background-size: cover;
+        height: 150px;
+        width:150px;
+  
+    }
+    .image-nav{
+        border-radius: 50%;
+        background-size: cover;
+        height: 50px;
+        width:50px;
+       /* margin-top:30px; */
+    }
+    #search-button{
+        padding-top:25px;
+    }
+    .comment-by{
+        margin-top: -10px;
+    }
+    .side-card{
+        margin-top:40px;
+        border: 1px solid #737273;
+    }
+    .btn-flat{
+        border: 1px solid #737273;
+      
+    }
+    .sub-header-row{
+        margin-bottom: 0px;
+    }
+
+   .btn-flat:hover{
+        background-color:#f1f1f1;
+    }
