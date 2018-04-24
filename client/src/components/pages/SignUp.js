@@ -23,7 +23,7 @@ render(){
 }
 
 
-SignUp.protoTypes = {
+SignUp.propTypes = {
         userSignupRequest: PropTypes.func.isRequired,
         // addFlashMessage: PropTypes.func.isRequired
 }
