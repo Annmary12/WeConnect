@@ -27,17 +27,10 @@ onChange(e){
 
 onSubmit(e){
   this.setState({errors: {}, isLoading:true});
-  e.preventDefault();
-  this.props.createBusinessRequest(this.state).then(
-    () => {
-      console.log('there is no error');
-      this.context.router.history.push('/profile');
-     },
-      () => {
-        console.log('there is an error');
+  this.onSubmit(this.state).catch((error) => {
         Materialize.toast(errors.response.data.message, 4000, 'red accent-3 rounded');
         this.setState({errors: error.response.data, isLoading: false});
-      })
+      });
 }
 render(){
   const { name, description, phoneNumber, address, image, location, category, website, isLoading } = this.state;

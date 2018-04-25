@@ -3,10 +3,14 @@ import Navigation from './Navigation';
 import Footer from './Footer';
 import CreateBusinessForm from './forms/CreateBusinessForm';
 import { connect } from 'react-redux';
-import createBusinessRequest from '../../actions/BusinessAction';
+import { createBusinessRequest } from '../../actions/BusinessAction';
 import PropTypes from 'prop-types';
 
 class CreateBusiness extends Component {
+    onSubmit(business){
+        this.props.createBusinessRequest(business)
+            .then(() => console.log('business created'));
+    }
     render(){
         return(
             <div>
@@ -22,7 +26,7 @@ class CreateBusiness extends Component {
                   
                </div>
     
-               <CreateBusinessForm createBusinessRequest={createBusinessRequest} />
+               <CreateBusinessForm onSubmit={this.onSubmit} />
                 <Footer />
     </div>
             </div>
