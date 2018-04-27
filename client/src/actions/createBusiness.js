@@ -15,10 +15,12 @@ export function createBusinessError(error){
     }
 }
 
-export const createBusinessRequest = bookData => dispatch => axios.post('api/v1/business/', bookData)
+export const createBusinessRequest = bookData => dispatch => axios.post('api/v1/businesses/', bookData)
     .then((res) => {
-        dispatch(createBusinessResponse(res.data));
+        //console.log(res.data.business);
+        dispatch(createBusinessResponse(res.data.business));
     }).catch((error) => {
+      
         dispatch(createBusinessError(error));
     });
 

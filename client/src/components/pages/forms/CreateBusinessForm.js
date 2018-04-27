@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { createBusinessRequest } from '../../../actions/BusinessAction';
+import { createBusinessRequest } from '../../../actions/createBusiness';
 import { connect } from 'react-redux';
+import {Input, Row} from 'react-materialize'
 
 
 class CreateBusinessForm extends Component{
@@ -37,18 +38,28 @@ onChange(e){
 // }
 
 onSubmit(e){
-  this.setState({errors: {}, isLoading:true});
   e.preventDefault();
+  this.setState({errors: {}, isLoading:true});
   this.props.createBusinessRequest(this.state)
               .then(() => {
+               //  this.context.router.history('/profile');
                 if(this.props.createBusinessResponse.isCreated === true ){
                   this.context.router.history('/profile');
                   Materialize.toast('Sucessfully Created', 4000, 'red accent-3 rounded');
+                  console.log('sucessful');
                 }
                 else if (this.props.createBusinessResponse.isCreated === false && this.props.createBusinessResponse.error){
+                  this.setState({errors: error.response.data, isLoading: false});
                   Materialize.toast(this.props.createBusinessResponse.error.response.data, 4000, 'red accent-3 rounded');
+                  console.log('error');
                 }
               })
+              // .catch( (errors) => {
+              //   Materialize.toast(errors.response.data.message, 4000, 'red accent-3 rounded');
+              //  this.setState({errors: errors.response.data, isLoading: false});
+              //  console.log(this.state.errors);
+              // })
+          
 //   this.props.createBusinessRequest(() => {
 //     this.context.router.history.push('/profile');
 //   },
@@ -57,6 +68,7 @@ onSubmit(e){
 //   this.setState({errors: error.response.data, isLoading: false});
 // });
 }
+
 //   this.props.onSubmit(this.state).catch((error) => {
 //         Materialize.toast(errors.response.data.message, 4000, 'red accent-3 rounded');
 //         this.setState({errors: error.response.data, isLoading: false});
@@ -122,36 +134,37 @@ render(){
     
     
 
-                                      <div className="input-field">
-                                            <i className="material-icons prefix">label</i>
-                                            <select
-                                              id='category'
-                                               name='category'
-                                               onChange={this.onChange}
-                                               value={category}
-                                               >
-                                                    <option value="" disabled selected>Choose Category</option>
-                                                    <option value="IT">IT</option>
-                                                    <option value="Marketing">Marketing</option>
-                                                    <option value="Sports">Sports</option>
-                                             </select>
-                                             
-                                </div>
-
-                                <div className="input-field">
-                                        <i className="material-icons prefix">location_on</i>
-                                                <select
-                                                     id='loaction'
-                                                     name="location"
-                                                     onChange={this.onChange}
-                                                     value={location}
-                                                >
-                                                    <option value="" disabled selected>Choose Location</option>
-                                                    <option value="Abia">Abia</option>
+                                    <Row>
+                                      <Input s={12}
+                                           type='select'
+                                            label='Select Location'
+                                             icon='location_on'
+                                             defaultValue={location}
+                                             name='location'
+                                             onChange={this.onChange}
+                                             >
+                                                   < option value="Abia">Abia</option>
                                                     <option value="Abuja">Abuja</option>
                                                     <option value="Lagos">Lagos</option>
-                                                </select>
-                                        </div>
+                                      </Input>
+                                    </Row>
+
+                                    <Row>
+                                      <Input s={12}
+                                           type='select'
+                                            label='Select Category'
+                                             icon='label'
+                                             defaultValue={category}
+                                             name='category'
+                                             onChange={this.onChange}
+                                             >
+                                         <option value="IT">IT</option>
+                                         <option value="Marketing">Marketing</option>
+                                          <option value="Sports">Sports</option>
+                                      </Input>
+                                    </Row>
+
+                                
 
                                          <div className="input-field">
                                         <i className="material-icons prefix">web</i>
