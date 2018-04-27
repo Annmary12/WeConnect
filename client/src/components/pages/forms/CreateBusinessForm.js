@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { createBusinessRequest } from '../../../actions/BusinessAction';
+import { connect } from 'react-redux';
 
 
 class CreateBusinessForm extends Component{
@@ -21,17 +23,45 @@ constructor(props){
   this.onSubmit = this.onSubmit.bind(this);
 }
 
+// componentDidMount() {
+//   $('select').material_select();
+// }
+
 onChange(e){
  this.setState({ [e.target.name]: e.target.value});
 }
 
+// onSubmit(business) {
+//   this.props.createBusinessRequest(business)
+//       .then(() => Console.log('Business created'));
+// }
+
 onSubmit(e){
   this.setState({errors: {}, isLoading:true});
-  this.onSubmit(this.state).catch((error) => {
-        Materialize.toast(errors.response.data.message, 4000, 'red accent-3 rounded');
-        this.setState({errors: error.response.data, isLoading: false});
-      });
+  e.preventDefault();
+  this.props.createBusinessRequest(this.state)
+              .then(() => {
+                if(this.props.createBusinessResponse.isCreated === true ){
+                  this.context.router.history('/profile');
+                  Materialize.toast('Sucessfully Created', 4000, 'red accent-3 rounded');
+                }
+                else if (this.props.createBusinessResponse.isCreated === false && this.props.createBusinessResponse.error){
+                  Materialize.toast(this.props.createBusinessResponse.error.response.data, 4000, 'red accent-3 rounded');
+                }
+              })
+//   this.props.createBusinessRequest(() => {
+//     this.context.router.history.push('/profile');
+//   },
+// (error) => {
+//   Materialize.toast(errors.response.data.message, 4000, 'red accent-3 rounded');
+//   this.setState({errors: error.response.data, isLoading: false});
+// });
 }
+//   this.props.onSubmit(this.state).catch((error) => {
+//         Materialize.toast(errors.response.data.message, 4000, 'red accent-3 rounded');
+//         this.setState({errors: error.response.data, isLoading: false});
+//       });
+// }
 render(){
   const { name, description, phoneNumber, address, image, location, category, website, isLoading } = this.state;
   return(
@@ -162,9 +192,11 @@ render(){
 }
 }
 
-
+CreateBusinessForm.propTypes = {
+  createBusinessRequest: PropTypes.func.isRequired,
+}
 
 CreateBusinessForm.contextType = {
   router: PropTypes.object.isRequired,
 }
-export default CreateBusinessForm;
+export default connect(null, { createBusinessRequest})(CreateBusinessForm);
