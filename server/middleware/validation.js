@@ -129,10 +129,10 @@ class Validation {
         notEmpty: true,
         errorMessage: 'Location Field Required'
       },
-      category: {
-        notEmpty: true,
-        errorMessage: 'Category Field Required'
-      },
+      // category: {
+      //   notEmpty: true,
+      //   errorMessage: 'Category Field Required'
+      // },
 
 
     });
@@ -147,7 +147,7 @@ class Validation {
       });
 
       return res.status(404)
-        .json(allErrors);
+      .json(allErrors[0]);
     }
     next();
   }
