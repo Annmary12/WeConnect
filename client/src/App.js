@@ -13,7 +13,7 @@ import jwt from 'jsonwebtoken';
 import { setCurrentUser } from './actions/login';
 
 
-const store = createStore(
+const store = createStore( 
    reducer,
    compose(
     applyMiddleware(thunk),
