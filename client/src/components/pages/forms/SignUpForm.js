@@ -9,42 +9,41 @@ class SignUpForm extends Component{
   constructor(props){
     super(props);
     this.state = {
-        errors: {},
-        firstname: '',
-        lastname: '',
-        email: '',
-        password: '',
-        confirm_password: '',
-        isLoading: false,    
+      firstname: '',
+      lastname: '',
+      email: '',
+      password: '',
+      confirm_password: '',
+      isLoading: false,    
     }
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+    componentWillReceiveProps(nextProps) {
+      if(nextProps.signUpData.hasError){
+        Materialize.toast(nextProps.signUpData.error.message, 4000, 'red accent-3 rounded');
+      } else {
+        this.context.router.history.push('/profile');
+      }
     }
 
-    onChange(event){
+    onChange = (event) => {
       this.setState({ [event.target.name]: event.target.value});
     }
 
-    onSubmit(event) {
+    onSubmit = (event) => {
       event.preventDefault();
-      this.props.userSignupRequest(this.state)
-      .then(() => {
-        this.context.router.history.push('/profile');
-      })
-      .catch((error)=>{
-        console.log(error.response.data)
-      })
+      this.props.userSignupRequest(this.state);
     }
     
     render() {
-     const { errors } = this.state;
      return (
       <div className="container login">
         <div className="row">
           <div className="col s11 offset-s1 card">
-            {errors && <span className="align-center">{errors.message}</span> }
             <div className="col s5 signup-left-box">
-              <p className="login-header">With your business ideas and collaboration, we make the world a better place!!!</p>
+              <p className="login-header">
+                With your business ideas and collaboration, we make the world a better place!!!
+              </p>
             </div>                     
             <div className="col s7" id="login-card">
               <form onSubmit={this.onSubmit}>
@@ -90,8 +89,13 @@ class SignUpForm extends Component{
                 />
                 <br/>
                 <div className="input-field">
-                  <button className="btn waves-effect waves-light btn_large" type="submit" name="action" disabled={this.state.isLoading}>SIGNUP
-                    <i className="material-icons left">send</i>
+                  <button 
+                    className="btn waves-effect waves-light btn_large" 
+                    type="submit" 
+                    name="action" 
+                    disabled={this.state.isLoading}
+                  >
+                    SIGNUP<i className="material-icons left">send</i>
                   </button>
                 </div>
                 <br/>
@@ -106,14 +110,19 @@ class SignUpForm extends Component{
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    signUpData: state.auth
+  }
+}
+
 SignUpForm.propTypes = {
   userSignupRequest: PropTypes.func.isRequired,
-   //  addFlashMessage: PropTypes.func.isRequired
 }
 
 SignUpForm.contextTypes = {
   router: PropTypes.object.isRequired
 }
 
-export default connect(null, {userSignupRequest})(SignUpForm);
+export default connect(mapStateToProps, {userSignupRequest})(SignUpForm);
 

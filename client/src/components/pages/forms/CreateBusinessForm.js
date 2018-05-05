@@ -21,24 +21,29 @@ constructor(props){
     isLoading: false,
     isCreated: ''
   }
-  this.onChange = this.onChange.bind(this);
-  this.onSubmit = this.onSubmit.bind(this);
-}
-
-onChange(e){
- this.setState({ [e.target.name]: e.target.value});
-}
-
-
-
-onSubmit(e){
-  e.preventDefault();
   
+}
+
+onChange = (event) => {
+ this.setState({ [event.target.name]: event.target.value});
+}
+
+onSubmit = (event) => {
+  e.preventDefault();
 }
 
 
 render(){
-  const { name, description, phoneNumber, address, image, location, category, website, isLoading } = this.state;
+  const {
+    name, 
+    description,
+    phoneNumber,
+    address, 
+    image, 
+    location, 
+    category, 
+    website
+  } = this.state;
   return(
     <div>
         <div className="container">
@@ -175,4 +180,4 @@ CreateBusinessForm.propTypes = {
 // CreateBusinessForm.contextType = {
 //   router: PropTypes.object.isRequired,
 // }
-export default connect(null, { createBusinessRequest})(CreateBusinessForm);
+export default connect(createBusinessRequest, { createBusinessRequest})(CreateBusinessForm);
