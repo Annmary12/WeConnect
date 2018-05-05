@@ -18,62 +18,25 @@ constructor(props){
     category: '',
     website: '',
     errors: {},
-    isLoading: false
+    isLoading: false,
+    isCreated: ''
   }
   this.onChange = this.onChange.bind(this);
   this.onSubmit = this.onSubmit.bind(this);
 }
 
-// componentDidMount() {
-//   $('select').material_select();
-// }
-
 onChange(e){
  this.setState({ [e.target.name]: e.target.value});
 }
 
-// onSubmit(business) {
-//   this.props.createBusinessRequest(business)
-//       .then(() => Console.log('Business created'));
-// }
+
 
 onSubmit(e){
   e.preventDefault();
-  this.setState({errors: {}, isLoading:true});
-  this.props.createBusinessRequest(this.state)
-              .then(() => {
-               //  this.context.router.history('/profile');
-                if(this.props.createBusinessResponse.isCreated === true ){
-                  this.context.router.history('/profile');
-                  Materialize.toast('Sucessfully Created', 4000, 'red accent-3 rounded');
-                  console.log('sucessful');
-                }
-                else if (this.props.createBusinessResponse.isCreated === false && this.props.createBusinessResponse.error){
-                  this.setState({errors: error.response.data, isLoading: false});
-                  Materialize.toast(this.props.createBusinessResponse.error.response.data, 4000, 'red accent-3 rounded');
-                  console.log('error');
-                }
-              })
-              // .catch( (errors) => {
-              //   Materialize.toast(errors.response.data.message, 4000, 'red accent-3 rounded');
-              //  this.setState({errors: errors.response.data, isLoading: false});
-              //  console.log(this.state.errors);
-              // })
-          
-//   this.props.createBusinessRequest(() => {
-//     this.context.router.history.push('/profile');
-//   },
-// (error) => {
-//   Materialize.toast(errors.response.data.message, 4000, 'red accent-3 rounded');
-//   this.setState({errors: error.response.data, isLoading: false});
-// });
+  
 }
 
-//   this.props.onSubmit(this.state).catch((error) => {
-//         Materialize.toast(errors.response.data.message, 4000, 'red accent-3 rounded');
-//         this.setState({errors: error.response.data, isLoading: false});
-//       });
-// }
+
 render(){
   const { name, description, phoneNumber, address, image, location, category, website, isLoading } = this.state;
   return(
@@ -209,7 +172,7 @@ CreateBusinessForm.propTypes = {
   createBusinessRequest: PropTypes.func.isRequired,
 }
 
-CreateBusinessForm.contextType = {
-  router: PropTypes.object.isRequired,
-}
+// CreateBusinessForm.contextType = {
+//   router: PropTypes.object.isRequired,
+// }
 export default connect(null, { createBusinessRequest})(CreateBusinessForm);
