@@ -1,7 +1,6 @@
 import React from 'react';
 
-const ReviewList = () => {
-    return(
+const ReviewList = () => (
         <div>
              <div class="row">
                             <div class="col s12 m2 l2">
@@ -25,7 +24,6 @@ const ReviewList = () => {
                             </div>
                           </div><hr/>
          </div>
-    )
-}
+    );
 
 export default ReviewList;

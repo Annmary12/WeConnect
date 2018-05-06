@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Card = () => {
-    return(
+const Card = () => (
         <div className="card" style={{ overflow: 'visible' }}>
         <div className="card-image waves-effect waves-block waves-light">
           <img className="activator" id="activator" src={require('../../../public/images/bu.jpg')} />
@@ -22,7 +21,6 @@ const Card = () => {
          
         </div>
       </div>
-    )
-}
+    );
 
 export default Card;

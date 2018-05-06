@@ -1,44 +1,32 @@
 import axios from 'axios';
-import { CREATE_BUSINESS_SUCCESSFUL, CREATE_BUSINESS_FAILED} from './types';
+import { CREATE_BUSINESS_SUCCESSFUL, CREATE_BUSINESS_FAILED } from './types';
 
-export function createBusinessResponse(response){
-    return {
-        type: CREATE_BUSINESS_SUCCESSFUL,
-        response
-    };
+/**
+ *
+ * @param {object} response
+ * @returns {object} response
+ */
+export function createBusinessResponse() {
+  return {
+    type: CREATE_BUSINESS_SUCCESSFUL,
+  };
 }
 
-export function createBusinessError(error){
-    return {
-        type: CREATE_BUSINESS_FAILED,
-        error
-    }
+/**
+ *
+ * @param {object} error
+ * @returns {object} error
+ */
+export function createBusinessError(error) {
+  return {
+    type: CREATE_BUSINESS_FAILED,
+    error
+  };
 }
 
 export const createBusinessRequest = bookData => dispatch => axios.post('api/v1/businesses/', bookData)
-    .then((res) => {
-        //console.log(res.data.business);
-        dispatch(createBusinessResponse(res.data.business));
-    }).catch((error) => {
-      
-        dispatch(createBusinessError(error));
-    });
-
-
-// import axios from 'axios';
-
-// export function addBusiness(business){
-//     return {
-//         type: 'ADD_BUSINESS',
-//         business
-//     }
-// }
-
-// export function createBusinessRequest(businessData){
-//     return dispatch => {
-//         return axios.post('api/v1/business/', businessData)
-//         .then(businessData => {
-//             dispatch(addBusiness(businessData.data.business))
-//     });
-// }
-// }
+  .then(() => {
+    dispatch(createBusinessResponse());
+  }).catch((error) => {
+    dispatch(createBusinessError(error));
+  });

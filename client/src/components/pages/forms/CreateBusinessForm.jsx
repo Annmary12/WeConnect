@@ -1,50 +1,92 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Input, Row } from 'react-materialize';
 import PropTypes from 'prop-types';
 import { createBusinessRequest } from '../../../actions/createBusiness';
-import { connect } from 'react-redux';
-import {Input, Row} from 'react-materialize'
 
-
-class CreateBusinessForm extends Component{
-constructor(props){
-  super(props);
-  this.state = {
-    name: '',
-    description: '',
-    phoneNumber: '',
-    address: '',
-    image: '',
-    location: '',
-    category: '',
-    website: '',
-    errors: {},
-    isLoading: false,
-    isCreated: ''
+/**
+ * @class CreateBusinessForm
+ */
+class CreateBusinessForm extends Component {
+  /**
+     * @constructor
+     * @param {object} props
+     */
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: '',
+      description: '',
+      phoneNumber: '',
+      address: '',
+      image: '',
+      location: '',
+      category: '',
+      website: '',
+      errors: {},
+      isLoading: false,
+      isCreated: ''
+    };
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
   }
-  
-}
 
-onChange = (event) => {
- this.setState({ [event.target.name]: event.target.value});
-}
+  /**
+ * Handles change of values in state
+ * @param {object} event
+ *
+ * @returns {object} SyntheticEvent
+ */
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
 
-onSubmit = (event) => {
-  e.preventDefault();
-}
+  /**
+ * Submits business form
+ * @param {object} event
+ *
+ * @returns {object} SyntheticEvent
+ */
+  onSubmit(event) {
+    event.preventDefault();
+    this.props.createBusinessRequest(this.state);
+  }
 
+  /**
+   * @param {object} nextProps
+   *
+   * @returns {object} assigns nextprops to state
+   */
+  componentWillReceiveProps(nextProps) {
+    const { isCreated, hasError, error } = nextProps.createBusinessData[0];
+    if (hasError) {
+      if (error.response) {
+        Materialize.toast(error.response.data, 4000, 'red accent-3 rounded');
+      } else {
+        Materialize.toast('There was an error submiting your request', 4000, 'red accent-3 rounded');
+      }
+    } else if (isCreated && !hasError) {
+      Materialize.toast('Success', 4000, 'red accent-3 rounded');
+    }
+  }
 
-render(){
-  const {
-    name, 
-    description,
-    phoneNumber,
-    address, 
-    image, 
-    location, 
-    category, 
-    website
-  } = this.state;
-  return(
+  /**
+     *
+     * React element markup
+     * @returns {object} markUp
+     */
+  render() {
+    const {
+      name,
+      description,
+      phoneNumber,
+      address,
+      // image,
+      location,
+      category,
+      website
+    } = this.state;
+    return (
     <div>
         <div className="container">
             <div className="row register-section">
@@ -54,53 +96,55 @@ render(){
                         <div className="card-content">
                                 <div className="input-field">
                                         <i className="material-icons prefix">face</i>
-                                        <input 
-                                            id="last_name" 
+                                        <input
+                                            id="last_name"
                                             type="text"
                                             name='name'
                                             onChange={this.onChange}
                                             value={name}
+                                            required
                                               />
                                         <label htmlFor="last_name">Business Name</label>
                                       </div>
-    
+
                                       <div className="input-field">
                                             <i className="material-icons prefix">description</i>
-                                            <textarea 
-                                                  id="textarea1" 
+                                            <textarea
+                                                  id="textarea1"
                                                   className="materialize-textarea"
                                                   name='description'
                                                   onChange={this.onChange}
-                                                  value={description}>
+                                                  value={description}
+                                                  required>
                                               </textarea>
                                             <label htmlFor="textarea1">Description of your business...</label>
                                          </div>
 
                                       <div className="input-field">
                                         <i className="material-icons prefix">location_city</i>
-                                        <input 
-                                            id="address" 
+                                        <input
+                                            id="address"
                                             type="text"
                                             name='address'
                                             onChange={this.onChange}
                                             value={address}
-                                              />
+                                            required/>
                                         <label htmlFor="last_name">Enter Address</label>
                                       </div>
 
                                        <div className="input-field">
                                         <i className="material-icons prefix">local_phone</i>
-                                        <input 
-                                            id="phoneNumber" 
+                                        <input
+                                            id="phoneNumber"
                                             type="number"
                                             name='phoneNumber'
                                             onChange={this.onChange}
                                             value={phoneNumber}
+                                            required
                                               />
                                         <label htmlFor="last_name">Enter Phone Number</label>
                                       </div>
-    
-    
+
 
                                     <Row>
                                       <Input s={12}
@@ -111,9 +155,10 @@ render(){
                                              name='location'
                                              onChange={this.onChange}
                                              >
-                                                   < option value="Abia">Abia</option>
-                                                    <option value="Abuja">Abuja</option>
-                                                    <option value="Lagos">Lagos</option>
+                                              < option value="">Select Location</option>
+                                              <option value="Abia">Abia</option>
+                                              <option value="Abuja">Abuja</option>
+                                              <option value="Lagos">Lagos</option>
                                       </Input>
                                     </Row>
 
@@ -126,18 +171,18 @@ render(){
                                              name='category'
                                              onChange={this.onChange}
                                              >
+                                          <option value="">Select Category</option>
                                          <option value="IT">IT</option>
                                          <option value="Marketing">Marketing</option>
                                           <option value="Sports">Sports</option>
                                       </Input>
                                     </Row>
 
-                                
 
                                          <div className="input-field">
                                         <i className="material-icons prefix">web</i>
-                                        <input 
-                                            id="website" 
+                                        <input
+                                            id="website"
                                             type="text"
                                             name='website'
                                             onChange={this.onChange}
@@ -166,18 +211,20 @@ render(){
                       </div>
                     </div>
                   </div>
-   
-    </div>
-    </div>
-)
-}
-}
 
+    </div>
+    </div>
+    );
+  }
+}
+const mapStateToProps = state => ({
+  createBusinessData: state.createBusiness
+});
 CreateBusinessForm.propTypes = {
   createBusinessRequest: PropTypes.func.isRequired,
-}
+};
 
 // CreateBusinessForm.contextType = {
 //   router: PropTypes.object.isRequired,
 // }
-export default connect(createBusinessRequest, { createBusinessRequest})(CreateBusinessForm);
+export default connect(mapStateToProps, { createBusinessRequest })(CreateBusinessForm);

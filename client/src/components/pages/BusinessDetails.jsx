@@ -1,8 +1,7 @@
 import React from 'react';
 import ReviewForm from './forms/ReviewForm';
 
-const BusinessDetails = () => {
-    return(
+const BusinessDetails = () => (
     <div className="busidetails">
             <div class=""><br/><br/><br/><br/><br/>
           <div class="row">
@@ -106,7 +105,6 @@ const BusinessDetails = () => {
     </div>
     </div>
   
-    )
-}
+    );
 
 export default BusinessDetails;

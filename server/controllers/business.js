@@ -11,11 +11,9 @@ dotenv.config();
    * 404 - Not Found
    * 400 - bad request
    */
-
 /**
- * @description - creates the Business components for read, create, update and delete businesses
+ *  @description - creates the Business components for read, create, update and delete businesses
  */
-
 class Business {
 /**
    * @description Gets all the businesses
@@ -110,9 +108,10 @@ class Business {
         message: 'Successfully Created',
         error: false
       }))
-      .catch(err => res.status(400).json({
-        error: err
-      }));
+      .catch((error) => {
+        const errorMessage = error.errors.map(value => value.message);
+        return res.status(400).send(errorMessage);
+      });
   }
 
   /**

@@ -45,7 +45,6 @@ describe('Business Test', () => {
         .send(business)
         .end((err, res) => {
           expect(res).to.have.status(404);
-          expect(res.body).to.be.a('array');
           done();
         });
     });
@@ -68,7 +67,6 @@ describe('Business Test', () => {
         .send(business)
         .end((err, res) => {
           expect(res).to.have.status(404);
-          expect(res.body).to.be.a('array');
           done();
         });
     });
@@ -91,7 +89,6 @@ describe('Business Test', () => {
         .send(business)
         .end((err, res) => {
           expect(res).to.have.status(404);
-          expect(res.body).to.be.a('array');
           done();
         });
     });
@@ -114,7 +111,6 @@ describe('Business Test', () => {
         .send(business)
         .end((err, res) => {
           expect(res).to.have.status(404);
-          expect(res.body).to.be.a('array');
           done();
         });
     });
@@ -137,7 +133,6 @@ describe('Business Test', () => {
         .send(business)
         .end((err, res) => {
           expect(res).to.have.status(404);
-          expect(res.body).to.be.a('array');
           done();
         });
     });
@@ -160,7 +155,6 @@ describe('Business Test', () => {
         .send(business)
         .end((err, res) => {
           expect(res).to.have.status(404);
-          expect(res.body).to.be.a('array');
           done();
         });
     });

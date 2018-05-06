@@ -14,7 +14,6 @@ const businesses = models.Business;
 /**
  * @description - creates Business Review components for get and create a review for a business
  */
-
 class Review {
 /**
    * @description Creates review for a business
@@ -37,7 +36,7 @@ class Review {
           const newReview = new reviewModel({
             context: req.body.context,
             userId: business.userId,
-            buisnessId: business.id
+            businessId: business.id
           });
 
           return newReview.save()
@@ -71,11 +70,11 @@ class Review {
    * @param {*} res - route response
    */
   static fetchReviews(req, res) {
-    const { buisnessId } = req.params;
+    const { businessId } = req.params;
     return businesses.findOne({ where: { id: req.params.businessId } })
       .then((business) => {
         if (business) {
-          return reviewModel.findAll({ where: { buisnessId } })
+          return reviewModel.findAll({ where: { businessId } })
             .then((reviews) => {
               if (!reviews.length) {
                 return res.status(200).json({

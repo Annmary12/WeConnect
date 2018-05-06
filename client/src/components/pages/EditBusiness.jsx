@@ -1,27 +1,27 @@
 import React from 'react';
 import Navigation from './Navigation';
 import Footer from './Footer';
-import BusinessDetails from './BusinessDetails';
+import EditBusinessForm from './forms/EditBusinessForm';
 
-const BusinessProfile = () => {
-    return(
-        <div className="">
-        <div class="nav-business">
+const EditBusiness = () => (
+        <div>
+            <div class="nav-business">
         <Navigation />
         <div class="container">
                             
                     <div class="row register-business">
-                        <div class="col s10 offset-s1">                           
+                        <div class="col s10 offset-s1">  
+                        <h3 class="center-align">Update Business</h3>                         
                         </div>      
                     </div>
               
            </div>
 
-           <BusinessDetails />
+           <EditBusinessForm />
             <Footer />
 </div>
         </div>
-    )
-}
+      
+    );
 
-export default BusinessProfile;
+export default EditBusiness;

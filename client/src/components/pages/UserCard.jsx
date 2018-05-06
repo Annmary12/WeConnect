@@ -1,8 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const UserCard = () => {
-    return(
+const UserCard = () => (
         <div>
              <div class="card" style={{overflow: 'visible'}}>
                                     <div class="card-image waves-effect waves-block waves-light">
@@ -25,7 +24,6 @@ const UserCard = () => {
                                     </div>
                                   </div>
         </div>
-    )
-}
+    );
 
 export default UserCard;

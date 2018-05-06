@@ -1,8 +1,7 @@
 import React from 'react';
 import Card from './Card';
 
-const FeacturedBusiness = () => {
-    return(
+const FeacturedBusiness = () => (
         <div>
         <div className="container"><br /><br />
             <div className="row section1">
@@ -24,6 +23,5 @@ const FeacturedBusiness = () => {
         </div>
     </div>
     </div>
-    )
-}
+    );
 export default FeacturedBusiness;

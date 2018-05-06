@@ -1,7 +1,6 @@
 import React from 'react';
 
-const Footer = () => {
-    return(
+const Footer = () => (
         <footer className="page-footer">
         <div className="footer-copyright">
           <div className="container center-align">
@@ -10,7 +9,6 @@ const Footer = () => {
           </div>
         </div>
       </footer>
-    )
-}
+    );
 
 export default Footer;
