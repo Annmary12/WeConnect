@@ -1,7 +1,6 @@
 import React from 'react';
 
-const Search = () => {
-    return(
+const Search = () => (
         <div>
                     <div className="container search-box">
                             
@@ -51,7 +50,6 @@ const Search = () => {
                       
                    </div>
                 </div>
-    )
-}
+    );
 
 export default Search;

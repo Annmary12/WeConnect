@@ -21,7 +21,6 @@ const secret = process.env.secretKey;
  * @class User
  * @description - creates User components for signup and login user
  */
-
 class User {
   /**
     * @description Signup a new user

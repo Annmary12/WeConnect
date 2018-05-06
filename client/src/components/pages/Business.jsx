@@ -4,8 +4,7 @@ import Footer from './Footer';
 import Search from './Search';
 import Card from './Card';
 
-const Business = () => {
-    return(
+const Business = () => (
         <div >
             <div className="nav-business">
             <Navigation />
@@ -15,7 +14,7 @@ const Business = () => {
             <div className="container business-section">
             <div className="row section1">
               <div className="row sub-header-row">
-                <div  className="col s6"> <h5 className="sub-header">IT</h5></div>
+                <div className="col s6"> <h5 className="sub-header">IT</h5></div>
                 <div className="col s6 right-align"> <button className="btn-flat waves-effect waves-light" type="submit" name="action">view all
                     <i className="material-icons right">chevron_right</i>
                   </button></div>
@@ -63,7 +62,6 @@ const Business = () => {
 
             <Footer />
         </div>
-    )
-}
+    );
 
 export default Business;

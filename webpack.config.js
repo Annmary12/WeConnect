@@ -26,6 +26,14 @@ module.exports = {
         }
       },
       {
+        test: /\.jsx?$/,
+        include: path.join(__dirname, 'client'),
+        loader: 'babel-loader',
+        query: {
+          presets: ['es2015', 'react']
+        }
+      },
+      {
         test: /\.scss$/,
         use: [
           {
@@ -48,5 +56,8 @@ module.exports = {
   node: {
     net: 'empty',
     dns: 'empty'
+  },
+  resolve: {
+    extensions: ['*', '.js', '.jsx', '.scss', '.jpg', '.png', '.gif', '.jpeg']
   }
 };

@@ -2,7 +2,17 @@ import models from '../models/index';
 
 const userModel = models.User;
 
+/**
+ * class for input validation
+ */
 class Validation {
+  /**
+   * @description - checks the id passed is an integer
+   * @param {*} req - api request
+   * @param {*} res - route response
+   * @param {*} next - next function
+   * @returns {object} - error message
+   */
   static idChecker(req, res, next) {
     const { businessId } = req.params;
     const numbers = /^[0-9]+$/;
@@ -13,6 +23,13 @@ class Validation {
     }
     next();
   }
+  /**
+   *
+   * @param {*} req - api request
+   * @param {*} res - route response
+   * @param {*} next - next action
+   * @returns{object} - error message
+   */
   static emailExist(req, res, next) {
     return userModel.findOne({ where: { email: req.body.email } })
       .then((userExist) => {
@@ -27,7 +44,13 @@ class Validation {
         error
       }));
   }
-
+  /**
+  *
+  * @param {*} req - api request
+  * @param {*} res - route response
+  * @param {*} next - next action
+  * @returns{array} - error message
+  */
   static loginValidator(req, res, next) {
     req.checkBody({
       email: {
@@ -42,13 +65,13 @@ class Validation {
         notEmpty: true,
         errorMessage: 'Your Password is required'
       },
-    })
+    });
     const errors = req.validationErrors();
     if (errors) {
       const allErrors = [];
       errors.forEach((error) => {
         allErrors.push({
-         message: error.msg
+          message: error.msg
         });
       });
       return res.status(404)
@@ -57,7 +80,13 @@ class Validation {
 
     next();
   }
-
+  /**
+*
+ * @param {*} req - api request
+ * @param {*} res - route response
+ * @param {*} next - next action
+ * @returns {array} - error message
+ */
   static signupValidator(req, res, next) {
     req.checkBody({
       firstname: {
@@ -86,7 +115,7 @@ class Validation {
       confirm_password: {
         notEmpty: true,
         errorMessage: 'Confirm Password is required'
-        
+
       }
     });
 
@@ -95,7 +124,7 @@ class Validation {
       const allErrors = [];
       errors.forEach((error) => {
         allErrors.push({
-         message: error.msg
+          message: error.msg
         });
       });
       return res.status(404)
@@ -105,8 +134,13 @@ class Validation {
     next();
   }
 
-  
-
+  /**
+ *
+ * @param {*} req - api request
+ * @param {*} res - route response
+ * @param {*} next - next function
+ * @returns {array} - of error message
+ */
   static businessValidator(req, res, next) {
     req.checkBody({
       name: {
@@ -129,12 +163,6 @@ class Validation {
         notEmpty: true,
         errorMessage: 'Location Field Required'
       },
-      // category: {
-      //   notEmpty: true,
-      //   errorMessage: 'Category Field Required'
-      // },
-
-
     });
 
     const errors = req.validationErrors();
@@ -147,7 +175,7 @@ class Validation {
       });
 
       return res.status(404)
-      .json(allErrors[0]);
+        .json(allErrors[0]);
     }
     next();
   }

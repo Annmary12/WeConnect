@@ -6,8 +6,7 @@ import Footer from './Footer';
 // import StyleCss from '../../../public/styles/index.scss';
 // import BusinessCss from '../css/business.css';
 
-const Home = () => {
-    return(
+const Home = () => (
       <div className="home">
         <div className="nav-background">
         <NavigationPage />
@@ -23,6 +22,5 @@ const Home = () => {
         <Footer />
         </div>
     );
-}
 
 export default Home;

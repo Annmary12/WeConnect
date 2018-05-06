@@ -13,29 +13,25 @@ import jwt from 'jsonwebtoken';
 import { setCurrentUser } from './actions/login';
 
 
-const store = createStore( 
-   reducer,
-   compose(
+const store = createStore(
+  reducer,
+  compose(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : f => f
-   )
-    
+  )
+
 );
 
-if(localStorage.jwtToken){
-    setAuthorizationToken(localStorage.jwtToken);
-    store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
+if (localStorage.jwtToken) {
+  setAuthorizationToken(localStorage.jwtToken);
+  store.dispatch(setCurrentUser(jwt.decode(localStorage.jwtToken)));
 }
 
 
-const App = () => {
-    return(
+const App = () => (
         <Provider store={store}>
          <Router />
          </Provider>
-     
-        );
-    
-  
-}
+
+);
 export default App;
