@@ -163,6 +163,10 @@ class Validation {
         notEmpty: true,
         errorMessage: 'Location Field Required'
       },
+      category: {
+        notEmpty: true,
+        errorMessage: 'Category Field Required'
+      },
     });
 
     const errors = req.validationErrors();

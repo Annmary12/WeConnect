@@ -48,13 +48,7 @@ class Business {
    * @param {*} res - api response
    */
   static getBusiness(req, res) {
-    // const numbers = /^[0-9]+$/;
-    // if (!req.params.businessId.match(numbers)) {
-    //   return res.status(400).json({
-    //     message: 'Invalid Id'
-    //   });
-    // }
-
+  
     return businessModel.findById(req.params.businessId)
       .then((businesses) => {
         if (businesses) {
@@ -109,8 +103,8 @@ class Business {
         error: false
       }))
       .catch((error) => {
-        const errorMessage = error.errors.map(value => value.message);
-        return res.status(400).send(errorMessage);
+          const errorMessage = error.errors.map(value => value.message);
+          return res.status(400).send(errorMessage);
       });
   }
 
