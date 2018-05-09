@@ -1,10 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Navigation from './Navigation';
 import Footer from './Footer';
 import BusinessDetails from './BusinessDetails';
+import { fetchOneBusinessRequest } from '../../actions/fetchBusinesses';
 
-const BusinessProfile = () => (
-        <div className="">
+class BusinessProfile extends Component{
+    constructor(props){
+        super(props);
+        this.renderBusiness = this.renderBusiness.bind(this);
+    }
+    componentWillMount(){
+        this.props.fetchOneBusinessRequest(this.props.match.params.id);
+    }
+    renderBusiness() {
+        const { business } = this.props;
+        return (
+         
+            <BusinessDetails 
+           // name={business.name}
+        //    description={business.description}
+        //    location={business.location}
+        //    category={business.category}
+           />
+            
+          
+        ) 
+      }
+
+    render(){
+        const business  = this.props.business.oneBusiness;
+        console.log(business.id);
+        return(
+            <div className="">
         <div class="nav-business">
         <Navigation />
         <div class="container">
@@ -16,10 +44,18 @@ const BusinessProfile = () => (
               
            </div>
 
-           <BusinessDetails />
+           {this.renderBusiness()}
             <Footer />
 </div>
         </div>
-    );
+        )
+    }
 
-export default BusinessProfile;
+}
+
+
+const mapStateToProps = state => ({
+    business: state.BusinessReducer
+});
+
+export default connect(mapStateToProps, { fetchOneBusinessRequest })(BusinessProfile);

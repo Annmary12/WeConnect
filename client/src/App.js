@@ -7,14 +7,14 @@ import thunk from 'redux-thunk';
 import Stylecss from '../public/styles/index.scss';
 import BusinessCss from '../public/styles/business.scss';
 import ProfileCss from '../public/styles/profile.scss';
-import reducer from './rootReducer';
+import rootReducer from './rootReducer';
 import setAuthorizationToken from './utils/setAuthorizationToken';
 import jwt from 'jsonwebtoken';
 import { setCurrentUser } from './actions/login';
 
 
 const store = createStore(
-  reducer,
+  rootReducer,
   compose(
     applyMiddleware(thunk),
     window.devToolsExtension ? window.devToolsExtension() : f => f
