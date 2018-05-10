@@ -24,6 +24,11 @@ export function createBusinessError(error) {
   };
 }
 
+/**
+ * @description action to create a new business
+ * @param {object} userData
+ * @returns {object} userData
+ */
 export const createBusinessRequest = business => dispatch => axios.post('api/v1/businesses/', business)
   .then(() => {
     dispatch(createBusinessResponse());

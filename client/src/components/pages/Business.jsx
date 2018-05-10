@@ -4,15 +4,21 @@ import PropTypes from 'prop-types';
 import Navigation from './Navigation';
 import Footer from './Footer';
 import Search from './Search';
-// import CardList from './CardList';
 import Card from './Card';
 import { fetchBusinessesRequest } from '../../actions/fetchBusinesses';
 
+/**
+ * @class Business
+ */
 class Business extends Component{
+  /**
+     * @constructor
+     * @param {object} props
+     */
   constructor(props) {
     super(props);
     this.state = {
-      loader: false
+      // loader: false
     }
     this.renderBusiness = this.renderBusiness.bind(this);
   }
@@ -26,26 +32,24 @@ renderBusiness() {
     allBusiness.map((business) => (
       <div className="col s12 m6 l4">
           <Card 
-          key={business.id}
-          id={business.id}
-          name={business.name}
-          description={business.description}/>
+            key={business.id}
+            id={business.id}
+            name={business.name}
+            description={business.description}
+           />
       </div>
       
     ))
   ) 
 }
   render(){
-      //const { businesses } = this.props;
-      // const businesses = this.props.businesses;
-      // console.log(businesses);
+    // console.log(this.props.businesses);
     return(
       <div>
         <div className="nav-business">
-            <Navigation />
-            <Search />
+          <Navigation />
+          <Search />
         </div>
-
         <div className="container business-section">
             <div className="row section1">
               <div className="row sub-header-row">
@@ -60,9 +64,7 @@ renderBusiness() {
               </div>
             <hr /><br/>
             <div className="row">
-                  
-                    {this.renderBusiness()}
-                  
+              {this.renderBusiness()}
             </div>
                 <div className="row sub-header-row">
                   <div  className="col s6">  

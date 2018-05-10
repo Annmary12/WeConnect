@@ -16,7 +16,8 @@ export function setCurrentUser(user) {
 }
 
 /**
- *
+ * 
+ * @description action to login a user
  * @param {object} userData
  * @returns {object} userData
  */

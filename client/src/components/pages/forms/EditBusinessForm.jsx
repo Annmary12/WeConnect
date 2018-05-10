@@ -12,23 +12,23 @@ class EditBusinessForm extends Component {
      */
   render() {
     return (
-      <div class="container">
-        <div class="row register-section">
-          <div class="col s10 offset-s1">
-            <div class="card">
-              <div class="card-content">
-                <div class="input-field">
-                  <i class="material-icons prefix">face</i>
-                  <input id="last_name" type="text" class="validate" value="Smart Phone" />
+      <div className="container">
+        <div className="row register-section">
+          <div className="col s10 offset-s1">
+            <div className="card">
+              <div className="card-content">
+                <div className="input-field">
+                  <i className="material-icons prefix">face</i>
+                  <input id="last_name" type="text" className="validate" value="Smart Phone" />
                   <label for="last_name">Business Name</label>
                 </div>
-                <div class="input-field">
-                  <i class="material-icons prefix">description</i>
-                  <textarea id="textarea1" class="materialize-textarea" value="">Smart phone description</textarea>
+                <div className="input-field">
+                  <i className="material-icons prefix">description</i>
+                  <textarea id="textarea1" className="materialize-textarea" value="">Smart phone description</textarea>
                   <label for="textarea1">Description of your business...</label>
                 </div>
-                <div class="input-field">
-                  <i class="material-icons prefix">label</i>
+                <div className="input-field">
+                  <i className="material-icons prefix">label</i>
                   <select>
                     <option value="" disabled >Choose Category</option>
                     <option value="1" selected>IT</option>
@@ -36,8 +36,8 @@ class EditBusinessForm extends Component {
                     <option value="3">Sports</option>
                   </select>
                 </div>
-                <div class="input-field">
-                  <i class="material-icons prefix">edit_location</i>
+                <div className="input-field">
+                  <i className="material-icons prefix">edit_location</i>
                   <select name="location">
                     <option value="" disabled>Choose Location</option>
                     <option>Abia</option>
@@ -45,18 +45,18 @@ class EditBusinessForm extends Component {
                     <option>Lagos</option>
                   </select>
                 </div>
-                <div class="file-field input-field">
-                  <div class="btn" id="button">
+                <div className="file-field input-field">
+                  <div className="btn" id="button">
                     <span>upload</span>
                     <input type="file" />
                   </div>
-                  <div class="file-path-wrapper">
-                    <input class="file-path validate" type="text" value="amaka.jpg" />
+                  <div className="file-path-wrapper">
+                    <input className="file-path validate" type="text" value="amaka.jpg" />
                   </div>
                 </div>
-                <div class="input-field center-align">
-                  <button class="btn waves-effect waves-light btn_large" type="submit" name="action">Update
-                    <i class="material-icons left">send</i>
+                <div className="input-field center-align">
+                  <button className="btn waves-effect waves-light btn_large" type="submit" name="action">Update
+                    <i className="material-icons left">send</i>
                   </button>
                 </div>
                 <br />

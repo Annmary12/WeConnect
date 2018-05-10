@@ -6,56 +6,42 @@ import BusinessDetails from './BusinessDetails';
 import { fetchOneBusinessRequest } from '../../actions/fetchBusinesses';
 
 class BusinessProfile extends Component{
-    constructor(props){
-        super(props);
-        this.renderBusiness = this.renderBusiness.bind(this);
-    }
-    componentWillMount(){
-        this.props.fetchOneBusinessRequest(this.props.match.params.id);
-    }
-    renderBusiness() {
-        const { business } = this.props;
-        return (
-         
-            <BusinessDetails 
-           // name={business.name}
-        //    description={business.description}
-        //    location={business.location}
-        //    category={business.category}
-           />
-            
-          
-        ) 
-      }
-
-    render(){
-        const business  = this.props.business.oneBusiness;
-        console.log(business.id);
-        return(
-            <div className="">
-        <div class="nav-business">
-        <Navigation />
-        <div class="container">
-                            
-                    <div class="row register-business">
-                        <div class="col s10 offset-s1">                           
-                        </div>      
-                    </div>
-              
-           </div>
-
-           {this.renderBusiness()}
-            <Footer />
-</div>
-        </div>
+  constructor(props){
+    super(props);
+  }
+  componentDidMount(){
+    this.props.fetchOneBusinessRequest(this.props.match.params.id);
+  }
+    
+  render(){
+    const {business}  = this.props;
+    return(
+      <div className="nav-business">
+      <Navigation />
+        <div className="container">           
+          <div className="row register-business">
+            <div className="col s10 offset-s1">                           
+            </div>      
+          </div> 
+          </div>
+        { business && 
+          <BusinessDetails 
+            description={business.description}
+            name={business.name}
+            category={business.category}
+            location={business.location}
+            website={business.website}
+            />
+        }
+      <Footer />
+      </div>
         )
     }
-
 }
 
 
 const mapStateToProps = state => ({
-    business: state.BusinessReducer
+    business: state.BusinessReducer.oneBusiness
 });
 
 export default connect(mapStateToProps, { fetchOneBusinessRequest })(BusinessProfile);

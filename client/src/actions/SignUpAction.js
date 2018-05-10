@@ -16,6 +16,11 @@ export function signupFailed(error) {
   };
 }
 
+/**
+ * @description action to signup a new user
+ * @param {object} userData
+ * @returns {object} userData
+ */
 export const userSignupRequest = userData => dispatch => axios.post('api/v1/auth/signup', userData)
   .then((res) => {
     const {

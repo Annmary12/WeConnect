@@ -18,9 +18,9 @@ const Card = ({name, description, id}) => (
           <i className="material-icons right">more_vert</i>
           </span>
 
-          <p>
+          
           <TextTruncate text={description} lines={1}/>
-          </p>
+          
         </div>
         <div className="card-reveal" style={{ display: 'none', transform: 'translateY(0px)' }}>
           <span className="card-title grey-text text-darken-4">{name}<i className="material-icons right">close</i></span>
