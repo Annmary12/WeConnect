@@ -14,7 +14,8 @@ class BusinessProfile extends Component{
   }
     
   render(){
-    const {business}  = this.props;
+    const { business }  = this.props;
+    console.log(business);
     return(
       <div className="nav-business">
       <Navigation />

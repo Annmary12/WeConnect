@@ -14,7 +14,7 @@ const ReviewForm = () => {
                                 <div className="input-field">
                                     <i className="material-icons prefix">rate_review</i>
                                     <textarea id="textarea1" className="materialize-textarea" value=""></textarea>
-                                    <label for="textarea1">write a message...</label>
+                                    <label htmlFor="textarea1">write a message...</label>
                                   </div><br/>
                                   <div className="input-field right-align">
                                       <button className="btn waves-effect waves-light btn_large " type="submit" name="action">Post
