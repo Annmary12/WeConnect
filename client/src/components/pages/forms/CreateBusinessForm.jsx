@@ -67,7 +67,7 @@ class CreateBusinessForm extends Component {
       }
     } else if (isCreated && !hasError) {
       this.context.router.history.push('/profile');
-      Materialize.toast('Success', 4000, 'red accent-3 rounded');
+      Materialize.toast('Successully Created', 4000, 'teal accent-3 rounded');
     }
   }
 

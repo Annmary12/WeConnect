@@ -5,44 +5,48 @@ import Footer from './Footer';
 import BusinessDetails from './BusinessDetails';
 import { fetchOneBusinessRequest } from '../../actions/fetchBusinesses';
 
-class BusinessProfile extends Component{
-  constructor(props){
+class BusinessProfile extends Component {
+  constructor(props) {
     super(props);
+    this.state = {
+      oneBusiness: [],
+    };
   }
-  componentDidMount(){
+  componentDidMount() {
     this.props.fetchOneBusinessRequest(this.props.match.params.id);
   }
-    
-  render(){
-    const { business }  = this.props;
-    console.log(business);
-    return(
+  componentWillReceiveProps(nextProps) {
+    this.setState({ oneBusiness: nextProps.business });
+  }
+  render() {
+    const business = this.state.oneBusiness;
+    return (
       <div className="nav-business">
-      <Navigation />
-        <div className="container">           
+        <Navigation />
+        <div className="container">
           <div className="row register-business">
-            <div className="col s10 offset-s1">                           
-            </div>      
-          </div> 
+            <div className="col s10 offset-s1">
+            </div>
           </div>
-        { business && 
-          <BusinessDetails 
+        </div>
+        {business &&
+          <BusinessDetails
             description={business.description}
             name={business.name}
             category={business.category}
             location={business.location}
             website={business.website}
-            />
+          />
         }
-      <Footer />
+        <Footer />
       </div>
-        )
-    }
+    );
+  }
 }
 
 
 const mapStateToProps = state => ({
-    business: state.BusinessReducer.oneBusiness
+  business: state.BusinessReducer.oneBusiness
 });
 
 export default connect(mapStateToProps, { fetchOneBusinessRequest })(BusinessProfile);

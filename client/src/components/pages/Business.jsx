@@ -10,7 +10,7 @@ import { fetchBusinessesRequest } from '../../actions/fetchBusinesses';
 /**
  * @class Business
  */
-class Business extends Component{
+class Business extends Component {
   /**
      * @constructor
      * @param {object} props
@@ -19,32 +19,32 @@ class Business extends Component{
     super(props);
     this.state = {
       // loader: false
-    }
+    };
     this.renderBusiness = this.renderBusiness.bind(this);
   }
   componentDidMount(){
     this.props.fetchBusinessesRequest();
   }
 
-renderBusiness() {
-  const allBusiness = this.props.businesses
-  return (
-    allBusiness.map((business) => (
+  renderBusiness() {
+    const allBusiness = this.props.businesses;
+    return (
+      allBusiness && allBusiness.map(business => (
       <div className="col s12 m6 l4">
-          <Card 
+          <Card
             key={business.id}
             id={business.id}
             name={business.name}
             description={business.description}
            />
       </div>
-      
-    ))
-  ) 
-}
-  render(){
+
+      ))
+    );
+  }
+  render() {
     // console.log(this.props.businesses);
-    return(
+    return (
       <div>
         <div className="nav-business">
           <Navigation />
@@ -53,10 +53,10 @@ renderBusiness() {
         <div className="container business-section">
             <div className="row section1">
               <div className="row sub-header-row">
-                  <div className="col s6"> 
+                  <div className="col s6">
                     <h5 className="sub-header">IT</h5>
                   </div>
-                  <div className="col s6 right-align"> 
+                  <div className="col s6 right-align">
                     <button className="btn-flat waves-effect waves-light" type="submit" name="action">view all
                       <i className="material-icons right">chevron_right</i>
                     </button>
@@ -67,7 +67,7 @@ renderBusiness() {
               {this.renderBusiness()}
             </div>
                 <div className="row sub-header-row">
-                  <div  className="col s6">  
+                  <div className="col s6">
                     <h5 className="sub-header">Marketing</h5>
                   </div>
                   <div className="col s6 right-align">
@@ -93,11 +93,10 @@ renderBusiness() {
 
         <Footer />
       </div>
-    )
+    );
   }
-    
-    } 
-       
+}
+
 const mapStateToProps = state => ({
   businesses: state.BusinessReducer.businesses
 });
@@ -105,5 +104,5 @@ const mapStateToProps = state => ({
 Business.propTypes = {
   fetchBusinessesRequest: PropTypes.func.isRequired,
   businesses: PropTypes.array.isRequired
-}
+};
 export default connect(mapStateToProps, { fetchBusinessesRequest })(Business);

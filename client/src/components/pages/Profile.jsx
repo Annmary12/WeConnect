@@ -13,25 +13,26 @@ class Profile extends Component {
   }
   renderUserBusiness(){
     const { businesses, userId } = this.props;
-    const userBusiness = businesses.filter(business => {
-        return business.userId === userId
-      });
+    // const userBusiness = businesses.filter(business => {
+    //     return business.userId === userId
+    //   });
    
   }
   render() {
     const { businesses, userId } = this.props;
-    const userBusinesses = businesses.filter(business => {
+    const userBusinesses = businesses && businesses.filter(business => {
       return business.userId === userId
     });
 
     
-      const businessList = userBusinesses.map((business) => {
+      const businessList = userBusinesses && userBusinesses.map((business) => {
         return(
               <div className="col s4">
                   <UserCard 
                   name = { business.name}
                   description = { business.description}
-                  key={ business.id }/>
+                  key={ business.id }
+                  id={business.id}/>
                 </div>
         )
       });

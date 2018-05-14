@@ -136,9 +136,10 @@ class Business {
                 message: 'Sucessfully Updated',
                 error: false,
               }))
-              .catch(err => res.status(400).json({
-                error: err
-              }));
+              .catch((error) => {
+                const errorMessage = error.errors.map(value => value.message);
+                return res.status(400).send(errorMessage);
+            });
           }
 
           return res.status(401).json({

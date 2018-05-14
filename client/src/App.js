@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, BrowserRouter } from 'react-router-dom';
 import Router from './Route';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
@@ -30,8 +30,10 @@ if (localStorage.jwtToken) {
 
 const App = () => (
         <Provider store={store}>
-         <Router />
-         </Provider>
+          <BrowserRouter>
+            <Router />
+          </BrowserRouter>
+        </Provider>
 
 );
 export default App;
