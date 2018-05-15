@@ -54,18 +54,7 @@ class EditBusinessForm extends Component {
   onUpdate(event) {
     event.preventDefault();
     // console.log(this.state);
-    this.props.updateBusinessRequest(this.state).then(() => {
-      setTimeout(() => {
-        if (this.props.isUpdated === true) {
-          const { id } = this.props.updateBusiness;
-          this.context.router.history.push(`/businessProfile/${id}`);
-          Materialize.toast('Successfully Updated', 2000, 'teal rounded');
-        } else {
-          console.log(this.props.updateBusiness);
-          Materialize.toast('Not Updated', 2000, 'red rounded');
-        }
-      }, 2000);
-    });
+    this.props.updateBusinessRequest(this.state);
   }
 
   /**

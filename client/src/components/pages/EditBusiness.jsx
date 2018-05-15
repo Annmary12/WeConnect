@@ -4,6 +4,7 @@ import Navigation from './Navigation';
 import Footer from './Footer';
 import EditBusinessForm from './forms/EditBusinessForm';
 import { fetchOneBusinessRequest } from '../../actions/fetchBusinesses';
+import { PropTypes } from 'prop-types';
 
 class EditBusiness extends Component {
   constructor(props) {
@@ -17,7 +18,20 @@ class EditBusiness extends Component {
   componentDidMount() {
     this.props.fetchOneBusinessRequest(this.props.match.params.id);
   }
-
+  
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps.isUpdated);
+    setTimeout(() => {
+      if (nextProps.isUpdated === true && nextProps.updatedBusiness) {
+        const { id } = nextProps.updatedBusiness;
+        this.context.router.history.push(`/businessProfile/${id}`);
+        Materialize.toast('Successfully Updated', 2000, 'teal rounded');
+      } else if(nextProps.isUpdated === false && !nextProps.updatedBusiness) {
+        console.log(this.props.updatedBusiness);
+        Materialize.toast('Not Updated', 2000, 'red rounded');
+      }
+    }, 2000);
+  }
 
   render() {
     const { business } = this.props;
@@ -49,7 +63,13 @@ class EditBusiness extends Component {
   }
 }
 const mapStateToProps = state => ({
-  business: state.BusinessReducer.oneBusiness
+  business: state.BusinessReducer.oneBusiness,
+  updatedBusiness: state.BusinessReducer.updatedBusiness,
+  isUpdated: state.BusinessReducer.isUpdated
 });
+
+EditBusiness.contextTypes = {
+  router: PropTypes.object.isRequired
+};
 
 export default connect(mapStateToProps, { fetchOneBusinessRequest })(EditBusiness);
