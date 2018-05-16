@@ -22,10 +22,23 @@ class Business extends Component {
     };
     this.renderBusiness = this.renderBusiness.bind(this);
   }
-  componentDidMount(){
+
+  /**
+     * @description - fetches all business
+     *
+     * @returns {void}
+     *
+     * @memberof Business
+     */
+  componentDidMount() {
     this.props.fetchBusinessesRequest();
   }
 
+  /**
+     *
+     * React element markup
+     * @returns {object} markUp
+     */
   renderBusiness() {
     const allBusiness = this.props.businesses;
     return (
@@ -42,8 +55,13 @@ class Business extends Component {
       ))
     );
   }
+
+  /**
+     *
+     * React element markup
+     * @returns {object} markUp
+     */
   render() {
-    // console.log(this.props.businesses);
     return (
       <div>
         <div className="nav-business">

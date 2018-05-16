@@ -11,7 +11,7 @@ class EditBusiness extends Component {
     super(props);
   }
 
-  /**
+/**
    * @param {object} api call
    * @returns {object} performs an action
    */
@@ -21,16 +21,13 @@ class EditBusiness extends Component {
 
   componentWillReceiveProps(nextProps) {
     console.log(nextProps.isUpdated);
-    setTimeout(() => {
-      if (nextProps.isUpdated === true && nextProps.updatedBusiness) {
-        const { id } = nextProps.updatedBusiness;
-        this.context.router.history.push(`/businessProfile/${id}`);
-        Materialize.toast('Successfully Updated', 2000, 'teal rounded');
-      } else if (nextProps.isUpdated === false && !nextProps.updatedBusiness) {
-        console.log(this.props.updatedBusiness);
-        Materialize.toast('Not Updated', 2000, 'red rounded');
-      }
-    }, 2000);
+    if (nextProps.isUpdated === true && nextProps.updatedBusiness) {
+      const { id } = nextProps.updatedBusiness;
+      this.context.router.history.push(`/businessProfile/${id}`);
+      Materialize.toast('Successfully Updated', 2000, 'teal rounded');
+    } else if (nextProps.isUpdated === false && !nextProps.updatedBusiness) {
+      Materialize.toast('Not Updated', 2000, 'red rounded');
+    }
   }
 
   render() {
@@ -65,7 +62,7 @@ class EditBusiness extends Component {
 const mapStateToProps = state => ({
   business: state.BusinessReducer.oneBusiness,
   updatedBusiness: state.BusinessReducer.updatedBusiness,
-  isUpdated: state.BusinessReducer.isUpdated
+  isUpdated: state.BusinessReducer.isUpdated,
 });
 
 EditBusiness.contextTypes = {

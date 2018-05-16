@@ -3,6 +3,7 @@ import { FETCH_BUSINESS_SUCCESSFUL, FETCH_ONE_BUSINESS_SUCCESSFUL, UPDATE_BUSINE
 const initialState = {
   businesses: [],
   isUpdated: false,
+  isDeleted: false,
 };
 
 const BusinessReducer = (state = initialState, action) => {
@@ -22,7 +23,7 @@ const BusinessReducer = (state = initialState, action) => {
       };
     case DELETE_BUSINESS_SUCCESSFUL:
       return {
-        message: action.message
+        isDeleted: true
       };
     default: return state;
   }

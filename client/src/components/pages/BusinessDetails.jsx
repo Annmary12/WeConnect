@@ -2,14 +2,13 @@ import React from 'react';
 import ReviewForm from './forms/ReviewForm';
 import { Link } from 'react-router-dom';
 
-const BusinessDetails = ({ description, location, category, name, website, id , onDelete}) => (
+const BusinessDetails = ({ description, location, category, name, website, id, onDelete }) => (
     <div className=""><br /><br /><br /><br /><br />
         <div className="row">
             <div className="col s12 m12 l8">
                 <div className="row">
                     <div className="col s10 offset-s1">
                         <p className="p-body">
-
                             {description}
                         </p>
                         <div className="row">
