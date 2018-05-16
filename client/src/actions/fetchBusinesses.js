@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { FETCH_BUSINESS_SUCCESSFUL, FETCH_ONE_BUSINESS_SUCCESSFUL, UPDATE_BUSINESS_SUCCESSFUL } from './types';
+import { FETCH_BUSINESS_SUCCESSFUL, FETCH_ONE_BUSINESS_SUCCESSFUL, UPDATE_BUSINESS_SUCCESSFUL, DELETE_BUSINESS_SUCCESSFUL } from './types';
 
 /**
  *
@@ -21,7 +21,7 @@ export function fetchBusinessSuccess(businesses) {
 export const fetchBusinessesRequest = () => dispatch =>
   axios.get('/api/v1/businesses')
     .then((response) => {
-      dispatch(fetchBusinessSuccess(response.data.businesses      ));
+      dispatch(fetchBusinessSuccess(response.data.businesses));
     })
     .catch((error) => {
       throw (error);
@@ -77,3 +77,29 @@ export const updateBusinessRequest = business => dispatch => axios.put(`/api/v1/
   .catch((error) => {
     throw (error);
   });
+
+  /**
+ *
+ * @param {object} business
+ * @returns {object} delete business
+ */
+export function deleteBusiness(business) {
+  return {
+    type: DELETE_BUSINESS_SUCCESSFUL,
+    business
+  };
+}
+
+/**
+ * @description action to delete a particular business
+ * @param {object} id
+ * @returns {object} business
+ */
+export const deleteBusinessRequest = id => dispatch => axios.delete(`/api/v1/businesses/${id}`)
+  .then((response) => {
+    dispatch(deleteBusiness(response.data));
+  })
+  .catch((error) => {
+    throw (error);
+  });
+

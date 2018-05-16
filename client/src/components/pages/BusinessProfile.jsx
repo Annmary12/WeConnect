@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Navigation from './Navigation';
 import Footer from './Footer';
 import BusinessDetails from './BusinessDetails';
-import { fetchOneBusinessRequest } from '../../actions/fetchBusinesses';
+import { fetchOneBusinessRequest, deleteBusinessRequest } from '../../actions/fetchBusinesses';
 
 class BusinessProfile extends Component {
   constructor(props) {
@@ -11,12 +11,20 @@ class BusinessProfile extends Component {
     this.state = {
       oneBusiness: [],
     };
+
+    this.onDelete = this.onDelete.bind(this);
   }
   componentDidMount() {
     this.props.fetchOneBusinessRequest(this.props.match.params.id);
   }
   componentWillReceiveProps(nextProps) {
     this.setState({ oneBusiness: nextProps.business });
+  }
+
+  onDelete(event) {
+    event.preventDefault();
+    this.props.deleteBusinessRequest(this.props.match.params.id);
+
   }
   render() {
     const business = this.state.oneBusiness;
@@ -31,11 +39,13 @@ class BusinessProfile extends Component {
         </div>
         {business &&
           <BusinessDetails
+            onDelete={this.onDelete}
             description={business.description}
             name={business.name}
             category={business.category}
             location={business.location}
             website={business.website}
+            id={business.id}
           />
         }
         <Footer />
@@ -49,4 +59,4 @@ const mapStateToProps = state => ({
   business: state.BusinessReducer.oneBusiness
 });
 
-export default connect(mapStateToProps, { fetchOneBusinessRequest })(BusinessProfile);
+export default connect(mapStateToProps, { fetchOneBusinessRequest, deleteBusinessRequest })(BusinessProfile);

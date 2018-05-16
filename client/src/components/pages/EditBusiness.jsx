@@ -18,7 +18,7 @@ class EditBusiness extends Component {
   componentDidMount() {
     this.props.fetchOneBusinessRequest(this.props.match.params.id);
   }
-  
+
   componentWillReceiveProps(nextProps) {
     console.log(nextProps.isUpdated);
     setTimeout(() => {
@@ -26,7 +26,7 @@ class EditBusiness extends Component {
         const { id } = nextProps.updatedBusiness;
         this.context.router.history.push(`/businessProfile/${id}`);
         Materialize.toast('Successfully Updated', 2000, 'teal rounded');
-      } else if(nextProps.isUpdated === false && !nextProps.updatedBusiness) {
+      } else if (nextProps.isUpdated === false && !nextProps.updatedBusiness) {
         console.log(this.props.updatedBusiness);
         Materialize.toast('Not Updated', 2000, 'red rounded');
       }

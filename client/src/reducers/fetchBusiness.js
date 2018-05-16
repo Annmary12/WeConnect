@@ -1,4 +1,4 @@
-import { FETCH_BUSINESS_SUCCESSFUL, FETCH_ONE_BUSINESS_SUCCESSFUL, UPDATE_BUSINESS_SUCCESSFUL } from '../actions/types';
+import { FETCH_BUSINESS_SUCCESSFUL, FETCH_ONE_BUSINESS_SUCCESSFUL, UPDATE_BUSINESS_SUCCESSFUL, DELETE_BUSINESS_SUCCESSFUL } from '../actions/types';
 
 const initialState = {
   businesses: [],
@@ -19,6 +19,10 @@ const BusinessReducer = (state = initialState, action) => {
       return {
         updatedBusiness: action.business,
         isUpdated: true
+      };
+    case DELETE_BUSINESS_SUCCESSFUL:
+      return {
+        message: action.message
       };
     default: return state;
   }
