@@ -1,6 +1,12 @@
 {
     "root": true,
-    "extends": "airbnb-base",
+    "extends": [
+        "airbnb",
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings"
+      ],
     "env": {
     "node": true,
     "es6": true,

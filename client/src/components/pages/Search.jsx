@@ -11,7 +11,7 @@ const Search = () => (
                                                 <div className="col s3">
                                                         <div className="input-field">
                                                                 <input id="icon_prefix" type="text" className="validate" />
-                                                                <label for="icon_prefix">Enter Business Name</label>
+                                                                <label htmlFor="icon_prefix">Enter Business Name</label>
                                                               </div>
                                                 </div>
                                                 <div className="col s3">
