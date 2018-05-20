@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Input, Row } from 'react-materialize';
 import PropTypes from 'prop-types';
 import { createBusinessRequest } from '../../../actions/createBusiness';
-
+import { saveImageCloudinary } from '../../../actions/fetchBusinesses';
+import Button from 'react-materialize/lib/Button';
 /**
  * @class CreateBusinessForm
  */
@@ -19,6 +20,7 @@ class CreateBusinessForm extends Component {
       description: '',
       phoneNumber: '',
       address: '',
+      newImage: '',
       image: '',
       location: '',
       category: '',
@@ -29,6 +31,8 @@ class CreateBusinessForm extends Component {
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleImageChange = this.handleImageChange.bind(this);
+    this.saveImage = this.saveImage.bind(this);
   }
 
   /**
@@ -40,6 +44,36 @@ class CreateBusinessForm extends Component {
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
+
+  /**
+ * Handles image input of values in state
+ * @param {object} event
+ *
+ * @returns {object} SyntheticEvent
+ */
+  handleImageChange(event) {
+    event.preventDefault();
+   this.saveImage(event);
+    // console.log(this.state.newImage);
+    // this.props.saveImageCloudinary(event.target.files[0]).then(()=>{
+    //});
+    // this.setState({ image: this.props.imageUrl.imageData });
+  }
+
+  /**
+ * Save image to cloudinary
+ * @param {object} event
+ *
+ * @returns {object} SyntheticEvent
+ */
+saveImage(event) {
+  // event.preventDefault();
+  this.props.saveImageCloudinary(event.target.files[0])
+  .then(()=>{
+    this.setState({image:this.props.imageUrl.imageData});
+  });
+  
+}
 
   /**
  * Submits business form
@@ -58,17 +92,29 @@ class CreateBusinessForm extends Component {
    * @returns {object} assigns nextprops to state
    */
   componentWillReceiveProps(nextProps) {
-    const { isCreated, hasError, error } = nextProps.createBusinessData[0];
-    if (hasError) {
-      if (error.response) {
-        Materialize.toast(error.response.data, 4000, 'red accent-3 rounded');
-      } else {
-        Materialize.toast('There was an error submiting your request', 4000, 'red accent-3 rounded');
+    // if (nextProps.imageUrl.imageData && nextProps.imageUrl.hasSaved) {
+    //   this.props.createBusinessRequest(this.state).then(() => {
+     console.log(nextProps.createBusinessData);
+      if(nextProps.createBusinessData.isCreated){
+        console.log('here');
+        const { isCreated, hasError, error } = nextProps.createBusinessData;
+        if (hasError) {
+          if (error.response) {
+            Materialize.toast(error.response.data, 4000, 'red accent-3 rounded');
+          } else {
+            Materialize.toast('There was an error submiting your request', 4000, 'red accent-3 rounded');
+          }
+        } else if (isCreated && !hasError) {
+          this.context.router.history.push('/profile');
+          Materialize.toast('Successully Created', 4000, 'teal accent-3 rounded');
+        }
       }
-    } else if (isCreated && !hasError) {
-      this.context.router.history.push('/profile');
-      Materialize.toast('Successully Created', 4000, 'teal accent-3 rounded');
-    }
+        
+      // })
+
+      // console.log(nextProps.imageUrl.imageData);
+    //}
+
   }
 
   /**
@@ -188,15 +234,28 @@ class CreateBusinessForm extends Component {
                     <label htmlFor="last_name">Enter Website url</label>
                   </div>
 
-                  <div className="file-field input-field">
+                   <div className="file-field input-field">
                     <div className="btn" id="button">
                       <span>upload</span>
-                      <input type="file" />
+                      <input type="file" 
+                      onChange={this.handleImageChange.bind(this)}/>
                     </div>
                     <div className="file-path-wrapper">
                       <input className="file-path validate" type="text" />
                     </div>
                   </div>
+
+                  {/* <Row>
+                    <Input s={6}
+                      type='file'
+                      onChange={this.handleImageChange}
+                    >
+                    </Input>
+                    <button onClick={this.saveImage}>save image</button>
+                  </Row>
+                  */}
+
+
 
                   <div className="input-field center-align">
                     <button className="btn waves-effect waves-light btn_large" type="submit" name="action">SUBMIT
@@ -214,7 +273,8 @@ class CreateBusinessForm extends Component {
   }
 }
 const mapStateToProps = state => ({
-  createBusinessData: state.createBusiness
+  createBusinessData: state.createBusiness,
+  imageUrl: state.ImageReducer
 });
 CreateBusinessForm.propTypes = {
   createBusinessRequest: PropTypes.func.isRequired,
@@ -222,4 +282,4 @@ CreateBusinessForm.propTypes = {
 CreateBusinessForm.contextTypes = {
   router: PropTypes.object.isRequired
 };
-export default connect(mapStateToProps, { createBusinessRequest })(CreateBusinessForm);
+export default connect(mapStateToProps, { createBusinessRequest, saveImageCloudinary })(CreateBusinessForm);

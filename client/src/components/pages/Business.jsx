@@ -49,6 +49,7 @@ class Business extends Component {
             id={business.id}
             name={business.name}
             description={business.description}
+            image={business.image}
            />
       </div>
 

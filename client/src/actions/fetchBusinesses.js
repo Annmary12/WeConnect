@@ -1,5 +1,13 @@
 import axios from 'axios';
-import { FETCH_BUSINESS_SUCCESSFUL, FETCH_ONE_BUSINESS_SUCCESSFUL, UPDATE_BUSINESS_SUCCESSFUL, DELETE_BUSINESS_SUCCESSFUL } from './types';
+import setAuthorizationToken from '../utils/setAuthorizationToken';
+import {
+  FETCH_BUSINESS_SUCCESSFUL,
+  FETCH_ONE_BUSINESS_SUCCESSFUL,
+  UPDATE_BUSINESS_SUCCESSFUL,
+  DELETE_BUSINESS_SUCCESSFUL,
+  SAVE_IMAGE_SUCCESSFUL,
+  SAVE_IMAGE_FAILED
+} from './types';
 
 /**
  *
@@ -102,4 +110,53 @@ export const deleteBusinessRequest = id => dispatch => axios.delete(`/api/v1/bus
   .catch((error) => {
     throw (error);
   });
+
+  /**
+ *
+ * @param {object} image
+ * @returns {object} save image
+ */
+export function saveImageSuccessful(image) {
+  return {
+    type: SAVE_IMAGE_SUCCESSFUL,
+    image
+  };
+}
+
+
+/**
+ *
+ * @param {object} error
+ * @returns {object} inage failed
+ */
+export function saveImageFailed(error) {
+  return {
+    type: SAVE_IMAGE_FAILED,
+    error
+  };
+}
+
+/**
+ * @description action to upload image
+ * @param {object} image
+ * @returns {object} business
+ */
+export function saveImageCloudinary(image) {
+  const { CLOUDINARY_URL } = process.env;
+  const PRESET = process.env.CLOUDINARY_PRESET;
+  const data = new FormData();
+  data.append('file', image);
+  data.append('upload_preset', 'yts85sou');
+  delete axios.defaults.headers.common.Authorization;
+  return dispatch => axios.post('https://api.cloudinary.com/v1_1/annmary/image/upload/', data)
+    .then(({data}) => {
+      const token = localStorage.getItem('jwtToken');
+      axios.defaults.headers.common.Authorization = token;
+      // console.log(data.secure_url);
+      dispatch(saveImageSuccessful(data.secure_url));
+    })
+    .catch(() => {
+      dispatch(saveImageFailed('Sorry, your image failed to upload'));
+    });
+}
 
