@@ -33,8 +33,8 @@ class EditBusiness extends Component {
   render() {
     const { business } = this.props;
     return (
-      <div>
-        <div className="nav-business">
+      <div className="">
+        <div className="nav-business pad">
           <Navigation />
           <div className="container">
             <div className="row register-business">
@@ -53,8 +53,9 @@ class EditBusiness extends Component {
             address={business.address}
             id={business.id}
           />}
+           </div>
           <Footer />
-        </div>
+       
       </div>
     );
   }

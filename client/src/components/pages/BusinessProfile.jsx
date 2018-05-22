@@ -5,6 +5,7 @@ import Navigation from './Navigation';
 import Footer from './Footer';
 import BusinessDetails from './BusinessDetails';
 import { fetchOneBusinessRequest, deleteBusinessRequest } from '../../actions/fetchBusinesses';
+import { getReviewRequest } from '../../actions/review';
 
 /**
  * @class BusinessProfile
@@ -31,8 +32,9 @@ class BusinessProfile extends Component {
    *
    * @memberOf BusinessProfile
    */
-  componentDidMount() {
+  componentWillMount() {
     this.props.fetchOneBusinessRequest(this.props.match.params.id);
+    this.props.getReviewRequest(this.props.match.params.id);
   }
   /**
    *
@@ -54,8 +56,10 @@ class BusinessProfile extends Component {
   }
   render() {
     const business = this.state.oneBusiness;
+    const { reviews } = this.props;
     return (
-      <div className="nav-business">
+      <div className="nav-business ">
+      <div className="pad">
         <Navigation />
         <div className="container">
           <div className="row register-business">
@@ -72,8 +76,11 @@ class BusinessProfile extends Component {
             location={business.location}
             website={business.website}
             id={business.id}
+            reviews={reviews}
+            userId={business.userId}
           />
         }
+        </div>
         <Footer />
       </div>
     );
@@ -82,11 +89,12 @@ class BusinessProfile extends Component {
 
 
 const mapStateToProps = state => ({
-  business: state.BusinessReducer.oneBusiness,
-  isDeleted: state.BusinessReducer.isDeleted
+  business: state.OneBusiness.business,
+  isDeleted: state.BusinessReducer.isDeleted,
+  reviews : state.allReviews.reviews
 });
 
 BusinessProfile.contextTypes = {
   router: PropTypes.object.isRequired
 };
-export default connect(mapStateToProps, { fetchOneBusinessRequest, deleteBusinessRequest })(BusinessProfile);
+export default connect(mapStateToProps, { fetchOneBusinessRequest, deleteBusinessRequest, getReviewRequest })(BusinessProfile);

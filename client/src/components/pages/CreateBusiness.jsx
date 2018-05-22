@@ -4,8 +4,8 @@ import Footer from './Footer.jsx';
 import CreateBusinessForm from './forms/CreateBusinessForm.jsx';
 
 const CreateBusiness = () => (
-    <div>
-      <div className="nav-business">
+    <div className="">
+      <div className="nav-business pad">
         <Navigation />
         <div className="container">
           <div className="row register-business">
@@ -15,8 +15,9 @@ const CreateBusiness = () => (
           </div>
         </div>
         <CreateBusinessForm/>
+        </div>
         <Footer />
-     </div>
+     
     </div>
 );
 

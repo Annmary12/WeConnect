@@ -152,7 +152,6 @@ export function saveImageCloudinary(image) {
     .then(({data}) => {
       const token = localStorage.getItem('jwtToken');
       axios.defaults.headers.common.Authorization = token;
-      // console.log(data.secure_url);
       dispatch(saveImageSuccessful(data.secure_url));
     })
     .catch(() => {

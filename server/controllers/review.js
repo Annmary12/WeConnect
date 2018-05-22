@@ -33,9 +33,15 @@ class Review {
               error: true
             });
           }
+
+          if(req.body.context.trim() === ''){
+            return res.status(400).json({
+              message: 'Please write a review'
+            })
+          }
           const newReview = new reviewModel({
             context: req.body.context,
-            userId: business.userId,
+            userId: authData.payload.id,
             businessId: business.id
           });
 

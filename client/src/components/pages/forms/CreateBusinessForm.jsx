@@ -53,11 +53,8 @@ class CreateBusinessForm extends Component {
  */
   handleImageChange(event) {
     event.preventDefault();
-   this.saveImage(event);
-    // console.log(this.state.newImage);
-    // this.props.saveImageCloudinary(event.target.files[0]).then(()=>{
-    //});
-    // this.setState({ image: this.props.imageUrl.imageData });
+    this.saveImage(event);
+
   }
 
   /**
@@ -66,14 +63,14 @@ class CreateBusinessForm extends Component {
  *
  * @returns {object} SyntheticEvent
  */
-saveImage(event) {
-  // event.preventDefault();
-  this.props.saveImageCloudinary(event.target.files[0])
-  .then(()=>{
-    this.setState({image:this.props.imageUrl.imageData});
-  });
-  
-}
+  saveImage(event) {
+    // event.preventDefault();
+    this.props.saveImageCloudinary(event.target.files[0])
+      .then(() => {
+        this.setState({ image: this.props.imageUrl.imageData });
+      });
+
+  }
 
   /**
  * Submits business form
@@ -92,28 +89,21 @@ saveImage(event) {
    * @returns {object} assigns nextprops to state
    */
   componentWillReceiveProps(nextProps) {
-    // if (nextProps.imageUrl.imageData && nextProps.imageUrl.hasSaved) {
-    //   this.props.createBusinessRequest(this.state).then(() => {
-     console.log(nextProps.createBusinessData);
-      if(nextProps.createBusinessData.isCreated){
-        console.log('here');
-        const { isCreated, hasError, error } = nextProps.createBusinessData;
-        if (hasError) {
-          if (error.response) {
-            Materialize.toast(error.response.data, 4000, 'red accent-3 rounded');
-          } else {
-            Materialize.toast('There was an error submiting your request', 4000, 'red accent-3 rounded');
-          }
-        } else if (isCreated && !hasError) {
-          this.context.router.history.push('/profile');
-          Materialize.toast('Successully Created', 4000, 'teal accent-3 rounded');
+    console.log(nextProps.createBusinessData);
+    if (nextProps.createBusinessData.isCreated) {
+      console.log('here');
+      const { isCreated, hasError, error } = nextProps.createBusinessData;
+      if (hasError) {
+        if (error.response) {
+          Materialize.toast(error.response.data, 4000, 'red accent-3 rounded');
+        } else {
+          Materialize.toast('There was an error submiting your request', 4000, 'red accent-3 rounded');
         }
+      } else if (isCreated && !hasError) {
+        this.context.router.history.push('/profile');
+        Materialize.toast('Successully Created', 4000, 'teal accent-3 rounded');
       }
-        
-      // })
-
-      // console.log(nextProps.imageUrl.imageData);
-    //}
+    }
 
   }
 
@@ -234,27 +224,16 @@ saveImage(event) {
                     <label htmlFor="last_name">Enter Website url</label>
                   </div>
 
-                   <div className="file-field input-field">
+                  <div className="file-field input-field">
                     <div className="btn" id="button">
                       <span>upload</span>
-                      <input type="file" 
-                      onChange={this.handleImageChange.bind(this)}/>
+                      <input type="file"
+                        onChange={this.handleImageChange.bind(this)} />
                     </div>
                     <div className="file-path-wrapper">
                       <input className="file-path validate" type="text" />
                     </div>
                   </div>
-
-                  {/* <Row>
-                    <Input s={6}
-                      type='file'
-                      onChange={this.handleImageChange}
-                    >
-                    </Input>
-                    <button onClick={this.saveImage}>save image</button>
-                  </Row>
-                  */}
-
 
 
                   <div className="input-field center-align">

@@ -7,20 +7,18 @@ import Footer from './Footer';
 // import BusinessCss from '../css/business.css';
 
 const Home = () => (
-      <div className="home">
+    <div className="home">
         <div className="nav-background">
-        <NavigationPage />
+            <NavigationPage />
             <div className="container">
-            
-                    <div className="row header">
-                            <h1>We-Connect <br/>you to the<br/> World!!!</h1>
-                    </div>
-              
-           </div>
+                <div className="row header">
+                    <h1>We-Connect <br />you to the<br /> World!!!</h1>
+                </div>
+            </div>
         </div>
-      <FeacturedBusiness />
+        <FeacturedBusiness />
         <Footer />
-        </div>
-    );
+    </div>
+);
 
 export default Home;

@@ -64,12 +64,12 @@ class Business extends Component {
      */
   render() {
     return (
-      <div>
+      <div class="">
         <div className="nav-business">
           <Navigation />
           <Search />
         </div>
-        <div className="container business-section">
+        <div className="container business-section pad">
             <div className="row section1">
               <div className="row sub-header-row">
                   <div className="col s6">

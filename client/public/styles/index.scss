@@ -1,12 +1,3 @@
-body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-  }
-
-  main {
-    flex: 1 0 auto;
-  }
   
   .logo{
     color:#f4613d;
@@ -125,5 +116,17 @@ background: rgb(216, 215, 215);
     color: #a94442;
     background-color: #f2dede;
     border-color: #ebccd1;
+}
+
+.page-footer.footer-fixed {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.blue-grey.darken-1 {
+    background-color: #d1d1d1 !important;
+}
+.pad{
+    padding-bottom: 5%;
 }
 

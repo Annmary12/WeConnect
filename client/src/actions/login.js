@@ -1,7 +1,7 @@
 import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
-import { SET_CURRENT_USER } from './types';
+import { SET_CURRENT_USER, LOGIN_FAILED } from './types';
 
 /**
  *
@@ -12,6 +12,18 @@ export function setCurrentUser(user) {
   return {
     type: SET_CURRENT_USER,
     user
+  };
+}
+
+/**
+ *
+ * @param {object} user
+ * @returns {object} user
+ */
+export function loginFailed(error) {
+  return {
+    type: LOGIN_FAILED,
+    error
   };
 }
 
@@ -27,6 +39,8 @@ export function userLoginRequest(userData) {
     localStorage.setItem('jwtToken', token);
     setAuthorizationToken(token);
     dispatch(setCurrentUser(jwt.decode(token)));
+  }).catch((error) => {
+    dispatch(loginFailed(error.response.data.message));
   });
 }
 
