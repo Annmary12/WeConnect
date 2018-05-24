@@ -44,10 +44,10 @@ class ReviewForm extends Component {
             return (<ReviewList
                 key={review.id}
                 context={review.context}
-                createdAt={review.createdAt} />)
+                createdAt={review.createdAt}
+                user={review.reviewer} />)
         })
-
-        return (
+       return (
 
             <div className="reviewForm">
                 <div className="row">

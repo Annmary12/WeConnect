@@ -22,7 +22,7 @@ class EditBusinessForm extends Component {
       image: '',
       location: '',
       category: '',
-      website:'',
+      website: '',
       errors: {},
       isLoading: false,
       isCreated: '',
@@ -36,10 +36,10 @@ class EditBusinessForm extends Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.business) {
       const {
-      name, id, description, phoneNumber,image, address, location, category, website
-    } = nextProps.business;
+        name, id, description, phoneNumber, image, address, location, category, website
+      } = nextProps.business;
       this.setState({
-        id, name, description, phoneNumber,image, address, location, category, website
+        id, name, description, phoneNumber, image, address, location, category, website
       })
     }
   }
@@ -62,15 +62,14 @@ class EditBusinessForm extends Component {
  */
   onUpdate(event) {
     event.preventDefault();
-    this.props.updateBusinessRequest(this.state).then(() =>
-  {
-    this.context.router.history.push('/profile');
-    Materialize.toast('Successfully Updated', 2000, 'teal rounded');
-  },
-(error) => {
-  Materialize.toast('Not working', 2000, 'red rounded');
-    
-});
+    this.props.updateBusinessRequest(this.state).then(() => {
+      this.context.router.history.push('/profile');
+      Materialize.toast('Successfully Updated', 2000, 'teal rounded');
+    },
+      (error) => {
+        Materialize.toast('Not working', 2000, 'red rounded');
+
+      });
   }
 
   /**
@@ -194,7 +193,7 @@ class EditBusinessForm extends Component {
                     <label htmlFor="last_name">Enter Website url</label>
                   </div>
 
-                  <div className="file-field input-field">
+                  {/* <div className="file-field input-field">
                     <div className="btn" id="button">
                       <span>upload</span>
                       <input type="file"/>
@@ -202,35 +201,46 @@ class EditBusinessForm extends Component {
                     <div className="file-path-wrapper">
                       <input className="file-path validate" type="text" />
                     </div>
-                  </div>
+                  </div> */}
+                  <div id="mainApp">
+                    <div className="previewComponent">
+                      
+                        <input type="file" className="fileInput"/>
+                          <button className="submitButton" type="submit">Upload Image</button>
+                        <div className="imgPreview">
+                          <div className="previewText">Please select an Image for Preview</div>
+                        </div>
+                    </div>
+                    </div>
 
-                  <div className="input-field center-align">
-                    <button className="btn waves-effect waves-light btn_large" type="submit" name="action">UPDATE
+
+                    <div className="input-field center-align">
+                      <button className="btn waves-effect waves-light btn_large" type="submit" name="action">UPDATE
                                                             <i className="material-icons left">send</i>
-                    </button>
-                  </div><br />
-                </div>
+                      </button>
+                    </div><br />
+                  </div>
               </form>
             </div>
+            </div>
           </div>
+
         </div>
-
-      </div>
-    );
-  }
-}
+        );
+      }
+    }
 EditBusinessForm.contextTypes = {
-  router: PropTypes.object.isRequired
-}
-
+          router: PropTypes.object.isRequired
+      }
+      
 EditBusinessForm.propTypes = {
-  fetchOneBusinessRequest: PropTypes.func.isRequired,
-}
-
+          fetchOneBusinessRequest: PropTypes.func.isRequired,
+      }
+      
 const mapStateToProps = state => ({
-  updateBusiness: state.BusinessReducer.updatedBusiness,
-  isUpdated: state.BusinessReducer.isUpdated,
-  business: state.OneBusiness.business
-});
-
-export default connect(mapStateToProps, { fetchOneBusinessRequest, updateBusinessRequest })(EditBusinessForm);
+          updateBusiness: state.BusinessReducer.updatedBusiness,
+        isUpdated: state.BusinessReducer.isUpdated,
+        business: state.OneBusiness.business
+      });
+      
+export default connect(mapStateToProps, {fetchOneBusinessRequest, updateBusinessRequest })(EditBusinessForm);

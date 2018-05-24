@@ -2,6 +2,7 @@ import models from '../models/index';
 
 const reviewModel = models.Review;
 const businesses = models.Business;
+const UserModel = models.User;
 
 /**
    * @description Status Code Used
@@ -80,7 +81,12 @@ class Review {
     return businesses.findOne({ where: { id: req.params.businessId } })
       .then((business) => {
         if (business) {
-          return reviewModel.findAll({ where: { businessId } })
+          return reviewModel.findAll({ where: { businessId },
+          include: [{
+            model: UserModel,
+            as: 'reviewer',
+            attributes: ['firstname', 'lastname', 'image']
+          }] })
             .then((reviews) => {
               if (!reviews.length) {
                 return res.status(200).json({

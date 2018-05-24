@@ -84,7 +84,7 @@ class User {
             id: user.id
           };
           const token = jwt.sign({ payload }, secret, {
-            expiresIn: '4h'
+            expiresIn: '30s'
           });
           return res.status(200).json({
             name: `${user.firstname} ${user.lastname}`,

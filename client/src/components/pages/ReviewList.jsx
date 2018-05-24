@@ -1,7 +1,7 @@
 import React from 'react';
 import moment from 'moment';
 
-const ReviewList = ({context, createdAt}) => (
+const ReviewList = ({context, createdAt, user}) => (
         <div>
              <div className="row">
                             <div className="col s12 m2 l2">
@@ -15,7 +15,7 @@ const ReviewList = ({context, createdAt}) => (
                               </p>
                               <div className="row comment-by">
                                   <div className="col s6">
-                                      by: <em>Annmary Amaka</em> 
+                                      by: <em>{user.firstname} {user.lastname}</em> 
                                   </div>
                                   <div className="col s6 right-align">
                                       <em className=""> 
