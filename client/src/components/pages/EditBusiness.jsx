@@ -7,34 +7,19 @@ import { fetchOneBusinessRequest } from '../../actions/fetchBusinesses';
 import { PropTypes } from 'prop-types';
 
 class EditBusiness extends Component {
-  constructor(props) {
-    super(props);
-  }
-
 /**
    * @param {object} api call
    * @returns {object} performs an action
    */
-  componentDidMount() {
+  componentWillMount() {
     this.props.fetchOneBusinessRequest(this.props.match.params.id);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps.isUpdated);
-    if (nextProps.isUpdated === true && nextProps.updatedBusiness) {
-      const { id } = nextProps.updatedBusiness;
-      this.context.router.history.push(`/businessProfile/${id}`);
-      Materialize.toast('Successfully Updated', 2000, 'teal rounded');
-    } else if (nextProps.isUpdated === false && !nextProps.updatedBusiness) {
-      Materialize.toast('Not Updated', 2000, 'red rounded');
-    }
   }
 
   render() {
     const { business } = this.props;
     return (
-      <div className="">
-        <div className="nav-business pad">
+      <div>
+        <div className="nav-business">
           <Navigation />
           <div className="container">
             <div className="row register-business">
@@ -43,31 +28,26 @@ class EditBusiness extends Component {
               </div>
             </div>
           </div>
-          {business && <EditBusinessForm
-            name={business.name}
-            description={business.description}
-            phoneNumber={business.phoneNumber}
-            location={business.location}
-            category={business.category}
-            website={business.website}
-            address={business.address}
-            id={business.id}
-          />}
-           </div>
+          <EditBusinessForm business={business} />
           <Footer />
-       
+        </div>
       </div>
     );
   }
 }
 const mapStateToProps = state => ({
-  business: state.BusinessReducer.oneBusiness,
-  updatedBusiness: state.BusinessReducer.updatedBusiness,
-  isUpdated: state.BusinessReducer.isUpdated,
+  business: state.OneBusiness.business,
+  updatedBusiness: state.updateBusiness,
 });
 
 EditBusiness.contextTypes = {
   router: PropTypes.object.isRequired
 };
 
+EditBusiness.propTypes = {
+  fetchOneBusinessRequest: PropTypes.func.isRequired,
+}
 export default connect(mapStateToProps, { fetchOneBusinessRequest })(EditBusiness);
+
+
+ 

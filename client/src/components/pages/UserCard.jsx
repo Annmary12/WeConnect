@@ -25,7 +25,6 @@ const UserCard = ({ name, description, id }) => (
       <div className="card-action">
         <Link to={`/editBusiness/${id}`} type="button">Edit</Link>
         <Link to={`/businessProfile/${id}`} type="button">View</Link>
-        <Link to='/deleteBusiness' type="button">Delete</Link>
       </div>
     </div>
   </div>

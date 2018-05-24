@@ -98,6 +98,33 @@ class User {
       })
       .catch(err => res.status(500).json({ err }));
   }
+
+  /**
+    * @description Logs in an existing user
+    * @returns {Object} signin
+    * @param {*} req
+   * @param {*} res
+   */ 
+  static getUser(req, res){
+    return userModel.findById(req.params.userId)
+    .then((user)=> {
+      if(!user){
+        return res.status(400).json({
+          message: 'User Not Found'
+        })
+      }
+     
+      const getUser ={
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email
+      }
+      return res.status(200).json({
+        getUser
+        
+      })
+    })
+  }
 }
 
 export default User;

@@ -43,9 +43,9 @@ class Business extends Component {
     const allBusiness = this.props.businesses;
     return (
       allBusiness && allBusiness.map(business => (
-      <div className="col s12 m6 l4">
+      <div className="col s12 m6 l4" key={business.id}>
           <Card
-            key={business.id}
+            
             id={business.id}
             name={business.name}
             description={business.description}
@@ -64,7 +64,7 @@ class Business extends Component {
      */
   render() {
     return (
-      <div class="">
+      <div className="">
         <div className="nav-business">
           <Navigation />
           <Search />

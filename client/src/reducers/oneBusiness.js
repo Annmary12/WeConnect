@@ -1,6 +1,6 @@
 import { 
-    // FETCH_BUSINESS_SUCCESSFUL, 
-    FETCH_ONE_BUSINESS_SUCCESSFUL, UPDATE_BUSINESS_SUCCESSFUL, DELETE_BUSINESS_SUCCESSFUL 
+    // UPDATE_BUSINESS_SUCCESSFUL, 
+    FETCH_ONE_BUSINESS_SUCCESSFUL, DELETE_BUSINESS_SUCCESSFUL 
   } from '../actions/types';
   
   const initialState = {
@@ -15,11 +15,11 @@ import {
         return {
           business: action.businesses
         };
-      case UPDATE_BUSINESS_SUCCESSFUL:
-        return {
-          updatedBusiness: action.business,
-          isUpdated: true
-        };
+      // case UPDATE_BUSINESS_SUCCESSFUL:
+      //   return {
+      //     updatedBusiness: action.business,
+      //     isUpdated: true
+      //   };
       case DELETE_BUSINESS_SUCCESSFUL:
         return {
           isDeleted: true

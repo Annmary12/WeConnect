@@ -19,7 +19,7 @@ const ReviewList = ({context, createdAt}) => (
                                   </div>
                                   <div className="col s6 right-align">
                                       <em className=""> 
-                                      {moment(createdAt).invalidAt()} days
+                                      { moment(new Date(createdAt)).fromNow()}
                                       </em>
                                   </div>
                                 </div> 

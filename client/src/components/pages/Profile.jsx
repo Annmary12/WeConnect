@@ -5,19 +5,28 @@ import Footer from './Footer';
 import UserCard from './UserCard';
 import { Link } from 'react-router-dom';
 import { fetchBusinessesRequest } from '../../actions/fetchBusinesses';
+import { getUserRequest } from '../../actions/getUser';
 
 class Profile extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      firstname: '',
+      lastname: '',
+      email: ''
+    }
+  }
 
-  componentWillMount() {
+  componentDidMount() {
+    this.props.getUserRequest(this.props.userId);
     this.props.fetchBusinessesRequest();
   }
-  renderUserBusiness() {
-    const { businesses, userId } = this.props;
-    // const userBusiness = businesses.filter(business => {
-    //     return business.userId === userId
-    //   });
 
+  componentWillReceiveProps(nextProps){
+     const { firstname, lastname, email } = nextProps.currentUser;
+     this.setState({firstname:firstname, lastname:lastname, email:email})
   }
+
   render() {
     const { businesses, userId } = this.props;
     const userBusinesses = businesses && businesses.filter(business => {
@@ -27,11 +36,10 @@ class Profile extends Component {
 
     const businessList = userBusinesses && userBusinesses.map((business) => {
       return (
-        <div className="col s4">
+        <div className="col s4" key={business.id}>
           <UserCard
             name={business.name}
             description={business.description}
-            key={business.id}
             id={business.id} />
         </div>
       )
@@ -52,7 +60,8 @@ class Profile extends Component {
         <h4 className="">List of Your business</h4> <hr /><br />
       </div>
     );
-
+   
+     const { firstname, lastname, email } = this.state;
     return (
       <div className="">
         <div className="pad">
@@ -63,10 +72,10 @@ class Profile extends Component {
                 <div className="col s10 offset-s1">
                   <img src={require('../../../public/images/amaka_img.jpeg')} className="profile-image" />
                 </div>
-                <div className="col s10 offset-s1">
-                  <h5>Annmary Agunanna</h5>
-                  <span className=""><em>annmaryamaka@gmail.com</em></span>
-                </div>
+                  <div className="col s10 offset-s1">
+                    <h5>{firstname} {lastname}</h5>
+                    <span className=""><em>{email}</em></span>
+                  </div>
               </div>
             </div>
           </div>
@@ -93,7 +102,8 @@ class Profile extends Component {
 }
 const mapStateToProps = (state) => ({
   businesses: state.BusinessReducer.businesses,
-  userId: state.auth.user.payload.id
+  userId: state.auth.user.payload.id,
+  currentUser: state.getUser.user
 })
 
-export default connect(mapStateToProps, { fetchBusinessesRequest })(Profile);
+export default connect(mapStateToProps, { fetchBusinessesRequest, getUserRequest })(Profile);

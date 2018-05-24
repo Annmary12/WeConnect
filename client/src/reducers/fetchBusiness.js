@@ -1,5 +1,5 @@
-import { FETCH_BUSINESS_SUCCESSFUL, 
-  // FETCH_ONE_BUSINESS_SUCCESSFUL, UPDATE_BUSINESS_SUCCESSFUL, DELETE_BUSINESS_SUCCESSFUL 
+import { FETCH_BUSINESS_SUCCESSFUL, FETCH_BUSINESS_FAILED 
+  
 } from '../actions/types';
 
 const initialState = {
@@ -14,19 +14,10 @@ const BusinessReducer = (state = initialState, action) => {
       return {
         businesses: action.businesses
       };
-    // case FETCH_ONE_BUSINESS_SUCCESSFUL:
-    //   return {
-    //     oneBusiness: action.businesses
-    //   };
-    // case UPDATE_BUSINESS_SUCCESSFUL:
-    //   return {
-    //     updatedBusiness: action.business,
-    //     isUpdated: true
-    //   };
-    // case DELETE_BUSINESS_SUCCESSFUL:
-    //   return {
-    //     isDeleted: true
-    //   };
+    case FETCH_BUSINESS_FAILED:
+    return {
+      error: action.error,
+    };
     default: return state;
   }
 };

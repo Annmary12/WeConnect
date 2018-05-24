@@ -6,6 +6,8 @@ import ImageReducer from './reducers/imageUploader';
 import ReviewReducer from './reducers/review';
 import OneBusiness from './reducers/oneBusiness';
 import allReviews from './reducers/allReviews';
+import getUser from './reducers/getUser';
+import updateBusiness from './reducers/updateBusiness';
 
 
 const rootReducer = combineReducers({
@@ -15,6 +17,8 @@ const rootReducer = combineReducers({
   ImageReducer,
   ReviewReducer,
   OneBusiness,
-  allReviews
+  allReviews,
+  getUser,
+  updateBusiness
 });
 export default rootReducer;

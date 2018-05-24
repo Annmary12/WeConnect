@@ -12,7 +12,7 @@ class BusinessDetails extends Component {
 
     const actionButtons = (
       <div>
-        <Link to={`/editBusiness/${id}`} className="btn waves-effect waves-light btn_large " name="action">Edit
+        <Link to={`/editBusiness/${id}`} className="btn waves-effect waves-light btn_large ">Edit
                <i className="material-icons left">send</i>
         </Link> &nbsp;
              <button onClick={onDelete} className="btn waves-effect waves-light btn_large " name="action">Delete
@@ -50,9 +50,9 @@ class BusinessDetails extends Component {
                 </div>
               </div>
             </div>
-            { isAuthenticated && user.payload.id !== userId ? 
+            {/* { isAuthenticated && user.payload.id !== userId ?  */}
               <ReviewForm businessId={id} reviews={reviews} /> : 
-              null}
+              {/* null} */}
             
           </div>
           <div className="col s12 m12 l3 left">

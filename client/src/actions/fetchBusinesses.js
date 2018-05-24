@@ -6,7 +6,9 @@ import {
   UPDATE_BUSINESS_SUCCESSFUL,
   DELETE_BUSINESS_SUCCESSFUL,
   SAVE_IMAGE_SUCCESSFUL,
-  SAVE_IMAGE_FAILED
+  SAVE_IMAGE_FAILED,
+  FETCH_BUSINESS_FAILED,
+  UPDATE_BUSINESS_FAILED
 } from './types';
 
 /**
@@ -22,6 +24,18 @@ export function fetchBusinessSuccess(businesses) {
 }
 
 /**
+ *
+ * @param {object} error
+ * @returns {object} error
+ */
+export function fetchBusinessFailed(error) {
+  return {
+    type: FETCH_BUSINESS_FAILED,
+    error
+  };
+}
+
+/**
  * @description action to fetch all businesses
  * @param {object} userData
  * @returns {object} userData
@@ -32,8 +46,22 @@ export const fetchBusinessesRequest = () => dispatch =>
       dispatch(fetchBusinessSuccess(response.data.businesses));
     })
     .catch((error) => {
-      throw (error);
+      dispatch(fetchBusinessFailed(error.response.data.message));
     });
+
+    /**
+ * @description action to fetch all businesses
+ * @param {object} userData
+ * @returns {object} userData
+ */
+export const searchBusinessesRequest = (searchType, value) => dispatch =>
+axios.get(`/api/v1/businesses?${searchType}=${value}`)
+  .then((response) => {
+    dispatch(fetchBusinessSuccess(response.data.businesses));
+  })
+  .catch((error) => {
+    throw (error);
+  });
 
 /**
  *
@@ -74,6 +102,18 @@ export function updateBusiness(business) {
 }
 
 /**
+ *
+ * @param {object} error
+ * @returns {object} update error
+ */
+export function updateBusinessfailed(error) {
+  return {
+    type: UPDATE_BUSINESS_FAILED,
+    error
+  };
+}
+
+/**
  * @description action to update a particular business
  * @param {object} business
  * @returns {object} business
@@ -83,7 +123,7 @@ export const updateBusinessRequest = business => dispatch => axios.put(`/api/v1/
     dispatch(updateBusiness(response.data.business));
   })
   .catch((error) => {
-    throw (error);
+    dispatch(updateBusinessfailed(error.response.data.message));
   });
 
   /**

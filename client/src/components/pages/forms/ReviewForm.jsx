@@ -24,58 +24,63 @@ class ReviewForm extends Component {
     onSubmitReview(event) {
         event.preventDefault();
         const id = this.props.businessId;
-        console.log(this.props.businessId);
         this.props.reviewRequest(this.state, id).then(() => {
             const { isCreated, hasError, error } = this.props.review;
-            if(isCreated && !hasError){
-                this.setState({context: ''});
-            // this.context.router.history.push(`businessProfile/${id}`);
+            if (isCreated && !hasError) {
+                this.setState({ context: '' });
+                this.props.getReviewRequest(this.props.businessId);
             }
-            else if(!isCreated && hasError){
+            else if (!isCreated && hasError) {
                 Materialize.toast(error, 4000, 'red accent-3 rounded');
             }
-            
+
         });
     }
     render() {
-        const {reviews} = this.props;
+        const { reviews } = this.props;
+        const { isAuthenticated } = this.props.authData;
 
         const review = reviews && reviews.map((review) => {
-            return(<ReviewList 
+            return (<ReviewList
+                key={review.id}
                 context={review.context}
-                createdAt={review.createdAt}/>)
+                createdAt={review.createdAt} />)
         })
 
         return (
+
             <div className="reviewForm">
                 <div className="row">
                     <div className="col s10 offset-s1">
 
                         <h5>Reviews</h5>
-                        <div className="row">
-                            <div className="col s12">
+                        {isAuthenticated ?
+                            <div className="row">
+                                <div className="col s12">
 
-                                <div className="input-field">
-                                    <i className="material-icons prefix">rate_review</i>
-                                    <textarea
-                                        id="textarea1"
-                                        className="materialize-textarea"
-                                        name='context'
-                                        onChange={this.onChange}
-                                        value={this.state.context}
-                                        required>
-                                    </textarea>
-                                    <label htmlFor="textarea1">write a message...</label>
-                                </div><br />
-                                <div className="input-field right-align">
-                                    <button className="btn waves-effect waves-light btn_large " type="submit" onClick={this.onSubmitReview} name="action">Post
-                                                  <i className="material-icons left">send</i>
-                                    </button>
-                                </div><br />
+                                    <div className="input-field">
+                                        <i className="material-icons prefix">rate_review</i>
+                                        <textarea
+                                            id="textarea1"
+                                            className="materialize-textarea"
+                                            name='context'
+                                            onChange={this.onChange}
+                                            value={this.state.context}
+                                            required>
+                                        </textarea>
+                                        <label htmlFor="textarea1">write a message...</label>
+                                    </div><br />
+                                    <div className="input-field right-align">
+                                        <button className="btn waves-effect waves-light btn_large " type="submit" onClick={this.onSubmitReview} name="action">Post
+                                                   <i className="material-icons left">send</i>
+                                        </button>
+                                    </div><br />
+                                </div>
                             </div>
-                        </div>
+                            : null}
+
                         {review}
-                    
+
                     </div>
                 </div>
             </div>
@@ -85,10 +90,11 @@ class ReviewForm extends Component {
 }
 
 const mapStateToProps = state => ({
-     // businessId: state.OneBusiness.business.id,
-     review: state.ReviewReducer,
+    businessId: state.OneBusiness.business.id,
+    review: state.ReviewReducer,
+    authData: state.auth
     // busid: state.BusinessReducer.oneBusiness.id
 
 })
 
-export default connect(mapStateToProps, { reviewRequest, getReviewRequest } )(ReviewForm);
+export default connect(mapStateToProps, { reviewRequest, getReviewRequest })(ReviewForm);

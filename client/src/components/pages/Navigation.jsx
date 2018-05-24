@@ -12,21 +12,12 @@ class Navigation extends Component {
     }
 
     componentDidMount() {
-        $(document).ready(() => {
             $('.sidenav').sideNav({
                 menuWidth: 300,
                 edge: 'left',
                 closeOnClick: true,
                 draggable: true,
             });
-          });
-      
-            // $('.sidenav').sidenav({
-            //     menuWidth: 300,
-            //     edge: 'left',
-            //     closeOnClick: true,
-            //     draggable: true,
-            // });
 
     }
     render() {

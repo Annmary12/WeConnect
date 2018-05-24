@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Input, Row } from 'react-materialize';
 import { fetchOneBusinessRequest, updateBusinessRequest } from '../../../actions/fetchBusinesses';
+import PropTypes from 'prop-types';
 
 /**
  * @class EditBusinessForm
@@ -13,26 +14,34 @@ class EditBusinessForm extends Component {
    */
   constructor(props) {
     super(props);
-    const {
-      name, id, description, phoneNumber, address, location, category, website
-    } = this.props;
     this.state = {
-      name,
-      description,
-      phoneNumber,
-      address,
+      name: '',
+      description: '',
+      phoneNumber: '',
+      address: '',
       image: '',
-      location,
-      category,
-      website,
+      location: '',
+      category: '',
+      website:'',
       errors: {},
       isLoading: false,
       isCreated: '',
-      id
+      id: '',
 
     };
     this.onChange = this.onChange.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.props.business) {
+      const {
+      name, id, description, phoneNumber,image, address, location, category, website
+    } = nextProps.business;
+      this.setState({
+        id, name, description, phoneNumber,image, address, location, category, website
+      })
+    }
   }
 
   /**
@@ -53,8 +62,15 @@ class EditBusinessForm extends Component {
  */
   onUpdate(event) {
     event.preventDefault();
-    // console.log(this.state);
-    this.props.updateBusinessRequest(this.state);
+    this.props.updateBusinessRequest(this.state).then(() =>
+  {
+    this.context.router.history.push('/profile');
+    Materialize.toast('Successfully Updated', 2000, 'teal rounded');
+  },
+(error) => {
+  Materialize.toast('Not working', 2000, 'red rounded');
+    
+});
   }
 
   /**
@@ -63,16 +79,20 @@ class EditBusinessForm extends Component {
      * @returns {object} markUp
      */
   render() {
+    if (!this.props.business) {
+      return (<p>Loading...</p>)
+    }
     const {
       name,
       description,
       phoneNumber,
       address,
-      // image,
+      image,
       location,
       category,
       website
     } = this.state;
+
     return (
       <div className="container">
         <div className="row register-section">
@@ -99,7 +119,7 @@ class EditBusinessForm extends Component {
                       className="materialize-textarea"
                       name='description'
                       onChange={this.onChange}
-                      defaultValue={description}
+                      value={description}
                       required>
                     </textarea>
                     <label htmlFor="textarea1">Description of your business...</label>
@@ -112,7 +132,7 @@ class EditBusinessForm extends Component {
                       type="text"
                       name='address'
                       onChange={this.onChange}
-                      defaultValue={address}
+                      value={address}
                       required />
                     <label htmlFor="last_name">Enter Address</label>
                   </div>
@@ -124,7 +144,7 @@ class EditBusinessForm extends Component {
                       type="number"
                       name='phoneNumber'
                       onChange={this.onChange}
-                      defaultValue={phoneNumber}
+                      value={phoneNumber}
                       required
                     />
                     <label htmlFor="last_name">Enter Phone Number</label>
@@ -135,7 +155,7 @@ class EditBusinessForm extends Component {
                       type='select'
                       label='Select Location'
                       icon='location_on'
-                      defaultValue={location}
+                      value={location}
                       name='location'
                       onChange={this.onChange}
                     >
@@ -151,7 +171,7 @@ class EditBusinessForm extends Component {
                       type='select'
                       label='Select Category'
                       icon='label'
-                      defaultValue={category}
+                      value={category}
                       name='category'
                       onChange={this.onChange}
                     >
@@ -169,7 +189,7 @@ class EditBusinessForm extends Component {
                       type="text"
                       name='website'
                       onChange={this.onChange}
-                      defaultValue={website}
+                      value={website}
                     />
                     <label htmlFor="last_name">Enter Website url</label>
                   </div>
@@ -177,7 +197,7 @@ class EditBusinessForm extends Component {
                   <div className="file-field input-field">
                     <div className="btn" id="button">
                       <span>upload</span>
-                      <input type="file" />
+                      <input type="file"/>
                     </div>
                     <div className="file-path-wrapper">
                       <input className="file-path validate" type="text" />
@@ -199,10 +219,18 @@ class EditBusinessForm extends Component {
     );
   }
 }
+EditBusinessForm.contextTypes = {
+  router: PropTypes.object.isRequired
+}
+
+EditBusinessForm.propTypes = {
+  fetchOneBusinessRequest: PropTypes.func.isRequired,
+}
 
 const mapStateToProps = state => ({
   updateBusiness: state.BusinessReducer.updatedBusiness,
-  isUpdated: state.BusinessReducer.isUpdated
+  isUpdated: state.BusinessReducer.isUpdated,
+  business: state.OneBusiness.business
 });
 
 export default connect(mapStateToProps, { fetchOneBusinessRequest, updateBusinessRequest })(EditBusinessForm);
