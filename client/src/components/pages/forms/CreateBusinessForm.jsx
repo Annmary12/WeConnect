@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { createBusinessRequest } from '../../../actions/createBusiness';
 import { saveImageCloudinary } from '../../../actions/fetchBusinesses';
 import Button from 'react-materialize/lib/Button';
+import checkImage from '../../../utils/imageChecker';
 /**
  * @class CreateBusinessForm
  */
@@ -20,8 +21,8 @@ class CreateBusinessForm extends Component {
       description: '',
       phoneNumber: '',
       address: '',
-      newImage: '',
-      image: '',
+      imageSrc: '',
+      image: '/images/noImage.jpg',
       location: '',
       category: '',
       website: '',
@@ -52,8 +53,29 @@ class CreateBusinessForm extends Component {
  * @returns {object} SyntheticEvent
  */
   handleImageChange(event) {
-    event.preventDefault();
-    this.saveImage(event);
+    // event.preventDefault();
+    // this.saveImage(event);
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      const filereader = new FileReader();
+      checkImage(filereader, file, (fileType) => {
+        if (fileType === 'image/png' || fileType === 'image/gif' ||
+          fileType === 'image/jpeg') {
+          this.setState({ image: file });
+          filereader.onload = (event) => {
+            this.setState({ imageSrc: event.target.result });
+          };
+          filereader.readAsDataURL(file);
+        } else {
+          this.setState({imageSrc: '/images/noimageyet.jpg', image: ''})
+          Materialize.toast('please provide a valid image file', 2000, 'teal rounded');
+          
+      
+        }
+      });
+    } else {
+      this.setState({imageSrc: '/images/noimageyet.jpg', image: '' });
+    }
 
   }
 
@@ -118,7 +140,8 @@ class CreateBusinessForm extends Component {
       description,
       phoneNumber,
       address,
-      // image,
+      image,
+      imageSrc,
       location,
       category,
       website
@@ -224,7 +247,7 @@ class CreateBusinessForm extends Component {
                     <label htmlFor="last_name">Enter Website url</label>
                   </div>
 
-                  <div className="file-field input-field">
+                  {/* <div className="file-field input-field">
                     <div className="btn" id="button">
                       <span>upload</span>
                       <input type="file"
@@ -233,7 +256,16 @@ class CreateBusinessForm extends Component {
                     <div className="file-path-wrapper">
                       <input className="file-path validate" type="text" />
                     </div>
-                  </div>
+                  </div> */}
+                  <div id="mainApp">
+                    <div className="previewComponent">
+                      
+                        <input type="file" className="fileInput" onChange={this.handleImageChange}/>
+                        <div className="imgPreview">
+                          <img src={this.state.image}/>
+                        </div>
+                    </div>
+                    </div>
 
 
                   <div className="input-field center-align">

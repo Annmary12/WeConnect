@@ -94,12 +94,10 @@ export const fetchOneBusinessRequest = id => dispatch =>
  * @param {object} business
  * @returns {object} update business
  */
-export function updateBusiness(business) {
-  return {
+const updateBusinessSuccess = business => ({
     type: UPDATE_BUSINESS_SUCCESSFUL,
     business
-  };
-}
+});
 
 /**
  *
@@ -113,18 +111,60 @@ export function updateBusinessfailed(error) {
   };
 }
 
+const updateBusiness = (business, cloudImageUrl) => (
+  dispatch => (
+    axios({
+          method: 'PUT',
+          url: `/api/v1/businesses/${business.id}`,
+          data: {
+              name: business.name,
+              description: business.description,
+              phoneNumber: business.phoneNumber,
+              address: business.address,
+              image: cloudImageUrl,
+              location: business.location,
+              category: business.category,
+              website: business.website
+          }
+        })
+        .then((response) => {
+          dispatch(updateBusinessSuccess(response.data.business));
+        })
+        .catch((error) => {
+          dispatch(updateBusinessfailed(error.response.data.message));
+      }))
+    );
+
 /**
  * @description action to update a particular business
  * @param {object} business
  * @returns {object} business
  */
-export const updateBusinessRequest = business => dispatch => axios.put(`/api/v1/businesses/${business.id}`, business)
-  .then((response) => {
-    dispatch(updateBusiness(response.data.business));
-  })
-  .catch((error) => {
-    dispatch(updateBusinessfailed(error.response.data.message));
-  });
+export const updateBusinessRequest = business => (
+  (dispatch) => {
+    // const { CLOUDINARY_URL, CLOUDINARY_PRESET, DEFAULT_IMAGE } = process.env;
+    let cloudImageUrl = business.currentImageSrc;
+    
+    if (!business.imageFile.name) {
+      return dispatch(updateBusiness(business, cloudImageUrl));
+    }
+
+    const data = new FormData();
+    data.append('file', business.imageFile);
+    data.append('upload_preset', process.env.CLOUDINARY_PRESET);
+    delete axios.defaults.headers.common.Authorization;
+    return axios.post(process.env.CLOUDINARY_URL, data)
+      .then(({ data }) => {
+        const token = localStorage.getItem('jwtToken');
+        axios.defaults.headers.common.Authorization = token;
+        cloudImageUrl = data.secure_url;
+        // dispatch single action
+        return dispatch(updateBusiness(business, cloudImageUrl))
+      })
+      .catch(() => {
+        return dispatch(saveImageFailed("Failed to upload image. Try again"))
+      })
+    });
 
   /**
  *
@@ -175,27 +215,3 @@ export function saveImageFailed(error) {
     error
   };
 }
-
-/**
- * @description action to upload image
- * @param {object} image
- * @returns {object} business
- */
-export function saveImageCloudinary(image) {
-  const { CLOUDINARY_URL } = process.env;
-  const PRESET = process.env.CLOUDINARY_PRESET;
-  const data = new FormData();
-  data.append('file', image);
-  data.append('upload_preset', 'yts85sou');
-  delete axios.defaults.headers.common.Authorization;
-  return dispatch => axios.post('https://api.cloudinary.com/v1_1/annmary/image/upload/', data)
-    .then(({data}) => {
-      const token = localStorage.getItem('jwtToken');
-      axios.defaults.headers.common.Authorization = token;
-      dispatch(saveImageSuccessful(data.secure_url));
-    })
-    .catch(() => {
-      dispatch(saveImageFailed('Sorry, your image failed to upload'));
-    });
-}
-

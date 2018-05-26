@@ -131,8 +131,9 @@ class Business {
               website: req.body.website || business.website
 
             })
-              .then(() => res.status(200).json({
-                business,
+              .then((newBusiness) =>
+                res.status(200).json({
+                newBusiness,
                 message: 'Sucessfully Updated',
                 error: false,
               }))

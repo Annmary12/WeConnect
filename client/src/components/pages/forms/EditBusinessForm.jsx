@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Input, Row } from 'react-materialize';
 import { fetchOneBusinessRequest, updateBusinessRequest } from '../../../actions/fetchBusinesses';
 import PropTypes from 'prop-types';
+import checkImage from '../../../utils/imageChecker';
 
 /**
  * @class EditBusinessForm
@@ -19,7 +20,9 @@ class EditBusinessForm extends Component {
       description: '',
       phoneNumber: '',
       address: '',
-      image: '',
+      imageFile: '',
+      currentImageSrc: '',
+      initialImageSrc: '',
       location: '',
       category: '',
       website: '',
@@ -31,15 +34,18 @@ class EditBusinessForm extends Component {
     };
     this.onChange = this.onChange.bind(this);
     this.onUpdate = this.onUpdate.bind(this);
+    this.handleImageChange = this.handleImageChange.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.business) {
       const {
-        name, id, description, phoneNumber, image, address, location, category, website
+        name, id, description, phoneNumber, address, location, category, website
       } = nextProps.business;
       this.setState({
-        id, name, description, phoneNumber, image, address, location, category, website
+        id, name, description, phoneNumber, address, location, category, website,
+        initialImageSrc: nextProps.business.image,
+        currentImageSrc: nextProps.business.image
       })
     }
   }
@@ -52,6 +58,30 @@ class EditBusinessForm extends Component {
 */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
+  }
+
+  handleImageChange(event) {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      const filereader = new FileReader();
+      checkImage(filereader, file, (fileType) => {
+        if (fileType === 'image/png' || fileType === 'image/gif' ||
+          fileType === 'image/jpeg') {
+          this.setState({ imageFile: file });
+          filereader.onload = (e) => {
+            this.setState({ currentImageSrc: e.target.result });
+          };
+          filereader.readAsDataURL(file);
+        } else {
+          this.setState({currentImageSrc: this.state.initialImageSrc, imageFile: ''})
+          Materialize.toast('please provide a valid image file', 2000, 'teal rounded');
+          
+      
+        }
+      });
+    } else {
+      this.setState({currentImageSrc: this.state.initialImageSrc, imageFile: '' });
+    }
   }
 
   /**
@@ -68,6 +98,7 @@ class EditBusinessForm extends Component {
     },
       (error) => {
         Materialize.toast('Not working', 2000, 'red rounded');
+        
 
       });
   }
@@ -205,10 +236,9 @@ class EditBusinessForm extends Component {
                   <div id="mainApp">
                     <div className="previewComponent">
                       
-                        <input type="file" className="fileInput"/>
-                          <button className="submitButton" type="submit">Upload Image</button>
+                        <input type="file" className="fileInput" onChange={this.handleImageChange}/>
                         <div className="imgPreview">
-                          <div className="previewText">Please select an Image for Preview</div>
+                          <img src={this.state.currentImageSrc}/>
                         </div>
                     </div>
                     </div>

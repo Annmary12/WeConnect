@@ -6,6 +6,7 @@ import EditBusinessForm from './forms/EditBusinessForm';
 import { fetchOneBusinessRequest } from '../../actions/fetchBusinesses';
 import { PropTypes } from 'prop-types';
 
+
 class EditBusiness extends Component {
 /**
    * @param {object} api call

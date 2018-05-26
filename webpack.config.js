@@ -1,4 +1,5 @@
 import webpack from 'webpack';
+import Dotenv from 'dotenv-webpack';
 const path = require('path');
 
 module.exports = {
@@ -12,7 +13,11 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin(),
+    new Dotenv({
+      path: './.env', // load this now instead of the ones in '.env'
+      systemvars: true, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
+    })
   ],
   module: { // where we defined file patterns and their loaders
     rules: [
