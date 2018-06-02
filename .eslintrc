@@ -7,10 +7,6 @@
         "plugin:import/errors",
         "plugin:import/warnings"
       ],
-    "global": {
-        "localStorage": true,
-        "FormData": true
-    },
     "env": {
     "node": true,
     "es6": true,
@@ -76,5 +72,9 @@
     "react/self-closing-comp": 1,
     "react/sort-comp": 1,
     "react/wrap-multilines": 1
+    },
+    "globals": {
+        "localStorage": true,
+        "FormData": true
     }
     }

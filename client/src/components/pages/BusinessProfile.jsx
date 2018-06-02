@@ -64,6 +64,7 @@ class BusinessProfile extends Component {
         <div className="container">
           <div className="row register-business">
             <div className="col s10 offset-s1">
+                <div className="center-align" id="businessHeader">{business.name}</div>
             </div>
           </div>
         </div>

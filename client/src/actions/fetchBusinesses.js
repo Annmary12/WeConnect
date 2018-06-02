@@ -10,58 +10,60 @@ import {
   FETCH_BUSINESS_FAILED,
   UPDATE_BUSINESS_FAILED
 } from './types';
+import { isRequesting, actionResponseSuccess, actionResponseFailure } from './helper';
 
-/**
- *
- * @param {object} businesses
- * @returns {object} businesses
- */
-export function fetchBusinessSuccess(businesses) {
-  return {
-    type: FETCH_BUSINESS_SUCCESSFUL,
-    businesses
-  };
-}
 
-/**
- *
- * @param {object} error
- * @returns {object} error
- */
-export function fetchBusinessFailed(error) {
-  return {
-    type: FETCH_BUSINESS_FAILED,
-    error
-  };
-}
+// /**
+//  *
+//  * @param {array} businesses - sjdnsjdvjsdnjncnsd
+//  * @returns {object} - businesses
+//  */
+// export function fetchBusinessSuccess(businesses) {
+//   return {
+//     type: FETCH_BUSINESS_SUCCESSFUL,
+//     businesses
+//   };
+// }
+
+// /**
+//  *
+//  * @param {object} error
+//  * @returns {object} error
+//  */
+// export function fetchBusinessFailed(error) {
+//   return {
+//     type: FETCH_BUSINESS_FAILED,
+//     error
+//   };
+// }
 
 /**
  * @description action to fetch all businesses
- * @param {object} userData
- * @returns {object} userData
+ * @param {*}
+ * @returns {Array} businesses
  */
 export const fetchBusinessesRequest = () => dispatch =>
   axios.get('/api/v1/businesses')
     .then((response) => {
-      dispatch(fetchBusinessSuccess(response.data.businesses));
+      dispatch(actionResponseSuccess(FETCH_BUSINESS_SUCCESSFUL, response.data.businesses));
     })
     .catch((error) => {
-      dispatch(fetchBusinessFailed(error.response.data.message));
+      dispatch(actionResponseFailure(FETCH_BUSINESS_FAILED, error.response.data.message));
     });
 
-    /**
+/**
  * @description action to fetch all businesses
- * @param {object} userData
+ * @param {object} searchType
  * @returns {object} userData
  */
 export const searchBusinessesRequest = (searchType, value) => dispatch =>
-axios.get(`/api/v1/businesses?${searchType}=${value}`)
-  .then((response) => {
-    dispatch(fetchBusinessSuccess(response.data.businesses));
-  })
-  .catch((error) => {
-    throw (error);
-  });
+  axios.get(`/api/v1/businesses?${searchType}=${value}`)
+    .then((response) => {
+      dispatch(fetchBusinessSuccess(response.data.businesses));
+    })
+    .catch((error) => {
+      throw (error);
+    });
 
 /**
  *
@@ -95,8 +97,8 @@ export const fetchOneBusinessRequest = id => dispatch =>
  * @returns {object} update business
  */
 const updateBusinessSuccess = business => ({
-    type: UPDATE_BUSINESS_SUCCESSFUL,
-    business
+  type: UPDATE_BUSINESS_SUCCESSFUL,
+  business
 });
 
 /**
@@ -114,26 +116,26 @@ export function updateBusinessfailed(error) {
 const updateBusiness = (business, cloudImageUrl) => (
   dispatch => (
     axios({
-          method: 'PUT',
-          url: `/api/v1/businesses/${business.id}`,
-          data: {
-              name: business.name,
-              description: business.description,
-              phoneNumber: business.phoneNumber,
-              address: business.address,
-              image: cloudImageUrl,
-              location: business.location,
-              category: business.category,
-              website: business.website
-          }
-        })
-        .then((response) => {
-          dispatch(updateBusinessSuccess(response.data.business));
-        })
-        .catch((error) => {
-          dispatch(updateBusinessfailed(error.response.data.message));
+      method: 'PUT',
+      url: `/api/v1/businesses/${business.id}`,
+      data: {
+        name: business.name,
+        description: business.description,
+        phoneNumber: business.phoneNumber,
+        address: business.address,
+        image: cloudImageUrl,
+        location: business.location,
+        category: business.category,
+        website: business.website
+      }
+    })
+      .then((response) => {
+        dispatch(updateBusinessSuccess(response.data.business));
+      })
+      .catch((error) => {
+        dispatch(updateBusinessfailed(error.response.data.message));
       }))
-    );
+);
 
 /**
  * @description action to update a particular business
@@ -142,9 +144,10 @@ const updateBusiness = (business, cloudImageUrl) => (
  */
 export const updateBusinessRequest = business => (
   (dispatch) => {
+    dispatch(isRequesting(true));
     // const { CLOUDINARY_URL, CLOUDINARY_PRESET, DEFAULT_IMAGE } = process.env;
     let cloudImageUrl = business.currentImageSrc;
-    
+
     if (!business.imageFile.name) {
       return dispatch(updateBusiness(business, cloudImageUrl));
     }
@@ -159,12 +162,13 @@ export const updateBusinessRequest = business => (
         axios.defaults.headers.common.Authorization = token;
         cloudImageUrl = data.secure_url;
         // dispatch single action
-        return dispatch(updateBusiness(business, cloudImageUrl))
+        return dispatch(updateBusiness(business, cloudImageUrl));
       })
       .catch(() => {
-        return dispatch(saveImageFailed("Failed to upload image. Try again"))
-      })
-    });
+        return dispatch(saveImageFailed('Failed to upload image. Try again'));
+        dispatch(isRequesting(false));
+      });
+  });
 
   /**
  *

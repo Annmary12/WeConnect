@@ -1,4 +1,4 @@
-import { SAVE_IMAGE_SUCCESSFUL, SAVE_IMAGE_FAILED, SAVE_IMAGE_REQUEST } from '../actions/types';
+import { SAVE_IMAGE_SUCCESSFUL, SAVE_IMAGE_FAILED } from '../actions/types';
 
 const initialState = {
   imageData: {},
@@ -10,14 +10,13 @@ export default (state = initialState, action = {}) => {
   switch (action.type) {
     case SAVE_IMAGE_SUCCESSFUL:
       return {
+        ...state,
         imageData: action.image,
-        error: '',
         hasSaved: true
       };
     case SAVE_IMAGE_FAILED:
       return {
-        imageData: {},
-        hasSaved: false,
+        ...state,
         error: action.error,
       };
 

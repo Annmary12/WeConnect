@@ -6,7 +6,7 @@ import TextTruncate from 'react-text-truncate';
 const Card = ({name, description, id, image}) => (
         <div className="card" style={{ overflow: 'visible' }}>
         <div className="card-image waves-effect waves-block waves-light">
-          <img className="activator" id="activator" src={require('../../../public/images/bu.jpg')} />
+          <img className="activator" id="activator" src={image} />
         </div>
         <div className="card-content">
           <span className="card-title activator grey-text text-darken-4">

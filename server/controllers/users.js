@@ -5,6 +5,7 @@ import models from '../models/index';
 // import User from '../models/user';
 
 const userModel = models.User;
+const businessModel = models.Business;
 dotenv.config();
 const secret = process.env.secretKey;
 
@@ -125,6 +126,29 @@ class User {
       })
     })
   }
+
+  /**
+    * @description Logs in an existing user
+    * @returns {Object} getUserBusinesses
+    * @param {*} req
+   * @param {*} res
+   */ 
+  static getUserBusinesses(req, res){
+    return businessModel.findAll({where: {userId: req.params.userId}})
+    .then((businesses)=> {
+      if(businesses.length == 0){
+        return res.status(400).json({
+          message: 'No Available Businesses'
+        })
+      }
+     
+      return res.status(200).json({
+        businesses
+        
+      })
+    })
+  }
+
 }
 
 export default User;

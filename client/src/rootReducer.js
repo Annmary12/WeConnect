@@ -8,6 +8,7 @@ import OneBusiness from './reducers/oneBusiness';
 import allReviews from './reducers/allReviews';
 import getUser from './reducers/getUser';
 import updateBusiness from './reducers/updateBusiness';
+import userBusinesses from './reducers/getUserBusinesses';
 
 
 const rootReducer = combineReducers({
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
   OneBusiness,
   allReviews,
   getUser,
-  updateBusiness
+  updateBusiness,
+  userBusinesses
 });
 export default rootReducer;

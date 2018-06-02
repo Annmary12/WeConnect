@@ -10,18 +10,15 @@ export default (state = initialState, action = {}) => {
   switch (action.type) {
     case CREATE_BUSINESS_SUCCESSFUL:
       return {
+        ...state,
         isCreated: true,
-        hasError: false,
-        error: '',
-
       };
 
     case CREATE_BUSINESS_FAILED:
       return {
-        isCreated: false,
+        ...state,
         hasError: true,
         error: action.error,
-
       };
 
     default: return state;

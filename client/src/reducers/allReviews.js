@@ -1,14 +1,13 @@
-import {ALL_REVIEW } from '../actions/types';
+import { ALL_REVIEW } from '../actions/types';
 
 
 export default (state = {}, action = {}) => {
-    switch (action.type) {
-        case ALL_REVIEW:
-            return {
-                reviews: action.reviews
-            };
+  switch (action.type) {
+    case ALL_REVIEW:
+      return {
+        reviews: action.reviews
+      };
 
-        default: return state;
-
-    }
-}
+    default: return state;
+  }
+};
