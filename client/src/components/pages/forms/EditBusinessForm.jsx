@@ -43,10 +43,17 @@ class EditBusinessForm extends Component {
         name, id, description, phoneNumber, address, location, category, website
       } = nextProps.business;
       this.setState({
-        id, name, description, phoneNumber, address, location, category, website,
+        id,
+        name,
+        description,
+        phoneNumber,
+        address,
+        location,
+        category,
+        website,
         initialImageSrc: nextProps.business.image,
         currentImageSrc: nextProps.business.image
-      })
+      });
     }
   }
 
@@ -73,14 +80,12 @@ class EditBusinessForm extends Component {
           };
           filereader.readAsDataURL(file);
         } else {
-          this.setState({currentImageSrc: this.state.initialImageSrc, imageFile: ''})
+          this.setState({ currentImageSrc: this.state.initialImageSrc, imageFile: '' });
           Materialize.toast('please provide a valid image file', 2000, 'teal rounded');
-          
-      
         }
       });
     } else {
-      this.setState({currentImageSrc: this.state.initialImageSrc, imageFile: '' });
+      this.setState({ currentImageSrc: this.state.initialImageSrc, imageFile: '' });
     }
   }
 
@@ -92,15 +97,15 @@ class EditBusinessForm extends Component {
  */
   onUpdate(event) {
     event.preventDefault();
-    this.props.updateBusinessRequest(this.state).then(() => {
+    this.props.updateBusinessRequest(this.state).then(
+() => {
       this.context.router.history.push('/profile');
       Materialize.toast('Successfully Updated', 2000, 'teal rounded');
     },
-      (error) => {
-        Materialize.toast('Not working', 2000, 'red rounded');
-        
-
-      });
+    (error) => {
+      Materialize.toast('Not working', 2000, 'red rounded');
+    }
+);
   }
 
   /**
@@ -110,7 +115,7 @@ class EditBusinessForm extends Component {
      */
   render() {
     if (!this.props.business) {
-      return (<p>Loading...</p>)
+      return (<p>Loading...</p>);
     }
     const {
       name,
@@ -223,19 +228,9 @@ class EditBusinessForm extends Component {
                     />
                     <label htmlFor="last_name">Enter Website url</label>
                   </div>
-
-                  {/* <div className="file-field input-field">
-                    <div className="btn" id="button">
-                      <span>upload</span>
-                      <input type="file"/>
-                    </div>
-                    <div className="file-path-wrapper">
-                      <input className="file-path validate" type="text" />
-                    </div>
-                  </div> */}
                   <div id="mainApp">
                     <div className="previewComponent">
-                      
+
                         <input type="file" className="fileInput" onChange={this.handleImageChange}/>
                         <div className="imgPreview">
                           <img src={this.state.currentImageSrc}/>
@@ -246,7 +241,7 @@ class EditBusinessForm extends Component {
 
                     <div className="input-field center-align">
                       <button className="btn waves-effect waves-light btn_large" type="submit" name="action">UPDATE
-                                                            <i className="material-icons left">send</i>
+                        <i className="material-icons left">send</i>
                       </button>
                     </div><br />
                   </div>
@@ -256,21 +251,21 @@ class EditBusinessForm extends Component {
           </div>
 
         </div>
-        );
-      }
-    }
+    );
+  }
+}
 EditBusinessForm.contextTypes = {
-          router: PropTypes.object.isRequired
-      }
-      
+  router: PropTypes.object.isRequired
+};
+
 EditBusinessForm.propTypes = {
-          fetchOneBusinessRequest: PropTypes.func.isRequired,
-      }
-      
+  fetchOneBusinessRequest: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = state => ({
-          updateBusiness: state.BusinessReducer.updatedBusiness,
-        isUpdated: state.BusinessReducer.isUpdated,
-        business: state.OneBusiness.business
-      });
-      
-export default connect(mapStateToProps, {fetchOneBusinessRequest, updateBusinessRequest })(EditBusinessForm);
+  updateBusiness: state.BusinessReducer.updatedBusiness,
+  isUpdated: state.BusinessReducer.isUpdated,
+  business: state.OneBusiness.business
+});
+
+export default connect(mapStateToProps, { fetchOneBusinessRequest, updateBusinessRequest })(EditBusinessForm);

@@ -132,6 +132,5 @@ class BusinessDetails extends Component {
 
 const mapStateToProps = state => ({
   authData: state.auth,
-
-})
+});
 export default connect(mapStateToProps)(BusinessDetails);

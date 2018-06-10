@@ -44,15 +44,16 @@ class BusinessProfile extends Component {
    */
   componentWillReceiveProps(nextProps) {
     this.setState({ oneBusiness: nextProps.business });
-    if (nextProps.isDeleted === true) {
-      this.context.router.history.push('/business');
-      Materialize.toast('Successfully deleted', 2000, 'teal rounded');
-    }
   }
 
   onDelete(event) {
     event.preventDefault();
-    this.props.deleteBusinessRequest(this.props.match.params.id);
+    this.props.deleteBusinessRequest(this.props.match.params.id).then(() => {
+      if (this.props.isDeleted) {
+        this.context.router.history.push('/business');
+        Materialize.toast('Successfully deleted', 2000, 'teal rounded');
+      }
+    });
   }
   render() {
     const business = this.state.oneBusiness;
@@ -91,8 +92,8 @@ class BusinessProfile extends Component {
 
 const mapStateToProps = state => ({
   business: state.OneBusiness.business,
-  isDeleted: state.BusinessReducer.isDeleted,
-  reviews : state.allReviews.reviews
+  isDeleted: state.OneBusiness.isDeleted,
+  reviews: state.allReviews.reviews
 });
 
 BusinessProfile.contextTypes = {

@@ -4,8 +4,8 @@ import { Input, Row } from 'react-materialize';
 import PropTypes from 'prop-types';
 import { createBusinessRequest } from '../../../actions/createBusiness';
 import { saveImageCloudinary } from '../../../actions/fetchBusinesses';
-import Button from 'react-materialize/lib/Button';
 import checkImage from '../../../utils/imageChecker';
+
 /**
  * @class CreateBusinessForm
  */
@@ -21,8 +21,8 @@ class CreateBusinessForm extends Component {
       description: '',
       phoneNumber: '',
       address: '',
-      imageSrc: '',
-      image: '/images/noImage.jpg',
+      imageSrc: '/images/noImage.jpg',
+      image: '',
       location: '',
       category: '',
       website: '',
@@ -33,7 +33,6 @@ class CreateBusinessForm extends Component {
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.handleImageChange = this.handleImageChange.bind(this);
-    this.saveImage = this.saveImage.bind(this);
   }
 
   /**
@@ -53,8 +52,6 @@ class CreateBusinessForm extends Component {
  * @returns {object} SyntheticEvent
  */
   handleImageChange(event) {
-    // event.preventDefault();
-    // this.saveImage(event);
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
       const filereader = new FileReader();
@@ -67,32 +64,15 @@ class CreateBusinessForm extends Component {
           };
           filereader.readAsDataURL(file);
         } else {
-          this.setState({imageSrc: '/images/noimageyet.jpg', image: ''})
+          this.setState({ imageSrc: '/images/noimageyet.jpg', image: '' });
           Materialize.toast('please provide a valid image file', 2000, 'teal rounded');
-          
-      
         }
       });
     } else {
-      this.setState({imageSrc: '/images/noimageyet.jpg', image: '' });
+      this.setState({ imageSrc: '/images/noimageyet.jpg', image: '' });
     }
-
   }
 
-  /**
- * Save image to cloudinary
- * @param {object} event
- *
- * @returns {object} SyntheticEvent
- */
-  saveImage(event) {
-    // event.preventDefault();
-    this.props.saveImageCloudinary(event.target.files[0])
-      .then(() => {
-        this.setState({ image: this.props.imageUrl.imageData });
-      });
-
-  }
 
   /**
  * Submits business form
@@ -102,31 +82,27 @@ class CreateBusinessForm extends Component {
  */
   onSubmit(event) {
     event.preventDefault();
-    this.props.createBusinessRequest(this.state);
-  }
-
-  /**
-   * @param {object} nextProps
-   *
-   * @returns {object} assigns nextprops to state
-   */
-  componentWillReceiveProps(nextProps) {
-    console.log(nextProps.createBusinessData);
-    if (nextProps.createBusinessData.isCreated) {
-      console.log('here');
-      const { isCreated, hasError, error } = nextProps.createBusinessData;
-      if (hasError) {
-        if (error.response) {
-          Materialize.toast(error.response.data, 4000, 'red accent-3 rounded');
-        } else {
-          Materialize.toast('There was an error submiting your request', 4000, 'red accent-3 rounded');
+    this.props.createBusinessRequest(this.state)
+      .then(
+        () => {
+          console.log('success');
+          console.log('better work', this.props.createBusinessData);
+          const { isCreated, hasError, error } = this.props.createBusinessData;
+          if (isCreated && !hasError) {
+            this.context.router.history.push('/profile');
+            Materialize.toast('Successfully Created the business profile', 4000, 'teal accent-3 rounded');
+          }
+          if (hasError && !isCreated) {
+            Materialize.toast(error, 4000, 'red accent-3 rounded');
+          }
+          if (!hasError && !isCreated) {
+            Materialize.toast('There was an error submiting your request', 4000, 'red accent-3 rounded');
+          }
+        },
+        () => {
+          console.log('failure');
         }
-      } else if (isCreated && !hasError) {
-        this.context.router.history.push('/profile');
-        Materialize.toast('Successully Created', 4000, 'teal accent-3 rounded');
-      }
-    }
-
+      );
   }
 
   /**
@@ -246,31 +222,20 @@ class CreateBusinessForm extends Component {
                     />
                     <label htmlFor="last_name">Enter Website url</label>
                   </div>
-
-                  {/* <div className="file-field input-field">
-                    <div className="btn" id="button">
-                      <span>upload</span>
-                      <input type="file"
-                        onChange={this.handleImageChange.bind(this)} />
-                    </div>
-                    <div className="file-path-wrapper">
-                      <input className="file-path validate" type="text" />
-                    </div>
-                  </div> */}
                   <div id="mainApp">
                     <div className="previewComponent">
-                      
-                        <input type="file" className="fileInput" onChange={this.handleImageChange}/>
-                        <div className="imgPreview">
-                          <img src={this.state.image}/>
-                        </div>
+
+                      <input type="file" className="fileInput" onChange={this.handleImageChange} />
+                      <div className="imgPreview">
+                        <img src={this.state.imageSrc} />
+                      </div>
                     </div>
-                    </div>
+                  </div>
 
 
                   <div className="input-field center-align">
                     <button className="btn waves-effect waves-light btn_large" type="submit" name="action">SUBMIT
-                                                            <i className="material-icons left">send</i>
+                      <i className="material-icons left">send</i>
                     </button>
                   </div><br />
                 </div>

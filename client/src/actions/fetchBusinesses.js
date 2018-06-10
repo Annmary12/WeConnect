@@ -165,7 +165,7 @@ export const updateBusinessRequest = business => (
         return dispatch(updateBusiness(business, cloudImageUrl));
       })
       .catch(() => {
-        return dispatch(saveImageFailed('Failed to upload image. Try again'));
+        dispatch(saveImageFailed('Failed to upload image. Try again'));
         dispatch(isRequesting(false));
       });
   });

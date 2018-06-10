@@ -4,7 +4,7 @@ import Navigation from './Navigation';
 import Footer from './Footer';
 import UserCard from './UserCard';
 import { Link } from 'react-router-dom';
-import Spinner from 'react-md-spinner'
+import Spinner from 'react-md-spinner';
 import { getUserRequest, getUserBusinessesRequest } from '../../actions/getUser';
 
 class Profile extends Component {
@@ -14,7 +14,7 @@ class Profile extends Component {
       firstname: '',
       lastname: '',
       email: ''
-    }
+    };
   }
 
   componentDidMount() {
@@ -24,14 +24,13 @@ class Profile extends Component {
 
   componentWillReceiveProps(nextProps) {
     const { firstname, lastname, email } = nextProps.currentUser;
-    this.setState({ firstname, lastname, email })
+    this.setState({ firstname, lastname, email });
   }
 
   render() {
     const { userBusinesses } = this.props;
 
-    const businessList = userBusinesses && userBusinesses.map((business) => {
-      return (
+    const businessList = userBusinesses && userBusinesses.map((business) => (
         <div className="col s4" key={business.id}>
           <UserCard
             name={business.name}
@@ -39,8 +38,7 @@ class Profile extends Component {
             id={business.id}
             image={business.image} />
         </div>
-      )
-    });
+      ));
 
     const noBusiness = (
       <div className="row">
@@ -94,16 +92,15 @@ class Profile extends Component {
         </div>
         <Footer />
       </div>
-    )
+    );
   }
-
 }
-const mapStateToProps = (state) => ({
-  businesses: state.BusinessReducer.businesses,
+const mapStateToProps = state => ({
+  // businesses: state.BusinessReducer.businesses,
   userId: state.auth.user.payload.id,
   currentUser: state.getUser.user,
   userBusinesses: state.userBusinesses.businesses,
-  isLoading: state.userBusinesses.isLoading
+  isLoading: state.userBusinesses.isLoading || state.createBusiness.isLoading
 });
 
 export default connect(mapStateToProps, { getUserRequest, getUserBusinessesRequest })(Profile);
