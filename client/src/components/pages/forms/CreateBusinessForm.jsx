@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Input, Row } from 'react-materialize';
 import PropTypes from 'prop-types';
 import { createBusinessRequest } from '../../../actions/createBusiness';
+import { saveImageCloudinary } from '../../../actions/fetchBusinesses';
+import checkImage from '../../../utils/imageChecker';
 
 /**
  * @class CreateBusinessForm
@@ -19,6 +21,7 @@ class CreateBusinessForm extends Component {
       description: '',
       phoneNumber: '',
       address: '',
+      imageSrc: '/images/noImage.jpg',
       image: '',
       location: '',
       category: '',
@@ -29,6 +32,7 @@ class CreateBusinessForm extends Component {
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.handleImageChange = this.handleImageChange.bind(this);
   }
 
   /**
@@ -42,6 +46,35 @@ class CreateBusinessForm extends Component {
   }
 
   /**
+ * Handles image input of values in state
+ * @param {object} event
+ *
+ * @returns {object} SyntheticEvent
+ */
+  handleImageChange(event) {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      const filereader = new FileReader();
+      checkImage(filereader, file, (fileType) => {
+        if (fileType === 'image/png' || fileType === 'image/gif' ||
+          fileType === 'image/jpeg') {
+          this.setState({ image: file });
+          filereader.onload = (event) => {
+            this.setState({ imageSrc: event.target.result });
+          };
+          filereader.readAsDataURL(file);
+        } else {
+          this.setState({ imageSrc: '/images/noimageyet.jpg', image: '' });
+          Materialize.toast('please provide a valid image file', 2000, 'teal rounded');
+        }
+      });
+    } else {
+      this.setState({ imageSrc: '/images/noimageyet.jpg', image: '' });
+    }
+  }
+
+
+  /**
  * Submits business form
  * @param {object} event
  *
@@ -49,26 +82,27 @@ class CreateBusinessForm extends Component {
  */
   onSubmit(event) {
     event.preventDefault();
-    this.props.createBusinessRequest(this.state);
-  }
-
-  /**
-   * @param {object} nextProps
-   *
-   * @returns {object} assigns nextprops to state
-   */
-  componentWillReceiveProps(nextProps) {
-    const { isCreated, hasError, error } = nextProps.createBusinessData[0];
-    if (hasError) {
-      if (error.response) {
-        Materialize.toast(error.response.data, 4000, 'red accent-3 rounded');
-      } else {
-        Materialize.toast('There was an error submiting your request', 4000, 'red accent-3 rounded');
-      }
-    } else if (isCreated && !hasError) {
-      this.context.router.history.push('/profile');
-      Materialize.toast('Successully Created', 4000, 'teal accent-3 rounded');
-    }
+    this.props.createBusinessRequest(this.state)
+      .then(
+        () => {
+          console.log('success');
+          console.log('better work', this.props.createBusinessData);
+          const { isCreated, hasError, error } = this.props.createBusinessData;
+          if (isCreated && !hasError) {
+            this.context.router.history.push('/profile');
+            Materialize.toast('Successfully Created the business profile', 4000, 'teal accent-3 rounded');
+          }
+          if (hasError && !isCreated) {
+            Materialize.toast(error, 4000, 'red accent-3 rounded');
+          }
+          if (!hasError && !isCreated) {
+            Materialize.toast('There was an error submiting your request', 4000, 'red accent-3 rounded');
+          }
+        },
+        () => {
+          console.log('failure');
+        }
+      );
   }
 
   /**
@@ -82,7 +116,8 @@ class CreateBusinessForm extends Component {
       description,
       phoneNumber,
       address,
-      // image,
+      image,
+      imageSrc,
       location,
       category,
       website
@@ -187,20 +222,20 @@ class CreateBusinessForm extends Component {
                     />
                     <label htmlFor="last_name">Enter Website url</label>
                   </div>
+                  <div id="mainApp">
+                    <div className="previewComponent">
 
-                  <div className="file-field input-field">
-                    <div className="btn" id="button">
-                      <span>upload</span>
-                      <input type="file" />
-                    </div>
-                    <div className="file-path-wrapper">
-                      <input className="file-path validate" type="text" />
+                      <input type="file" className="fileInput" onChange={this.handleImageChange} />
+                      <div className="imgPreview">
+                        <img src={this.state.imageSrc} />
+                      </div>
                     </div>
                   </div>
 
+
                   <div className="input-field center-align">
                     <button className="btn waves-effect waves-light btn_large" type="submit" name="action">SUBMIT
-                                                            <i className="material-icons left">send</i>
+                      <i className="material-icons left">send</i>
                     </button>
                   </div><br />
                 </div>
@@ -214,7 +249,8 @@ class CreateBusinessForm extends Component {
   }
 }
 const mapStateToProps = state => ({
-  createBusinessData: state.createBusiness
+  createBusinessData: state.createBusiness,
+  imageUrl: state.ImageReducer
 });
 CreateBusinessForm.propTypes = {
   createBusinessRequest: PropTypes.func.isRequired,
@@ -222,4 +258,4 @@ CreateBusinessForm.propTypes = {
 CreateBusinessForm.contextTypes = {
   router: PropTypes.object.isRequired
 };
-export default connect(mapStateToProps, { createBusinessRequest })(CreateBusinessForm);
+export default connect(mapStateToProps, { createBusinessRequest, saveImageCloudinary })(CreateBusinessForm);

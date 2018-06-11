@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import TextTruncate from 'react-text-truncate'
 
-const UserCard = ({ name, description, id }) => (
+const UserCard = ({ name, description, id, image }) => (
   <div>
     <div className="card" style={{ overflow: 'visible' }}>
       <div className="card-image waves-effect waves-block waves-light">
-        <img className="activator" id="activator" src={require('../../../public/images/bu.jpg')} />
+        <img className="activator" id="activator" src={image} />
       </div>
       <div className="card-content">
         <span className="card-title activator grey-text text-darken-4">
@@ -25,7 +25,6 @@ const UserCard = ({ name, description, id }) => (
       <div className="card-action">
         <Link to={`/editBusiness/${id}`} type="button">Edit</Link>
         <Link to={`/businessProfile/${id}`} type="button">View</Link>
-        <Link to='/deleteBusiness' type="button">Delete</Link>
       </div>
     </div>
   </div>

@@ -72,5 +72,10 @@
     "react/self-closing-comp": 1,
     "react/sort-comp": 1,
     "react/wrap-multilines": 1
+    },
+    "globals": {
+        "localStorage": true,
+        "FormData": true,
+        "Materialize": true
     }
     }

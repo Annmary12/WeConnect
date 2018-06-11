@@ -1,4 +1,4 @@
-import { FETCH_BUSINESS_SUCCESSFUL, FETCH_ONE_BUSINESS_SUCCESSFUL, UPDATE_BUSINESS_SUCCESSFUL, DELETE_BUSINESS_SUCCESSFUL } from '../actions/types';
+import { FETCH_BUSINESS_SUCCESSFUL, FETCH_BUSINESS_FAILED} from '../actions/types';
 
 const initialState = {
   businesses: [],
@@ -10,20 +10,13 @@ const BusinessReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_BUSINESS_SUCCESSFUL:
       return {
-        businesses: action.businesses
+        ...state,
+        businesses: action.payload
       };
-    case FETCH_ONE_BUSINESS_SUCCESSFUL:
+    case FETCH_BUSINESS_FAILED:
       return {
-        oneBusiness: action.businesses
-      };
-    case UPDATE_BUSINESS_SUCCESSFUL:
-      return {
-        updatedBusiness: action.business,
-        isUpdated: true
-      };
-    case DELETE_BUSINESS_SUCCESSFUL:
-      return {
-        isDeleted: true
+        ...state,
+        error: action.error,
       };
     default: return state;
   }

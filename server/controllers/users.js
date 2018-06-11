@@ -5,6 +5,7 @@ import models from '../models/index';
 // import User from '../models/user';
 
 const userModel = models.User;
+const businessModel = models.Business;
 dotenv.config();
 const secret = process.env.secretKey;
 
@@ -98,6 +99,56 @@ class User {
       })
       .catch(err => res.status(500).json({ err }));
   }
+
+  /**
+    * @description Logs in an existing user
+    * @returns {Object} signin
+    * @param {*} req
+   * @param {*} res
+   */ 
+  static getUser(req, res){
+    return userModel.findById(req.params.userId)
+    .then((user)=> {
+      if(!user){
+        return res.status(400).json({
+          message: 'User Not Found'
+        })
+      }
+     
+      const getUser ={
+        firstname: user.firstname,
+        lastname: user.lastname,
+        email: user.email
+      }
+      return res.status(200).json({
+        getUser
+        
+      })
+    })
+  }
+
+  /**
+    * @description Logs in an existing user
+    * @returns {Object} getUserBusinesses
+    * @param {*} req
+   * @param {*} res
+   */ 
+  static getUserBusinesses(req, res){
+    return businessModel.findAll({where: {userId: req.params.userId}})
+    .then((businesses)=> {
+      if(businesses.length == 0){
+        return res.status(400).json({
+          message: 'No Available Businesses'
+        })
+      }
+     
+      return res.status(200).json({
+        businesses
+        
+      })
+    })
+  }
+
 }
 
 export default User;

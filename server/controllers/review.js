@@ -2,6 +2,7 @@ import models from '../models/index';
 
 const reviewModel = models.Review;
 const businesses = models.Business;
+const UserModel = models.User;
 
 /**
    * @description Status Code Used
@@ -33,9 +34,15 @@ class Review {
               error: true
             });
           }
+
+          if(req.body.context.trim() === ''){
+            return res.status(400).json({
+              message: 'Please write a review'
+            })
+          }
           const newReview = new reviewModel({
             context: req.body.context,
-            userId: business.userId,
+            userId: authData.payload.id,
             businessId: business.id
           });
 
@@ -74,7 +81,12 @@ class Review {
     return businesses.findOne({ where: { id: req.params.businessId } })
       .then((business) => {
         if (business) {
-          return reviewModel.findAll({ where: { businessId } })
+          return reviewModel.findAll({ where: { businessId },
+          include: [{
+            model: UserModel,
+            as: 'reviewer',
+            attributes: ['firstname', 'lastname', 'image']
+          }] })
             .then((reviews) => {
               if (!reviews.length) {
                 return res.status(200).json({

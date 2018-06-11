@@ -1,25 +1,38 @@
 import axios from 'axios';
-import { FETCH_BUSINESS_SUCCESSFUL, FETCH_ONE_BUSINESS_SUCCESSFUL, UPDATE_BUSINESS_SUCCESSFUL, DELETE_BUSINESS_SUCCESSFUL } from './types';
-
-/**
- *
- * @param {object} businesses
- * @returns {object} businesses
- */
-export function fetchBusinessSuccess(businesses) {
-  return {
-    type: FETCH_BUSINESS_SUCCESSFUL,
-    businesses
-  };
-}
+import setAuthorizationToken from '../utils/setAuthorizationToken';
+import {
+  FETCH_BUSINESS_SUCCESSFUL,
+  FETCH_ONE_BUSINESS_SUCCESSFUL,
+  UPDATE_BUSINESS_SUCCESSFUL,
+  DELETE_BUSINESS_SUCCESSFUL,
+  SAVE_IMAGE_SUCCESSFUL,
+  SAVE_IMAGE_FAILED,
+  FETCH_BUSINESS_FAILED,
+  UPDATE_BUSINESS_FAILED
+} from './types';
+import { isRequesting, actionResponseSuccess, actionResponseFailure } from './helper';
 
 /**
  * @description action to fetch all businesses
- * @param {object} userData
- * @returns {object} userData
+ * @param {*}
+ * @returns {Array} businesses
  */
 export const fetchBusinessesRequest = () => dispatch =>
   axios.get('/api/v1/businesses')
+    .then((response) => {
+      dispatch(actionResponseSuccess(FETCH_BUSINESS_SUCCESSFUL, response.data.businesses));
+    })
+    .catch((error) => {
+      dispatch(actionResponseFailure(FETCH_BUSINESS_FAILED, error.response.data.message));
+    });
+
+/**
+ * @description action to fetch all businesses
+ * @param {object} searchType
+ * @returns {object} userData
+ */
+export const searchBusinessesRequest = (searchType, value) => dispatch =>
+  axios.get(`/api/v1/businesses?${searchType}=${value}`)
     .then((response) => {
       dispatch(fetchBusinessSuccess(response.data.businesses));
     })
@@ -58,24 +71,78 @@ export const fetchOneBusinessRequest = id => dispatch =>
  * @param {object} business
  * @returns {object} update business
  */
-export function updateBusiness(business) {
+const updateBusinessSuccess = business => ({
+  type: UPDATE_BUSINESS_SUCCESSFUL,
+  business
+});
+
+/**
+ *
+ * @param {object} error
+ * @returns {object} update error
+ */
+export function updateBusinessfailed(error) {
   return {
-    type: UPDATE_BUSINESS_SUCCESSFUL,
-    business
+    type: UPDATE_BUSINESS_FAILED,
+    error
   };
 }
+
+const updateBusiness = (business, cloudImageUrl) => (
+  dispatch => (
+    axios({
+      method: 'PUT',
+      url: `/api/v1/businesses/${business.id}`,
+      data: {
+        name: business.name,
+        description: business.description,
+        phoneNumber: business.phoneNumber,
+        address: business.address,
+        image: cloudImageUrl,
+        location: business.location,
+        category: business.category,
+        website: business.website
+      }
+    })
+      .then((response) => {
+        dispatch(updateBusinessSuccess(response.data.business));
+      })
+      .catch((error) => {
+        dispatch(updateBusinessfailed(error.response.data.message));
+      }))
+);
 
 /**
  * @description action to update a particular business
  * @param {object} business
  * @returns {object} business
  */
-export const updateBusinessRequest = business => dispatch => axios.put(`/api/v1/businesses/${business.id}`, business)
-  .then((response) => {
-    dispatch(updateBusiness(response.data.business));
-  })
-  .catch((error) => {
-    throw (error);
+export const updateBusinessRequest = business => (
+  (dispatch) => {
+    dispatch(isRequesting(true));
+    // const { CLOUDINARY_URL, CLOUDINARY_PRESET, DEFAULT_IMAGE } = process.env;
+    let cloudImageUrl = business.currentImageSrc;
+
+    if (!business.imageFile.name) {
+      return dispatch(updateBusiness(business, cloudImageUrl));
+    }
+
+    const data = new FormData();
+    data.append('file', business.imageFile);
+    data.append('upload_preset', process.env.CLOUDINARY_PRESET);
+    delete axios.defaults.headers.common.Authorization;
+    return axios.post(process.env.CLOUDINARY_URL, data)
+      .then(({ data }) => {
+        const token = localStorage.getItem('jwtToken');
+        axios.defaults.headers.common.Authorization = token;
+        cloudImageUrl = data.secure_url;
+        // dispatch single action
+        return dispatch(updateBusiness(business, cloudImageUrl));
+      })
+      .catch(() => {
+        dispatch(saveImageFailed('Failed to upload image. Try again'));
+        dispatch(isRequesting(false));
+      });
   });
 
   /**
@@ -103,3 +170,27 @@ export const deleteBusinessRequest = id => dispatch => axios.delete(`/api/v1/bus
     throw (error);
   });
 
+  /**
+ *
+ * @param {object} image
+ * @returns {object} save image
+ */
+export function saveImageSuccessful(image) {
+  return {
+    type: SAVE_IMAGE_SUCCESSFUL,
+    image
+  };
+}
+
+
+/**
+ *
+ * @param {object} error
+ * @returns {object} inage failed
+ */
+export function saveImageFailed(error) {
+  return {
+    type: SAVE_IMAGE_FAILED,
+    error
+  };
+}

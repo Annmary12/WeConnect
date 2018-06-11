@@ -1,12 +1,14 @@
-import { IS_REQUESTING, CREATE_BUSINESS_SUCCESSFUL, CREATE_BUSINESS_FAILED } from '../actions/types';
+import {
+  IS_REQUESTING,
+  USER_BUSINESSES_SUCCESS,
+  USER_BUSINESSES_FAILURE
+} from '../actions/types';
 
 const initialState = {
-  isCreated: false,
-  hasError: false,
+  businesses: [],
   error: '',
   isLoading: false
 };
-
 export default (state = initialState, action = {}) => {
   switch (action.type) {
     case IS_REQUESTING:
@@ -14,18 +16,15 @@ export default (state = initialState, action = {}) => {
         ...state,
         isLoading: action.bool
       };
-    case CREATE_BUSINESS_SUCCESSFUL:
+    case USER_BUSINESSES_SUCCESS:
       return {
         ...state,
-        isCreated: true,
-        hasError: false
+        businesses: action.payload
       };
-
-    case CREATE_BUSINESS_FAILED:
+    case USER_BUSINESSES_FAILURE:
       return {
         ...state,
-        hasError: true,
-        error: action.error,
+        error: action.error
       };
 
     default: return state;

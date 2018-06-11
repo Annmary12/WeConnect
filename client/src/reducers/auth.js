@@ -1,5 +1,6 @@
-import { SET_CURRENT_USER, SIGNUP_FAILED } from '../actions/types';
 import isEmpty from 'lodash/isEmpty';
+import { SET_CURRENT_USER, SIGNUP_FAILED, LOGIN_FAILED } from '../actions/types';
+
 
 const initialState = {
   isAuthenticated: false,
@@ -8,20 +9,30 @@ const initialState = {
   hasError: false
 };
 
-export default (state = initialState, action = {} ) => {
-  switch(action.type) {
+export default (state = initialState, action = {}) => {
+  switch (action.type) {
     case SET_CURRENT_USER:
-    return  {
-      isAuthenticated: !isEmpty(action.user),
-      user: action.user
-    };
+      return {
+        ...state,
+        isAuthenticated: !isEmpty(action.user),
+        user: action.user,
+        hasError: false
+      };
+    case LOGIN_FAILED:
+      return {
+        ...state,
+        hasError: true,
+        error: action.error,
+      };
     case SIGNUP_FAILED:
-    return {
-      error: action.error,
-      hasError: true,
-    }
+      return {
+        ...state,
+        error: action.error,
+        hasError: true,
 
-    default: 
+      };
+
+    default:
       return state;
   }
-}
+};

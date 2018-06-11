@@ -5,10 +5,12 @@ import SignUpForm from '../pages/forms/SignUpForm.jsx';
 
 const SignUp = () => (
   <div className="login-background">
-    <div className="login-nav">
-      <Navigation />
+    <div className="pad">
+      <div className="login-nav">
+        <Navigation />
+      </div>
+      <SignUpForm />
     </div>
-    <SignUpForm />
     <Footer />
   </div>
 );

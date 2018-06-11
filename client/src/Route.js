@@ -8,6 +8,7 @@ import BusinessProfile from './components/pages/BusinessProfile.jsx';
 import ProfilePage from './components/pages/Profile.jsx';
 import CreateBusinessPage from './components/pages/CreateBusiness.jsx';
 import EditBusinessPage from './components/pages/EditBusiness.jsx';
+import RouteCheck from '../src/utils/routeAuth';
 
 const Router = () => (
   <Switch>
@@ -16,9 +17,9 @@ const Router = () => (
     <Route path="/business" exact component={BusinessPage} />
     <Route path="/signUp" exact component={SignUpPage} />
     <Route path="/businessProfile/:id" component={BusinessProfile} />
-    <Route path="/profile" exact component={ProfilePage} />
-    <Route path="/createBusiness" exact component={CreateBusinessPage} />
-    <Route path="/editBusiness/:id" exact component={EditBusinessPage} />
+    <Route path="/profile" exact component={RouteCheck(ProfilePage)} />
+    <Route path="/createBusiness" exact component={RouteCheck(CreateBusinessPage)} />
+    <Route path="/editBusiness/:id" exact component={RouteCheck(EditBusinessPage)} />
   </Switch>
 );
 

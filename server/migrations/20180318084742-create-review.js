@@ -19,7 +19,7 @@ module.exports = {
         as: 'userId',
       },
     },
-    buisnessId: {
+    businessId: {
       type: Sequelize.INTEGER,
       onDelete: 'CASCADE',
       reference: {

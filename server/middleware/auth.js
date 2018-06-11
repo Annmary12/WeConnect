@@ -27,7 +27,7 @@ class Authorization {
       if (err) {
         // Wrong token
         res.status(403).json({
-          message: 'Token mismatch'
+          message: 'Please, Kindly SignIn Again'
         });
       }
       req.user = authData;
