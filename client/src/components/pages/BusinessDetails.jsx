@@ -3,11 +3,20 @@ import { connect } from 'react-redux';
 import ReviewForm from './forms/ReviewForm';
 import { Link } from 'react-router-dom';
 
+/**
+ * @class BusinessDetails
+ */
 class BusinessDetails extends Component {
+  /**
+     *
+     * React element markup
+     * @returns {object} markUp
+     */
   render() {
-
     const { isAuthenticated, user } = this.props.authData;
-    const { description, location, category, name, website, id, onDelete, reviews, userId } = this.props;
+    const {
+      description, location, category, name, website, id, onDelete, reviews, userId
+    } = this.props;
 
 
     const actionButtons = (
@@ -15,12 +24,17 @@ class BusinessDetails extends Component {
         <Link to={`/editBusiness/${id}`} className="btn waves-effect waves-light btn_large ">Edit
                <i className="material-icons left">send</i>
         </Link> &nbsp;
-             <button onClick={onDelete} className="btn waves-effect waves-light btn_large " name="action">Delete
+             <button onClick={ onDelete } className="btn waves-effect waves-light btn_large " name="action">Delete
                <i className="material-icons left">send</i>
         </button>
       </div>
     );
 
+    /**
+     * @description displays details of a business
+     *
+     * @returns { jsx } jsx - renders the business
+     */
     return (
       <div className=""><br /><br /><br /><br /><br />
         <div className="row">
@@ -28,13 +42,13 @@ class BusinessDetails extends Component {
             <div className="row">
               <div className="col s10 offset-s1">
                 <p className="p-body">
-                  {description}
+                  { description }
                 </p>
                 <div className="row">
                   <div className="col s6 p-body">
-                    <b>Business Location:</b> {location}<br />
-                    <b>Category:</b><span className="label">{category}</span><br />
-                    <b>Website:</b>{website}
+                    <b>Business Location:</b> { location }<br />
+                    <b>Category:</b><span className="label">{ category }</span><br />
+                    <b>Website:</b>{ website }
                   </div>
                   <div className="col s6 right-align">
                     <span><b>30</b> reviews</span>
@@ -44,16 +58,16 @@ class BusinessDetails extends Component {
                 </div>
                 <div className="row right-align">
                   {
-                    isAuthenticated && user.payload.id == userId ? actionButtons : null
+                    isAuthenticated && user.payload.id === userId ? actionButtons : null
                   }
 
                 </div>
               </div>
             </div>
             {/* { isAuthenticated && user.payload.id !== userId ?  */}
-              <ReviewForm businessId={id} reviews={reviews} /> : 
+              <ReviewForm businessId={ id } reviews={ reviews } /> :
               {/* null} */}
-            
+
           </div>
           <div className="col s12 m12 l3 left">
             <div className="card side-card">
@@ -61,28 +75,28 @@ class BusinessDetails extends Component {
                 <span className="card-title">Related Businesses</span><br /><hr />
                 <div className="row">
                   <div className="col s3">
-                    <img src={require('../../../public/images/login2.jpg')} className="image-nav" />
+                    <img src={ require('../../../public/images/login2.jpg') } className="image-nav" alt='businessImage' />
                   </div>
                   <div className="col s9">Smart Hub</div>
                 </div><hr />
 
                 <div className="row">
                   <div className="col s3">
-                    <img src={require('../../../public/images/login2.jpg')} className="image-nav" />
+                    <img src={ require('../../../public/images/login2.jpg') } className="image-nav" alt='businessImage' />
                   </div>
                   <div className="col s9">Smart Hub</div>
                 </div><hr />
 
                 <div className="row">
                   <div className="col s3">
-                    <img src={require('../../../public/images/login2.jpg')} className="image-nav" />
+                    <img src={ require('../../../public/images/login2.jpg') } className="image-nav" alt='businessImage' />
                   </div>
                   <div className="col s9">Smart Hub</div>
                 </div><hr />
 
                 <div className="row">
                   <div className="col s3">
-                    <img src={require('../../../public/images/login2.jpg')} className="image-nav" />
+                    <img src={ require('../../../public/images/login2.jpg') } className="image-nav" alt='businessImage'/>
                   </div>
                   <div className="col s9">Smart Hub</div>
                 </div>
@@ -95,28 +109,28 @@ class BusinessDetails extends Component {
                 <span className="card-title">Trending Businesses</span><br /><hr />
                 <div className="row">
                   <div className="col s3">
-                    <img src={require('../../../public/images/login2.jpg')} className="image-nav" />
+                    <img src={ require('../../../public/images/login2.jpg') } className="image-nav" alt='businessImage' />
                   </div>
                   <div className="col s9">Smart Hub</div>
                 </div><hr />
 
                 <div className="row">
                   <div className="col s3">
-                    <img src={require('../../../public/images/login2.jpg')} className="image-nav" />
+                    <img src={ require('../../../public/images/login2.jpg') } className="image-nav" alt='businessImage' />
                   </div>
                   <div className="col s9">Smart Hub</div>
                 </div><hr />
 
                 <div className="row">
                   <div className="col s3">
-                    <img src={require('../../../public/images/login2.jpg')} className="image-nav" />
+                    <img src={ require('../../../public/images/login2.jpg') } className="image-nav" alt='businessImage' />
                   </div>
                   <div className="col s9">Smart Hub</div>
                 </div><hr />
 
                 <div className="row">
                   <div className="col s3">
-                    <img src={require('../../../public/images/login2.jpg')} className="image-nav" />
+                    <img src={ require('../../../public/images/login2.jpg') } className="image-nav" alt='businessImage' />
                   </div>
                   <div className="col s9">Smart Hub</div>
                 </div>
@@ -126,7 +140,7 @@ class BusinessDetails extends Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 

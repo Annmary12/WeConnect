@@ -15,7 +15,8 @@
     },
     "globals": {
         "localStorage": true,
-        "FormData": true
+        "FormData": true,
+        "Materialize": true
     },
     "rules": {
     "one-var": 0,

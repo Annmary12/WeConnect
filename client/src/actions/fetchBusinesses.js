@@ -12,31 +12,6 @@ import {
 } from './types';
 import { isRequesting, actionResponseSuccess, actionResponseFailure } from './helper';
 
-
-// /**
-//  *
-//  * @param {array} businesses - sjdnsjdvjsdnjncnsd
-//  * @returns {object} - businesses
-//  */
-// export function fetchBusinessSuccess(businesses) {
-//   return {
-//     type: FETCH_BUSINESS_SUCCESSFUL,
-//     businesses
-//   };
-// }
-
-// /**
-//  *
-//  * @param {object} error
-//  * @returns {object} error
-//  */
-// export function fetchBusinessFailed(error) {
-//   return {
-//     type: FETCH_BUSINESS_FAILED,
-//     error
-//   };
-// }
-
 /**
  * @description action to fetch all businesses
  * @param {*}

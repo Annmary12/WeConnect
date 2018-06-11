@@ -75,6 +75,7 @@
     },
     "globals": {
         "localStorage": true,
-        "FormData": true
+        "FormData": true,
+        "Materialize": true
     }
     }

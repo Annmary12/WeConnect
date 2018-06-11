@@ -6,7 +6,9 @@ import EditBusinessForm from './forms/EditBusinessForm';
 import { fetchOneBusinessRequest } from '../../actions/fetchBusinesses';
 import { PropTypes } from 'prop-types';
 
-
+/**
+ * @class EditBusiness
+ */
 class EditBusiness extends Component {
 /**
    * @param {object} api call
@@ -15,7 +17,11 @@ class EditBusiness extends Component {
   componentWillMount() {
     this.props.fetchOneBusinessRequest(this.props.match.params.id);
   }
-
+  /**
+   * @description renders business edit form
+   *
+   * @returns { jsx } jsx - renders business edit form component
+   */
   render() {
     const { business } = this.props;
     return (
@@ -29,7 +35,7 @@ class EditBusiness extends Component {
               </div>
             </div>
           </div>
-          <EditBusinessForm business={business} />
+          <EditBusinessForm business={ business } />
           <Footer />
         </div>
       </div>
@@ -47,8 +53,6 @@ EditBusiness.contextTypes = {
 
 EditBusiness.propTypes = {
   fetchOneBusinessRequest: PropTypes.func.isRequired,
-}
+};
 export default connect(mapStateToProps, { fetchOneBusinessRequest })(EditBusiness);
 
-
- 

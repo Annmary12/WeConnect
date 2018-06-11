@@ -12,9 +12,6 @@ module.exports = {
           location: {
             $iLike: `%${location}%`,
           },
-          // $or: [
-          //   name: {}
-          // ]
         },
         order: [['createdAt', 'DESC']]
       })

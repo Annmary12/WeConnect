@@ -85,11 +85,3 @@ export const createBusinessRequest = business => (
         dispatch(isRequesting(IS_REQUESTING, false));
       });
   });
-
-
-// export const createBusinessRequest = business => dispatch => axios.post('api/v1/businesses/', business)
-//   .then(() => {
-//     dispatch(createBusinessResponse());
-//   }).catch((error) => {
-//     dispatch(createBusinessError(error));
-//   });
