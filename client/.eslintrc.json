@@ -16,7 +16,8 @@
     "globals": {
         "localStorage": true,
         "FormData": true,
-        "Materialize": true
+        "Materialize": true,
+        "FileReader": true
     },
     "rules": {
     "one-var": 0,
@@ -37,13 +38,6 @@
     "requireReturnType": true,
     "requireParamDescription": false,
     "requireReturnDescription": true
-    }],
-    "require-jsdoc": ["error", {
-    "require": {
-    "FunctionDeclaration": true,
-    "MethodDefinition": true,
-    "ClassDeclaration": true
-    }
     }],
     "react/display-name": [ 1, {"ignoreTranspilerName": false }],
     "react/forbid-prop-types": [1, {"forbid": ["any"]}],

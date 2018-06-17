@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { Input, Row } from 'react-materialize';
 import { fetchOneBusinessRequest, updateBusinessRequest } from '../../../actions/fetchBusinesses';
-import PropTypes from 'prop-types';
 import checkImage from '../../../utils/imageChecker';
 
 /**
@@ -37,6 +37,13 @@ class EditBusinessForm extends Component {
     this.handleImageChange = this.handleImageChange.bind(this);
   }
 
+  /**
+   * @description updates the state
+   * @method componentWillReceiveProps
+   * @param {nextProps} nextProps - object of new incoming property
+   *
+   * @returns {void}
+   */
   componentWillReceiveProps(nextProps) {
     if (this.props.business) {
       const {
@@ -58,15 +65,25 @@ class EditBusinessForm extends Component {
   }
 
   /**
-* Handles change of values in state
-* @param {object} event
-*
-* @returns {object} SyntheticEvent
-*/
+   * @description handles on state change
+   * @method onChange
+   *
+   * @param { object } event - event object containing business detail
+   *
+   * @returns { object } new business detail state
+   */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
 
+  /**
+   * @description handles on state change for files
+   * @method handleImageChange
+   *
+   * @param { object } event - event object containing file
+   *
+   * @returns { object } new file state
+   */
   handleImageChange(event) {
     if (event.target.files && event.target.files[0]) {
       const file = event.target.files[0];
@@ -95,17 +112,25 @@ class EditBusinessForm extends Component {
  *
  * @returns {object} SyntheticEvent
  */
+ /**
+   * @description updates a business
+   * @method onUpdate
+   *
+   * @param { object } event - event object containing business details
+   *
+   * @returns { * } null
+   */
   onUpdate(event) {
     event.preventDefault();
     this.props.updateBusinessRequest(this.state).then(
-() => {
-      this.context.router.history.push('/profile');
-      Materialize.toast('Successfully Updated', 2000, 'teal rounded');
-    },
-    (error) => {
-      Materialize.toast('Not working', 2000, 'red rounded');
-    }
-);
+      () => {
+        this.context.router.history.push('/profile');
+        Materialize.toast('Successfully Updated', 2000, 'teal rounded');
+      },
+      () => {
+        Materialize.toast('Not working', 2000, 'red rounded');
+      }
+    );
   }
 
   /**
@@ -122,7 +147,6 @@ class EditBusinessForm extends Component {
       description,
       phoneNumber,
       address,
-      image,
       location,
       category,
       website
@@ -260,11 +284,18 @@ EditBusinessForm.contextTypes = {
 
 EditBusinessForm.propTypes = {
   fetchOneBusinessRequest: PropTypes.func.isRequired,
+  updateBusinessRequest: PropTypes.func.isRequired,
+  business: PropTypes.object.isRequired,
 };
 
+/**
+ * @description maps redux state to props
+ *
+ * @param { object } state - holds one business state
+ *
+ * @return { object } props - returns mapped props from state
+ */
 const mapStateToProps = state => ({
-  updateBusiness: state.BusinessReducer.updatedBusiness,
-  isUpdated: state.BusinessReducer.isUpdated,
   business: state.OneBusiness.business
 });
 

@@ -1,10 +1,11 @@
 import { IS_REQUESTING, CREATE_BUSINESS_SUCCESSFUL, CREATE_BUSINESS_FAILED } from '../actions/types';
 
 const initialState = {
-  isCreated: false,
   hasError: false,
+  isCreated: false,
   error: '',
-  isLoading: false
+  isLoading: false,
+  successMessage: ''
 };
 
 export default (state = initialState, action = {}) => {
@@ -17,14 +18,16 @@ export default (state = initialState, action = {}) => {
     case CREATE_BUSINESS_SUCCESSFUL:
       return {
         ...state,
-        isCreated: true,
-        hasError: false
+        isLoading: action.bool,
+        successMessage: action.payload,
+        isCreated: true
       };
 
     case CREATE_BUSINESS_FAILED:
       return {
         ...state,
         hasError: true,
+        isLoading: action.bool,
         error: action.error,
       };
 
