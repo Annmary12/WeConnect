@@ -76,6 +76,7 @@
     "globals": {
         "localStorage": true,
         "FormData": true,
-        "Materialize": true
+        "Materialize": true,
+        "FileReader": true
     }
     }

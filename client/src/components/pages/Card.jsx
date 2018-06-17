@@ -31,13 +31,13 @@ const Card = ({
         <Link to={`/businessProfile/${id}`}>More Details...</Link>
       </div>
     </div>
-  );
+);
 
 Card.propTypes = {
   name: PropTypes.string,
   description: PropTypes.string,
   id: PropTypes.number,
   image: PropTypes.string
-}
+};
 
 export default Card;
