@@ -7,7 +7,11 @@ import { fetchOneBusinessRequest } from '../../actions/fetchBusinesses';
 import { PropTypes } from 'prop-types';
 
 /**
+ * @description renders edit business component
+ *
  * @class EditBusiness
+ *
+ * @extends component
  */
 class EditBusiness extends Component {
 /**

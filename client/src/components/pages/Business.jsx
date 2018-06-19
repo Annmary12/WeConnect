@@ -8,7 +8,11 @@ import Card from './Card';
 import { fetchBusinessesRequest } from '../../actions/fetchBusinesses';
 
 /**
+ * @description renders business component
+ *
  * @class Business
+ *
+ * @extends component
  */
 class Business extends Component {
   /**

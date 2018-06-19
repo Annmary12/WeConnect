@@ -1,5 +1,10 @@
 import React from 'react';
 
+/**
+ * @description displays page footer
+ *
+ * @returns { jsx } jsx - renders page footer component
+ */
 const Footer = () => (
         <footer className="page-footer">
         <div className="footer-copyright">
@@ -9,6 +14,6 @@ const Footer = () => (
           </div>
         </div>
       </footer>
-    );
+);
 
 export default Footer;

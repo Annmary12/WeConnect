@@ -8,6 +8,16 @@ const initialState = {
   isDeleted: false,
 };
 
+/**
+ * @description holds success and failure states for fetching,
+ * and deleting business
+ * @function
+ *
+ * @param { object } state - contains reducer initial state
+ * @param { object } action - contains actions to be performed
+ *
+ * @returns { object } the new business state
+ */
 const BusinessReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case FETCH_ONE_BUSINESS_SUCCESSFUL:

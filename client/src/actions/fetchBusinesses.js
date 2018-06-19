@@ -13,9 +13,21 @@ import {
 import { isRequesting, actionResponseSuccess, actionResponseFailure } from './helper';
 
 /**
- * @description action to fetch all businesses
- * @param {*}
- * @returns {Array} businesses
+ *
+ * @param {object} business
+ * @returns {object} business
+ */
+export function fetchOneBusinessSuccess(business) {
+  return {
+    type: FETCH_ONE_BUSINESS_SUCCESSFUL,
+    business
+  };
+}
+
+/**
+ * @description handles fetch business
+ * @param {*} null
+ * @returns {object} returns fetched business action
  */
 export const fetchBusinessesRequest = () => dispatch =>
   axios.get('/api/v1/businesses')
@@ -27,35 +39,25 @@ export const fetchBusinessesRequest = () => dispatch =>
     });
 
 /**
- * @description action to fetch all businesses
- * @param {object} searchType
- * @returns {object} userData
+ * @description handle search businesses
+ * @param {string} searchType - contains the search type
+ * @param {string} value - contains the search value
+ * @returns {object} returns fetched business(es) action or error
  */
 export const searchBusinessesRequest = (searchType, value) => dispatch =>
   axios.get(`/api/v1/businesses?${searchType}=${value}`)
     .then((response) => {
-      dispatch(fetchBusinessSuccess(response.data.businesses));
+      dispatch(actionResponseSuccess(FETCH_BUSINESS_SUCCESSFUL, response.data.businesses));
     })
     .catch((error) => {
       throw (error);
     });
 
-/**
- *
- * @param {object} business
- * @returns {object} business
- */
-export function fetchOneBusinessSuccess(businesses) {
-  return {
-    type: FETCH_ONE_BUSINESS_SUCCESSFUL,
-    businesses
-  };
-}
 
 /**
- * @description action to fetch a particular business
- * @param {object} id
- * @returns {object} id
+ * @description handle fetch one business
+ * @param {object} id - id of the business
+ * @returns {object} - returns fetched business success action or error
  */
 export const fetchOneBusinessRequest = id => dispatch =>
   axios.get(`/api/v1/businesses/${id}`)
@@ -67,9 +69,9 @@ export const fetchOneBusinessRequest = id => dispatch =>
     });
 
 /**
- *
- * @param {object} business
- * @returns {object} update business
+ * @description  handles update business success action
+ * @param {object} business - contains the details of the business
+ * @returns {object} returns updated business action
  */
 const updateBusinessSuccess = business => ({
   type: UPDATE_BUSINESS_SUCCESSFUL,
@@ -77,9 +79,9 @@ const updateBusinessSuccess = business => ({
 });
 
 /**
- *
- * @param {object} error
- * @returns {object} update error
+ * @description handles business failure action
+ * @param {string} error - contains the error message
+ * @returns {object} returns update  business error
  */
 export function updateBusinessfailed(error) {
   return {
@@ -88,6 +90,36 @@ export function updateBusinessfailed(error) {
   };
 }
 
+/**
+ * @description handles image success action
+ * @param {object} image - contains the url of the image
+ * @returns {object} returns saved image action
+ */
+export function saveImageSuccessful(image) {
+  return {
+    type: SAVE_IMAGE_SUCCESSFUL,
+    image
+  };
+}
+
+
+/**
+ * @description handles image failure action
+ * @param {object} error - contains the error message
+ * @returns {object} returns image failed action
+ */
+export function saveImageFailed(error) {
+  return {
+    type: SAVE_IMAGE_FAILED,
+    error
+  };
+}
+/**
+ * @description handles business update
+ * @param {object} business - contains the business details
+ * @param {object} cloudImageUrl - contains the image url
+ * @returns {object} -return success or failure of business update action
+ */
 const updateBusiness = (business, cloudImageUrl) => (
   dispatch => (
     axios({
@@ -113,14 +145,13 @@ const updateBusiness = (business, cloudImageUrl) => (
 );
 
 /**
- * @description action to update a particular business
- * @param {object} business
- * @returns {object} business
+ * @description action to update a particular business image to cloudinary
+ * @param {object} business - contains details of the business
+ * @returns {object} success/failed image update
  */
 export const updateBusinessRequest = business => (
   (dispatch) => {
     dispatch(isRequesting(true));
-    // const { CLOUDINARY_URL, CLOUDINARY_PRESET, DEFAULT_IMAGE } = process.env;
     let cloudImageUrl = business.currentImageSrc;
 
     if (!business.imageFile.name) {
@@ -146,9 +177,9 @@ export const updateBusinessRequest = business => (
   });
 
   /**
- *
- * @param {object} business
- * @returns {object} delete business
+ * @description handles the delete business success action
+ * @param {object} business - contains business details
+ * @returns {object} return delete business message
  */
 export function deleteBusiness(business) {
   return {
@@ -159,8 +190,8 @@ export function deleteBusiness(business) {
 
 /**
  * @description action to delete a particular business
- * @param {object} id
- * @returns {object} business
+ * @param {object} id - id of the business
+ * @returns {object} return success or failed business action
  */
 export const deleteBusinessRequest = id => dispatch => axios.delete(`/api/v1/businesses/${id}`)
   .then((response) => {
@@ -169,28 +200,3 @@ export const deleteBusinessRequest = id => dispatch => axios.delete(`/api/v1/bus
   .catch((error) => {
     throw (error);
   });
-
-  /**
- *
- * @param {object} image
- * @returns {object} save image
- */
-export function saveImageSuccessful(image) {
-  return {
-    type: SAVE_IMAGE_SUCCESSFUL,
-    image
-  };
-}
-
-
-/**
- *
- * @param {object} error
- * @returns {object} inage failed
- */
-export function saveImageFailed(error) {
-  return {
-    type: SAVE_IMAGE_FAILED,
-    error
-  };
-}

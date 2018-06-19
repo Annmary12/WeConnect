@@ -1,3 +1,4 @@
+import axios from 'axios';
 import {
   IS_REQUESTING,
   GET_USER_SUCCESS,
@@ -5,24 +6,13 @@ import {
   USER_BUSINESSES_SUCCESS,
   USER_BUSINESSES_FAILURE
 } from './types';
-import axios from 'axios';
 import { isRequesting, actionResponseSuccess, actionResponseFailure } from './helper';
 
-// export const getUserSuccessful = user {
-//     return {
-//         type: GET_USER_SUCCESSFUL,
-//         user
-//     }
-// };
-
-// actionResponseSuccess(GET_USER_SUCCESSFUL, user)
-
-// export function getUserFailed(error) {
-//     return {
-//         type: GET_USER_FAILURE,
-//         error
-//     }
-// };
+/**
+ * @description handles fetch a user
+ * @param {number} id - contains user id
+ * @returns {object} - returns user success or failed user action
+ */
 export const getUserRequest = id => dispatch =>
   axios.get(`api/v1/auth/user/${id}`)
     .then((response) => {
@@ -32,12 +22,11 @@ export const getUserRequest = id => dispatch =>
       dispatch(actionResponseFailure(GET_USER_FAILURE, 'User not found'));
     });
 
-// const userBusinessesSuccess = businesses => ({
-//   type: USER_BUSINESSES_SUCCESS,
-//   businesses
-// });
-
-
+/**
+ * @description handles user's business action
+ * @param {number} id - contains the id of the user
+ * @returns {object} - returns success or failure of user's business action
+ */
 export const getUserBusinessesRequest = id => (
   (dispatch) => {
     dispatch(isRequesting(IS_REQUESTING, true));

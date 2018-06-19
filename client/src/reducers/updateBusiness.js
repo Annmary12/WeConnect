@@ -7,6 +7,16 @@ const initialState = {
   error: ''
 };
 
+/**
+ * @description holds success and failure states for updating
+ * business
+ * @function
+ *
+ * @param { object } state - contains reducer initial state
+ * @param { object } action - contains actions to be performed
+ *
+ * @returns { object } the new business state
+ */
 const UpdateBusinessReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_BUSINESS_SUCCESSFUL:

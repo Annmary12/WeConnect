@@ -10,6 +10,16 @@ const initialState = {
   hasError: false,
 };
 
+/**
+ * @description holds success and failure states for fetching,
+ * and submitting a review
+ * @function
+ *
+ * @param { object } state - contains reducer initial state
+ * @param { object } action - contains actions to be performed
+ *
+ * @returns { object } the new review state
+ */
 export default (state = initialState, action = {}) => {
   switch (action.type) {
     case REVIEW_SUCCESSFUL:

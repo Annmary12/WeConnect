@@ -6,6 +6,12 @@ import Footer from './Footer';
 // import StyleCss from '../../../public/styles/index.scss';
 // import BusinessCss from '../css/business.css';
 
+/**
+ * @description displays homepage
+ * @method Home
+ *
+ * @returns { jsx } jsx - renders homepage component
+*/
 const Home = () => (
     <div className="home">
         <div className="nav-background">
