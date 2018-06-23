@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import ReactPaginate from 'react-paginate';
 import Navigation from './Navigation';
 import Footer from './Footer';
 import Search from './Search';
@@ -25,6 +26,7 @@ class Business extends Component {
       // loader: false
     };
     this.renderBusiness = this.renderBusiness.bind(this);
+    this.onPageChange = this.onPageChange.bind(this);
   }
 
   /**
@@ -35,7 +37,20 @@ class Business extends Component {
      * @memberof Business
      */
   componentDidMount() {
-    this.props.fetchBusinessesRequest();
+    this.props.fetchBusinessesRequest(1);
+  }
+
+  /**
+     * @description - Handle the pagination
+     *
+     * @returns {void}
+     * @param {number} page - holds the page number you clicked
+     *
+     * @memberof Business
+     */
+  onPageChange(page) {
+    const pageNumber = page.selected + 1;
+    this.props.fetchBusinessesRequest(pageNumber);
   }
 
   /**
@@ -49,7 +64,7 @@ class Business extends Component {
       allBusiness && allBusiness.map(business => (
       <div className="col s12 m6 l4" key={business.id}>
           <Card
-            
+
             id={business.id}
             name={business.name}
             description={business.description}
@@ -67,6 +82,10 @@ class Business extends Component {
      * @returns {object} markUp
      */
   render() {
+    const {
+      limit, currentPage, totalBusiness, totalPages
+    } = this.props;
+
     return (
       <div className="">
         <div className="nav-business">
@@ -89,6 +108,24 @@ class Business extends Component {
             <div className="row">
               {this.renderBusiness()}
             </div>
+            <div className="center-align">
+            {(totalBusiness > 6 && typeof totalBusiness !== 'undefined') ?
+            <ReactPaginate
+                      // className="center-align"
+                       previousLabel={'previous'}
+                       nextLabel={'next'}
+                       breakLabel={<a href="">...</a>}
+                       breakClassName={'break-me'}
+                       pageCount={totalPages}
+                       marginPagesDisplayed={currentPage}
+                       pageRangeDisplayed={limit}
+                       onPageChange={this.onPageChange}
+                       containerClassName={'pagination'}
+                       subContainerClassName={'pages pagination'}
+                       activeClassName={'active'}
+                       />
+                       : null }
+                       </div>
             </div>
           </div>
 
@@ -99,7 +136,11 @@ class Business extends Component {
 }
 
 const mapStateToProps = state => ({
-  businesses: state.BusinessReducer.businesses
+  businesses: state.BusinessReducer.businesses.allBusinesses,
+  currentPage: state.BusinessReducer.businesses.currentPage,
+  limit: state.BusinessReducer.businesses.limit,
+  totalBusiness: state.BusinessReducer.businesses.numberOfBusinesses,
+  totalPages: state.BusinessReducer.businesses.totalPages,
 });
 
 Business.propTypes = {

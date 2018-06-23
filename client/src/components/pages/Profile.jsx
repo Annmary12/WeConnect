@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import ReactPaginate from 'react-paginate';
 import Navigation from './Navigation';
 import Footer from './Footer';
 import UserCard from './UserCard';
@@ -26,6 +28,7 @@ class Profile extends Component {
       lastname: '',
       email: ''
     };
+    this.onPageChange = this.onPageChange.bind(this);
   }
 
   /**
@@ -38,7 +41,20 @@ class Profile extends Component {
    */
   componentDidMount() {
     this.props.getUserRequest(this.props.userId);
-    this.props.getUserBusinessesRequest(this.props.userId);
+    this.props.getUserBusinessesRequest(this.props.userId, 1);
+  }
+
+  /**
+     * @description - Handle the pagination
+     *
+     * @returns {void}
+     * @param {number} page - holds the page number you clicked
+     *
+     * @memberof Business
+     */
+  onPageChange(page) {
+    const pageNumber = page.selected + 1;
+    this.props.getUserBusinessesRequest(this.props.userId, pageNumber);
   }
 
   /**
@@ -89,6 +105,10 @@ class Profile extends Component {
     );
 
     const { firstname, lastname, email } = this.state;
+    const {
+      limit, currentPage, totalBusiness, totalPages
+    } = this.props;
+
     return (
       <div className="">
         <div className="pad">
@@ -119,6 +139,24 @@ class Profile extends Component {
                   {businessList.length > 0 ? businessList : noBusiness}
                 </div>
               }
+            </div><br/>
+            <div className="center-align">
+            {(totalBusiness > 6 && typeof totalBusiness !== 'undefined') ?
+            <ReactPaginate
+                      // className="center-align"
+                       previousLabel={'previous'}
+                       nextLabel={'next'}
+                       breakLabel={<a href="">...</a>}
+                       breakClassName={'break-me'}
+                       pageCount={totalPages}
+                       marginPagesDisplayed={currentPage}
+                       pageRangeDisplayed={limit}
+                       onPageChange={this.onPageChange}
+                       containerClassName={'pagination'}
+                       subContainerClassName={'pages pagination'}
+                       activeClassName={'active'}
+                       />
+                       : null }
             </div>
           </div>
         </div>
@@ -132,7 +170,21 @@ const mapStateToProps = state => ({
   userId: state.auth.user.payload.id,
   currentUser: state.getUser.user,
   userBusinesses: state.userBusinesses.businesses,
+  limit: state.userBusinesses.limit,
+  currentPage: state.userBusinesses.currentPage,
+  totalPages: state.userBusinesses.totalPages,
+  totalBusiness: state.userBusinesses.totalBusiness,
   isLoading: state.userBusinesses.isLoading || state.createBusiness.isLoading
 });
+
+Profile.propTypes = {
+  getUserRequest: PropTypes.func.isRequired,
+  getUserBusinessesRequest: PropTypes.func.isRequired,
+  userBusinesses: PropTypes.array.isRequired,
+  limit: PropTypes.number,
+  currentPage: PropTypes.number,
+  totalPages: PropTypes.number,
+  totalBusiness: PropTypes.number
+};
 
 export default connect(mapStateToProps, { getUserRequest, getUserBusinessesRequest })(Profile);

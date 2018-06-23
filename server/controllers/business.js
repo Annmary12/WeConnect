@@ -22,23 +22,48 @@ class Business {
    * @param {*} res - route response
    */
   static getBusinesses(req, res) {
-    return businessModel.findAll()
-      .then((businesses) => {
-        if (businesses.length > 0) {
-          return res.status(200).json({
-            businesses,
-            message: 'List of all bussinesses'
+    businessModel.findAndCountAll().then((businesses) => {
+      if(businesses.count == 0){
+        return res.status(404).json({
+            message: 'Business Not Found'
           });
+      }
+      const pageQuery = req.query.page || 1;
+      let offset = 0;
+      const limit = 6,
+      currentPage = parseInt(pageQuery, 10),
+      numberOfBusinesses = businesses.count,
+      totalPages = Math.ceil(numberOfBusinesses / limit);
+      offset = limit * (currentPage - 1);
+   
+      return businessModel.findAll({
+        limit,
+        offset,
+        order: [ ["createdAt", "DESC"] ]
+      })
+      .then((allBusinesses) => {
+        if (allBusinesses.length > 0) {
+          const payload = {
+            numberOfBusinesses,
+            limit,
+            totalPages,
+            currentPage,
+            allBusinesses
+          }
+          return res.status(200).json(Object.assign({
+            message: 'List of all businesses'
+          }, payload));
         }
-
         return res.status(404).json({
           message: 'Business Not Found'
         });
-      })
-      .catch(error => res.status(400).json({
-        error
+    })
+    .catch(error => res.status(400).json({
+      error
+    }));
 
-      }));
+  });
+     
   }
 
   /**

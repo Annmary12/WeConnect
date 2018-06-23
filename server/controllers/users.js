@@ -71,7 +71,6 @@ class User {
     * @param {*} req
    * @param {*} res
    */
-
   static login(req, res) {
     userModel.findOne({ where: { email: req.body.email } })
       .then((user) => {
@@ -134,19 +133,51 @@ class User {
    * @param {*} res
    */ 
   static getUserBusinesses(req, res){
-    return businessModel.findAll({where: {userId: req.params.userId}})
-    .then((businesses)=> {
-      if(businesses.length == 0){
-        return res.status(400).json({
-          message: 'No Available Businesses'
-        })
+    businessModel.findAndCountAll({where: {userId: req.params.userId}}).then((userBusinesses) => {
+      if(userBusinesses.count == 0){
+        return res.status(404).json({
+          message: 'Business Not Found'
+        });
       }
-     
-      return res.status(200).json({
-        businesses
-        
+
+      const pageQuery = req.query.page || 1;
+      let offset = 0;
+      const limit = 6,
+      currentPage = parseInt(pageQuery, 10),
+      numberOfBusinesses = userBusinesses.count,
+      totalPages = Math.ceil(numberOfBusinesses / limit);
+      offset = limit * (currentPage - 1);
+
+      return businessModel.findAll({
+        where: {userId: req.params.userId},
+        limit,
+        offset,
+        order: [ ["createdAt", "DESC"] ]
       })
+      .then((businesses)=> {
+        if(businesses.length == 0){
+          return res.status(400).json({
+            message: 'No Available Businesses'
+          })
+        }
+       const payload = {
+         numberOfBusinesses,
+         limit,
+         totalPages,
+         currentPage,
+         businesses
+       }
+      return res.status(200).json(Object.assign({
+        message: 'List of user businesses'   
+      }, payload));
     })
+    .catch(error => res.status(400).json({
+      error
+    }));
+
+    })
+    
+    
   }
 
 }

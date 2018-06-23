@@ -26,13 +26,13 @@ export function fetchOneBusinessSuccess(business) {
 
 /**
  * @description handles fetch business
- * @param {*} null
+ * @param {number} page - holds the page number
  * @returns {object} returns fetched business action
  */
-export const fetchBusinessesRequest = () => dispatch =>
-  axios.get('/api/v1/businesses')
+export const fetchBusinessesRequest = page => dispatch =>
+  axios.get(`/api/v1/businesses?page=${page}`)
     .then((response) => {
-      dispatch(actionResponseSuccess(FETCH_BUSINESS_SUCCESSFUL, response.data.businesses));
+      dispatch(actionResponseSuccess(FETCH_BUSINESS_SUCCESSFUL, response.data));
     })
     .catch((error) => {
       dispatch(actionResponseFailure(FETCH_BUSINESS_FAILED, error.response.data.message));

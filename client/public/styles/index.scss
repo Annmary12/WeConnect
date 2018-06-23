@@ -191,4 +191,6 @@ background: rgb(216, 215, 215);
     color: white;
     font-size: 50px;
 }
-  
+.pagination li.active a{
+    background: #f5603d;
+}

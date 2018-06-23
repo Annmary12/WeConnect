@@ -30,7 +30,11 @@ export default (state = initialState, action = {}) => {
     case USER_BUSINESSES_SUCCESS:
       return {
         ...state,
-        businesses: action.payload
+        businesses: action.payload.businesses,
+        limit: action.payload.limit,
+        totalPages: action.payload.totalPages,
+        currentPage: action.payload.currentPage,
+        totalBusiness: action.payload.numberOfBusinesses
       };
     case USER_BUSINESSES_FAILURE:
       return {
