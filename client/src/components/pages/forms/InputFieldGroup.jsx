@@ -21,7 +21,7 @@ const InputFieldGroup = ({
         name={name}
         required
       />
-      <label htmlFor="icon_prefix">{label}</label>
+      <label htmlFor="icon_prefix" className="active">{label}</label>
     </div>
 );
 

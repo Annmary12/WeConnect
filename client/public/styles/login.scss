@@ -6,3 +6,34 @@
     background-color: #505053;
     padding-bottom: 20px;
 }
+
+img.responsive-img {
+    margin: 40px;
+    max-width: 70%;
+}
+
+.upload-update-btn-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .updateProfile {
+    border: 2px solid gray !important;
+    color: gray !important;
+    background-color: white !important;
+    border-radius: 8px !important;
+    font-size: 20px !important;
+    font-weight: bold !important;
+  }
+  
+  .upload-update-btn-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+
+//   .updateProfileImg{
+//       height: 70%;
+//   }

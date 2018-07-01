@@ -23,15 +23,19 @@ class Login extends Component {
    */
   render() {
     return (
-            <div className="login-background">
-                <div className="pad">
-                    <div className="login-nav">
-                        <Navigation />
-                    </div>
-                    <LoginForm userLoginRequest={this.props.userLoginRequest} />
-                </div>
-                <Footer />
+
+      <div className="login-background">
+        <main>
+          <div className="pad">
+            <div className="login-nav">
+              <Navigation />
             </div>
+            <LoginForm userLoginRequest={this.props.userLoginRequest} />
+          </div>
+        </main>
+        <Footer />
+      </div>
+
     );
   }
 }

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Navigation from './Navigation';
 import Footer from './Footer';
 import BusinessDetails from './BusinessDetails';
-import { fetchOneBusinessRequest, deleteBusinessRequest } from '../../actions/fetchBusinesses';
+import { fetchOneBusinessRequest, deleteBusinessRequest, likeRequest } from '../../actions/fetchBusinesses';
 import { getReviewRequest } from '../../actions/review';
 
 /**
@@ -27,6 +27,7 @@ class BusinessProfile extends Component {
     };
 
     this.onDelete = this.onDelete.bind(this);
+    this.handleLike = this.handleLike.bind(this);
   }
 
   /**
@@ -68,6 +69,20 @@ class BusinessProfile extends Component {
       }
     });
   }
+
+  /**
+   * @description handles liking a business
+   * @method handleLike
+   *
+   * @returns {*} null
+   */
+  handleLike() {
+    const businessId = this.props.business.id;
+    const { authId } = this.props;
+    this.props.likeRequest(businessId, authId).then(() => {
+      this.props.fetchOneBusinessRequest(this.props.match.params.id);
+    });
+  }
   /**
    * @description renders a particular business details
    *
@@ -90,6 +105,7 @@ class BusinessProfile extends Component {
           { business &&
             <BusinessDetails
               onDelete={ this.onDelete }
+              handleLike={ this.handleLike }
               description={ business.description }
               name={ business.name }
               category={ business.category }
@@ -98,6 +114,7 @@ class BusinessProfile extends Component {
               id={ business.id }
               reviews={ reviews }
               userId={ business.userId }
+              numberOfLikes={ business.numberOfLikes }
             />
           }
         </div>
@@ -109,7 +126,8 @@ class BusinessProfile extends Component {
 const mapStateToProps = state => ({
   business: state.OneBusiness.business,
   isDeleted: state.OneBusiness.isDeleted,
-  reviews: state.allReviews.reviews
+  reviews: state.allReviews.reviews,
+  authId: state.auth.user.id,
 });
 
 BusinessProfile.contextTypes = {
@@ -120,6 +138,11 @@ BusinessProfile.propTypes = {
   fetchOneBusinessRequest: PropTypes.func.isRequired,
   deleteBusinessRequest: PropTypes.func.isRequired,
   business: PropTypes.object.isRequired,
-  reviews: PropTypes.object,
+  reviews: PropTypes.array,
 };
-export default connect(mapStateToProps, { fetchOneBusinessRequest, deleteBusinessRequest, getReviewRequest })(BusinessProfile);
+export default connect(mapStateToProps, {
+  fetchOneBusinessRequest,
+  deleteBusinessRequest,
+  getReviewRequest,
+  likeRequest
+})(BusinessProfile);

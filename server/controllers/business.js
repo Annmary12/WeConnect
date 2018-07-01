@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import models from '../models/index';
 
 const businessModel = models.Business;
+const voteModel = models.Vote;
 dotenv.config();
 
 /**
@@ -73,12 +74,21 @@ class Business {
    * @param {*} res - api response
    */
   static getBusiness(req, res) {
-  
-    return businessModel.findById(req.params.businessId)
+    const { businessId } = req.params;
+    return businessModel.find({ where: { id: businessId},
+    include: [{
+      model: voteModel,
+      as: 'getvote',
+      attributes: ['businessId', 'userId']
+    }],
+  })
       .then((businesses) => {
         if (businesses) {
+          const numberOfLikes = businesses.getvote.length;
+          const { getvote, ...formattedBusiness } = businesses.dataValues;
+          
           return res.status(200).json({
-            businesses,
+            businesses: { ...formattedBusiness, numberOfLikes },
             error: false
           });
         }
@@ -88,10 +98,10 @@ class Business {
           error: true
         });
       })
-      .catch(error => res.status(400).json({
-        error
-
-      }));
+      .catch(error => {
+        console.log(error.message);
+        return res.status(400).json({ error })
+      });
   }
 
 
@@ -108,7 +118,7 @@ class Business {
     } = req.body;
 
     const authData = req.user;
-    const getbusiness = new businessModel({
+    let newBusiness = {
       userId: authData.payload.id, // get the id of the user from the authData token
       phoneNumber,
       name,
@@ -116,9 +126,10 @@ class Business {
       address,
       image,
       location,
-      category,
-      website
-    });
+      category
+    };
+    newBusiness = website ? { ...newBusiness, website } : newBusiness;
+    const getbusiness = new businessModel(newBusiness);
 
 
     return getbusiness.save()
@@ -190,7 +201,6 @@ class Business {
    * @param {*} req - api request
    * @param {*} res - route response
    */
-
   static deleteBusiness(req, res) {
     const authData = req.user;
     return businessModel.findById(req.params.businessId)

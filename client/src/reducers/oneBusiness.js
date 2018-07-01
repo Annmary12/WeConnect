@@ -1,11 +1,15 @@
 import {
   FETCH_ONE_BUSINESS_SUCCESSFUL,
-  DELETE_BUSINESS_SUCCESSFUL
+  DELETE_BUSINESS_SUCCESSFUL,
+  LIKE_FAILED,
+  LIKE_SUCCESSFUL
 } from '../actions/types';
 
 const initialState = {
   business: {},
   isDeleted: false,
+  message: '',
+  error: ''
 };
 
 /**
@@ -23,7 +27,7 @@ const BusinessReducer = (state = initialState, action = {}) => {
     case FETCH_ONE_BUSINESS_SUCCESSFUL:
       return {
         ...state,
-        business: action.businesses
+        business: action.business
       };
 
     case DELETE_BUSINESS_SUCCESSFUL:
@@ -31,6 +35,19 @@ const BusinessReducer = (state = initialState, action = {}) => {
         ...state,
         isDeleted: true
       };
+
+    case LIKE_SUCCESSFUL:
+      return {
+        ...state,
+        message: action.payload
+      };
+
+    case LIKE_FAILED:
+      return {
+        ...state,
+        error: action.payload
+      };
+
     default: return state;
   }
 };

@@ -1,4 +1,12 @@
-  
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+
+#main {
+    flex: 1 0 auto;
+  } 
   .logo{
     color:#f4613d;
 }
@@ -8,7 +16,7 @@
     background-repeat:no-repeat;
     background-position: center; 
     background-size: cover;
-    height: 600px;
+    height: 100vh;
 }
 nav{
     background: transparent; 
@@ -193,4 +201,7 @@ background: rgb(216, 215, 215);
 }
 .pagination li.active a{
     background: #f5603d;
+}
+.pointer{
+    cursor:pointer;
 }

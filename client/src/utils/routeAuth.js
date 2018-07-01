@@ -15,7 +15,7 @@ export default function(CheckRoute){
             if(!decodeToken()) {
                 Materialize.toast('Sorry your session has expired, Please SignIn again', 2000, 'red rounded');
                 this.props.logout();
-                this.context.router.history.push('/login');
+                // this.context.router.history.push('/login');
             }
         }
 

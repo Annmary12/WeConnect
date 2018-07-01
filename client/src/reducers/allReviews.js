@@ -13,7 +13,8 @@ export default (state = {}, action = {}) => {
   switch (action.type) {
     case ALL_REVIEW:
       return {
-        reviews: action.reviews
+        reviews: action.reviews.reviews,
+        totalReview: action.reviews.totalReview
       };
 
     default: return state;

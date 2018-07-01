@@ -94,8 +94,10 @@ class Review {
                   error: false
                 });
               }
+              const totalReview = reviews.length;
               return res.status(200).json({
                 reviews,
+                totalReview,
                 message: `List of review(s) for ${business.name}`,
                 error: false
               });

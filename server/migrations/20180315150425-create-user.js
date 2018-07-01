@@ -24,9 +24,9 @@ module.exports = {
     password: {
       allowNull: false,
       type: Sequelize.STRING
-    },
-    image: {
-      type: Sequelize.STRING
+    },    
+    vote: {
+      type: Sequelize.INTEGER
     },
     createdAt: {
       allowNull: false,

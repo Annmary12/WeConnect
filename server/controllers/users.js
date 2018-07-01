@@ -6,6 +6,7 @@ import models from '../models/index';
 
 const userModel = models.User;
 const businessModel = models.Business;
+const voteModel = models.Vote;
 dotenv.config();
 const secret = process.env.secretKey;
 
@@ -31,7 +32,7 @@ class User {
    */
   static signup(req, res) {
     const {
-      firstname, lastname, email, password, image
+      firstname, lastname, email, password,
     } = req.body;
 
     const newUser = new userModel({
@@ -39,7 +40,7 @@ class User {
       lastname,
       email,
       password: bcrypt.hashSync(password, bcrypt.genSaltSync(10)),
-      image
+      image : 'https://www.facsa.uliege.be/upload/docs/image/jpeg/2016-12/user.jpg'
     });
 
     return newUser.save()
@@ -117,7 +118,8 @@ class User {
       const getUser ={
         firstname: user.firstname,
         lastname: user.lastname,
-        email: user.email
+        email: user.email,
+        image: user.image
       }
       return res.status(200).json({
         getUser
@@ -127,7 +129,7 @@ class User {
   }
 
   /**
-    * @description Logs in an existing user
+    * @description Get user business(es)
     * @returns {Object} getUserBusinesses
     * @param {*} req
    * @param {*} res
@@ -179,6 +181,91 @@ class User {
     
     
   }
+
+  /**
+    * @description Updates a user profile
+    * @returns {Object} updateUser
+    * @param {*} req
+   * @param {*} res
+   */
+  static updateUser(req, res){
+    const { firstname, lastname, email, image } = req.body;
+    const authData = req.user.payload.id;
+    userModel.findById(authData)
+    .then((getUser) => {      
+      if(!getUser){
+        res.status(404).json({
+          message: 'User not found',
+          error: true
+        })
+      }
+
+      const user = {
+        firstname: firstname || getUser.firstname,
+        lastname: lastname || getUser.lastname,
+        email: email || getUser.email,
+        image: image || getUser.image
+      }
+      return getUser.update(user)
+      .then((updatedUser) => {
+        if(updatedUser){
+          // return console.log('update user');
+        res.status(200).json({
+          message: 'Successfully Updated'
+        })
+        }
+       // return console.log('update user');
+      })
+      .catch((error) => {
+        res.status(400).json({
+          error
+        })
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        error
+      })
+    })
+  }
+
+  /**
+    * @description user can like a business
+    * @returns {Object} liked business
+    * @param {*} req
+   * @param {*} res
+   */
+  static likeBusiness(req, res){
+   const { businessId, userId } = req.body;
+    
+    voteModel.find({ where :{  businessId: businessId, userId: userId }})
+    .then((vote) => {
+      if(!vote){
+        const newVote = new voteModel({
+          businessId: businessId,
+          userId: userId
+        })
+        return newVote.save().then((savedVote) => {
+          res.status(200).json({
+            message: "business liked successfully",
+            savedVote
+          })
+        }).catch((error) => {
+          res.status(404).json({
+            error
+          })
+        }) 
+      }
+
+      return vote.destroy().then(() => {
+        res.status(200).json({
+          message: 'Business Unlike'
+        })
+      })
+    
+    })
+  }
+
 
 }
 
