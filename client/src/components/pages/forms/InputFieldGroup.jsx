@@ -1,6 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+/**
+ * @description renders input field
+ * @method InputFieldGroup
+ *
+ * @param { string } type - takes type, onchange value, name, label, icon of an input field
+ *
+ * @returns { void }
+ */
 const InputFieldGroup = ({
   type, onChange, value, name, label, icon
 }) => (

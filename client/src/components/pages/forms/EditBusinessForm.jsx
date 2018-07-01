@@ -107,12 +107,6 @@ class EditBusinessForm extends Component {
   }
 
   /**
- * Update business form
- * @param {object} event
- *
- * @returns {object} SyntheticEvent
- */
- /**
    * @description updates a business
    * @method onUpdate
    *
@@ -286,6 +280,9 @@ EditBusinessForm.propTypes = {
   fetchOneBusinessRequest: PropTypes.func.isRequired,
   updateBusinessRequest: PropTypes.func.isRequired,
   business: PropTypes.object.isRequired,
+  // onChange: PropTypes.func.isRequired,
+  // onUpdate: PropTypes.func.isRequired,
+  // handleImageChange: PropTypes.func.isRequired,
 };
 
 /**

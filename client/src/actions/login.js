@@ -4,9 +4,9 @@ import setAuthorizationToken from '../utils/setAuthorizationToken';
 import { SET_CURRENT_USER, LOGIN_FAILED } from './types';
 
 /**
- *
- * @param {object} user
- * @returns {object} user
+ * @description handles setting authenticated users
+ * @param {object} user - contains user details
+ * @returns {object} returns user action
  */
 export function setCurrentUser(user) {
   return {
@@ -16,9 +16,9 @@ export function setCurrentUser(user) {
 }
 
 /**
- *
- * @param {object} user
- * @returns {object} user
+ * @description handles a failed login action
+ * @param {object} error - contains error message
+ * @returns {object} returns failed user action
  */
 export function loginFailed(error) {
   return {
@@ -28,10 +28,10 @@ export function loginFailed(error) {
 }
 
 /**
- * 
- * @description action to login a user
- * @param {object} userData
- * @returns {object} userData
+ *
+ * @description handles action to login a user
+ * @param {object} userData - contains user details
+ * @returns {object} returns failed or success user action
  */
 export function userLoginRequest(userData) {
   return dispatch => axios.post('api/v1/auth/login', userData).then((res) => {
@@ -45,7 +45,7 @@ export function userLoginRequest(userData) {
 }
 
 /**
- *
+ * @description handles logout action
  * @param {void} void
  * @returns {void} void
  */

@@ -8,6 +8,15 @@ const initialState = {
   successMessage: ''
 };
 
+/**
+ * @description holds success and failure states for creating a new business
+ * @function
+ *
+ * @param { object } state - contains reducer initial state
+ * @param { object } action - contains actions to be performed
+ *
+ * @returns { object } the new create business action state
+ */
 export default (state = initialState, action = {}) => {
   switch (action.type) {
     case IS_REQUESTING:

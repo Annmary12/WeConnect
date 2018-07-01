@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Input, Row } from 'react-materialize';
-
+import PropTypes from 'prop-types';
 
 /**
  * @description displays a form to create a business
@@ -143,6 +142,12 @@ const CreateBusnessForm = (props) => {
     </div>
   );
 };
+
+CreateBusnessForm.propTypes = {
+  onChange: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  handleImageChange: PropTypes.func.isRequired,
+}
 
 export default CreateBusnessForm;
 

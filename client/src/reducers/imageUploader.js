@@ -6,6 +6,15 @@ const initialState = {
   hasSaved: false
 };
 
+/**
+ * @description holds success and failure states for uploading images.
+ * @function
+ *
+ * @param { object } state - contains reducer initial state
+ * @param { object } action - contains actions to be performed
+ *
+ * @returns { object } the new image state
+ */
 export default (state = initialState, action = {}) => {
   switch (action.type) {
     case SAVE_IMAGE_SUCCESSFUL:

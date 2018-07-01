@@ -3,16 +3,23 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { userSignupRequest } from '../../../actions/SignUpAction';
-import InputFieldGroup from './InputFieldGroup';
+import InputFieldGroup from './InputFieldGroup.jsx';
 
 /**
+ * @description renders create user form component
+ *
  * @class SignUpForm
- */
+ *
+ * @extends Component
+*/
 class SignUpForm extends Component {
   /**
-     * @constructor
-     * @param {object} props
-     */
+   * @description creates an instance of SignUpForm
+   *
+   * @constructor
+   *
+   * @param { props } props - contains SignUpForm component properties
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -41,8 +48,10 @@ class SignUpForm extends Component {
   }
 
   /**
- * Handles change of values in state
- * @param {object} event
+ * @description Handles change of values in state
+ * @method onChange
+ *
+ * @param {object} event - event object containing signup detail
  *
  * @returns {object} SyntheticEvent
  */
@@ -51,8 +60,10 @@ class SignUpForm extends Component {
   }
 
   /**
- * Submits user signup data
- * @param {object} event
+ * @description Submits user signup data
+ * @method onSubmit
+ *
+ * @param {object} event - event object containing new user details
  *
  * @returns {object} SyntheticEvent
  */
@@ -62,8 +73,8 @@ class SignUpForm extends Component {
   }
   /**
      *
-     * React element markup
-     * @returns {object} markUp
+     * @description displays the signup form
+     * @returns {jsx} jsx - renders signup form
      */
   render() {
     return (
@@ -146,6 +157,7 @@ const mapStateToProps = state => ({
 
 SignUpForm.propTypes = {
   userSignupRequest: PropTypes.func.isRequired,
+  signUpData: PropTypes.object.isRequired,
 };
 
 SignUpForm.contextTypes = {

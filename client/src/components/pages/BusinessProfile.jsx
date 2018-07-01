@@ -8,7 +8,11 @@ import { fetchOneBusinessRequest, deleteBusinessRequest } from '../../actions/fe
 import { getReviewRequest } from '../../actions/review';
 
 /**
+ * @description render business profile page
+ *
  * @class BusinessProfile
+ *
+ * @extends component
  */
 class BusinessProfile extends Component {
   /**
@@ -26,7 +30,9 @@ class BusinessProfile extends Component {
   }
 
   /**
-   * @description fetches on a business and get reviews for it
+   * @description fetches a business and get reviews for it
+   * @method componentWillMount
+   *
    * @param {object} - business and review
    *
    * @returns {void}
@@ -39,6 +45,8 @@ class BusinessProfile extends Component {
   }
   /**
    * @description updates the state
+   * @method componentWillReceiveProps
+   *
    * @param {nextProps} nextProps - object of new incoming property
    *
    * @returns {void}
@@ -48,7 +56,7 @@ class BusinessProfile extends Component {
   }
   /**
    * @description handles deleting a business
-   * @method deleteBusinessRequest
+   * @method onDelete
    *
    * @returns {*} null
    */

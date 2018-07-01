@@ -1,55 +1,83 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import InputField from './InputFieldGroup';
-import PropTypes from 'prop-types';
+import InputField from './InputFieldGroup.jsx';
 
+/**
+ * @description renders login  component
+ *
+ * @class LoginForm
+ *
+ * @extends Component
+*/
 class LoginForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            email: '',
-            password: '',
-            loading: false,
-            errors: {},
+  /**
+   * @description creates an instance of LoginForm
+   *
+   * @constructor
+   *
+   * @param { props } props - contains login component properties
+   */
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: '',
+      loading: false,
+      errors: {},
+    };
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  /**
+   * @description handles on state change
+   * @method onChange
+   *
+   * @param { object } event - event object containing login detail
+   *
+   * @returns { object } new login detail state
+   */
+  onChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+  /**
+   * @description creates a new user
+   * @method onSubmit
+   *
+   * @param { object } event - event object containing user details
+   *
+   * @returns { * } null
+   */
+  onSubmit(event) {
+    this.setState({ errors: {}, isLoading: true });
+    event.preventDefault();
+    this.props.userLoginRequest(this.state).then(
+      () => {
+        const { isAuthenticated, hasError, error } = this.props.auth;
+        if (isAuthenticated && !hasError) {
+          Materialize.toast('Successfully Signed In', 4000, 'teal accent-3 rounded');
+          this.context.router.history.push('/profile');
+        } else if (!isAuthenticated && hasError) {
+          Materialize.toast(error, 4000, 'red accent-3 rounded');
         }
-        this.onChange = this.onChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-    }
+      },
+      (errors) => {
+        console.log(errors);
+      }
+    );
+  }
 
-
-    onChange(event) {
-        this.setState({ [event.target.name]: event.target.value });
-    }
-
-    onSubmit(event) {
-        this.setState({ errors: {}, isLoading: true });
-        event.preventDefault();
-        this.props.userLoginRequest(this.state).then(
-            () => {
-                const { isAuthenticated, hasError, error } = this.props.auth;
-                if(isAuthenticated && !hasError){
-                    Materialize.toast('Successfully Signed In', 4000, 'teal accent-3 rounded')
-                    this.context.router.history.push('/profile');
-                }
-                else if(!isAuthenticated && hasError){
-                    Materialize.toast(error, 4000, 'red accent-3 rounded');
-                }
-                //console.log('here');
-                
-            },
-            (errors) => {
-                console.log(errors);
-                // Materialize.toast(errors.response.data.message, 4000, 'red accent-3 rounded');
-                // this.setState({errors: error.response.data, isLoading: false});
-            }
-        );
-
-    }
-
-    render() {
-        const { email, password, isLoading } = this.state;
-        return (
+  /**
+   * @description displays create login form
+   *
+   * @returns { jsx } jsx - renders login form
+   */
+  render() {
+    const { email, password } = this.state;
+    return (
             <div className="container login">
 
                 <div className="row">
@@ -97,18 +125,28 @@ class LoginForm extends Component {
 
                 </div>
             </div>
-        );
-    }
+    );
+  }
 }
 
 LoginForm.propTypes = {
-    userLoginRequest: PropTypes.func.isRequired,
-}
+  userLoginRequest: PropTypes.func.isRequired,
+  // onSubmit: PropTypes.func.isRequired,
+  // onChange: PropTypes.func.isRequired,
+};
 LoginForm.contextTypes = {
-    router: PropTypes.object.isRequired
-}
-const mapStateToProps = state => ({  
-        auth: state.auth,
-})
+  router: PropTypes.object.isRequired
+};
+
+/**
+ * @description maps redux state to props
+ *
+ * @param { object } state - holds an authenticated user
+ *
+ * @return { object } props - returns mapped props from state
+ */
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
 
 export default connect(mapStateToProps)(LoginForm);

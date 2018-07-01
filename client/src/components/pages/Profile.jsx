@@ -7,7 +7,18 @@ import { Link } from 'react-router-dom';
 import Spinner from 'react-md-spinner';
 import { getUserRequest, getUserBusinessesRequest } from '../../actions/getUser';
 
+/**
+ * @description renders user profile page
+ *
+ * @class Profile
+ *
+ * @extends Component
+ */
 class Profile extends Component {
+  /**
+   * @constructor
+   * @param {object} props
+   */
   constructor(props) {
     super(props);
     this.state = {
@@ -17,20 +28,41 @@ class Profile extends Component {
     };
   }
 
+  /**
+   * @description fetches user details and business of the user
+   * @method componentWillMount
+   *
+   * @param {object} - business and user
+   *
+   * @returns {void}
+   */
   componentDidMount() {
     this.props.getUserRequest(this.props.userId);
     this.props.getUserBusinessesRequest(this.props.userId);
   }
 
+  /**
+   * @description updates the state
+   * @method componentWillReceiveProps
+   * @param {nextProps} nextProps - object of new incoming property
+   *
+   * @returns {void}
+   */
   componentWillReceiveProps(nextProps) {
     const { firstname, lastname, email } = nextProps.currentUser;
     this.setState({ firstname, lastname, email });
   }
 
+  /**
+     *
+     * React element markup
+     * @returns {jsx} jsx - renders profile page
+     */
   render() {
     const { userBusinesses } = this.props;
 
-    const businessList = userBusinesses && userBusinesses.map((business) => (
+    // gets the list of user's businesses
+    const businessList = userBusinesses && userBusinesses.map(business => (
         <div className="col s4" key={business.id}>
           <UserCard
             name={business.name}
@@ -38,8 +70,8 @@ class Profile extends Component {
             id={business.id}
             image={business.image} />
         </div>
-      ));
-
+    ));
+    // message for no business
     const noBusiness = (
       <div className="row">
         <div className="card blue-grey darken-1">

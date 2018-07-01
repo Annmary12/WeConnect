@@ -4,12 +4,17 @@ import ReviewForm from './forms/ReviewForm';
 import { Link } from 'react-router-dom';
 
 /**
+ * @description renders the details the business
+ *
  * @class BusinessDetails
+ *
+ * @extends Component
  */
 class BusinessDetails extends Component {
   /**
      *
-     * React element markup
+     * @description renders an action button
+     *
      * @returns {object} markUp
      */
   render() {

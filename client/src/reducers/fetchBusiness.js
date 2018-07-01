@@ -1,4 +1,4 @@
-import { FETCH_BUSINESS_SUCCESSFUL, FETCH_BUSINESS_FAILED} from '../actions/types';
+import { FETCH_BUSINESS_SUCCESSFUL, FETCH_BUSINESS_FAILED } from '../actions/types';
 
 const initialState = {
   businesses: [],
@@ -6,6 +6,16 @@ const initialState = {
   isDeleted: false,
 };
 
+/**
+ * @description holds success and failure states for fetching
+ * a business
+ * @function
+ *
+ * @param { object } state - contains reducer initial state
+ * @param { object } action - contains actions to be performed
+ *
+ * @returns { object } the new business state
+ */
 const BusinessReducer = (state = initialState, action) => {
   switch (action.type) {
     case FETCH_BUSINESS_SUCCESSFUL:

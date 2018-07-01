@@ -9,12 +9,17 @@ import checkImage from '../../utils/imageChecker';
 
 
 /**
+ * @description renders component to create a business
  * @class CreateBusiness
+ * @extends Component
  */
 class CreateBusiness extends Component {
   /**
+   * @description create instance of create business form
+   *
    * @constructor
-   * @param {object} props
+   *
+   * @param {object} props - contains create business component properties
    */
   constructor(props) {
     super(props);
@@ -38,7 +43,9 @@ class CreateBusiness extends Component {
   }
 
   /**
- * Handles change of values in state
+ * @description Handles change of values in state
+ * @method onChange
+ *
  * @param {object} event
  *
  * @returns {object} SyntheticEvent
@@ -47,7 +54,9 @@ class CreateBusiness extends Component {
     this.setState({ [event.target.name]: event.target.value });
   }
   /**
-  * Handles image input of values in state
+  * @description Handles image input of values in state
+  * @method handleImageChange
+  *
   * @param {object} event
   *
   * @returns {object} SyntheticEvent
@@ -76,10 +85,11 @@ class CreateBusiness extends Component {
 
 
   /**
-* Submits business form
+* @description Submits business form
+* @method onSubmit
 * @param {object} event
 *
-* @returns {object} SyntheticEvent
+* @returns { * } null
 */
   onSubmit(event) {
     event.preventDefault();
@@ -94,9 +104,9 @@ class CreateBusiness extends Component {
   }
 
   /**
+     * @description renders create business form
      *
-     * React element markup
-     * @returns {object} markUp
+     * @returns { jsx } jsx - renders business form
      */
   render() {
     return (
@@ -128,6 +138,7 @@ const mapStateToProps = state => ({
 });
 CreateBusiness.propTypes = {
   createBusinessRequest: PropTypes.func.isRequired,
+  createBusinessData: PropTypes.bool.isRequired,
 };
 CreateBusiness.contextTypes = {
   router: PropTypes.object.isRequired

@@ -1,53 +1,85 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import ReviewList from '../ReviewList';
 import { reviewRequest, getReviewRequest } from '../../../actions/review';
 
-
+/**
+ * @description renders review form  component
+ *
+ * @class ReviewForm
+ *
+ * @extends Component
+*/
 class ReviewForm extends Component {
-    constructor(props) {
-        super(props);
-        const id = this.props.businessId;
-        this.state = {
-            context: '',
-            currentBusiness: this.props.businessId,
-        }
-        this.onChange = this.onChange.bind(this);
-        this.onSubmitReview = this.onSubmitReview.bind(this);
-    }
+  /**
+   * @description creates an instance of LoginForm
+   *
+   * @constructor
+   *
+   * @param { props } props - contains login component properties
+   */
+  constructor(props) {
+    super(props);
+    this.state = {
+      context: '',
+      currentBusiness: this.props.businessId,
+    };
+    this.onChange = this.onChange.bind(this);
+    this.onSubmitReview = this.onSubmitReview.bind(this);
+  }
 
-    onChange(event) {
-        event.preventDefault();
-        this.setState({ [event.target.name]: event.target.value });
-    }
+  /**
+   * @description handles on state change
+   * @method onChange
+   *
+   * @param { object } event - event object containing review detail
+   *
+   * @returns { object } new review detail state
+   */
+  onChange(event) {
+    event.preventDefault();
+    this.setState({ [event.target.name]: event.target.value });
+  }
 
-    onSubmitReview(event) {
-        event.preventDefault();
-        const id = this.props.businessId;
-        this.props.reviewRequest(this.state, id).then(() => {
-            const { isCreated, hasError, error } = this.props.review;
-            if (isCreated && !hasError) {
-                this.setState({ context: '' });
-                this.props.getReviewRequest(this.props.businessId);
-            }
-            else if (!isCreated && hasError) {
-                Materialize.toast(error, 4000, 'red accent-3 rounded');
-            }
+  /**
+   * @description creates review
+   * @method onSubmitReview
+   *
+   * @param { object } event - event object containing new user details
+   *
+   * @returns { * } null
+   */
+  onSubmitReview(event) {
+    event.preventDefault();
+    const id = this.props.businessId;
+    this.props.reviewRequest(this.state, id).then(() => {
+      const { isCreated, hasError, error } = this.props.review;
+      if (isCreated && !hasError) {
+        this.setState({ context: '' });
+        this.props.getReviewRequest(this.props.businessId);
+      } else if (!isCreated && hasError) {
+        Materialize.toast(error, 4000, 'red accent-3 rounded');
+      }
+    });
+  }
 
-        });
-    }
-    render() {
-        const { reviews } = this.props;
-        const { isAuthenticated } = this.props.authData;
+  /**
+   * @description displays reviews and renders review form
+   *
+   * @returns { jsx } jsx - renders review form and review
+   */
+  render() {
+    const { reviews } = this.props;
+    const { isAuthenticated } = this.props.authData;
 
-        const review = reviews && reviews.map((review) => {
-            return (<ReviewList
-                key={review.id}
-                context={review.context}
-                createdAt={review.createdAt}
-                user={review.reviewer} />)
-        })
-       return (
+    // gets reviews of a particular business
+    const review = reviews && reviews.map(getReview => (<ReviewList
+                key={getReview.id}
+                context={getReview.context}
+                createdAt={getReview.createdAt}
+                user={getReview.reviewer} />));
+    return (
 
             <div className="reviewForm">
                 <div className="row">
@@ -84,17 +116,30 @@ class ReviewForm extends Component {
                     </div>
                 </div>
             </div>
-        );
-    }
-
+    );
+  }
 }
 
-const mapStateToProps = state => ({
-    businessId: state.OneBusiness.business.id,
-    review: state.ReviewReducer,
-    authData: state.auth
-    // busid: state.BusinessReducer.oneBusiness.id
+ReviewForm.propTypes = {
+  reviewRequest: PropTypes.func.isRequired,
+  getReviewRequest: PropTypes.func.isRequired,
+  businessId: PropTypes.number,
+  review: PropTypes.object.isRequired,
+  authData: PropTypes.object.isRequired,
+};
 
-})
+/**
+ * @description maps redux state to props
+ *
+ * @param { object } state - holds an authenticated user, list of reviews and business id
+ *
+ * @return { object } props - returns mapped props from state
+ */
+const mapStateToProps = state => ({
+  businessId: state.OneBusiness.business.id,
+  review: state.ReviewReducer,
+  authData: state.auth
+
+});
 
 export default connect(mapStateToProps, { reviewRequest, getReviewRequest })(ReviewForm);

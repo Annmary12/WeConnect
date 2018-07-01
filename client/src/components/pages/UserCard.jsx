@@ -1,8 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import TextTruncate from 'react-text-truncate'
+import TextTruncate from 'react-text-truncate';
 
-const UserCard = ({ name, description, id, image }) => (
+/**
+ * @description displays user business card
+ * @method UserCard
+ *
+ * @param { string } props - contains business details
+ *
+ * @returns { jsx } jsx - renders UserCard component
+ */
+const UserCard = ({
+  name, description, id, image
+}) => (
   <div>
     <div className="card" style={{ overflow: 'visible' }}>
       <div className="card-image waves-effect waves-block waves-light">
