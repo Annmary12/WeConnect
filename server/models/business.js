@@ -38,9 +38,6 @@ export default (sequelize, DataTypes) => {
         },
       }
     },
-    vote: {
-      type: DataTypes.INTEGER,
-    },
   });
   Business.associate = (models) => {
     // associations can be defined here
@@ -54,10 +51,10 @@ export default (sequelize, DataTypes) => {
       as: 'review',
     });
 
-    Business.hasMany(models.Vote, {
-      foreignKey: 'businessId',
-      as: 'getvote',
-    });
+    // Business.hasMany(models.Vote, {
+    //   foreignKey: 'businessId',
+    //   as: 'getvote',
+    // });
   };
   return Business;
 };

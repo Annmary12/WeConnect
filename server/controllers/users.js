@@ -122,6 +122,7 @@ class User {
         image: user.image
       }
       return res.status(200).json({
+        message: 'User Found',
         getUser
         
       })
@@ -157,11 +158,11 @@ class User {
         order: [ ["createdAt", "DESC"] ]
       })
       .then((businesses)=> {
-        if(businesses.length == 0){
-          return res.status(400).json({
-            message: 'No Available Businesses'
-          })
-        }
+        // if(businesses.length == 0){
+        //   return res.status(400).json({
+        //     message: 'No Available Businesses'
+        //   })
+        // }
        const payload = {
          numberOfBusinesses,
          limit,
@@ -170,7 +171,7 @@ class User {
          businesses
        }
       return res.status(200).json(Object.assign({
-        message: 'List of user businesses'   
+        message: 'Business Found'   
       }, payload));
     })
     .catch(error => res.status(400).json({
@@ -209,12 +210,10 @@ class User {
       return getUser.update(user)
       .then((updatedUser) => {
         if(updatedUser){
-          // return console.log('update user');
         res.status(200).json({
           message: 'Successfully Updated'
         })
         }
-       // return console.log('update user');
       })
       .catch((error) => {
         res.status(400).json({

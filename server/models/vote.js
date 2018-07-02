@@ -1,7 +1,26 @@
 export default (sequelize, DataTypes) => {
   const Vote = sequelize.define('Vote', {
-    businessId: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER
+    businessId: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'Business',
+        Key: 'id',
+        as: 'businessId',
+    },
+  },
+    userId: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+      onDelete: 'CASCADE',
+      references: {
+        model: 'User',
+        Key: 'id',
+        as: 'userId',
+    },
+  }
+    
   });
   Vote.associate = (models) => {
     // associations can be defined here

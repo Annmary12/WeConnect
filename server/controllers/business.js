@@ -11,6 +11,7 @@ dotenv.config();
    * 200 - Ok
    * 404 - Not Found
    * 400 - bad request
+   * 500 - Internal Server Error
    */
 /**
  *  @description - creates the Business components for read, create, update and delete businesses
@@ -99,8 +100,7 @@ class Business {
         });
       })
       .catch(error => {
-        console.log(error.message);
-        return res.status(400).json({ error })
+        return res.status(500).json({ error })
       });
   }
 
@@ -190,7 +190,7 @@ class Business {
           error: true
         });
       })
-      .catch(err => res.status(400).json({
+      .catch(err => res.status(500).json({
         error: err
       }));
   }
@@ -217,8 +217,8 @@ class Business {
               }));
           }
 
-          return res.status(401).json({
-            message: 'Unauthorized User',
+          return res.status(400).json({
+            message: 'You can not delete this business',
             error: true
           });
         }
@@ -228,7 +228,7 @@ class Business {
           error: true
         });
       })
-      .catch(err => res.status(400).json({
+      .catch(err => res.status(500).json({
         error: err
       }));
   }

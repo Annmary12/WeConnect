@@ -8,10 +8,22 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       businessId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        reference: {
+          model: 'Businesses',
+          key: 'id',
+          as: 'userId',
+        },
       },
       userId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        reference: {
+          model: 'Users',
+          key: 'id',
+          as: 'userId',
+        },
       },
       createdAt: {
         allowNull: false,

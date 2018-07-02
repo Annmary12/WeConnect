@@ -8,7 +8,7 @@
       "start-dev": "nodemon --watch server --exec babel-node app.js",
       "lint": "eslint ./ || true",
       "test-migrate": "sequelize db:migrate:undo:all && sequelize db:migrate",
-      "test": "set NODE_ENV=test&& npm run test-migrate&&  nyc mocha ./server/test/*.js --exit  --timeout 150000 --compilers js:babel-core/register --exit",
+      "test": "NODE_ENV=test npm run test-migrate && NODE_ENV=test nyc mocha ./server/test/*.js --exit  --timeout 350000 --compilers js:babel-core/register --exit",
       "migrate": "sequelize db:migrate",
       "heroku-postbuild": "npm run migrate",
       "coverage": "nyc report --reporter=text-lcov | coveralls",
