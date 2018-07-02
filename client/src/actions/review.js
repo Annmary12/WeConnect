@@ -61,7 +61,7 @@ export function allReviews(reviews) {
 export const getReviewRequest = id => dispatch =>
   axios.get(`/api/v1/businesses/${id}/reviews`)
     .then((response) => {
-      dispatch(allReviews(response.data.reviews));
+      dispatch(allReviews(response.data));
     })
     .catch((error) => {
       throw (error);

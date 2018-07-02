@@ -75,47 +75,47 @@ class ReviewForm extends Component {
 
     // gets reviews of a particular business
     const review = reviews && reviews.map(getReview => (<ReviewList
-                key={getReview.id}
-                context={getReview.context}
-                createdAt={getReview.createdAt}
-                user={getReview.reviewer} />));
+      key={getReview.id}
+      context={getReview.context}
+      createdAt={getReview.createdAt}
+      user={getReview.reviewer}
+      image={getReview.reviewer.image} />));
     return (
 
-            <div className="reviewForm">
+      <div className="reviewForm">
+        <div className="row">
+          <div className="col s10 offset-s1">
+            <h5>Reviews</h5>
+            { isAuthenticated
+              ?
                 <div className="row">
-                    <div className="col s10 offset-s1">
-
-                        <h5>Reviews</h5>
-                        {isAuthenticated ?
-                            <div className="row">
-                                <div className="col s12">
-
-                                    <div className="input-field">
-                                        <i className="material-icons prefix">rate_review</i>
-                                        <textarea
-                                            id="textarea1"
-                                            className="materialize-textarea"
-                                            name='context'
-                                            onChange={this.onChange}
-                                            value={this.state.context}
-                                            required>
-                                        </textarea>
-                                        <label htmlFor="textarea1">write a message...</label>
-                                    </div><br />
-                                    <div className="input-field right-align">
-                                        <button className="btn waves-effect waves-light btn_large " type="submit" onClick={this.onSubmitReview} name="action">Post
-                                                   <i className="material-icons left">send</i>
-                                        </button>
-                                    </div><br />
-                                </div>
-                            </div>
-                            : null}
-
-                        {review}
-
-                    </div>
-                </div>
-            </div>
+                  <div className="col s12">
+                    <div className="input-field">
+                      <i className="material-icons prefix">rate_review</i>
+                      <textarea
+                        id="textarea1"
+                        className="materialize-textarea"
+                        name='context'
+                        onChange={this.onChange}
+                        value={this.state.context}
+                        required>
+                      </textarea>
+                      <label htmlFor="textarea1">write a message...</label>
+                    </div><br />
+                    <div className="input-field right-align">
+                      <button className="btn waves-effect waves-light btn_large " type="submit" onClick={this.onSubmitReview} name="action">Post
+                        <i className="material-icons left">send</i>
+                      </button>
+                    </div><br />
+                  </div>
+              </div>
+              :
+                null
+            }
+            { review }
+          </div>
+        </div>
+      </div>
     );
   }
 }

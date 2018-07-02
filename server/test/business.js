@@ -6,6 +6,8 @@ const { expect } = chai;
 chai.use(chaiHttp);
 const BASE_URL = '/api/v1';
 let authtoken;
+let secondAuthtoken;
+// console.log(NODE_ENV, '@fjujklooepep');
 
 describe('Business Test', () => {
   before((done) => {
@@ -15,7 +17,7 @@ describe('Business Test', () => {
       email: 'njaycares@gmail.com',
       password: 'secret123',
       confirm_password: 'secret123',
-      image: 'amaka'
+      image: 'amaka',
     };
 
     chai.request(server)
@@ -23,8 +25,25 @@ describe('Business Test', () => {
       .send(user)
       .end((err, res) => {
         authtoken = res.body.token;
-        done();
+        // done();
       });
+
+      const secondUser = {
+        firstname: 'Ihuoma',
+        lastname: 'Agunanna',
+        email: 'ihuoma@gmail.com',
+        password: 'secret123',
+        confirm_password: 'secret123',
+        image: 'amaka',
+      };
+  
+      chai.request(server)
+        .post(`${BASE_URL}/auth/signup`)
+        .send(secondUser)
+        .end((err, res) => {
+          secondAuthtoken = res.body.token;
+          done();
+        });
   });
   describe('/POST Business', () => {
     it('Test to Check Name Field to create new business', (done) => {
@@ -244,6 +263,46 @@ describe('Business Test', () => {
         });
     });
 
+    it('test to check no review(s) for a  business', (done) => {
+      chai.request(server)
+        .get(`${BASE_URL}/businesses/1/reviews`)
+        .end((err, res) => {
+          expect(res).to.have.status(404);
+          expect(res.body.message).to.equal('No Review Found');
+          done();
+        });
+    });
+
+    it('test to check whether context field is empty', (done) => {
+      const review = {
+        context: ''
+      };
+      chai.request(server)
+        .post(`${BASE_URL}/businesses/1/reviews`)
+        .set('Authorization', secondAuthtoken)
+        .send(review)
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.message).to.equal('Please write a review');
+          done();
+        });
+    });
+
+    it('test to create a new review for a business', (done) => {
+      const review = {
+        context: 'Their Products are very nice'
+      };
+      chai.request(server)
+        .post(`${BASE_URL}/businesses/1/reviews`)
+        .set('Authorization', secondAuthtoken)
+        .send(review)
+        .end((err, res) => {
+          expect(res).to.have.status(201);
+          expect(res.body.message).to.equal('Sucessfully Created');
+          done();
+        });
+    });
+
     it('test to check whether business exit', (done) => {
       const review = {
         context: 'Their Products are very nice'
@@ -261,15 +320,17 @@ describe('Business Test', () => {
   });
 
   describe('GET/ reviews of a business', () => {
-    // it('test to get reviews for a  business', (done) => {
-    //   chai.request(server)
-    //     .get(`${BASE_URL}/businesses/1/reviews`)
-    //     .end((err, res) => {
-    //       expect(res).to.have.status(200);
-    //       expect(res.body.message).to.equal('List of review(s) for Molcom');
-    //       done();
-    //     });
-    // });
+    it('test to get reviews for a  business', (done) => {
+      chai.request(server)
+        .get(`${BASE_URL}/businesses/1/reviews`)
+        .end((err, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.message).to.equal('List of review(s) for Molcom');
+          done();
+        });
+    });
+
+    
 
     it('test to check business exist', (done) => {
       chai.request(server)
@@ -288,7 +349,7 @@ describe('Business Test', () => {
         .get(`${BASE_URL}/businesses`)
         .end((err, res) => {
           expect(res).to.have.status(200);
-          expect(res.body.message).to.equal('List of all bussinesses');
+          expect(res.body.message).to.equal('List of all businesses');
           done();
         });
     });
@@ -385,6 +446,18 @@ describe('Business Test', () => {
   });
 
   describe('/DELETE/:id Business', () => {
+    it('Test to check whether a user is the owner of the business he/she wants to delete', (done) => {
+      chai.request(server)
+        .delete(`${BASE_URL}/businesses/1`)
+        .set('Authorization', secondAuthtoken)
+        .end((err, res) => {
+          console.log('@deletebusiness', res.body);
+          expect(res).to.have.status(400);
+          expect(res.body.message).to.equal('You can not delete this business');
+          done();
+        });
+    });
+
     it('Test to check whether a business exist before delete', (done) => {
       chai.request(server)
         .delete(`${BASE_URL}/businesses/5`)

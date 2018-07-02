@@ -6,6 +6,7 @@ import models from '../models/index';
 
 const userModel = models.User;
 const businessModel = models.Business;
+const voteModel = models.Vote;
 dotenv.config();
 const secret = process.env.secretKey;
 
@@ -31,7 +32,7 @@ class User {
    */
   static signup(req, res) {
     const {
-      firstname, lastname, email, password, image
+      firstname, lastname, email, password,
     } = req.body;
 
     const newUser = new userModel({
@@ -39,7 +40,7 @@ class User {
       lastname,
       email,
       password: bcrypt.hashSync(password, bcrypt.genSaltSync(10)),
-      image
+      image : 'https://www.facsa.uliege.be/upload/docs/image/jpeg/2016-12/user.jpg'
     });
 
     return newUser.save()
@@ -71,7 +72,6 @@ class User {
     * @param {*} req
    * @param {*} res
    */
-
   static login(req, res) {
     userModel.findOne({ where: { email: req.body.email } })
       .then((user) => {
@@ -118,9 +118,11 @@ class User {
       const getUser ={
         firstname: user.firstname,
         lastname: user.lastname,
-        email: user.email
+        email: user.email,
+        image: user.image
       }
       return res.status(200).json({
+        message: 'User Found',
         getUser
         
       })
@@ -128,26 +130,141 @@ class User {
   }
 
   /**
-    * @description Logs in an existing user
+    * @description Get user business(es)
     * @returns {Object} getUserBusinesses
     * @param {*} req
    * @param {*} res
    */ 
   static getUserBusinesses(req, res){
-    return businessModel.findAll({where: {userId: req.params.userId}})
-    .then((businesses)=> {
-      if(businesses.length == 0){
-        return res.status(400).json({
-          message: 'No Available Businesses'
+    businessModel.findAndCountAll({where: {userId: req.params.userId}}).then((userBusinesses) => {
+      if(userBusinesses.count == 0){
+        return res.status(404).json({
+          message: 'Business Not Found'
+        });
+      }
+
+      const pageQuery = req.query.page || 1;
+      let offset = 0;
+      const limit = 6,
+      currentPage = parseInt(pageQuery, 10),
+      numberOfBusinesses = userBusinesses.count,
+      totalPages = Math.ceil(numberOfBusinesses / limit);
+      offset = limit * (currentPage - 1);
+
+      return businessModel.findAll({
+        where: {userId: req.params.userId},
+        limit,
+        offset,
+        order: [ ["createdAt", "DESC"] ]
+      })
+      .then((businesses)=> {
+        if(businesses.length == 0){
+          return res.status(400).json({
+            message: 'No Available Businesses'
+          })
+        }
+       const payload = {
+         numberOfBusinesses,
+         limit,
+         totalPages,
+         currentPage,
+         businesses
+       }
+      return res.status(200).json(Object.assign({
+        message: 'Business Found'   
+      }, payload));
+    })
+    .catch(error => res.status(400).json({
+      error
+    }));
+
+    })
+    
+    
+  }
+
+  /**
+    * @description Updates a user profile
+    * @returns {Object} updateUser
+    * @param {*} req
+   * @param {*} res
+   */
+  static updateUser(req, res){
+    const { firstname, lastname, email, image } = req.body;
+    const authData = req.user.payload.id;
+    userModel.findById(authData)
+    .then((getUser) => {      
+      if(!getUser){
+        res.status(404).json({
+          message: 'User not found',
+          error: true
         })
       }
-     
-      return res.status(200).json({
-        businesses
-        
+
+      const user = {
+        firstname: firstname || getUser.firstname,
+        lastname: lastname || getUser.lastname,
+        email: email || getUser.email,
+        image: image || getUser.image
+      }
+      return getUser.update(user)
+      .then((updatedUser) => {
+        if(updatedUser){
+        res.status(200).json({
+          message: 'Successfully Updated'
+        })
+        }
+      })
+      .catch((error) => {
+        res.status(400).json({
+          error
+        })
+      });
+    })
+    .catch((error) => {
+      res.status(400).json({
+        error
       })
     })
   }
+
+  /**
+    * @description user can like a business
+    * @returns {Object} liked business
+    * @param {*} req
+   * @param {*} res
+   */
+  static likeBusiness(req, res){
+   const { businessId, userId } = req.body;
+    
+    voteModel.find({ where :{  businessId: businessId, userId: userId }})
+    .then((vote) => {
+      if(!vote){
+        const newVote = new voteModel({
+          businessId: businessId,
+          userId: userId
+        })
+        return newVote.save().then((savedVote) => {
+          res.status(200).json({
+            message: "business liked successfully",
+            savedVote
+          })
+        }).catch((error) => {
+          res.status(404).json({
+            error
+          })
+        }) 
+      }
+
+      return vote.destroy().then(() => {
+        res.status(200).json({
+          message: 'Business Unlike'
+        })
+      })
+    
+    })
+  }
+
 
 }
 

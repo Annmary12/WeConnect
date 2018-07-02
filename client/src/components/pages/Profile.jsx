@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import ReactPaginate from 'react-paginate';
 import Navigation from './Navigation';
 import Footer from './Footer';
 import UserCard from './UserCard';
@@ -24,8 +26,10 @@ class Profile extends Component {
     this.state = {
       firstname: '',
       lastname: '',
-      email: ''
+      email: '',
+      image: ''
     };
+    this.onPageChange = this.onPageChange.bind(this);
   }
 
   /**
@@ -38,7 +42,20 @@ class Profile extends Component {
    */
   componentDidMount() {
     this.props.getUserRequest(this.props.userId);
-    this.props.getUserBusinessesRequest(this.props.userId);
+    this.props.getUserBusinessesRequest(this.props.userId, 1);
+  }
+
+  /**
+     * @description - Handle the pagination
+     *
+     * @returns {void}
+     * @param {number} page - holds the page number you clicked
+     *
+     * @memberof Business
+     */
+  onPageChange(page) {
+    const pageNumber = page.selected + 1;
+    this.props.getUserBusinessesRequest(this.props.userId, pageNumber);
   }
 
   /**
@@ -49,8 +66,12 @@ class Profile extends Component {
    * @returns {void}
    */
   componentWillReceiveProps(nextProps) {
-    const { firstname, lastname, email } = nextProps.currentUser;
-    this.setState({ firstname, lastname, email });
+    const {
+      firstname, lastname, email, image
+    } = nextProps.currentUser;
+    this.setState({
+      firstname, lastname, email, image
+    });
   }
 
   /**
@@ -60,7 +81,7 @@ class Profile extends Component {
      */
   render() {
     const { userBusinesses } = this.props;
-
+    console.log(userBusinesses);
     // gets the list of user's businesses
     const businessList = userBusinesses && userBusinesses.map(business => (
         <div className="col s4" key={business.id}>
@@ -88,7 +109,13 @@ class Profile extends Component {
       </div>
     );
 
-    const { firstname, lastname, email } = this.state;
+    const {
+      firstname, lastname, email, image
+    } = this.state;
+    const {
+      limit, currentPage, totalBusiness, totalPages
+    } = this.props;
+
     return (
       <div className="">
         <div className="pad">
@@ -97,7 +124,16 @@ class Profile extends Component {
             <div className="container">
               <div className="row center-align image-box" >
                 <div className="col s10 offset-s1">
-                  <img src={require('../../../public/images/amaka_img.jpeg')} className="profile-image" />
+                  <img
+                    src=
+                    {image !== null
+                      ?
+                      image
+                      :
+                      'https://www.facsa.uliege.be/upload/docs/image/jpeg/2016-12/user.jpg'
+                    }
+                    className="profile-image"
+                    />
                 </div>
                 <div className="col s10 offset-s1">
                   <h5>{firstname} {lastname}</h5>
@@ -113,12 +149,37 @@ class Profile extends Component {
                   <i className="material-icons left">add</i>
                 </Link>
               </div>
-              {businessMessage}
-              {this.props.isLoading ? <div className="spinner"> <Spinner size="50" /></div> :
+             {businessMessage}
+              { this.props.isLoading
+              ?
+               <div className="spinner"> <Spinner size="50" /></div> :
                 <div className="row">
-                  {businessList.length > 0 ? businessList : noBusiness}
+                  { businessList.length > 0
+                    ?
+                    businessList
+                    :
+                     noBusiness
+                  }
                 </div>
               }
+            </div><br/>
+            <div className="center-align">
+            {(totalBusiness > 6 && typeof totalBusiness !== 'undefined') ?
+            <ReactPaginate
+                      // className="center-align"
+                       previousLabel={'previous'}
+                       nextLabel={'next'}
+                       breakLabel={<a href="">...</a>}
+                       breakClassName={'break-me'}
+                       pageCount={totalPages}
+                       marginPagesDisplayed={currentPage}
+                       pageRangeDisplayed={limit}
+                       onPageChange={this.onPageChange}
+                       containerClassName={'pagination'}
+                       subContainerClassName={'pages pagination'}
+                       activeClassName={'active'}
+                       />
+                       : null }
             </div>
           </div>
         </div>
@@ -129,10 +190,24 @@ class Profile extends Component {
 }
 const mapStateToProps = state => ({
   // businesses: state.BusinessReducer.businesses,
-  userId: state.auth.user.payload.id,
+  userId: state.auth.user.id,
   currentUser: state.getUser.user,
   userBusinesses: state.userBusinesses.businesses,
+  limit: state.userBusinesses.limit,
+  currentPage: state.userBusinesses.currentPage,
+  totalPages: state.userBusinesses.totalPages,
+  totalBusiness: state.userBusinesses.totalBusiness,
   isLoading: state.userBusinesses.isLoading || state.createBusiness.isLoading
 });
+
+Profile.propTypes = {
+  getUserRequest: PropTypes.func.isRequired,
+  getUserBusinessesRequest: PropTypes.func.isRequired,
+  userBusinesses: PropTypes.array.isRequired,
+  limit: PropTypes.number,
+  currentPage: PropTypes.number,
+  totalPages: PropTypes.number,
+  totalBusiness: PropTypes.number
+};
 
 export default connect(mapStateToProps, { getUserRequest, getUserBusinessesRequest })(Profile);

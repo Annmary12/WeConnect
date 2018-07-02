@@ -20,7 +20,9 @@ class BusinessDetails extends Component {
   render() {
     const { isAuthenticated, user } = this.props.authData;
     const {
-      description, location, category, name, website, id, onDelete, reviews, userId
+      description, location, category, name, website,
+      id, onDelete, reviews, userId, handleLike, numberOfLikes,
+      totalReview
     } = this.props;
 
 
@@ -56,20 +58,20 @@ class BusinessDetails extends Component {
                     <b>Website:</b>{ website }
                   </div>
                   <div className="col s6 right-align">
-                    <span><b>30</b> reviews</span>
-                    <a href="#!"><i className="small material-icons">favorite_border</i></a>
-                    <b id="like-count">21 likes</b>
+                    <span><b>{ !totalReview ? '0' : totalReview }</b> reviews</span>
+                    <span onClick={ handleLike } className="pointer"><i className="small material-icons" style={{ color: '#129381' }}>favorite</i></span>
+                    <b id="like-count">{ numberOfLikes } likes</b>
                   </div>
                 </div>
                 <div className="row right-align">
                   {
-                    isAuthenticated && user.payload.id === userId ? actionButtons : null
+                    isAuthenticated && user.id === userId ? actionButtons : null
                   }
 
                 </div>
               </div>
             </div>
-            {/* { isAuthenticated && user.payload.id !== userId ?  */}
+            {/* { isAuthenticated && user.id !== userId ?  */}
               <ReviewForm businessId={ id } reviews={ reviews } /> :
               {/* null} */}
 
@@ -151,5 +153,6 @@ class BusinessDetails extends Component {
 
 const mapStateToProps = state => ({
   authData: state.auth,
+  totalReview: state.allReviews.totalReview
 });
 export default connect(mapStateToProps)(BusinessDetails);

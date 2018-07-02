@@ -5,6 +5,9 @@ import server from '../../app';
 const { expect } = chai;
 chai.use(chaiHttp);
 const BASE_URL = '/api/v1';
+let newUser;
+let newBusiness;
+let authtoken;
 // let token;
 
 const user = {
@@ -23,13 +26,37 @@ describe('POST /api/v1/auth/signup', () => {
       .post(`${BASE_URL}/auth/signup`)
       .send(user)
       .end((err, res) => {
+        newUser = user;
+        authtoken = res.body.token;
         expect(res).to.have.status(201);
         expect(res.body.message).to.equal(`Hello ${user.firstname}, Welcome to we-connect`);
         done();
       });
   });
 
-  it('Test for Email  Existing', (done) => {
+  it('Test to register a new users', (done) => {
+  const business = {
+    name: 'Molcom',
+    description: 'molcom is a big company',
+    phoneNumber: '081726758',
+    address: 'lagos',
+    image: 'business.jpg',
+    location: 'Lagos',
+    category: 'IT',
+    website: 'www.business.com',
+    userId: 2
+  };
+  chai.request(server)
+    .post(`${BASE_URL}/businesses/`)
+    .set('Authorization', authtoken)
+    .send(business)
+    .end(() => {
+      newBusiness = business;
+      done();
+    });
+  });
+
+  it('Test for Email Existing', (done) => {
     const user = {
       firstname: 'Annmary',
       lastname: 'Agunanna',
@@ -256,4 +283,96 @@ describe('POST /api/v1/auth/signin', () => {
         done();
       });
   });
+
+  it('Test to get a user', (done) => {
+    chai.request(server)
+      .get(`${BASE_URL}/auth/user/2`)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.message).to.equal('User Found');
+        done();
+      });
+  });
+
+  it('Test to check user exist', (done) => {
+    chai.request(server)
+      .get(`${BASE_URL}/auth/user/11`)
+      .end((err, res) => {
+        expect(res).to.have.status(400);
+        expect(res.body.message).to.equal('User Not Found');
+        done();
+      });
+  });
+
+  it('Test to get a users business', (done) => {
+    chai.request(server)
+      .get(`${BASE_URL}/auth/user/2/business`)
+      .end((err, res) => {
+        expect(res).to.have.status(404);
+        expect(res.body.message).to.equal('Business Not Found');
+        done();
+      });
+  });
+
+  it('Test to get a users business', (done) => {
+    chai.request(server)
+      .get(`${BASE_URL}/auth/user/3/business`)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.message).to.equal('Business Found');
+        done();
+      });
+  });
+
+  it('Test to get a users business', (done) => {
+    const updateUser = {
+      firstname: 'Annmary',
+      lastname: 'Agunanna',
+      email: 'annmaryamaka@gmail.com',
+    }
+    chai.request(server)
+      .put(`${BASE_URL}/auth/user`)
+      .set('Authorization', authtoken)
+      .send(updateUser)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.message).to.equal('Successfully Updated');
+        done();
+      });
+  });
+
+  it('Test to like a business', (done) => {
+    const like = {
+      businessId: 2,
+      userId: newBusiness.userId,
+    };
+
+    chai.request(server)
+      .post(`${BASE_URL}/auth/user/like`)
+      .set('Authorization', authtoken)
+      .send(like)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.message).to.equal('business liked successfully');
+        done();
+      });
+  });
+
+  it('Test to unlike a business', (done) => {
+    const like = {
+      businessId: 2,
+      userId: newBusiness.userId,
+    };
+
+    chai.request(server)
+      .post(`${BASE_URL}/auth/user/like`)
+      .set('Authorization', authtoken)
+      .send(like)
+      .end((err, res) => {
+        expect(res).to.have.status(200);
+        expect(res.body.message).to.equal('Business Unlike');
+        done();
+      });
+  });
+
 });

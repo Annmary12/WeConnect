@@ -5,7 +5,7 @@
 
 WeConnect brings your business to live by collaborating with various individuals/business partner. It creates an avenue for awareness and creates the ability for users to write reviews about the businesses they have interacted with.
 
-## Feactures
+## Features
 1. Users should be able to
     * signin
     * signup

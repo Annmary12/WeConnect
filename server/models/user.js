@@ -25,12 +25,17 @@ module.exports = (sequelize, DataTypes) => {
     image: {
       type: DataTypes.STRING,
     },
-  }, {});
+  });
   User.associate = (models) => {
   //  associations can be defined here
     User.hasMany(models.Business, {
       foreignKey: 'userId',
       as: 'business',
+    });
+
+    User.hasMany(models.Vote, {
+      foreignKey: 'userId',
+      as: 'vote',
     });
   };
   return User;

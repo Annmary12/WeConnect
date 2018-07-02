@@ -28,9 +28,9 @@ class Navigation extends Component {
    */
     const authUserLink = (
       <ul id="nav-mobile" className="right hide-on-med-and-down">
-        <li><Link to='/' className="active">Home</Link></li>
         <li><Link to='/business'>Business</Link></li>
         <li><Link to='/profile'>Dashboard</Link></li>
+        <li><Link to='/updateProfile'>Update Profile</Link></li>
         <li><Link to='/logout' onClick={this.logout.bind(this)}>Logout</Link></li>
       </ul>);
     /**

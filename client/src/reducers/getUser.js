@@ -1,8 +1,12 @@
-import { GET_USER_SUCCESS, GET_USER_FAILURE } from '../actions/types';
+import {
+  GET_USER_SUCCESS, GET_USER_FAILURE, USER_UPDATE_SUCCESSFUL,
+  USER_UPDATE_FAILURE, IS_REQUESTING
+} from '../actions/types';
 
 const intialState = {
   user: {},
-  error: ''
+  error: '',
+  isLoading: false,
 };
 /**
  * @description holds success and failure states for fetching a
@@ -16,6 +20,11 @@ const intialState = {
  */
 export default (state = intialState, action = {}) => {
   switch (action.type) {
+    case IS_REQUESTING:
+      return {
+        ...state,
+        isLoading: action.bool
+      };
     case GET_USER_SUCCESS:
       return {
         ...state,
@@ -25,6 +34,18 @@ export default (state = intialState, action = {}) => {
       return {
         ...state,
         error: action.error
+      };
+    case USER_UPDATE_SUCCESSFUL:
+      return {
+        ...state,
+        message: action.payload,
+        isLoading: action.bool
+      };
+    case USER_UPDATE_FAILURE:
+      return {
+        ...state,
+        error: action.error,
+        isLoading: action.bool
       };
     default: return state;
   }

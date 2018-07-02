@@ -89,13 +89,15 @@ class Review {
           }] })
             .then((reviews) => {
               if (!reviews.length) {
-                return res.status(200).json({
-                  message: `No review(s) found for ${business.name}`,
+                return res.status(404).json({
+                  message: `No Review Found`,
                   error: false
                 });
               }
+              const totalReview = reviews.length;
               return res.status(200).json({
                 reviews,
+                totalReview,
                 message: `List of review(s) for ${business.name}`,
                 error: false
               });

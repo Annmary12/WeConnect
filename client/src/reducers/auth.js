@@ -10,7 +10,7 @@ const initialState = {
 };
 
 /**
- * @description holds authentication check, current user state and failure states 
+ * @description holds authentication check, current user state and failure states
  * of login/signup actions
  * @function
  *
@@ -25,7 +25,7 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         isAuthenticated: !isEmpty(action.user),
-        user: action.user,
+        user: action.user.payload,
         hasError: false
       };
     case LOGIN_FAILED:

@@ -8,7 +8,10 @@ import {
   SAVE_IMAGE_SUCCESSFUL,
   SAVE_IMAGE_FAILED,
   FETCH_BUSINESS_FAILED,
-  UPDATE_BUSINESS_FAILED
+  UPDATE_BUSINESS_FAILED,
+  LIKE_FAILED,
+  LIKE_SUCCESSFUL,
+  ADD_BUSINESS
 } from './types';
 import { isRequesting, actionResponseSuccess, actionResponseFailure } from './helper';
 
@@ -26,13 +29,13 @@ export function fetchOneBusinessSuccess(business) {
 
 /**
  * @description handles fetch business
- * @param {*} null
+ * @param {number} page - holds the page number
  * @returns {object} returns fetched business action
  */
-export const fetchBusinessesRequest = () => dispatch =>
-  axios.get('/api/v1/businesses')
+export const fetchBusinessesRequest = page => dispatch =>
+  axios.get(`/api/v1/businesses?page=${page}`)
     .then((response) => {
-      dispatch(actionResponseSuccess(FETCH_BUSINESS_SUCCESSFUL, response.data.businesses));
+      dispatch(actionResponseSuccess(FETCH_BUSINESS_SUCCESSFUL, response.data));
     })
     .catch((error) => {
       dispatch(actionResponseFailure(FETCH_BUSINESS_FAILED, error.response.data.message));
@@ -200,3 +203,28 @@ export const deleteBusinessRequest = id => dispatch => axios.delete(`/api/v1/bus
   .catch((error) => {
     throw (error);
   });
+
+  /**
+ * @description action to delete a particular business
+ * @param {object} businessId - id of the business
+ * @param {number} userId - id of the logged in user
+ * @returns {object} return success or failed business action
+ */
+export const likeRequest = (businessId, userId) => dispatch =>
+  axios({
+    method: 'POST',
+    url: '/api/v1/auth/user/like',
+    data: {
+      businessId,
+      userId,
+    }
+  })
+    .then((response) => {
+      dispatch(actionResponseSuccess(LIKE_SUCCESSFUL, response.data.message));
+      // return console.log(response);
+    })
+    .catch((response) => {
+      return console.log(response);
+      dispatch(actionResponseFailure(LIKE_FAILED, error.data.message));
+      
+    });
