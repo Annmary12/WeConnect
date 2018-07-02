@@ -158,11 +158,11 @@ class User {
         order: [ ["createdAt", "DESC"] ]
       })
       .then((businesses)=> {
-        // if(businesses.length == 0){
-        //   return res.status(400).json({
-        //     message: 'No Available Businesses'
-        //   })
-        // }
+        if(businesses.length == 0){
+          return res.status(400).json({
+            message: 'No Available Businesses'
+          })
+        }
        const payload = {
          numberOfBusinesses,
          limit,
