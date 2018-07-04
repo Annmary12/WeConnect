@@ -29,7 +29,8 @@ const createBusiness = (business, cloudImageUrl) => (
       .then(({ data }) => {
         dispatch(actionResponseSuccess(CREATE_BUSINESS_SUCCESSFUL, data.message));
         dispatch(isRequesting(IS_REQUESTING, false));
-      }).catch(() => {
+      }).catch((error) => {
+        dispatch(actionResponseFailure(CREATE_BUSINESS_FAILED, error.response.data.message));
         dispatch(isRequesting(IS_REQUESTING, false));
       });
   }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import jwt from 'jsonwebtoken';
 import { Route, BrowserRouter } from 'react-router-dom';
 import Router from './Route';
 import { Provider } from 'react-redux';
@@ -9,7 +10,6 @@ import BusinessCss from '../public/styles/business.scss';
 import ProfileCss from '../public/styles/profile.scss';
 import rootReducer from './rootReducer';
 import setAuthorizationToken from './utils/setAuthorizationToken';
-import jwt from 'jsonwebtoken';
 import { setCurrentUser } from './actions/login';
 
 

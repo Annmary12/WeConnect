@@ -80,13 +80,13 @@ class SignUpForm extends Component {
     return (
       <div className="container login">
         <div className="row">
-          <div className="col s11 offset-s1 card">
-            <div className="col s5 signup-left-box">
+          <div className="col s12 card signupPage">
+            <div className="col hide-on-small-only m5 signup-left-box">
               <p className="login-header">
                 With your business ideas and collaboration, we make the world a better place!!!
               </p>
             </div>
-            <div className="col s7" id="login-card">
+            <div className="col s12 m7" id="login-card">
               <form onSubmit={this.onSubmit}>
                 <InputFieldGroup
                   type='text'

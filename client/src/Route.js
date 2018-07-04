@@ -9,7 +9,7 @@ import ProfilePage from './components/pages/Profile.jsx';
 import CreateBusinessPage from './components/pages/CreateBusiness.jsx';
 import EditBusinessPage from './components/pages/EditBusiness.jsx';
 import UpdateProfile from './components/pages/UpdateProfile.jsx';
-import RouteCheck from '../src/utils/routeAuth';
+import VerifyRoute from '../src/utils/routeAuth';
 
 const Router = () => (
   <Switch>
@@ -18,10 +18,10 @@ const Router = () => (
     <Route path="/business" exact component={BusinessPage} />
     <Route path="/signUp" exact component={SignUpPage} />
     <Route path="/businessProfile/:id" component={BusinessProfile} />
-    <Route path="/profile" exact component={RouteCheck(ProfilePage)} />
-    <Route path="/createBusiness" exact component={RouteCheck(CreateBusinessPage)} />
-    <Route path="/editBusiness/:id" exact component={RouteCheck(EditBusinessPage)} />
-    <Route path="/updateProfile" exact component={RouteCheck(UpdateProfile)} />
+    <Route path="/profile" exact component={VerifyRoute(ProfilePage)} />
+    <Route path="/createBusiness" exact component={VerifyRoute(CreateBusinessPage)} />
+    <Route path="/editBusiness/:id" exact component={VerifyRoute(EditBusinessPage)} />
+    <Route path="/updateProfile" exact component={VerifyRoute(UpdateProfile)} />
   </Switch>
 );
 

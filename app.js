@@ -40,26 +40,16 @@ app.use(express.static(path.join(__dirname, './client/public')))
 
 app.use(validator());
 
-// middleware to use for all requests
-router.use((req, res, next) => {
-  winston.info('Welcome to We-Connect');
-  next();
-});
-
-router.get('*', (req, res) => res.status(404).send({
-  message: 'Bad Request',
-  error: true
-}));
+// router.get('*', (req, res) => res.status(404).send({
+//   message: 'Bad Request',
+//   error: true
+// }));
 
 
 app.use('/api/v1/auth', userRoutes);
 app.use('/api/v1/businesses', businessRoutes);
 app.use('/api/v1/businesses', reviewRoutes);
 
-// app.get('/', (req, res) => res.status(200).send({
-//   message: 'Welcome to weConnect Api',
-//   error: false
-// }));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './client/public/index.html'));

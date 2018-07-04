@@ -131,7 +131,13 @@ class Business {
     newBusiness = website ? { ...newBusiness, website } : newBusiness;
     const getbusiness = new businessModel(newBusiness);
 
-
+businessModel.findOne({ where: { name}})
+  .then((businessFound) => {
+    if(businessFound){
+      return res.status(409).json({
+        message: 'Business name already existsss'
+      });
+    }
     return getbusiness.save()
       .then(business => res.status(201).json({
         business,
@@ -141,7 +147,10 @@ class Business {
       .catch((error) => {
           const errorMessage = error.errors.map(value => value.message);
           return res.status(400).send(errorMessage);
+          // return error;
       });
+  })
+    
   }
 
   /**

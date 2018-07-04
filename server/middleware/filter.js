@@ -23,7 +23,7 @@ module.exports = {
             });
           }
           return res.status(200).json({
-            businesses,
+            allBusinesses: businesses,
             message: 'List of business(es)',
             error: false
           });
@@ -51,7 +51,7 @@ module.exports = {
             });
           }
           return res.status(200).json({
-            businesses,
+            allBusinesses: businesses,
             message: 'List of business(es)',
             error: false
           });
@@ -77,7 +77,7 @@ module.exports = {
             });
           }
           return res.status(200).json({
-            businesses,
+            allBusinesses: businesses,
             message: 'List of business(es)',
             error: false
           });

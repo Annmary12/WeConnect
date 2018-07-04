@@ -81,16 +81,15 @@ class Profile extends Component {
      */
   render() {
     const { userBusinesses } = this.props;
-    console.log(userBusinesses);
     // gets the list of user's businesses
     const businessList = userBusinesses && userBusinesses.map(business => (
-        <div className="col s4" key={business.id}>
-          <UserCard
-            name={business.name}
-            description={business.description}
-            id={business.id}
-            image={business.image} />
-        </div>
+      <div className="col s4" key={ business.id }>
+        <UserCard
+            name={ business.name }
+            description={ business.description }
+            id={ business.id }
+            image={ business.image } />
+      </div>
     ));
     // message for no business
     const noBusiness = (
@@ -125,15 +124,14 @@ class Profile extends Component {
               <div className="row center-align image-box" >
                 <div className="col s10 offset-s1">
                   <img
-                    src=
-                    {image !== null
+                    src={ image !== null
                       ?
                       image
                       :
                       'https://www.facsa.uliege.be/upload/docs/image/jpeg/2016-12/user.jpg'
                     }
                     className="profile-image"
-                    />
+                    alt="userImage" />
                 </div>
                 <div className="col s10 offset-s1">
                   <h5>{firstname} {lastname}</h5>
@@ -149,10 +147,10 @@ class Profile extends Component {
                   <i className="material-icons left">add</i>
                 </Link>
               </div>
-             {businessMessage}
+              {businessMessage}
               { this.props.isLoading
               ?
-               <div className="spinner"> <Spinner size="50" /></div> :
+                <div className="spinner"> <Spinner size="50" /></div> :
                 <div className="row">
                   { businessList.length > 0
                     ?
@@ -162,22 +160,22 @@ class Profile extends Component {
                   }
                 </div>
               }
-            </div><br/>
+            </div><br />
             <div className="center-align">
-            {(totalBusiness > 6 && typeof totalBusiness !== 'undefined') ?
-            <ReactPaginate
+              {(totalBusiness > 6 && typeof totalBusiness !== 'undefined') ?
+                <ReactPaginate
                       // className="center-align"
-                       previousLabel={'previous'}
-                       nextLabel={'next'}
-                       breakLabel={<a href="">...</a>}
-                       breakClassName={'break-me'}
-                       pageCount={totalPages}
-                       marginPagesDisplayed={currentPage}
-                       pageRangeDisplayed={limit}
-                       onPageChange={this.onPageChange}
-                       containerClassName={'pagination'}
-                       subContainerClassName={'pages pagination'}
-                       activeClassName={'active'}
+                       previousLabel="previous"
+                       nextLabel="next"
+                       breakLabel={ <a href="">...</a> }
+                       breakClassName="break-me"
+                       pageCount={ totalPages }
+                       marginPagesDisplayed={ currentPage }
+                       pageRangeDisplayed={ limit }
+                       onPageChange={ this.onPageChange }
+                       containerClassName="pagination"
+                       subContainerClassName="pages pagination"
+                       activeClassName="active"
                        />
                        : null }
             </div>

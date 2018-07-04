@@ -7,7 +7,6 @@ chai.use(chaiHttp);
 const BASE_URL = '/api/v1';
 let authtoken;
 let secondAuthtoken;
-// console.log(NODE_ENV, '@fjujklooepep');
 
 describe('Business Test', () => {
   before((done) => {
@@ -451,7 +450,6 @@ describe('Business Test', () => {
         .delete(`${BASE_URL}/businesses/1`)
         .set('Authorization', secondAuthtoken)
         .end((err, res) => {
-          console.log('@deletebusiness', res.body);
           expect(res).to.have.status(400);
           expect(res.body.message).to.equal('You can not delete this business');
           done();

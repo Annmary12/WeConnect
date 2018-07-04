@@ -34,7 +34,6 @@ export function reviewFailed(error) {
 export const reviewRequest = (review, id) => dispatch =>
   axios.post(`/api/v1/businesses/${id}/reviews`, review)
     .then(() => {
-      // console.log();
       dispatch(reviewSuccessful('Saved Successful'));
     })
     .catch((error) => {

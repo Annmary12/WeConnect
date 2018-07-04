@@ -85,10 +85,9 @@ class Business extends Component {
     const {
       limit, currentPage, totalBusiness, totalPages
     } = this.props;
-
     return (
-      <div className="">
-        <div className="nav-business">
+      <div className="nav-business">
+        <div className="">
           <Navigation />
           <Search />
         </div>
@@ -145,6 +144,6 @@ const mapStateToProps = state => ({
 
 Business.propTypes = {
   fetchBusinessesRequest: PropTypes.func.isRequired,
-  businesses: PropTypes.array.isRequired
+  businesses: PropTypes.array
 };
 export default connect(mapStateToProps, { fetchBusinessesRequest })(Business);

@@ -63,16 +63,16 @@ class Search extends Component {
   onSearch(event) {
     event.preventDefault();
     const { searchType, value } = this.state;
-    console.log(this.state);
     this.props.searchBusinessesRequest(searchType, value);
   }
+
   /**
    * @description displays the search field
    *
    * @returns { jsx } jsx - renders search form
    */
   render() {
-    const { searchType, value } = this.state;
+    // const { searchType, value } = this.state;
     return (
       <div>
     <div className="container search-box">
@@ -80,7 +80,7 @@ class Search extends Component {
         <div className="col s10 offset-s1">
           <div className="row">
             <form onSubmit={this.onSearch}>
-              <div className="col s4">
+              <div className="col s7 m5">
                 <div className="input-field">
                   <input
                   id="icon_prefix"
@@ -93,7 +93,7 @@ class Search extends Component {
               </div>
 
 
-              <div className="col s5">
+              <div className="col s5 m4">
                 <div className="input-field">
                   <select name="category" onChange={this.onChange} name='searchType'>
                     <option value="">Choose</option>
@@ -103,7 +103,7 @@ class Search extends Component {
                   </select>
                 </div>
               </div>
-              <div className="col s3" id="search-button">
+              <div className="col s12 m3" id="search-button">
                 <button className="btn waves-effect waves-light btn_large" type="submit" name="action">Search
                                                                 <i className="material-icons right">search</i>
                 </button>
@@ -120,5 +120,9 @@ class Search extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  business: state.BusinessReducer,
+  // error: state.BusinessReducer.business.error,
+});
 
-export default connect(null, { searchBusinessesRequest })(Search);
+export default connect(mapStateToProps, { searchBusinessesRequest })(Search);
