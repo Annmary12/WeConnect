@@ -25,7 +25,6 @@ class BusinessDetails extends Component {
       totalReview
     } = this.props;
 
-
     const actionButtons = (
       <div>
         <Link to={`/editBusiness/${id}`} className="btn waves-effect waves-light btn_large ">Edit
@@ -43,19 +42,20 @@ class BusinessDetails extends Component {
      * @returns { jsx } jsx - renders the business
      */
     return (
-      <div className=""><br /><br /><br /><br /><br />
+      <div className=""><br /><br />
         <div className="row">
           <div className="col s12 m12 l8">
             <div className="row">
               <div className="col s10 offset-s1">
+              <h3>About</h3>
                 <p className="p-body">
                   { description }
                 </p>
                 <div className="row">
                   <div className="col s6 p-body">
                     <b>Business Location:</b> { location }<br />
-                    <b>Category:</b><span className="label">{ category }</span><br />
-                    <b>Website:</b>{ website }
+                    <b>Category:</b> <span className="label warning">{ category }</span><br />
+                    <b>Website:</b> <a href={`http://${website}`} target="_blank">{ website } </a>
                   </div>
                   <div className="col s6 right-align">
                     <span><b>{ !totalReview ? '0' : totalReview }</b> reviews</span>

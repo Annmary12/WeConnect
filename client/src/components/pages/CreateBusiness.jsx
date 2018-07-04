@@ -53,37 +53,7 @@ class CreateBusiness extends Component {
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
   }
-  /**
-  * @description Handles image input of values in state
-  * @method handleImageChange
-  *
-  * @param {object} event
-  *
-  * @returns {object} SyntheticEvent
-  */
-  handleImageChange(event) {
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
-      const filereader = new FileReader();
-      checkImage(filereader, file, (fileType) => {
-        if (fileType === 'image/png' || fileType === 'image/gif' ||
-          fileType === 'image/jpeg') {
-          this.setState({ image: file });
-          filereader.onload = (e) => {
-            this.setState({ imageSrc: e.target.result });
-          };
-          filereader.readAsDataURL(file);
-        } else {
-          this.setState({ imageSrc: '/images/noimageyet.jpg', image: '' });
-          Materialize.toast('please provide a valid image file', 2000, 'teal rounded');
-        }
-      });
-    } else {
-      this.setState({ imageSrc: '/images/noimageyet.jpg', image: '' });
-    }
-  }
-
-
+  
   /**
 * @description Submits business form
 * @method onSubmit
@@ -95,13 +65,45 @@ class CreateBusiness extends Component {
     event.preventDefault();
     this.props.createBusinessRequest(this.state)
       .then(() => {
-        this.context.router.history.push('/profile');
-        Materialize.toast('Successfully Created the business profile', 4000, 'teal accent-3 rounded');
-      }, (error) => {
-        const errorMessage = error.response.data[0] || error.response.data.message;
-        Materialize.toast(errorMessage, 4000, 'red accent-3 rounded');
+        const { isCreated, hasError, error } = this.props.createBusinessResponse;
+        if (!isCreated && hasError) {
+          Materialize.toast(error, 4000, 'teal accent-3 rounded');
+        } else {
+          this.context.router.history.push('/profile');
+          Materialize.toast('Successfully Created the business profile', 4000, 'teal accent-3 rounded');
+        }
       });
   }
+
+  /**
+  * @description Handles image input of values in state
+  * @method handleImageChange
+  *
+  * @param {object} event
+  *
+  * @returns {object} SyntheticEvent
+  */
+ handleImageChange(event) {
+  if (event.target.files && event.target.files[0]) {
+    const file = event.target.files[0];
+    const filereader = new FileReader();
+    checkImage(filereader, file, (fileType) => {
+      if (fileType === 'image/png' || fileType === 'image/gif' ||
+        fileType === 'image/jpeg') {
+        this.setState({ image: file });
+        filereader.onload = (e) => {
+          this.setState({ imageSrc: e.target.result });
+        };
+        filereader.readAsDataURL(file);
+      } else {
+        this.setState({ imageSrc: '/images/noimageyet.jpg', image: '' });
+        Materialize.toast('please provide a valid image file', 2000, 'teal rounded');
+      }
+    });
+  } else {
+    this.setState({ imageSrc: '/images/noimageyet.jpg', image: '' });
+  }
+}
 
   /**
      * @description renders create business form
@@ -122,9 +124,10 @@ class CreateBusiness extends Component {
           </div>
           <CreateBusinessForm
             {...this.state}
-            onSubmit={this.onSubmit}
+            onSubmit={ this.onSubmit }
             onChange={this.onChange}
             handleImageChange={this.handleImageChange}
+            isLoading={ this.props.isLoading }
           />
           <Footer />
         </div>
@@ -134,11 +137,12 @@ class CreateBusiness extends Component {
 }
 
 const mapStateToProps = state => ({
-  createBusinessData: state.createBusiness.isCreated
+  createBusinessResponse: state.createBusiness,
+  isLoading: state.createBusiness.isLoading,
 });
 CreateBusiness.propTypes = {
   createBusinessRequest: PropTypes.func.isRequired,
-  createBusinessData: PropTypes.bool.isRequired,
+  createBusinessResponse: PropTypes.object.isRequired,
 };
 CreateBusiness.contextTypes = {
   router: PropTypes.object.isRequired

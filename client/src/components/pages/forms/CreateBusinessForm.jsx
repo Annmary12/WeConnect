@@ -12,20 +12,20 @@ import PropTypes from 'prop-types';
  */
 const CreateBusnessForm = (props) => {
   const {
-    onChange, onSubmit, handleImageChange
+    onChange, onSubmit, handleImageChange, isLoading
   } = props;
 
   return (
     <div>
       <div className="container">
-         <div className="row register-section">
-           <div className="col s10 offset-s1">
-             <div className="card">
-               <form onSubmit={ onSubmit }>
-                 <div className="card-content">
-                   <div className="input-field">
-                     <i className="material-icons prefix">face</i>
-                     <input
+        <div className="row register-section">
+          <div className="col s10 offset-s1">
+            <div className="card">
+              <form onSubmit={ onSubmit }>
+                <div className="card-content">
+                  <div className="input-field">
+                    <i className="material-icons prefix">face</i>
+                    <input
                       id="last_name"
                       type="text"
                       name='name'
@@ -43,8 +43,7 @@ const CreateBusnessForm = (props) => {
                       name='description'
                       onChange={ onChange }
                       value={ props.description }
-                      required>
-                    </textarea>
+                      required />
                     <label htmlFor="textarea1">Description of your business...</label>
                   </div>
 
@@ -74,7 +73,8 @@ const CreateBusnessForm = (props) => {
                   </div>
 
                   <Row>
-                    <Input s={12}
+                    <Input
+                      s={12}
                       type='select'
                       label='Select Location'
                       icon='location_on'
@@ -82,7 +82,7 @@ const CreateBusnessForm = (props) => {
                       name='location'
                       onChange={ onChange }
                     >
-                      < option value="">Select Location</option>
+                      <option value="">Select Location</option>
                       <option value="Abia">Abia</option>
                       <option value="Abuja">Abuja</option>
                       <option value="Lagos">Lagos</option>
@@ -90,7 +90,8 @@ const CreateBusnessForm = (props) => {
                   </Row>
 
                   <Row>
-                    <Input s={12}
+                    <Input
+                      s={12}
                       type='select'
                       label='Select Category'
                       icon='label'
@@ -121,14 +122,20 @@ const CreateBusnessForm = (props) => {
 
                       <input type="file" className="fileInput" onChange={ handleImageChange } />
                       <div className="imgPreview">
-                        <img src={ props.imageSrc } />
+                        <img src={ props.imageSrc } alt="businessImage" />
                       </div>
                     </div>
                   </div>
 
 
                   <div className="input-field center-align">
-                    <button className="btn waves-effect waves-light btn_large" type="submit" name="action">SUBMIT
+                    <button className="btn waves-effect waves-light btn_large" type="submit" name="action">
+                      {isLoading
+                        ?
+                        'SAVING...'
+                        :
+                        'SUBMIT'
+                      }
                       <i className="material-icons left">send</i>
                     </button>
                   </div><br />
@@ -147,7 +154,7 @@ CreateBusnessForm.propTypes = {
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   handleImageChange: PropTypes.func.isRequired,
-}
+};
 
 export default CreateBusnessForm;
 

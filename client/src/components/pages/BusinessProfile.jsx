@@ -92,7 +92,7 @@ class BusinessProfile extends Component {
     const business = this.state.oneBusiness;
     const { reviews } = this.props;
     return (
-      <div className="nav-business ">
+      <div className="nav-business " style={{ backgroundImage: `url("${business.image}")` }}>
         <div className="pad">
           <Navigation />
           <div className="container">

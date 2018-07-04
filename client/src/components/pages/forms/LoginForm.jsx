@@ -52,22 +52,17 @@ class LoginForm extends Component {
    * @returns { * } null
    */
   onSubmit(event) {
-    this.setState({ errors: {}, isLoading: true });
+    // this.setState({ errors: {}, isLoading: true });
     event.preventDefault();
-    this.props.userLoginRequest(this.state).then(
-      () => {
-        const { isAuthenticated, hasError, error } = this.props.auth;
-        if (isAuthenticated && !hasError) {
-          Materialize.toast('Successfully Signed In', 4000, 'teal accent-3 rounded');
-          this.context.router.history.push('/profile');
-        } else if (!isAuthenticated && hasError) {
-          Materialize.toast(error, 4000, 'red accent-3 rounded');
-        }
-      },
-      (errors) => {
-        console.log(errors);
+    this.props.userLoginRequest(this.state).then(() => {
+      const { isAuthenticated, hasError, error } = this.props.auth;
+      if (isAuthenticated && !hasError) {
+        Materialize.toast('Successfully Signed In', 4000, 'teal accent-3 rounded');
+        this.context.router.history.push('/profile');
+      } else if (!isAuthenticated && hasError) {
+        Materialize.toast(error, 4000, 'red accent-3 rounded');
       }
-    );
+    });
   }
 
   /**
@@ -78,61 +73,50 @@ class LoginForm extends Component {
   render() {
     const { email, password } = this.state;
     return (
-            <div className="container login">
-
-                <div className="row">
-
-                    <div className="col s11 offset-s1 card">
-
-                        <div className="col s5 login-left-box">
-                            <p className="login-header"></p>
-                        </div>
-                        <form onSubmit={this.onSubmit}>
-                            <div className="col s7" id="login-card">
-                                <InputField
-                                    onChange={this.onChange}
-                                    icon='email'
-                                    type='email'
-                                    name='email'
-                                    value={email}
-                                    label='Email'
-                                />
-
-                                <br />
-                                <InputField
-                                    onChange={this.onChange}
-                                    icon='lock'
-                                    type='password'
-                                    name='password'
-                                    value={password}
-                                    label='Password'
-                                />
-
-                                <br />
-                                <div className="input-field">
-                                    <button className="btn waves-effect waves-light btn_large" type="submit" name="action">login
-                                                                                 <i className="material-icons left">send</i>
-                                    </button>
-                                </div><br />
-                                <span>Click here to <Link to='/signUp'>register</Link></span>
-                                <br />
-
-
-                            </div>
-                        </form>
-                    </div>
-
-
-                </div>
+      <div className="container login">
+        <div className="row">
+          <div className="col s12 card loginPage">
+            <div className="col hide-on-small-only m5 login-left-box">
+              <p className="login-header"></p>
             </div>
+            <form onSubmit={this.onSubmit}>
+              <div className="col s12 m7" id="login-card" style={{ margin: '0px auto' }}>
+                <InputField
+                  onChange={this.onChange}
+                  icon='email'
+                  type='email'
+                  name='email'
+                  value={email}
+                  label='Email'
+                />
+                <br />
+                <InputField
+                  onChange={this.onChange}
+                  icon='lock'
+                  type='password'
+                  name='password'
+                  value={password}
+                  label='Password'
+                />
+                <br />
+                <div className="input-field">
+                  <button className="btn waves-effect waves-light btn_large" type="submit" name="action">login
+                    <i className="material-icons left">send</i>
+                  </button>
+                </div><br />
+                <span>Click here to <Link to='/signUp'>register</Link></span>
+                <br />
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     );
   }
 }
 
 LoginForm.propTypes = {
   userLoginRequest: PropTypes.func.isRequired,
-  // onSubmit: PropTypes.func.isRequired,
-  // onChange: PropTypes.func.isRequired,
 };
 LoginForm.contextTypes = {
   router: PropTypes.object.isRequired

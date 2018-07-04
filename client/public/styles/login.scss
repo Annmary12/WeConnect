@@ -10,6 +10,7 @@
 img.responsive-img {
     margin: 40px;
     max-width: 70%;
+    height: 15rem;
 }
 
 .upload-update-btn-wrapper {
@@ -32,6 +33,10 @@ img.responsive-img {
     left: 0;
     top: 0;
     opacity: 0;
+  }
+
+  .loginPage, .signupPage{
+      padding: 0px !important;
   }
 
 //   .updateProfileImg{

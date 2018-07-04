@@ -50,10 +50,10 @@ export const fetchBusinessesRequest = page => dispatch =>
 export const searchBusinessesRequest = (searchType, value) => dispatch =>
   axios.get(`/api/v1/businesses?${searchType}=${value}`)
     .then((response) => {
-      dispatch(actionResponseSuccess(FETCH_BUSINESS_SUCCESSFUL, response.data.businesses));
+      dispatch(actionResponseSuccess(FETCH_BUSINESS_SUCCESSFUL, response.data));
     })
     .catch((error) => {
-      throw (error);
+      dispatch(actionResponseFailure(FETCH_BUSINESS_FAILED, error.response.data.message));
     });
 
 
@@ -68,7 +68,7 @@ export const fetchOneBusinessRequest = id => dispatch =>
       dispatch(fetchOneBusinessSuccess(response.data.businesses));
     })
     .catch((error) => {
-      throw (error);
+      dispatch(actionResponseFailure(FETCH_BUSINESS_FAILED, error.response.data.message));
     });
 
 /**
@@ -221,10 +221,7 @@ export const likeRequest = (businessId, userId) => dispatch =>
   })
     .then((response) => {
       dispatch(actionResponseSuccess(LIKE_SUCCESSFUL, response.data.message));
-      // return console.log(response);
     })
-    .catch((response) => {
-      return console.log(response);
+    .catch((error) => {
       dispatch(actionResponseFailure(LIKE_FAILED, error.data.message));
-      
     });

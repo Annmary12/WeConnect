@@ -7,6 +7,10 @@ export default (sequelize, DataTypes) => {
         args: true,
         msg: 'Business name already exists'
       },
+      len: {
+        args: [5],
+        msg: 'Business name should not be less than 3 letters and more than 20 letters'
+      }
     },
     description: {
       type: DataTypes.TEXT,
@@ -31,12 +35,16 @@ export default (sequelize, DataTypes) => {
     },
     website: {
       type: DataTypes.STRING,
+      unique: {
+        args: true,
+        msg: 'Website Url already exist'
+      },
       validate: {
         isUrl: {
           args: true,
           msg: 'website must be a url'
-        },
-      }
+        }
+      },
     },
   });
   Business.associate = (models) => {
@@ -51,10 +59,10 @@ export default (sequelize, DataTypes) => {
       as: 'review',
     });
 
-    // Business.hasMany(models.Vote, {
-    //   foreignKey: 'businessId',
-    //   as: 'getvote',
-    // });
+    Business.hasMany(models.Vote, {
+      foreignKey: 'businessId',
+      as: 'getvote',
+    });
   };
   return Business;
 };

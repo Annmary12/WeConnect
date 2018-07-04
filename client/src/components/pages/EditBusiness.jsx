@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 import { connect } from 'react-redux';
 import Navigation from './Navigation';
 import Footer from './Footer';
 import EditBusinessForm from './forms/EditBusinessForm';
 import { fetchOneBusinessRequest } from '../../actions/fetchBusinesses';
-import { PropTypes } from 'prop-types';
 
 /**
  * @description renders edit business component
