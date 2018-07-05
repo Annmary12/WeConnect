@@ -84,11 +84,11 @@ export const updateUserRequest = user => (
     if (!user.image.name) {
       return dispatch(updateUser(user, cloudImageUrl));
     }
-    const data = new FormData();
-    data.append('file', user.image);
-    data.append('upload_preset', process.env.CLOUDINARY_PRESET);
+    const getData = new FormData();
+    getData.append('file', user.image);
+    getData.append('upload_preset', process.env.CLOUDINARY_PRESET);
     delete axios.defaults.headers.common.Authorization;
-    return axios.post(process.env.CLOUDINARY_URL, data)
+    return axios.post(process.env.CLOUDINARY_URL, getData)
       .then(({ data }) => {
         const token = localStorage.getItem('jwtToken');
         axios.defaults.headers.common.Authorization = token;

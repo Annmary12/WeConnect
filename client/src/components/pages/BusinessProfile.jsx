@@ -77,8 +77,8 @@ class BusinessProfile extends Component {
    * @returns {*} null
    */
   handleLike() {
-    const businessId = this.props.business.id;
-    const { authId } = this.props;
+    const { authId, business } = this.props;
+    const businessId = business.id;
     this.props.likeRequest(businessId, authId).then(() => {
       this.props.fetchOneBusinessRequest(this.props.match.params.id);
     });
@@ -90,15 +90,16 @@ class BusinessProfile extends Component {
    */
   render() {
     const business = this.state.oneBusiness;
+    const { name, description, category, location, website, id, userId, numberOfLikes, image } = business;
     const { reviews } = this.props;
     return (
-      <div className="nav-business " style={{ backgroundImage: `url("${business.image}")` }}>
+      <div className="nav-business " style={ { backgroundImage: `url("${image}")` } }>
         <div className="pad">
           <Navigation />
           <div className="container">
             <div className="row register-business">
               <div className="col s10 offset-s1">
-                <div className="center-align" id="businessHeader">{business.name}</div>
+                <div className="center-align" id="businessHeader">{ name }</div>
               </div>
             </div>
           </div>
@@ -106,15 +107,15 @@ class BusinessProfile extends Component {
             <BusinessDetails
               onDelete={ this.onDelete }
               handleLike={ this.handleLike }
-              description={ business.description }
-              name={ business.name }
-              category={ business.category }
-              location={ business.location }
-              website={ business.website }
-              id={ business.id }
+              description={ description }
+              name={ name }
+              category={ category }
+              location={ location }
+              website={ website }
+              id={ id }
               reviews={ reviews }
-              userId={ business.userId }
-              numberOfLikes={ business.numberOfLikes }
+              userId={ userId }
+              numberOfLikes={ numberOfLikes }
             />
           }
         </div>
@@ -139,6 +140,10 @@ BusinessProfile.propTypes = {
   deleteBusinessRequest: PropTypes.func.isRequired,
   business: PropTypes.object.isRequired,
   reviews: PropTypes.array,
+  isDeleted: PropTypes.bool,
+  authId: PropTypes.number,
+  likeRequest: PropTypes.func.isRequired,
+ 
 };
 export default connect(mapStateToProps, {
   fetchOneBusinessRequest,

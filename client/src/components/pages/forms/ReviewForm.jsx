@@ -66,7 +66,6 @@ class ReviewForm extends Component {
 
   /**
    * @description displays reviews and renders review form
-   *
    * @returns { jsx } jsx - renders review form and review
    */
   render() {
@@ -75,11 +74,13 @@ class ReviewForm extends Component {
 
     // gets reviews of a particular business
     const review = reviews && reviews.map(getReview => (<ReviewList
-      key={getReview.id}
-      context={getReview.context}
-      createdAt={getReview.createdAt}
-      user={getReview.reviewer}
-      image={getReview.reviewer.image} />));
+      key={ getReview.id }
+      context={ getReview.context }
+      createdAt={ getReview.createdAt }
+      user={ getReview.reviewer }
+      image={ getReview.reviewer.image } />));
+
+      const { context } = this.context;
     return (
 
       <div className="reviewForm">
@@ -96,19 +97,18 @@ class ReviewForm extends Component {
                         id="textarea1"
                         className="materialize-textarea"
                         name='context'
-                        onChange={this.onChange}
-                        value={this.state.context}
-                        required>
-                      </textarea>
+                        onChange={ this.onChange }
+                        value={ context }
+                        required />
                       <label htmlFor="textarea1">write a message...</label>
                     </div><br />
                     <div className="input-field right-align">
-                      <button className="btn waves-effect waves-light btn_large " type="submit" onClick={this.onSubmitReview} name="action">Post
+                      <button className="btn waves-effect waves-light btn_large " type="submit" onClick={ this.onSubmitReview } name="action">Post
                         <i className="material-icons left">send</i>
                       </button>
                     </div><br />
                   </div>
-              </div>
+                </div>
               :
                 null
             }
@@ -125,14 +125,13 @@ ReviewForm.propTypes = {
   getReviewRequest: PropTypes.func.isRequired,
   businessId: PropTypes.number,
   review: PropTypes.object.isRequired,
+  reviews: PropTypes.array,
   authData: PropTypes.object.isRequired,
 };
 
 /**
  * @description maps redux state to props
- *
  * @param { object } state - holds an authenticated user, list of reviews and business id
- *
  * @return { object } props - returns mapped props from state
  */
 const mapStateToProps = state => ({

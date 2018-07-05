@@ -48,15 +48,20 @@ export default function (VerifyComponent) {
       );
     }
   }
-  function mapStateToProps(state) {
+  const mapStateToProps = state => {
     return {
       auth: state.auth.isAuthenticated
-    };
-  }
+    }
+  };
 
   VerifyRoute.contextTypes = {
     router: PropTypes.object.isRequired
   };
+
+  VerifyRoute.propTypes = {
+    logout: PropTypes.func.isRequired,
+    auth: PropTypes.bool.isRequired,
+  }
   return connect(mapStateToProps, { logout })(VerifyRoute);
 }
 

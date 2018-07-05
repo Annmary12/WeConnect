@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import jwt from 'jsonwebtoken';
-import { Route, BrowserRouter } from 'react-router-dom';
-import Router from './Route';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
+import jwt from 'jsonwebtoken';
+import { Route, BrowserRouter } from 'react-router-dom';
+import Router from './Route';
 import Stylecss from '../public/styles/index.scss';
 import BusinessCss from '../public/styles/business.scss';
 import ProfileCss from '../public/styles/profile.scss';
@@ -29,11 +29,11 @@ if (localStorage.jwtToken) {
 
 
 const App = () => (
-        <Provider store={store}>
-          <BrowserRouter>
-            <Router />
-          </BrowserRouter>
-        </Provider>
+  <Provider store={ store }>
+    <BrowserRouter>
+      <Router />
+    </BrowserRouter>
+  </Provider>
 
 );
 export default App;

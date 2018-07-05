@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Navigation from './Navigation.jsx';
-import Footer from './Footer.jsx';
-import SignUpForm from '../pages/forms/SignUpForm.jsx';
+import Navigation from './Navigation';
+import Footer from './Footer';
+import SignUpForm from '../pages/forms/SignUpForm';
 
 /**
  * @description displays the signup page

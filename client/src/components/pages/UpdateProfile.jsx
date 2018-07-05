@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import UpdateProfileForm from './forms/UpdateProfile';
-import Navigation from './Navigation.jsx';
-import Footer from './Footer.jsx';
+import Navigation from './Navigation';
+import Footer from './Footer';
 import { getUserRequest, updateUserRequest } from '../../actions/getUser';
 import checkImage from '../../utils/imageChecker';
 
@@ -48,7 +48,14 @@ class UpdateProfile extends Component {
     // });
     this.props.getUserRequest(this.props.userId);
   }
-
+  /**
+   * @description updates the state
+   * @method componentWillReceiveProps
+   *
+   * @param {nextProps} nextProps - object of new incoming property
+   *
+   * @returns {void}
+   */
   componentWillReceiveProps(nextProps) {
     if (nextProps.currentUser !== this.props.currentUser) {
       const {
@@ -75,6 +82,28 @@ class UpdateProfile extends Component {
    */
   onChange(event) {
     this.setState({ [event.target.name]: event.target.value });
+  }
+
+  /**
+   * @description updates user
+   * @method onUpdate
+   *
+   * @param { object } event - event object containing user details
+   *
+   * @returns { * } null
+   */
+  onUpdate(event) {
+    event.preventDefault();
+    this.props.updateUserRequest(this.state).then(
+      () => {
+        const { message } = this.props;
+        this.context.router.history.push('/profile');
+        Materialize.toast(message, 2000, 'teal rounded');
+      },
+      () => {
+        Materialize.toast('Error while updating', 2000, 'red rounded');
+      }
+    );
   }
 
   /**
@@ -108,27 +137,12 @@ class UpdateProfile extends Component {
   }
 
   /**
-   * @description updates user
-   * @method onUpdate
+   * @description displays the update user form
    *
-   * @param { object } event - event object containing user details
-   *
-   * @returns { * } null
+   * @returns { jsx } jsx - renders update user form
    */
-  onUpdate(event) {
-    event.preventDefault();
-    this.props.updateUserRequest(this.state).then(
-      () => {
-        this.context.router.history.push('/profile');
-        Materialize.toast(this.props.message, 2000, 'teal rounded');
-      },
-      () => {
-        Materialize.toast('Error while updating', 2000, 'red rounded');
-      }
-    );
-  }
-
   render() {
+    const { isLoading } = this.props;
     return (
       <div className="login-background">
         <div className="pad">
@@ -136,12 +150,12 @@ class UpdateProfile extends Component {
             <Navigation />
           </div>
           { this.props.currentUser ?
-          <UpdateProfileForm
+            <UpdateProfileForm
             { ...this.state }
             onChange={ this.onChange }
-            onUpdate={ this.onUpdate}
+            onUpdate={ this.onUpdate }
             handleImageChange={ this.handleImageChange }
-            isLoading = { this.props.isLoading }
+            isLoading={ isLoading }
           /> : null}
         </div>
         <Footer />
@@ -163,7 +177,12 @@ UpdateProfile.contextTypes = {
 
 UpdateProfile.propTypes = {
   getUserRequest: PropTypes.func.isRequired,
-  updateUserRequest: PropTypes.func.isRequired
+  updateUserRequest: PropTypes.func.isRequired,
+  searchBusinessesRequest: PropTypes.func.isRequired,
+  userId: PropTypes.number.isRequired,
+  currentUser: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  message: PropTypes.string.isRequired
 };
 
 export default connect(mapStateToProps, { getUserRequest, updateUserRequest })(UpdateProfile);

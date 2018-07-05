@@ -4,13 +4,25 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { logout } from '../../actions/login';
 
+/**
+ * @description renders navigation  component
+ * @class Navigation
+ * @extends Component
+*/
 class Navigation extends Component {
-  logout(event) {
-    event.preventDefault();
-    this.props.logout();
-    this.context.router.history.push('/');
+  /**
+   * @description creates an instance of Navigation
+   * @constructor
+   */
+  constructor() {
+    super();
+    this.logout = this.logout.bind(this);
   }
 
+  /**
+   * @description initials materialize side nav bar
+   * @returns {void} 
+   */
   componentDidMount() {
     $('.sidenav').sideNav({
       menuWidth: 300,
@@ -19,11 +31,28 @@ class Navigation extends Component {
       draggable: true,
     });
   }
+/**
+   * @description logs out a user
+   * @method logout
+   * @param { object } event - event object containing user details
+   * @returns { * } null
+   */
+  logout(event) {
+    event.preventDefault();
+    this.props.logout();
+    this.context.router.history.push('/');
+  }
+
+  /**
+   * @description displays the navigation bar
+   * @returns { jsx } jsx - renders navigation links
+   */
   render() {
+
     const { isAuthenticated } = this.props.auth;
+
     /**
    * @description displays authenticated user link
-   *
    * @returns { jsx } jsx - renders authenticated user component
    */
     const authUserLink = (
@@ -31,11 +60,11 @@ class Navigation extends Component {
         <li><Link to='/business'>Business</Link></li>
         <li><Link to='/profile'>Dashboard</Link></li>
         <li><Link to='/updateProfile'>Update Profile</Link></li>
-        <li><Link to='/logout' onClick={this.logout.bind(this)}>Logout</Link></li>
+        <li><Link to='/logout' onClick={ this.logout }>Logout</Link></li>
       </ul>);
+
     /**
    * @description displays user guest link
-   *
    * @returns { jsx } jsx - renders user guest component
    */
     const guestLink = (
@@ -64,10 +93,10 @@ class Navigation extends Component {
   }
 }
 
-function mapStateToProps(state) {
+const mapStateToProps = state => {
   return {
     auth: state.auth
-  };
+  }
 }
 
 Navigation.propTypes = {
