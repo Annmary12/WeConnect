@@ -14,8 +14,8 @@ import ReviewForm from './forms/ReviewForm';
  */
 // class BusinessDetails extends Component {
   const BusinessDetails = ({ location, category, name, website, description,
-    id, onDelete, reviews, userId, handleLike, numberOfLikes,
-    totalReview, authData }) => {
+                            id, onDelete, reviews, userId, handleLike, 
+                            numberOfLikes, totalReview, authData }) => {
 
     const { isAuthenticated, user } = authData;
     
