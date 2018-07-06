@@ -1,5 +1,4 @@
 import axios from 'axios';
-import setAuthorizationToken from '../utils/setAuthorizationToken';
 import {
   FETCH_BUSINESS_SUCCESSFUL,
   FETCH_ONE_BUSINESS_SUCCESSFUL,
@@ -10,8 +9,7 @@ import {
   FETCH_BUSINESS_FAILED,
   UPDATE_BUSINESS_FAILED,
   LIKE_FAILED,
-  LIKE_SUCCESSFUL,
-  ADD_BUSINESS
+  LIKE_SUCCESSFUL
 } from './types';
 import { isRequesting, actionResponseSuccess, actionResponseFailure } from './helper';
 
@@ -223,5 +221,5 @@ export const likeRequest = (businessId, userId) => dispatch =>
       dispatch(actionResponseSuccess(LIKE_SUCCESSFUL, response.data.message));
     })
     .catch((error) => {
-      dispatch(actionResponseFailure(LIKE_FAILED, error.data.message));
+      dispatch(actionResponseFailure(LIKE_FAILED, error.response.data.message));
     });

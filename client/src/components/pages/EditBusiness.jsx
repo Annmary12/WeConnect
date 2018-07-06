@@ -57,6 +57,7 @@ EditBusiness.contextTypes = {
 
 EditBusiness.propTypes = {
   fetchOneBusinessRequest: PropTypes.func.isRequired,
+  business: PropTypes.object.isRequired,
 };
 export default connect(mapStateToProps, { fetchOneBusinessRequest })(EditBusiness);
 

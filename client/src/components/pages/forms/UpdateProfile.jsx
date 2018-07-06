@@ -1,7 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import InputFieldGroup from './InputFieldGroup.jsx';
 import Spinner from 'react-md-spinner';
+import PropTypes from 'prop-types';
+import InputFieldGroup from './InputFieldGroup';
+
 
 
 /**
@@ -26,7 +27,7 @@ const UpdateProfile = (props) => {
             <img
               className="circle responsive-img"
               src={ currentImageSrc }
-              alt="profile image"
+              alt="profileimage"
             />
             <div className="upload-update-btn-wrapper center-align">
               <button className="btn updateProfile">Upload a file</button>
@@ -71,11 +72,11 @@ const UpdateProfile = (props) => {
                   name="action"
                   // disabled={isLoading}
                 >
-                 { isLoading
+                  { isLoading
                  ?
-                 <span><i className="material-icons left">send</i>Updating...</span>
+                   <span><i className="material-icons left">send</i>Updating...</span>
                  :
-                 <span><i className="material-icons left">send</i>Update</span>
+                   <span><i className="material-icons left">send</i>Update</span>
                  }
                 </button>
                 
@@ -91,5 +92,16 @@ const UpdateProfile = (props) => {
     </div>
   );
 };
+
+UpdateProfile.propTypes = {
+  firstname: PropTypes.string.isRequired,
+  lastname: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  currentImageSrc: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  onChange: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
+  handleImageChange: PropTypes.func.isRequired
+}
 
 export default UpdateProfile;

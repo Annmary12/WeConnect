@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { userSignupRequest } from '../../../actions/SignUpAction';
-import InputFieldGroup from './InputFieldGroup.jsx';
+import InputFieldGroup from './InputFieldGroup';
 
 /**
  * @description renders create user form component
@@ -77,6 +77,7 @@ class SignUpForm extends Component {
      * @returns {jsx} jsx - renders signup form
      */
   render() {
+    const { firstname, lastname, email, password, confirm_password, isLoading } = this.state;
     return (
       <div className="container login">
         <div className="row">
@@ -87,66 +88,66 @@ class SignUpForm extends Component {
               </p>
             </div>
             <div className="col s12 m7" id="login-card">
-              <form onSubmit={this.onSubmit}>
+              <form onSubmit={ this.onSubmit }>
                 <InputFieldGroup
                   type='text'
-                  value={this.state.firstname}
-                  onChange={this.onChange}
+                  value={ firstname }
+                  onChange={ this.onChange }
                   name="firstname"
                   label='First Name'
                   icon='face'
                 />
                 <InputFieldGroup
                   type='text'
-                  value={this.state.lastname}
-                  onChange={this.onChange}
+                  value={ lastname }
+                  onChange={ this.onChange }
                   name="lastname"
                   label='Last Name'
                   icon='face'
                 />
                 <InputFieldGroup
                   type='email'
-                  value={this.state.email}
-                  onChange={this.onChange}
+                  value={ email }
+                  onChange={ this.onChange }
                   name="email"
                   label='Email'
                   icon='email'
                 />
                 <InputFieldGroup
                   type='password'
-                  value={this.state.password}
-                  onChange={this.onChange}
+                  value={ password }
+                  onChange={ this.onChange }
                   name="password"
                   label='Password'
                   icon='lock'
                 />
                 <InputFieldGroup
                   type='password'
-                  value={this.state.confirm_password}
-                  onChange={this.onChange}
+                  value={ confirm_password }
+                  onChange={ this.onChange }
                   name="confirm_password"
                   label='Confirm Password'
                   icon='lock_outline'
                 />
-                <br/>
+                <br />
                 <div className="input-field">
                   <button
                     className="btn waves-effect waves-light btn_large"
                     type="submit"
                     name="action"
-                    disabled={this.state.isLoading}
+                    disabled={ isLoading }
                   >
                     SIGNUP<i className="material-icons left">send</i>
                   </button>
                 </div>
-                <br/>
-                <span>Click here to <Link to='/login'>Login</Link></span>
-                <br/><br/>
-             </form>
-           </div>
-         </div>
-       </div>
-     </div>
+                <br />
+                <span>Click here to <Link to='/login' href="/login">Login</Link></span>
+                <br /><br />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     );
   }
 }

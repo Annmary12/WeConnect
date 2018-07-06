@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Input, Row } from 'react-materialize';
-import { fetchOneBusinessRequest, updateBusinessRequest } from '../../../actions/fetchBusinesses';
+import { updateBusinessRequest } from '../../../actions/fetchBusinesses';
 import checkImage from '../../../utils/imageChecker';
 
 /**
@@ -77,6 +77,27 @@ class EditBusinessForm extends Component {
   }
 
   /**
+   * @description updates a business
+   * @method onUpdate
+   *
+   * @param { object } event - event object containing business details
+   *
+   * @returns { * } null
+   */
+  onUpdate(event) {
+    event.preventDefault();
+    this.props.updateBusinessRequest(this.state).then(
+      () => {
+        this.context.router.history.push('/profile');
+        Materialize.toast('Successfully Updated', 2000, 'teal rounded');
+      },
+      () => {
+        Materialize.toast('Not working', 2000, 'red rounded');
+      }
+    );
+  }
+
+  /**
    * @description handles on state change for files
    * @method handleImageChange
    *
@@ -107,27 +128,6 @@ class EditBusinessForm extends Component {
   }
 
   /**
-   * @description updates a business
-   * @method onUpdate
-   *
-   * @param { object } event - event object containing business details
-   *
-   * @returns { * } null
-   */
-  onUpdate(event) {
-    event.preventDefault();
-    this.props.updateBusinessRequest(this.state).then(
-      () => {
-        this.context.router.history.push('/profile');
-        Materialize.toast('Successfully Updated', 2000, 'teal rounded');
-      },
-      () => {
-        Materialize.toast('Not working', 2000, 'red rounded');
-      }
-    );
-  }
-
-  /**
      *
      * React element markup
      * @returns {object} markUp
@@ -143,15 +143,15 @@ class EditBusinessForm extends Component {
       address,
       location,
       category,
-      website
+      website,
+      currentImageSrc
     } = this.state;
-
     return (
       <div className="container">
         <div className="row register-section">
           <div className="col s10 offset-s1">
             <div className="card">
-              <form onSubmit={this.onUpdate}>
+              <form onSubmit={ this.onUpdate }>
                 <div className="card-content">
                   <div className="input-field">
                     <i className="material-icons prefix">face</i>
@@ -159,8 +159,8 @@ class EditBusinessForm extends Component {
                       id="last_name"
                       type="text"
                       name='name'
-                      onChange={this.onChange}
-                      value={name}
+                      onChange={ this.onChange }
+                      value={ name }
                       required
                     />
                     <label htmlFor="last_name">Business Name</label>
@@ -171,62 +171,59 @@ class EditBusinessForm extends Component {
                       id="textarea1"
                       className="materialize-textarea"
                       name='description'
-                      onChange={this.onChange}
-                      value={description}
-                      required>
-                    </textarea>
+                      onChange={ this.onChange }
+                      value={ description }
+                      required />
                     <label htmlFor="textarea1">Description of your business...</label>
                   </div>
-
                   <div className="input-field">
                     <i className="material-icons prefix">location_city</i>
                     <input
                       id="address"
                       type="text"
                       name='address'
-                      onChange={this.onChange}
-                      value={address}
+                      onChange={ this.onChange }
+                      value={ address }
                       required />
                     <label htmlFor="last_name">Enter Address</label>
                   </div>
-
                   <div className="input-field">
                     <i className="material-icons prefix">local_phone</i>
                     <input
                       id="phoneNumber"
                       type="number"
                       name='phoneNumber'
-                      onChange={this.onChange}
-                      value={phoneNumber}
+                      onChange={ this.onChange }
+                      value={ phoneNumber }
                       required
                     />
                     <label htmlFor="last_name">Enter Phone Number</label>
                   </div>
-
                   <Row>
-                    <Input s={12}
+                    <Input
+                      s={ 12 }
                       type='select'
                       label='Select Location'
                       icon='location_on'
-                      value={location}
+                      value={ location }
                       name='location'
-                      onChange={this.onChange}
+                      onChange={ this.onChange }
                     >
-                      < option value="">Select Location</option>
+                      <option value="">Select Location</option>
                       <option value="Abia">Abia</option>
                       <option value="Abuja">Abuja</option>
                       <option value="Lagos">Lagos</option>
                     </Input>
                   </Row>
-
                   <Row>
-                    <Input s={12}
+                    <Input
+                      s={ 12 }
                       type='select'
                       label='Select Category'
                       icon='label'
-                      value={category}
+                      value={ category }
                       name='category'
-                      onChange={this.onChange}
+                      onChange={ this.onChange }
                     >
                       <option value="">Select Category</option>
                       <option value="IT">IT</option>
@@ -234,41 +231,37 @@ class EditBusinessForm extends Component {
                       <option value="Sports">Sports</option>
                     </Input>
                   </Row>
-
                   <div className="input-field">
                     <i className="material-icons prefix">web</i>
                     <input
                       id="website"
                       type="text"
                       name='website'
-                      onChange={this.onChange}
-                      value={website}
+                      onChange={ this.onChange }
+                      value={ website }
                     />
                     <label htmlFor="last_name">Enter Website url</label>
                   </div>
                   <div id="mainApp">
                     <div className="previewComponent">
-
-                        <input type="file" className="fileInput" onChange={this.handleImageChange}/>
-                        <div className="imgPreview">
-                          <img src={this.state.currentImageSrc}/>
-                        </div>
+                      <input type="file" className="fileInput" onChange={ this.handleImageChange } />
+                      <div className="imgPreview">
+                        <img src={ currentImageSrc } alt="businessImage" />
+                      </div>
                     </div>
-                    </div>
-
-
-                    <div className="input-field center-align">
-                      <button className="btn waves-effect waves-light btn_large" type="submit" name="action">UPDATE
-                        <i className="material-icons left">send</i>
-                      </button>
-                    </div><br />
                   </div>
+                  <div className="input-field center-align">
+                    <button className="btn waves-effect waves-light btn_large" type="submit" name="action">UPDATE
+                      <i className="material-icons left">send</i>
+                    </button>
+                  </div><br />
+                </div>
               </form>
             </div>
-            </div>
           </div>
-
         </div>
+
+      </div>
     );
   }
 }
@@ -277,12 +270,8 @@ EditBusinessForm.contextTypes = {
 };
 
 EditBusinessForm.propTypes = {
-  fetchOneBusinessRequest: PropTypes.func.isRequired,
   updateBusinessRequest: PropTypes.func.isRequired,
   business: PropTypes.object.isRequired,
-  // onChange: PropTypes.func.isRequired,
-  // onUpdate: PropTypes.func.isRequired,
-  // handleImageChange: PropTypes.func.isRequired,
 };
 
 /**
@@ -296,4 +285,4 @@ const mapStateToProps = state => ({
   business: state.OneBusiness.business
 });
 
-export default connect(mapStateToProps, { fetchOneBusinessRequest, updateBusinessRequest })(EditBusinessForm);
+export default connect(mapStateToProps, { updateBusinessRequest })(EditBusinessForm);

@@ -10,11 +10,11 @@ import PropTypes from 'prop-types';
  *
  * @returns { jsx } jsx - renders createBusinessForm component
  */
-const CreateBusnessForm = (props) => {
-  const {
-    onChange, onSubmit, handleImageChange, isLoading
-  } = props;
-
+const CreateBusnessForm = ({ 
+  onChange, onSubmit, handleImageChange, 
+  isLoading, name, description, address, 
+  phoneNumber, location, category,
+   website, imageSrc }) => {
   return (
     <div>
       <div className="container">
@@ -30,10 +30,10 @@ const CreateBusnessForm = (props) => {
                       type="text"
                       name='name'
                       onChange={ onChange }
-                      value={ props.name }
+                      value={ name }
                       required
                     />
-                    <label htmlFor="last_name">Business Name</label>
+                    <label htmlFor="lastname">Business Name</label>
                   </div>
                   <div className="input-field">
                     <i className="material-icons prefix">description</i>
@@ -42,7 +42,7 @@ const CreateBusnessForm = (props) => {
                       className="materialize-textarea"
                       name='description'
                       onChange={ onChange }
-                      value={ props.description }
+                      value={ description }
                       required />
                     <label htmlFor="textarea1">Description of your business...</label>
                   </div>
@@ -54,7 +54,7 @@ const CreateBusnessForm = (props) => {
                       type="text"
                       name='address'
                       onChange={ onChange }
-                      value={ props.address }
+                      value={ address }
                       required />
                     <label htmlFor="last_name">Enter Address</label>
                   </div>
@@ -66,7 +66,7 @@ const CreateBusnessForm = (props) => {
                       type="number"
                       name='phoneNumber'
                       onChange={ onChange }
-                      value={ props.phoneNumber }
+                      value={ phoneNumber }
                       required
                     />
                     <label htmlFor="last_name">Enter Phone Number</label>
@@ -78,7 +78,7 @@ const CreateBusnessForm = (props) => {
                       type='select'
                       label='Select Location'
                       icon='location_on'
-                      defaultValue={ props.location }
+                      defaultValue={ location }
                       name='location'
                       onChange={ onChange }
                     >
@@ -95,7 +95,7 @@ const CreateBusnessForm = (props) => {
                       type='select'
                       label='Select Category'
                       icon='label'
-                      defaultValue={ props.category }
+                      defaultValue={ category }
                       name='category'
                       onChange={ onChange }
                     >
@@ -113,7 +113,7 @@ const CreateBusnessForm = (props) => {
                       type="text"
                       name='website'
                       onChange={ onChange }
-                      value={ props.website }
+                      value={ website }
                     />
                     <label htmlFor="last_name">Enter Website url</label>
                   </div>
@@ -122,7 +122,7 @@ const CreateBusnessForm = (props) => {
 
                       <input type="file" className="fileInput" onChange={ handleImageChange } />
                       <div className="imgPreview">
-                        <img src={ props.imageSrc } alt="businessImage" />
+                        <img src={ imageSrc } alt="businessImage" />
                       </div>
                     </div>
                   </div>
@@ -154,6 +154,15 @@ CreateBusnessForm.propTypes = {
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func.isRequired,
   handleImageChange: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  name: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired, 
+  address: PropTypes.string.isRequired, 
+  phoneNumber: PropTypes.number.isRequired, 
+  location: PropTypes.string.isRequired, 
+  category: PropTypes.string.isRequired,
+  website: PropTypes.string.isRequired, 
+  imageSrc: PropTypes.string.isRequired,
 };
 
 export default CreateBusnessForm;

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Navigation from './Navigation.jsx';
-import Footer from './Footer.jsx';
-import CreateBusinessForm from './forms/CreateBusinessForm.jsx';
+import Navigation from './Navigation';
+import Footer from './Footer';
+import CreateBusinessForm from './forms/CreateBusinessForm';
 import createBusinessRequest from '../../actions/createBusiness';
 import checkImage from '../../utils/imageChecker';
 
@@ -123,10 +123,10 @@ class CreateBusiness extends Component {
             </div>
           </div>
           <CreateBusinessForm
-            {...this.state}
+            { ...this.state }
             onSubmit={ this.onSubmit }
-            onChange={this.onChange}
-            handleImageChange={this.handleImageChange}
+            onChange={ this.onChange }
+            handleImageChange={ this.handleImageChange }
             isLoading={ this.props.isLoading }
           />
           <Footer />
@@ -143,6 +143,7 @@ const mapStateToProps = state => ({
 CreateBusiness.propTypes = {
   createBusinessRequest: PropTypes.func.isRequired,
   createBusinessResponse: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 CreateBusiness.contextTypes = {
   router: PropTypes.object.isRequired

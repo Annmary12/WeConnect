@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { searchBusinessesRequest } from '../../actions/fetchBusinesses';
 
 
@@ -75,54 +76,51 @@ class Search extends Component {
     // const { searchType, value } = this.state;
     return (
       <div>
-    <div className="container search-box">
-      <div className="card row search">
-        <div className="col s10 offset-s1">
-          <div className="row">
-            <form onSubmit={this.onSearch}>
-              <div className="col s7 m5">
-                <div className="input-field">
-                  <input
-                  id="icon_prefix"
-                   type="text"
-                   className="validate"
-                   name='value'
-                   onChange={this.onChange}/>
-                  <label htmlFor="icon_prefix">Enter Business Name</label>
-                </div>
+        <div className="container search-box">
+          <div className="card row search">
+            <div className="col s10 offset-s1">
+              <div className="row">
+                <form onSubmit={ this.onSearch }>
+                  <div className="col s7 m5">
+                    <div className="input-field">
+                      <input
+                      id="icon_prefix"
+                      type="text"
+                      className="validate"
+                      name='value'
+                      onChange={ this.onChange } />
+                      <label htmlFor="icon_prefix">Enter Business Name</label>
+                    </div>
+                  </div>
+                  <div className="col s5 m4">
+                    <div className="input-field">
+                      <select  onChange={ this.onChange } name='searchType'>
+                        <option value="">Choose</option>
+                        <option value='name'>Name</option>
+                        <option value='location'>Location</option>
+                        <option value='category'>Category</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div className="col s12 m3" id="search-button">
+                    <button className="btn waves-effect waves-light btn_large" type="submit" name="action">Search
+                      <i className="material-icons right">search</i>
+                    </button>
+                  </div>
+                </form>
               </div>
-
-
-              <div className="col s5 m4">
-                <div className="input-field">
-                  <select name="category" onChange={this.onChange} name='searchType'>
-                    <option value="">Choose</option>
-                    <option value='name'>Name</option>
-                    <option value='location'>Location</option>
-                    <option value='category'>Category</option>
-                  </select>
-                </div>
-              </div>
-              <div className="col s12 m3" id="search-button">
-                <button className="btn waves-effect waves-light btn_large" type="submit" name="action">Search
-                                                                <i className="material-icons right">search</i>
-                </button>
-              </div>
-            </form>
+            </div>
           </div>
-
         </div>
-
       </div>
-
-    </div>
-  </div>
     );
   }
 }
 const mapStateToProps = state => ({
   business: state.BusinessReducer,
-  // error: state.BusinessReducer.business.error,
 });
 
+Search.propTypes = {
+  searchBusinessesRequest: PropTypes.func.isRequired,
+}
 export default connect(mapStateToProps, { searchBusinessesRequest })(Search);

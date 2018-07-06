@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import NavigationPage from './Navigation';
 import FeacturedBusiness from './FeacturedBusiness';
 import Footer from './Footer';
-import PropTypes from 'prop-types';
 
 /**
  * @description displays homepage
  * @method Home
- *
  * @returns { jsx } jsx - renders homepage component
 */
-
 const Home = () => {
   return (
     <div className="home">

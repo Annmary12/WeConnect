@@ -4,7 +4,7 @@ import jwt from 'jsonwebtoken';
 dotenv.config();
 const secret = process.env.secretKey;
 /**
- * @class - for authorization
+ * @class Authorization
  */
 class Authorization {
   /**

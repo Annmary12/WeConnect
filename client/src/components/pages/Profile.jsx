@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import Spinner from 'react-md-spinner';
 import PropTypes from 'prop-types';
 import ReactPaginate from 'react-paginate';
 import Navigation from './Navigation';
 import Footer from './Footer';
 import UserCard from './UserCard';
-import { Link } from 'react-router-dom';
-import Spinner from 'react-md-spinner';
 import { getUserRequest, getUserBusinessesRequest } from '../../actions/getUser';
 
 /**
@@ -35,27 +35,12 @@ class Profile extends Component {
   /**
    * @description fetches user details and business of the user
    * @method componentWillMount
-   *
-   * @param {object} - business and user
-   *
    * @returns {void}
    */
   componentDidMount() {
-    this.props.getUserRequest(this.props.userId);
-    this.props.getUserBusinessesRequest(this.props.userId, 1);
-  }
-
-  /**
-     * @description - Handle the pagination
-     *
-     * @returns {void}
-     * @param {number} page - holds the page number you clicked
-     *
-     * @memberof Business
-     */
-  onPageChange(page) {
-    const pageNumber = page.selected + 1;
-    this.props.getUserBusinessesRequest(this.props.userId, pageNumber);
+    const { userId } = this.props
+    this.props.getUserRequest(userId);
+    this.props.getUserBusinessesRequest(userId, 1);
   }
 
   /**
@@ -73,6 +58,20 @@ class Profile extends Component {
       firstname, lastname, email, image
     });
   }
+
+  /**
+     * @description - Handle the pagination
+     *
+     * @returns {void}
+     * @param {number} page - holds the page number you clicked
+     *
+     * @memberof Business
+     */
+    onPageChange(page) {
+      const pageNumber = page.selected + 1;
+      this.props.getUserBusinessesRequest(this.props.userId, pageNumber);
+    }
+  
 
   /**
      *
@@ -134,8 +133,8 @@ class Profile extends Component {
                     alt="userImage" />
                 </div>
                 <div className="col s10 offset-s1">
-                  <h5>{firstname} {lastname}</h5>
-                  <span className=""><em>{email}</em></span>
+                  <h5>{ firstname } { lastname }</h5>
+                  <span className=""><em>{ email }</em></span>
                 </div>
               </div>
             </div>
@@ -147,7 +146,7 @@ class Profile extends Component {
                   <i className="material-icons left">add</i>
                 </Link>
               </div>
-              {businessMessage}
+              { businessMessage }
               { this.props.isLoading
               ?
                 <div className="spinner"> <Spinner size="50" /></div> :
@@ -164,7 +163,6 @@ class Profile extends Component {
             <div className="center-align">
               {(totalBusiness > 6 && typeof totalBusiness !== 'undefined') ?
                 <ReactPaginate
-                      // className="center-align"
                        previousLabel="previous"
                        nextLabel="next"
                        breakLabel={ <a href="">...</a> }
@@ -187,7 +185,6 @@ class Profile extends Component {
   }
 }
 const mapStateToProps = state => ({
-  // businesses: state.BusinessReducer.businesses,
   userId: state.auth.user.id,
   currentUser: state.getUser.user,
   userBusinesses: state.userBusinesses.businesses,
@@ -205,7 +202,10 @@ Profile.propTypes = {
   limit: PropTypes.number,
   currentPage: PropTypes.number,
   totalPages: PropTypes.number,
-  totalBusiness: PropTypes.number
+  totalBusiness: PropTypes.number,
+  currentUser: PropTypes.object.isRequired,
+  userId: PropTypes.number.isRequired,
+  isLoading: PropTypes.bool.isRequired,
 };
 
 export default connect(mapStateToProps, { getUserRequest, getUserBusinessesRequest })(Profile);
