@@ -39,6 +39,7 @@ class Authorization {
    * @returns {object} - returns message
    */
   static verifyToken(req, res, next) {
+    // verifies token
     jwt.verify(req.token, secret, (err, authData) => {
       if (err) {
         // Wrong token

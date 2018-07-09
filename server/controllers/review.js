@@ -24,17 +24,19 @@ class Review {
    */
   static createReview(req, res) {
     const authData = req.user;
+    // finds business by Id
     return businesses.findOne({ where: { id: req.params.businessId } })
       .then((business) => {
-        // creates review of an existing business
+        // business found
         if (business) {
+          // checks whether you can review a business
           if (business.userId === authData.payload.id) {
             return res.status(404).json({
               message: 'You can not review yourself',
               error: true
             });
           }
-
+          // checks whether the review input field is empty
           if(req.body.context.trim() === ''){
             return res.status(400).json({
               message: 'Please write a review'
@@ -45,26 +47,25 @@ class Review {
             userId: authData.payload.id,
             businessId: business.id
           });
-
+          // creates new review
           return newReview.save()
             .then(review => res.status(201).json({
               review,
               message: 'Sucessfully Created',
               error: false
             }))
+            // catches error
             .catch(err => res.status(400).json({
               error: err
             }));
         }
-        // check business you are about to review exist
+        // business not found
         return res.status(404).json({
-
           message: 'Business Not Found',
           error: true
         });
-
-        // res.status(200).send(business);
       })
+      // catches error
       .catch(err => res.status(400).json({
         error: err
       }));
@@ -78,9 +79,11 @@ class Review {
    */
   static fetchReviews(req, res) {
     const { businessId } = req.params;
+    // fetch one business
     return businesses.findOne({ where: { id: req.params.businessId } })
       .then((business) => {
         if (business) {
+          // get all reviews for the business found
           return reviewModel.findAll({ where: { businessId },
           include: [{
             model: UserModel,
@@ -88,6 +91,7 @@ class Review {
             attributes: ['firstname', 'lastname', 'image']
           }] })
             .then((reviews) => {
+              // review not found
               if (!reviews.length) {
                 return res.status(404).json({
                   message: `No Review Found`,
@@ -95,6 +99,7 @@ class Review {
                 });
               }
               const totalReview = reviews.length;
+              // review found
               return res.status(200).json({
                 reviews,
                 totalReview,
@@ -102,16 +107,18 @@ class Review {
                 error: false
               });
             })
+            // catches error
             .catch(err => res.status(400).json({
               error: err
             }));
         }
-
+        // business not found
         return res.status(404).json({
           message: 'Business Not Found',
           error: true
         });
       })
+      // catches error
       .catch(err => res.status(400).json({
         error: err
       }));
