@@ -14,8 +14,10 @@ class Validation {
    * @returns {object} - error message
    */
   static idChecker(req, res, next) {
+    // gets id passed
     const { businessId } = req.params;
     const numbers = /^[0-9]+$/;
+    // invalid id
     if (!businessId.match(numbers)) {
       return res.status(400).json({
         message: 'Invalid Id'
@@ -32,8 +34,10 @@ class Validation {
    * @returns{object} - error message
    */
   static emailExist(req, res, next) {
+    // find a user
     return userModel.findOne({ where: { email: req.body.email } })
       .then((userExist) => {
+        // user exist
         if (userExist) {
           return res.status(404).json({
             message: 'Email is already existing'
@@ -41,6 +45,7 @@ class Validation {
         }
         next();
       })
+      // catches error
       .catch(error => res.status(400).json({
         error
       }));
@@ -53,6 +58,7 @@ class Validation {
   * @returns{array} - error message
   */
   static loginValidator(req, res, next) {
+    // checks login input field
     req.checkBody({
       email: {
         notEmpty: true,
@@ -67,6 +73,7 @@ class Validation {
         errorMessage: 'Your Password is required'
       },
     });
+    // get errors
     const errors = req.validationErrors();
     if (errors) {
       const allErrors = [];
@@ -89,6 +96,7 @@ class Validation {
  * @returns {array} - error message
  */
   static signupValidator(req, res, next) {
+    // checks the signup field
     req.checkBody({
       firstname: {
         notEmpty: true,
@@ -119,7 +127,7 @@ class Validation {
 
       }
     });
-
+    // catches error
     const errors = req.validationErrors();
     if (errors) {
       const allErrors = [];
@@ -143,6 +151,7 @@ class Validation {
  * @returns {array} - of error message
  */
   static businessValidator(req, res, next) {
+    // checks the busines field
     req.checkBody({
       name: {
         notEmpty: true,
@@ -169,7 +178,7 @@ class Validation {
         errorMessage: 'Category Field Required'
       },
     });
-
+    // catches error
     const errors = req.validationErrors();
     if (errors) {
       const allErrors = [];
