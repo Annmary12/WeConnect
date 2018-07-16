@@ -6,7 +6,7 @@ import Navigation from './Navigation';
 import Footer from './Footer';
 import Search from './Search';
 import Card from './Card';
-import { fetchBusinessesRequest } from '../../actions/fetchBusinesses';
+import { fetchBusinessesRequest } from '../../actions/business';
 
 /**
  * @description renders business component
@@ -65,6 +65,8 @@ class Business extends Component {
             name={ business.name }
             description={ business.description }
             image={ business.image }
+            totalLikes={ business.numberOfLikes }
+            averageRating={ business.averageRating }
            />
         </div>
 

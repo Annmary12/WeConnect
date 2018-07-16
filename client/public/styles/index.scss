@@ -207,3 +207,19 @@ background: rgb(216, 215, 215);
 .pointer{
     cursor:pointer;
 }
+.rating {
+    margin-left: 2rem;
+}
+.likeHome {
+    padding-left:80px;
+}
+.flex-rating {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .flex-rating > div {
+    width: 100px;
+    text-align: center;
+    line-height: 50px;
+  }
