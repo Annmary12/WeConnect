@@ -23,6 +23,13 @@ class Review {
    * @param {*} res - route response
    */
   static createReview(req, res) {
+    const { rating, context } = req.body;
+    // checks whether rating is a number
+    if(rating && isNaN(rating)) {
+      return res.status(400).json({
+        message: 'please input a number'
+      })
+    }
     const authData = req.user;
     // finds business by Id
     return businesses.findOne({ where: { id: req.params.businessId } })
@@ -43,7 +50,8 @@ class Review {
             })
           }
           const newReview = new reviewModel({
-            context: req.body.context,
+            context,
+            rating,
             userId: authData.payload.id,
             businessId: business.id
           });

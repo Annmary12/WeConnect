@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Navigation from './Navigation';
 import Footer from './Footer';
 import BusinessDetails from './BusinessDetails';
-import { fetchOneBusinessRequest, deleteBusinessRequest, likeRequest } from '../../actions/fetchBusinesses';
+import { fetchOneBusinessRequest, deleteBusinessRequest, likeRequest } from '../../actions/business';
 import { getReviewRequest } from '../../actions/review';
 
 /**
@@ -90,7 +90,7 @@ class BusinessProfile extends Component {
    */
   render() {
     const business = this.state.oneBusiness;
-    const { name, description, category, location, website, id, userId, numberOfLikes, image } = business;
+    const { name, description, category, location, website, id, userId, numberOfLikes, image, averageRating } = business;
     const { reviews } = this.props;
     return (
       <div className="nav-business " style={ { backgroundImage: `url("${image}")` } }>
@@ -116,6 +116,7 @@ class BusinessProfile extends Component {
               reviews={ reviews }
               userId={ userId }
               numberOfLikes={ numberOfLikes }
+              averageRating={ averageRating }
             />
           }
         </div>

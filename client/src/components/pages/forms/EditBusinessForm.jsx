@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Input, Row } from 'react-materialize';
-import { updateBusinessRequest } from '../../../actions/fetchBusinesses';
+import { updateBusinessRequest } from '../../../actions/business';
 import checkImage from '../../../utils/imageChecker';
 
 /**

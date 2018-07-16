@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import StarRatings from 'react-star-ratings';
 import moment from 'moment';
 
 /**
@@ -11,7 +12,7 @@ import moment from 'moment';
  * @returns { jsx } jsx - renders ReviewList component
  */
 const ReviewList = ({
-  context, createdAt, user, image
+  context, createdAt, user, image, rating
 }) => (
   <div>
     <div className="row">
@@ -32,8 +33,20 @@ const ReviewList = ({
             </em>
           </div>
         </div>
+        <div>
+          <StarRatings
+          rating={ !rating ? 0 : rating }
+          starRatedColor="#f7c454"
+          numberOfStars={ 5 }
+          name='rating'
+          starDimension='20px'
+          starSpacing='0'
+          />
+        </div>
       </div>
-    </div><hr />
+    </div>
+    
+    <hr />
   </div>
 );
 
@@ -42,6 +55,7 @@ ReviewList.propTypes = {
   createdAt: PropTypes.string.isRequired, 
   user: PropTypes.object.isRequired, 
   image: PropTypes.string.isRequired,
+  rating: PropTypes.number,
 }
 
 export default ReviewList;

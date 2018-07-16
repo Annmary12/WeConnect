@@ -1,9 +1,12 @@
 import dotenv from 'dotenv';
+import Sequelize from 'sequelize';
 import models from '../models/index';
+
 // business model
 const businessModel = models.Business;
 // vote model
 const voteModel = models.Vote;
+const reviewModel = models.Review;
 dotenv.config();
 
 /**
@@ -25,55 +28,85 @@ class Business {
    * @param {*} res - route response
    */
   static getBusinesses(req, res) {
-    //to count business already existing in database
+    // to count business already existing in database
     businessModel
       .findAndCountAll()
       .then((businesses) => {
         // business does not exist
-      if(businesses.count == 0){
-        return res.status(404).json({
+        if (businesses.count == 0) {
+          return res.status(404).json({
             message: 'Business Not Found'
           });
-      }
-      const pageQuery = req.query.page || 1;
-      let offset = 0;
-      const limit = 6,
-      currentPage = parseInt(pageQuery, 10),
-      numberOfBusinesses = businesses.count,
-      totalPages = Math.ceil(numberOfBusinesses / limit);
-      offset = limit * (currentPage - 1);
-      // find all businesses
-      return businessModel.findAll({
-        limit,
-        offset,
-        order: [ ["createdAt", "DESC"] ]
-      })
-      .then((allBusinesses) => {
-        if (allBusinesses.length > 0) {
-          const payload = {
-            numberOfBusinesses,
-            limit,
-            totalPages,
-            currentPage,
-            allBusinesses
-          }
-          // successfully found businesses
-          return res.status(200).json(Object.assign({
-            message: 'List of all businesses'
-          }, payload));
         }
-        // business not found
-        return res.status(404).json({
-          message: 'Business Not Found'
-        });
-    })
-    // catches error
-    .catch(error => res.status(400).json({
-      error
-    }));
+        const pageQuery = req.query.page || 1;
+        let offset = 0;
+        const limit = 6,
+          currentPage = parseInt(pageQuery, 10),
+          numberOfBusinesses = businesses.count,
+          totalPages = Math.ceil(numberOfBusinesses / limit);
+        offset = limit * (currentPage - 1);
+        // find all businesses
+        return businessModel.findAll({
+          limit,
+          offset,
+          order: [['createdAt', 'DESC']],
+          include: [{
+            model: voteModel,
+            as: 'getvote',
+            attributes: ['businessId', 'userId']
+          },
+          {
+            model: reviewModel,
+            as: 'review',
+            attributes: ['rating'],
+          }
+          ],
+        })
+          .then((getallBusinesses) => {
+            let averageRating;
+            const businessArray = [];
 
-  });
-     
+            const busi = getallBusinesses.forEach((business) => {
+              // gets lthe number of ikes for a business
+              const numberOfLikes = business.getvote.length;
+              // gets the review(s) of a business
+              const allreview = business.review;
+              // gets the total rating of a business
+              const totalRating = allreview.reduce((total, amount) => total + amount.rating, 0);
+              const uniqueRating = allreview.filter(i => i.rating);
+              // calculates the average rating
+              averageRating = (totalRating / uniqueRating.length);
+              // removes the votes and reviews and creates a new object
+              const { getvote, review, ...formattedBusiness } = business.dataValues;
+
+              const newBusiness = { ...formattedBusiness, averageRating, numberOfLikes };
+              return businessArray.push(newBusiness);
+            });
+
+
+            if (getallBusinesses.length > 0 && businessArray.length === getallBusinesses.length) {
+              const payload = {
+                numberOfBusinesses,
+                limit,
+                totalPages,
+                currentPage,
+                allBusinesses: businessArray
+              };
+              // successfully found businesses
+              return res.status(200).json(Object.assign({
+                message: 'List of all businesses'
+              }, payload));
+            }
+            // business not found
+            return res.status(404).json({
+              message: 'Business Not Found'
+            });
+          })
+        // catches error
+          .catch(error => res.status(400).json({
+            error
+          }));
+      });
   }
 
   /**
@@ -85,20 +118,34 @@ class Business {
   static getBusiness(req, res) {
     const { businessId } = req.params;
     // find one business
-    return businessModel.find({ where: { id: businessId},
-    include: [{
-      model: voteModel,
-      as: 'getvote',
-      attributes: ['businessId', 'userId']
-    }],
-  })
+    return businessModel.find({
+      where: { id: businessId },
+      include: [{
+        model: voteModel,
+        as: 'getvote',
+        attributes: ['businessId', 'userId']
+      },
+      {
+        model: reviewModel,
+        as: 'review',
+        attributes: ['rating'],
+      }
+      ],
+    })
       .then((businesses) => {
+        const getreview = businesses.review;
+        // gets the total rating of a business
+        const totalRating = getreview.reduce((total, amount) => total + amount.rating, 0);
+        const uniqueRating = getreview.filter(i => i.rating);
+        // calculates the average rating
+        const averageRating = (totalRating / uniqueRating.length);
+
         if (businesses) {
           const numberOfLikes = businesses.getvote.length;
-          const { getvote, ...formattedBusiness } = businesses.dataValues;
+          const { getvote, review, ...formattedBusiness } = businesses.dataValues;
           // returns business found
           return res.status(200).json({
-            businesses: { ...formattedBusiness, numberOfLikes },
+            businesses: { ...formattedBusiness, numberOfLikes, averageRating },
             error: false
           });
         }
@@ -109,9 +156,7 @@ class Business {
         });
       })
       // catches error
-      .catch(error => {
-        return res.status(500).json({ error })
-      });
+      .catch(error => res.status(500).json({ error }));
   }
 
 
@@ -141,28 +186,27 @@ class Business {
     newBusiness = website ? { ...newBusiness, website } : newBusiness;
     const getbusiness = new businessModel(newBusiness);
 
-  businessModel.findOne({ where: { name}})
-  .then((businessFound) => {
-    // checks whether the business name already exist
-    if(businessFound){
-      return res.status(409).json({
-        message: 'Business name already existsss'
+    businessModel.findOne({ where: { name } })
+      .then((businessFound) => {
+        // checks whether the business name already exist
+        if (businessFound) {
+          return res.status(409).json({
+            message: 'Business name already existsss'
+          });
+        }
+        // creates the business
+        return getbusiness.save()
+          .then(business => res.status(201).json({
+            business,
+            message: 'Successfully Created',
+            error: false
+          }))
+        // catches error
+          .catch((error) => {
+            const errorMessage = error.errors.map(value => value.message);
+            return res.status(400).send(errorMessage);
+          });
       });
-    }
-    // creates the business
-    return getbusiness.save()
-      .then(business => res.status(201).json({
-        business,
-        message: 'Successfully Created',
-        error: false
-      }))
-      // catches error
-      .catch((error) => {
-          const errorMessage = error.errors.map(value => value.message);
-          return res.status(400).send(errorMessage);
-      });
-  })
-    
   }
 
   /**
@@ -172,7 +216,7 @@ class Business {
    * @param {*} res - route response
    */
   static updateBusiness(req, res) {
-     // gets authenticated user data
+    // gets authenticated user data
     const authData = req.user;
     // find a business by id
     businessModel.findById(req.params.businessId)
@@ -193,17 +237,17 @@ class Business {
 
             })
             // successfully update business
-              .then((newBusiness) =>
+              .then(newBusiness =>
                 res.status(200).json({
-                newBusiness,
-                message: 'Sucessfully Updated',
-                error: false,
-              }))
+                  newBusiness,
+                  message: 'Sucessfully Updated',
+                  error: false,
+                }))
               // catches error
               .catch((error) => {
                 const errorMessage = error.errors.map(value => value.message);
                 return res.status(400).send(errorMessage);
-            });
+              });
           }
           // unauthorizes user
           return res.status(401).json({

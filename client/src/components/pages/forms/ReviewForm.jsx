@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import StarRatings from 'react-star-ratings';
 import ReviewList from '../ReviewList';
 import { reviewRequest, getReviewRequest } from '../../../actions/review';
 
@@ -23,10 +24,12 @@ class ReviewForm extends Component {
     super(props);
     this.state = {
       context: '',
+      rating: 0,
       currentBusiness: this.props.businessId,
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmitReview = this.onSubmitReview.bind(this);
+    this.changeRating = this.changeRating.bind(this);
   }
 
   /**
@@ -52,6 +55,7 @@ class ReviewForm extends Component {
    */
   onSubmitReview(event) {
     event.preventDefault();
+    // return console.log(this.state);
     const id = this.props.businessId;
     this.props.reviewRequest(this.state, id).then(() => {
       const { isCreated, hasError, error } = this.props.review;
@@ -62,6 +66,18 @@ class ReviewForm extends Component {
         Materialize.toast(error, 4000, 'red accent-3 rounded');
       }
     });
+  }
+
+/**
+   * @description handles on state change for rating
+   * @method changeRating
+   *
+   * @param { number } newRating - event object containing new user details
+   *
+   * @returns { * } null
+   */
+  changeRating(newRating) {
+    this.setState({ rating: newRating });
   }
 
   /**
@@ -78,9 +94,10 @@ class ReviewForm extends Component {
       context={ getReview.context }
       createdAt={ getReview.createdAt }
       user={ getReview.reviewer }
-      image={ getReview.reviewer.image } />));
+      image={ getReview.reviewer.image }
+      rating={ getReview.rating } />));
 
-      const { context } = this.context;
+      const { context, rating } = this.state;
     return (
 
       <div className="reviewForm">
@@ -102,6 +119,16 @@ class ReviewForm extends Component {
                         required />
                       <label htmlFor="textarea1">write a message...</label>
                     </div><br />
+                    <div className="rating">
+                      <StarRatings
+                        rating={ rating }
+                        starRatedColor="#f7c454"
+                        changeRating={ this.changeRating }
+                        numberOfStars={ 5 }
+                        starDimension='40px'
+                        name='rating'
+                      />
+                    </div>
                     <div className="input-field right-align">
                       <button className="btn waves-effect waves-light btn_large " type="submit" onClick={ this.onSubmitReview } name="action">Post
                         <i className="material-icons left">send</i>

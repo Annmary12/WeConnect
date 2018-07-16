@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Navigation from './Navigation';
 import Footer from './Footer';
 import EditBusinessForm from './forms/EditBusinessForm';
-import { fetchOneBusinessRequest } from '../../actions/fetchBusinesses';
+import { fetchOneBusinessRequest } from '../../actions/business';
 
 /**
  * @description renders edit business component
