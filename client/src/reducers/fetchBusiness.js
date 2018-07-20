@@ -4,6 +4,7 @@ const initialState = {
   businesses: [],
   isUpdated: false,
   isDeleted: false,
+  error: ''
 };
 
 /**

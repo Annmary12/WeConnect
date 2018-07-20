@@ -73,7 +73,6 @@ class Search extends Component {
    * @returns { jsx } jsx - renders search form
    */
   render() {
-    // const { searchType, value } = this.state;
     return (
       <div>
         <div className="container search-box">

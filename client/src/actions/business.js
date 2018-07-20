@@ -4,26 +4,14 @@ import {
   FETCH_ONE_BUSINESS_SUCCESSFUL,
   UPDATE_BUSINESS_SUCCESSFUL,
   DELETE_BUSINESS_SUCCESSFUL,
-  SAVE_IMAGE_SUCCESSFUL,
   SAVE_IMAGE_FAILED,
   FETCH_BUSINESS_FAILED,
   UPDATE_BUSINESS_FAILED,
   LIKE_FAILED,
-  LIKE_SUCCESSFUL
+  LIKE_SUCCESSFUL,
+  IS_REQUESTING
 } from './types';
 import { isRequesting, actionResponseSuccess, actionResponseFailure } from './helper';
-
-/**
- *
- * @param {object} business
- * @returns {object} business
- */
-export function fetchOneBusinessSuccess(business) {
-  return {
-    type: FETCH_ONE_BUSINESS_SUCCESSFUL,
-    business
-  };
-}
 
 /**
  * @description handles fetch business
@@ -63,58 +51,12 @@ export const searchBusinessesRequest = (searchType, value) => dispatch =>
 export const fetchOneBusinessRequest = id => dispatch =>
   axios.get(`/api/v1/businesses/${id}`)
     .then((response) => {
-      dispatch(fetchOneBusinessSuccess(response.data.businesses));
+      dispatch(actionResponseSuccess(FETCH_ONE_BUSINESS_SUCCESSFUL, response.data.businesses));
     })
     .catch((error) => {
       dispatch(actionResponseFailure(FETCH_BUSINESS_FAILED, error.response.data.message));
     });
 
-/**
- * @description  handles update business success action
- * @param {object} business - contains the details of the business
- * @returns {object} returns updated business action
- */
-const updateBusinessSuccess = business => ({
-  type: UPDATE_BUSINESS_SUCCESSFUL,
-  business
-});
-
-/**
- * @description handles business failure action
- * @param {string} error - contains the error message
- * @returns {object} returns update  business error
- */
-export function updateBusinessfailed(error) {
-  return {
-    type: UPDATE_BUSINESS_FAILED,
-    error
-  };
-}
-
-/**
- * @description handles image success action
- * @param {object} image - contains the url of the image
- * @returns {object} returns saved image action
- */
-export function saveImageSuccessful(image) {
-  return {
-    type: SAVE_IMAGE_SUCCESSFUL,
-    image
-  };
-}
-
-
-/**
- * @description handles image failure action
- * @param {object} error - contains the error message
- * @returns {object} returns image failed action
- */
-export function saveImageFailed(error) {
-  return {
-    type: SAVE_IMAGE_FAILED,
-    error
-  };
-}
 /**
  * @description handles business update
  * @param {object} business - contains the business details
@@ -138,10 +80,10 @@ const updateBusiness = (business, cloudImageUrl) => (
       }
     })
       .then((response) => {
-        dispatch(updateBusinessSuccess(response.data.business));
+        dispatch(actionResponseSuccess(UPDATE_BUSINESS_SUCCESSFUL, response.data.business));
       })
       .catch((error) => {
-        dispatch(updateBusinessfailed(error.response.data.message));
+        dispatch(actionResponseFailure(UPDATE_BUSINESS_FAILED, error.response.data.message));
       }))
 );
 
@@ -152,7 +94,7 @@ const updateBusiness = (business, cloudImageUrl) => (
  */
 export const updateBusinessRequest = business => (
   (dispatch) => {
-    dispatch(isRequesting(true));
+    dispatch(isRequesting(IS_REQUESTING, true));
     let cloudImageUrl = business.currentImageSrc;
 
     if (!business.imageFile.name) {
@@ -168,26 +110,14 @@ export const updateBusinessRequest = business => (
         const token = localStorage.getItem('jwtToken');
         axios.defaults.headers.common.Authorization = token;
         cloudImageUrl = data.secure_url;
-        // dispatch single action
         return dispatch(updateBusiness(business, cloudImageUrl));
       })
       .catch(() => {
-        dispatch(saveImageFailed('Failed to upload image. Try again'));
-        dispatch(isRequesting(false));
+        dispatch(actionResponseFailure(SAVE_IMAGE_FAILED, 'Failed to upload image. Try again'));
+        dispatch(isRequesting(IS_REQUESTING, false));
       });
   });
 
-  /**
- * @description handles the delete business success action
- * @param {object} business - contains business details
- * @returns {object} return delete business message
- */
-export function deleteBusiness(business) {
-  return {
-    type: DELETE_BUSINESS_SUCCESSFUL,
-    business
-  };
-}
 
 /**
  * @description action to delete a particular business
@@ -196,7 +126,7 @@ export function deleteBusiness(business) {
  */
 export const deleteBusinessRequest = id => dispatch => axios.delete(`/api/v1/businesses/${id}`)
   .then((response) => {
-    dispatch(deleteBusiness(response.data));
+    dispatch(actionResponseSuccess(DELETE_BUSINESS_SUCCESSFUL, response.data));
   })
   .catch((error) => {
     throw (error);

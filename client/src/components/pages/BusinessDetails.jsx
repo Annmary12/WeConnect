@@ -13,7 +13,6 @@ import ReviewForm from './forms/ReviewForm';
  *
  * @extends Component
  */
-// class BusinessDetails extends Component {
 const BusinessDetails = ({
   location, category, name, website, description,
   id, onDelete, reviews, userId, handleLike,
@@ -155,7 +154,6 @@ const BusinessDetails = ({
     </div>
   );
 };
-// }
 
 const mapStateToProps = state => ({
   authData: state.auth,

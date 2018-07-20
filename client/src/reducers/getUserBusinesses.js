@@ -7,7 +7,11 @@ import {
 const initialState = {
   businesses: [],
   error: '',
-  isLoading: false
+  isLoading: false,
+  limit: '',
+  totalPages: '',
+  currentPage: '',
+  totalBusiness: ''
 };
 
 /**

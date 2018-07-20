@@ -25,8 +25,7 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         isAuthenticated: !isEmpty(action.user),
-        user: action.user.payload,
-        hasError: false
+        user: action.user.payload
       };
     case LOGIN_FAILED:
       return {

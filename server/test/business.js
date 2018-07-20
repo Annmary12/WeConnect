@@ -27,22 +27,22 @@ describe('Business Test', () => {
         // done();
       });
 
-      const secondUser = {
-        firstname: 'Ihuoma',
-        lastname: 'Agunanna',
-        email: 'ihuoma@gmail.com',
-        password: 'secret123',
-        confirm_password: 'secret123',
-        image: 'amaka',
-      };
-  
-      chai.request(server)
-        .post(`${BASE_URL}/auth/signup`)
-        .send(secondUser)
-        .end((err, res) => {
-          secondAuthtoken = res.body.token;
-          done();
-        });
+    const secondUser = {
+      firstname: 'Ihuoma',
+      lastname: 'Agunanna',
+      email: 'ihuoma@gmail.com',
+      password: 'secret123',
+      confirm_password: 'secret123',
+      image: 'amaka',
+    };
+
+    chai.request(server)
+      .post(`${BASE_URL}/auth/signup`)
+      .send(secondUser)
+      .end((err, res) => {
+        secondAuthtoken = res.body.token;
+        done();
+      });
   });
   describe('/POST Business', () => {
     it('Test to Check Name Field to create new business', (done) => {
@@ -329,7 +329,6 @@ describe('Business Test', () => {
         });
     });
 
-    
 
     it('test to check business exist', (done) => {
       chai.request(server)

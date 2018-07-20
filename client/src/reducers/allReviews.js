@@ -1,5 +1,9 @@
 import { ALL_REVIEW } from '../actions/types';
 
+const initialState = {
+  reviews: {},
+  totalReview: 0,
+};
 /**
  * @description holds all reviews,
  * @function
@@ -13,8 +17,8 @@ export default (state = {}, action = {}) => {
   switch (action.type) {
     case ALL_REVIEW:
       return {
-        reviews: action.reviews.reviews,
-        totalReview: action.reviews.totalReview
+        reviews: action.payload.reviews,
+        totalReview: action.payload.totalReview
       };
 
     default: return state;

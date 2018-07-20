@@ -70,7 +70,6 @@ const UpdateProfile = (props) => {
                   className="btn waves-effect waves-light btn_large"
                   type="submit"
                   name="action"
-                  // disabled={isLoading}
                 >
                   { isLoading
                  ?

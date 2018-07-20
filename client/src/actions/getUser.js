@@ -93,7 +93,6 @@ export const updateUserRequest = user => (
         const token = localStorage.getItem('jwtToken');
         axios.defaults.headers.common.Authorization = token;
         cloudImageUrl = data.secure_url;
-        // dispatch single action
         return dispatch(updateUser(user, cloudImageUrl));
       })
       .catch(() => {

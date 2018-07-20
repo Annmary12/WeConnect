@@ -55,7 +55,6 @@ class ReviewForm extends Component {
    */
   onSubmitReview(event) {
     event.preventDefault();
-    // return console.log(this.state);
     const id = this.props.businessId;
     this.props.reviewRequest(this.state, id).then(() => {
       const { isCreated, hasError, error } = this.props.review;
@@ -68,7 +67,7 @@ class ReviewForm extends Component {
     });
   }
 
-/**
+  /**
    * @description handles on state change for rating
    * @method changeRating
    *
@@ -97,7 +96,7 @@ class ReviewForm extends Component {
       image={ getReview.reviewer.image }
       rating={ getReview.rating } />));
 
-      const { context, rating } = this.state;
+    const { context, rating } = this.state;
     return (
 
       <div className="reviewForm">
@@ -113,7 +112,7 @@ class ReviewForm extends Component {
                       <textarea
                         id="textarea1"
                         className="materialize-textarea"
-                        name='context'
+                        name="context"
                         onChange={ this.onChange }
                         value={ context }
                         required />
@@ -125,8 +124,8 @@ class ReviewForm extends Component {
                         starRatedColor="#f7c454"
                         changeRating={ this.changeRating }
                         numberOfStars={ 5 }
-                        starDimension='40px'
-                        name='rating'
+                        starDimension="40px"
+                        name="rating"
                       />
                     </div>
                     <div className="input-field right-align">
