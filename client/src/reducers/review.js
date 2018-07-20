@@ -25,7 +25,7 @@ export default (state = initialState, action = {}) => {
     case REVIEW_SUCCESSFUL:
       return {
         ...state,
-        message: action.message,
+        message: action.payload,
         isCreated: true,
       };
 

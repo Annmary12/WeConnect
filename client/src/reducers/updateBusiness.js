@@ -22,7 +22,7 @@ const UpdateBusinessReducer = (state = initialState, action) => {
     case UPDATE_BUSINESS_SUCCESSFUL:
       return {
         ...state,
-        business: action.business,
+        business: action.payload,
         isUpdated: true,
       };
     case UPDATE_BUSINESS_FAILED:

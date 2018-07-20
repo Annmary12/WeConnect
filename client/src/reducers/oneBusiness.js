@@ -27,13 +27,14 @@ const BusinessReducer = (state = initialState, action = {}) => {
     case FETCH_ONE_BUSINESS_SUCCESSFUL:
       return {
         ...state,
-        business: action.business
+        business: action.payload
       };
 
     case DELETE_BUSINESS_SUCCESSFUL:
       return {
         ...state,
-        isDeleted: true
+        isDeleted: true,
+        message: action.payload
       };
 
     case LIKE_SUCCESSFUL:
@@ -45,7 +46,7 @@ const BusinessReducer = (state = initialState, action = {}) => {
     case LIKE_FAILED:
       return {
         ...state,
-        error: action.payload
+        error: action.error
       };
 
     default: return state;

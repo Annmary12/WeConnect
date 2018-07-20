@@ -7,6 +7,7 @@ const intialState = {
   user: {},
   error: '',
   isLoading: false,
+  message: ''
 };
 /**
  * @description holds success and failure states for fetching a

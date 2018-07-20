@@ -58,7 +58,6 @@ const createBusinessRequest = business => (
     delete axios.defaults.headers.common.Authorization;
     return axios.post(process.env.CLOUDINARY_URL, imageData)
       .then(({ data }) => {
-        // const token = localStorage.getItem('jwtToken');
         axios.defaults.headers.common.Authorization = localStorage.jwtToken;
         cloudImageUrl = data.secure_url;
         dispatch(createBusiness(business, cloudImageUrl));

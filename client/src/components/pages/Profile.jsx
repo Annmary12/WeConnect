@@ -38,7 +38,7 @@ class Profile extends Component {
    * @returns {void}
    */
   componentDidMount() {
-    const { userId } = this.props
+    const { userId } = this.props;
     this.props.getUserRequest(userId);
     this.props.getUserBusinessesRequest(userId, 1);
   }
@@ -67,11 +67,11 @@ class Profile extends Component {
      *
      * @memberof Business
      */
-    onPageChange(page) {
-      const pageNumber = page.selected + 1;
-      this.props.getUserBusinessesRequest(this.props.userId, pageNumber);
-    }
-  
+  onPageChange(page) {
+    const pageNumber = page.selected + 1;
+    this.props.getUserBusinessesRequest(this.props.userId, pageNumber);
+  }
+
 
   /**
      *
@@ -142,7 +142,7 @@ class Profile extends Component {
           <div className="container profile-section">
             <div className="row section1">
               <div className="row right-align">
-                <Link to='/createBusiness' className="btn waves-effect waves-light btn_large " type="submit" name="action">Create New Business
+                <Link to="/createBusiness" className="btn waves-effect waves-light btn_large " type="submit" name="action">Create New Business
                   <i className="material-icons left">add</i>
                 </Link>
               </div>

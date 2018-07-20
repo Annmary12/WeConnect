@@ -56,7 +56,6 @@ class Login extends Component {
    * @returns { * } null
    */
   onSubmit(event) {
-    // this.setState({ errors: {}, isLoading: true });
     event.preventDefault();
     this.props.userLoginRequest(this.state).then(() => {
       const { isAuthenticated, hasError, error } = this.props.auth;
