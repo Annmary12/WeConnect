@@ -9,10 +9,8 @@ import { isRequesting, actionResponseSuccess, actionResponseFailure } from './he
  * @returns {object} business action
  */
 const createBusiness = (business, cloudImageUrl) => (
-  (dispatch) => {
-    dispatch(isRequesting(IS_REQUESTING, true));
-
-    return axios({
+  dispatch =>
+    axios({
       method: 'POST',
       url: '/api/v1/businesses/',
       data: {
@@ -32,8 +30,8 @@ const createBusiness = (business, cloudImageUrl) => (
       }).catch((error) => {
         dispatch(actionResponseFailure(CREATE_BUSINESS_FAILED, error.response.data.message));
         dispatch(isRequesting(IS_REQUESTING, false));
-      });
-  }
+      })
+
 );
 
 /**

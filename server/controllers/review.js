@@ -25,10 +25,10 @@ class Review {
   static createReview(req, res) {
     const { rating, context } = req.body;
     // checks whether rating is a number
-    if(rating && isNaN(rating)) {
+    if (rating && isNaN(rating)) {
       return res.status(400).json({
         message: 'please input a number'
-      })
+      });
     }
     const authData = req.user;
     // finds business by Id
@@ -44,10 +44,10 @@ class Review {
             });
           }
           // checks whether the review input field is empty
-          if(req.body.context.trim() === ''){
+          if (req.body.context.trim() === '') {
             return res.status(400).json({
               message: 'Please write a review'
-            })
+            });
           }
           const newReview = new reviewModel({
             context,
@@ -92,17 +92,19 @@ class Review {
       .then((business) => {
         if (business) {
           // get all reviews for the business found
-          return reviewModel.findAll({ where: { businessId },
-          include: [{
-            model: UserModel,
-            as: 'reviewer',
-            attributes: ['firstname', 'lastname', 'image']
-          }] })
+          return reviewModel.findAll({
+            where: { businessId },
+            include: [{
+              model: UserModel,
+              as: 'reviewer',
+              attributes: ['firstname', 'lastname', 'image']
+            }]
+          })
             .then((reviews) => {
               // review not found
               if (!reviews.length) {
                 return res.status(404).json({
-                  message: `No Review Found`,
+                  message: 'No Review Found',
                   error: false
                 });
               }

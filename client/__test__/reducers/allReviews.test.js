@@ -1,7 +1,7 @@
 import reviewReducer from '../../src/reducers/allReviews';
 import { ALL_REVIEW } from '../../src/actions/types';
 
-describe('Auth Reducer', () => {
+describe('Review Reducer', () => {
   const initialState = {
     reviews: {},
     totalReview: 0,

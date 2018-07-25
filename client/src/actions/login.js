@@ -34,7 +34,7 @@ export function loginFailed(error) {
  * @returns {object} returns failed or success user action
  */
 export function userLoginRequest(userData) {
-  return dispatch => axios.post('api/v1/auth/login', userData).then((res) => {
+  return dispatch => axios.post('/api/v1/auth/login', userData).then((res) => {
     const { token } = res.data;
     localStorage.setItem('jwtToken', token);
     setAuthorizationToken(token);

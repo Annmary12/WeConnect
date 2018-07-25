@@ -28,6 +28,5 @@ export const getReviewRequest = id => dispatch =>
       dispatch(actionResponseSuccess(ALL_REVIEW, response.data));
     })
     .catch((error) => {
-      throw (error);
+      dispatch(actionResponseFailure(REVIEW_FAILED, error.response.data.message));
     });
-

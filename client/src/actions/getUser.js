@@ -33,7 +33,7 @@ export const getUserRequest = id => dispatch =>
 export const getUserBusinessesRequest = (id, page) => (
   (dispatch) => {
     dispatch(isRequesting(IS_REQUESTING, true));
-    return axios.get(`api/v1/auth/user/${id}/business?page=${page}`)
+    return axios.get(`/api/v1/auth/user/${id}/business?page=${page}`)
       .then((response) => {
         dispatch(actionResponseSuccess(USER_BUSINESSES_SUCCESS, response.data));
         dispatch(isRequesting(IS_REQUESTING, false));
@@ -62,12 +62,12 @@ export const updateUser = (user, cloudImageUrl) => (
         image: cloudImageUrl
       }
     }).then((response) => {
-      dispatch(isRequesting(IS_REQUESTING, false));
       dispatch(actionResponseSuccess(USER_UPDATE_SUCCESSFUL, response.data.message));
+      dispatch(isRequesting(IS_REQUESTING, false));
     })
       .catch((error) => {
+        dispatch(actionResponseFailure(USER_UPDATE_FAILURE, error.response.data.message));
         dispatch(isRequesting(IS_REQUESTING, false));
-        dispatch(actionResponseFailure(USER_UPDATE_FAILURE, error));
       })
   )
 );
