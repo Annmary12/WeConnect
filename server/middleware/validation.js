@@ -25,7 +25,7 @@ class Validation {
     }
     next();
   }
-  
+
   /**
    *
    * @param {*} req - api request
@@ -121,7 +121,7 @@ class Validation {
         },
         errorMessage: 'Your Password is required'
       },
-      confirm_password: {
+      confirmPassword: {
         notEmpty: true,
         errorMessage: 'Confirm Password is required'
 

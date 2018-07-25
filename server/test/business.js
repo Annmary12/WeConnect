@@ -15,7 +15,7 @@ describe('Business Test', () => {
       lastname: 'Agunanna',
       email: 'njaycares@gmail.com',
       password: 'secret123',
-      confirm_password: 'secret123',
+      confirmPassword: 'secret123',
       image: 'amaka',
     };
 
@@ -32,7 +32,7 @@ describe('Business Test', () => {
       lastname: 'Agunanna',
       email: 'ihuoma@gmail.com',
       password: 'secret123',
-      confirm_password: 'secret123',
+      confirmPassword: 'secret123',
       image: 'amaka',
     };
 

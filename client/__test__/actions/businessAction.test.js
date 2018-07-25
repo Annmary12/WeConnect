@@ -197,42 +197,6 @@ describe('Business Action Test', () => {
           done();
         });
     });
-
-    // it('creates SAVE_IMAGE_FAILED after failed to updated a business', (done) => {
-    //   moxios.wait(() => {
-    //     const request = moxios.requests.mostRecent();
-    //     request.respondWith({
-    //       status: 400,
-    //       response: {
-    //         error: 'Failed to upload image. Try again',
-    //       }
-    //     });
-    //   });
-
-    //   const expectedAction = [
-    //     {
-    //       type: types.IS_REQUESTING,
-    //       bool: true
-    //     },
-    //     {
-    //       type: types.SAVE_IMAGE_FAILED,
-    //       error: 'Failed to upload image. Try again',
-    //     },
-    //     {
-    //       type: types.IS_REQUESTING,
-    //       bool: false
-    //     }
-    //   ];
-
-    //   const store = mockStore({});
-    //   return store.dispatch(updateBusinessRequest(payload))
-    //     .then(() => {
-    //       console.log('@getActions', store.getActions());
-    //       console.log('@expectedAction', expectedAction);
-    //       expect(store.getActions()).to.eql(expectedAction);
-    //       done();
-    //     });
-    // });
   });
 
   describe('Delete business', () => {

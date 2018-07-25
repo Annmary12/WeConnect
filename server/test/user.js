@@ -15,7 +15,7 @@ const user = {
   lastname: 'Agunanna',
   email: 'annmaryamaka@gmail.com',
   password: 'secret123',
-  confirm_password: 'secret123',
+  confirmPassword: 'secret123',
   image: 'amaka'
 };
 
@@ -62,7 +62,7 @@ describe('POST /api/v1/auth/signup', () => {
       lastname: 'Agunanna',
       email: 'annmaryamaka@gmail.com',
       password: 'secret123',
-      confirm_password: 'secret123',
+      confirmPassword: 'secret123',
       image: 'amaka'
     };
     chai.request(server)
@@ -81,7 +81,7 @@ describe('POST /api/v1/auth/signup', () => {
       lastname: 'Agunanna',
       email: 'annmaryamaka@gmail.com',
       password: 'secret123',
-      confirm_password: 'secret123',
+      confirmPassword: 'secret123',
       image: 'amaka'
     };
     chai.request(server)
@@ -99,7 +99,7 @@ describe('POST /api/v1/auth/signup', () => {
       lastname: '',
       email: 'annmaryamaka@gmail.com',
       password: 'secret123',
-      confirm_password: 'secret123',
+      confirmPassword: 'secret123',
       image: 'amaka'
     };
     chai.request(server)
@@ -117,7 +117,7 @@ describe('POST /api/v1/auth/signup', () => {
       lastname: 'Agunanna',
       email: '',
       password: 'secret123',
-      confirm_password: 'secret123',
+      confirmPassword: 'secret123',
       image: 'amaka'
     };
     chai.request(server)
@@ -135,7 +135,7 @@ describe('POST /api/v1/auth/signup', () => {
       lastname: 'Agunanna',
       email: 'annmaryamaka@gmail',
       password: 'secret123',
-      confirm_password: 'secret123',
+      confirmPassword: 'secret123',
       image: 'amaka'
     };
     chai.request(server)
@@ -153,7 +153,7 @@ describe('POST /api/v1/auth/signup', () => {
       lastname: 'Agunanna',
       email: 'annmaryamaka@gmai.com',
       password: '',
-      confirm_password: 'secret123',
+      confirmPassword: 'secret123',
       image: 'amaka'
     };
     chai.request(server)
@@ -171,7 +171,7 @@ describe('POST /api/v1/auth/signup', () => {
       lastname: 'Agunanna',
       email: 'annmaryamaka@gmai.com',
       password: 'secret123',
-      confirm_password: '',
+      confirmPassword: '',
       image: 'amaka'
     };
     chai.request(server)
@@ -189,7 +189,7 @@ describe('POST /api/v1/auth/signup', () => {
       lastname: 'Agunanna',
       email: 'annmaryamaka@gmail',
       password: 'secret',
-      confirm_password: 'secret123',
+      confirmPassword: 'secret123',
       image: 'amaka'
     };
     chai.request(server)

@@ -90,8 +90,6 @@ describe('Review Action test', () => {
       const store = mockStore({});
       return store.dispatch(getReviewRequest(id))
         .then(() => {
-          console.log('@expectedAction', expectedAction);
-          console.log('@getAction', store.getActions());
           expect(store.getActions()).to.eql(expectedAction);
           done();
         });

@@ -2,6 +2,7 @@ import axios from 'axios';
 import jwt from 'jsonwebtoken';
 import setAuthorizationToken from '../utils/setAuthorizationToken';
 import { SIGNUP_FAILED, SET_CURRENT_USER } from './types';
+import { setCurrentUser } from './login';
 import { isRequesting, actionResponseSuccess, actionResponseFailure } from './helper';
 
 
@@ -17,7 +18,7 @@ const userSignupRequest = userData => dispatch => axios.post('/api/v1/auth/signu
     } = res.data;
     localStorage.setItem('jwtToken', token);
     setAuthorizationToken(token);
-    dispatch(actionResponseSuccess(SET_CURRENT_USER, jwt.decode(token)));
+    dispatch(setCurrentUser(jwt.decode(token)));
   })
   .catch((error) => {
     dispatch(actionResponseFailure(SIGNUP_FAILED, error.response.data));
