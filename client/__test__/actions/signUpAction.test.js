@@ -31,7 +31,7 @@ describe('Sign Up Action Test', () => {
     const expectedAction = [
       {
         type: types.SET_CURRENT_USER,
-        payload: { ...user, iat: Math.floor(Date.now() / 1000) },
+        user: { ...user, iat: Math.floor(Date.now() / 1000) },
       }
     ];
     const store = mockStore({});

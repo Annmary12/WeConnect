@@ -8,10 +8,10 @@ const initialState = {
   businesses: [],
   error: '',
   isLoading: false,
-  limit: '',
-  totalPages: '',
-  currentPage: '',
-  totalBusiness: ''
+  limit: 0,
+  totalPages: 0,
+  currentPage: 0,
+  totalBusiness: 0
 };
 
 /**

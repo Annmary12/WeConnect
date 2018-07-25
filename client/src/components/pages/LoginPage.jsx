@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Navigation from './Navigation';
 import Footer from './Footer';
@@ -73,6 +74,10 @@ class Login extends Component {
    * @returns { jsx } jsx - renders login form
    */
   render() {
+    const { isAuthenticated } = this.props.auth;
+    if (isAuthenticated) {
+      return <Redirect to="/profile" />;
+    }
     return (
 
       <div className="login-background">
@@ -81,7 +86,7 @@ class Login extends Component {
             <div className="login-nav">
               <Navigation />
             </div>
-            <LoginForm 
+            <LoginForm
               { ...this.state }
               onChange={ this.onChange }
               onSubmit={ this.onSubmit }
@@ -97,7 +102,7 @@ class Login extends Component {
 
 Login.propTypes = {
   userLoginRequest: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool, 
+  isAuthenticated: PropTypes.bool,
   hasError: PropTypes.bool,
   error: PropTypes.string,
   auth: PropTypes.object,

@@ -10,13 +10,13 @@ import PropTypes from 'prop-types';
  *
  * @returns { jsx } jsx - renders createBusinessForm component
  */
-const CreateBusnessForm = ({ 
-  onChange, onSubmit, handleImageChange, 
-  isLoading, name, description, address, 
+const CreateBusnessForm = ({
+  onChange, onSubmit, handleImageChange,
+  isLoading, name, description, address,
   phoneNumber, location, category,
-   website, imageSrc }) => {
-  return (
-    <div>
+  website, imageSrc
+}) => (
+  <div>
       <div className="container">
         <div className="row register-section">
           <div className="col s10 offset-s1">
@@ -28,7 +28,7 @@ const CreateBusnessForm = ({
                     <input
                       id="last_name"
                       type="text"
-                      name='name'
+                      name="name"
                       onChange={ onChange }
                       value={ name }
                       required
@@ -40,7 +40,7 @@ const CreateBusnessForm = ({
                     <textarea
                       id="textarea1"
                       className="materialize-textarea"
-                      name='description'
+                      name="description"
                       onChange={ onChange }
                       value={ description }
                       required />
@@ -52,7 +52,7 @@ const CreateBusnessForm = ({
                     <input
                       id="address"
                       type="text"
-                      name='address'
+                      name="address"
                       onChange={ onChange }
                       value={ address }
                       required />
@@ -64,7 +64,7 @@ const CreateBusnessForm = ({
                     <input
                       id="phoneNumber"
                       type="number"
-                      name='phoneNumber'
+                      name="phoneNumber"
                       onChange={ onChange }
                       value={ phoneNumber }
                       required
@@ -74,12 +74,12 @@ const CreateBusnessForm = ({
 
                   <Row>
                     <Input
-                      s={12}
-                      type='select'
-                      label='Select Location'
-                      icon='location_on'
+                      s={ 12 }
+                      type="select"
+                      label="Select Location"
+                      icon="location_on"
                       defaultValue={ location }
-                      name='location'
+                      name="location"
                       onChange={ onChange }
                     >
                       <option value="">Select Location</option>
@@ -91,12 +91,12 @@ const CreateBusnessForm = ({
 
                   <Row>
                     <Input
-                      s={12}
-                      type='select'
-                      label='Select Category'
-                      icon='label'
+                      s={ 12 }
+                      type="select"
+                      label="Select Category"
+                      icon="label"
                       defaultValue={ category }
-                      name='category'
+                      name="category"
                       onChange={ onChange }
                     >
                       <option value="">Select Category</option>
@@ -111,7 +111,7 @@ const CreateBusnessForm = ({
                     <input
                       id="website"
                       type="text"
-                      name='website'
+                      name="website"
                       onChange={ onChange }
                       value={ website }
                     />
@@ -147,8 +147,7 @@ const CreateBusnessForm = ({
 
       </div>
     </div>
-  );
-};
+);
 
 CreateBusnessForm.propTypes = {
   onChange: PropTypes.func.isRequired,
@@ -156,12 +155,12 @@ CreateBusnessForm.propTypes = {
   handleImageChange: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired, 
-  address: PropTypes.string.isRequired, 
-  phoneNumber: PropTypes.number.isRequired, 
-  location: PropTypes.string.isRequired, 
+  description: PropTypes.string.isRequired,
+  address: PropTypes.string.isRequired,
+  phoneNumber: PropTypes.number.isRequired,
+  location: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
-  website: PropTypes.string.isRequired, 
+  website: PropTypes.string.isRequired,
   imageSrc: PropTypes.string.isRequired,
 };
 

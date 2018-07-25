@@ -113,7 +113,6 @@ class Profile extends Component {
     const {
       limit, currentPage, totalBusiness, totalPages
     } = this.props;
-
     return (
       <div className="">
         <div className="pad">
