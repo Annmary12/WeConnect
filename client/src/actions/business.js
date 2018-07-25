@@ -101,11 +101,11 @@ export const updateBusinessRequest = business => (
       return dispatch(updateBusiness(business, cloudImageUrl));
     }
 
-    const data = new FormData();
-    data.append('file', business.imageFile);
-    data.append('upload_preset', process.env.CLOUDINARY_PRESET);
+    const getdata = new FormData();
+    getdata.append('file', business.imageFile);
+    getdata.append('upload_preset', process.env.CLOUDINARY_PRESET);
     delete axios.defaults.headers.common.Authorization;
-    return axios.post(process.env.CLOUDINARY_URL, data)
+    return axios.post(process.env.CLOUDINARY_URL, getdata)
       .then(({ data }) => {
         const token = localStorage.getItem('jwtToken');
         axios.defaults.headers.common.Authorization = token;
@@ -150,6 +150,6 @@ export const likeRequest = (businessId, userId) => dispatch =>
     .then((response) => {
       dispatch(actionResponseSuccess(LIKE_SUCCESSFUL, response.data.message));
     })
-    .catch((error) => {
-      dispatch(actionResponseFailure(LIKE_FAILED, error.response.data.message));
+    .catch(() => {
+      dispatch(actionResponseFailure(LIKE_FAILED, 'Failed to Like'));
     });

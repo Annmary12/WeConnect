@@ -10,7 +10,7 @@ import { isRequesting, actionResponseSuccess, actionResponseFailure } from './he
  * @param {object} userData - contains the user details
  * @returns {object} returns the success or failure of signup action
  */
-const userSignupRequest = userData => dispatch => axios.post('api/v1/auth/signup', userData)
+const userSignupRequest = userData => dispatch => axios.post('/api/v1/auth/signup', userData)
   .then((res) => {
     const {
       token
