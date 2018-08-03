@@ -4,11 +4,12 @@ import PropTypes from 'prop-types';
 import { Input, Row } from 'react-materialize';
 import { updateBusinessRequest } from '../../../actions/business';
 import checkImage from '../../../utils/imageChecker';
+import imageView from '../../../../public/images/bu.jpg';
 
 /**
  * @class EditBusinessForm
  */
-class EditBusinessForm extends Component {
+export class EditBusinessForm extends Component {
   /**
    * @constructor
    * @param {object} props
@@ -26,7 +27,6 @@ class EditBusinessForm extends Component {
       location: '',
       category: '',
       website: '',
-      errors: {},
       isLoading: false,
       isCreated: '',
       id: '',
@@ -107,6 +107,19 @@ class EditBusinessForm extends Component {
    */
   handleImageChange(event) {
     if (event.target.files && event.target.files[0]) {
+      
+      const event1 = {
+        target: {
+          files: [{
+            lastModified: 1531407463053,
+            lastModifiedDate: 'Thu Jul 12 2018 15:57:43 GMT+0100 (West Africa Standard Time)',
+            name: 'afroPic1.jpg',
+            size: 344818,
+            type: 'image/jpeg',
+            webkitRelativePath: ''
+          }],
+        }
+      };
       const file = event.target.files[0];
       const filereader = new FileReader();
       checkImage(filereader, file, (fileType) => {
@@ -115,6 +128,7 @@ class EditBusinessForm extends Component {
           this.setState({ imageFile: file });
           filereader.onload = (e) => {
             this.setState({ currentImageSrc: e.target.result });
+            // console.log('@result', e.target.result);
           };
           filereader.readAsDataURL(file);
         } else {
@@ -158,7 +172,7 @@ class EditBusinessForm extends Component {
                     <input
                       id="last_name"
                       type="text"
-                      name='name'
+                      name="name"
                       onChange={ this.onChange }
                       value={ name }
                       required
@@ -170,7 +184,7 @@ class EditBusinessForm extends Component {
                     <textarea
                       id="textarea1"
                       className="materialize-textarea"
-                      name='description'
+                      name="description"
                       onChange={ this.onChange }
                       value={ description }
                       required />
@@ -181,7 +195,7 @@ class EditBusinessForm extends Component {
                     <input
                       id="address"
                       type="text"
-                      name='address'
+                      name="address"
                       onChange={ this.onChange }
                       value={ address }
                       required />
@@ -190,9 +204,10 @@ class EditBusinessForm extends Component {
                   <div className="input-field">
                     <i className="material-icons prefix">local_phone</i>
                     <input
+                      active="true"
                       id="phoneNumber"
                       type="number"
-                      name='phoneNumber'
+                      name="phoneNumber"
                       onChange={ this.onChange }
                       value={ phoneNumber }
                       required
@@ -202,11 +217,11 @@ class EditBusinessForm extends Component {
                   <Row>
                     <Input
                       s={ 12 }
-                      type='select'
-                      label='Select Location'
-                      icon='location_on'
+                      type="select"
+                      label="Select Location"
+                      icon="location_on"
                       value={ location }
-                      name='location'
+                      name="location"
                       onChange={ this.onChange }
                     >
                       <option value="">Select Location</option>
@@ -218,11 +233,11 @@ class EditBusinessForm extends Component {
                   <Row>
                     <Input
                       s={ 12 }
-                      type='select'
-                      label='Select Category'
-                      icon='label'
+                      type="select"
+                      label="Select Category"
+                      icon="label"
                       value={ category }
-                      name='category'
+                      name="category"
                       onChange={ this.onChange }
                     >
                       <option value="">Select Category</option>
@@ -236,7 +251,7 @@ class EditBusinessForm extends Component {
                     <input
                       id="website"
                       type="text"
-                      name='website'
+                      name="website"
                       onChange={ this.onChange }
                       value={ website }
                     />
@@ -251,7 +266,7 @@ class EditBusinessForm extends Component {
                     </div>
                   </div>
                   <div className="input-field center-align">
-                    <button className="btn waves-effect waves-light btn_large" type="submit" name="action">UPDATE
+                    <button id="updateBusiness" className="btn waves-effect waves-light btn_large" type="submit" name="action">UPDATE
                       <i className="material-icons left">send</i>
                     </button>
                   </div><br />
@@ -271,7 +286,7 @@ EditBusinessForm.contextTypes = {
 
 EditBusinessForm.propTypes = {
   updateBusinessRequest: PropTypes.func.isRequired,
-  business: PropTypes.object.isRequired,
+  business: PropTypes.object,
 };
 
 /**

@@ -38,24 +38,24 @@ const ReviewList = ({
           rating={ !rating ? 0 : rating }
           starRatedColor="#f7c454"
           numberOfStars={ 5 }
-          name='rating'
-          starDimension='20px'
-          starSpacing='0'
+          name="rating"
+          starDimension="20px"
+          starSpacing="0"
           />
         </div>
       </div>
     </div>
-    
+
     <hr />
   </div>
 );
 
 ReviewList.propTypes = {
-  context: PropTypes.string.isRequired, 
-  createdAt: PropTypes.string.isRequired, 
-  user: PropTypes.object.isRequired, 
+  context: PropTypes.string.isRequired,
+  createdAt: PropTypes.string.isRequired,
+  user: PropTypes.object.isRequired,
   image: PropTypes.string.isRequired,
   rating: PropTypes.number,
-}
+};
 
 export default ReviewList;

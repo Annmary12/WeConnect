@@ -13,7 +13,7 @@ import checkImage from '../../utils/imageChecker';
  * @class UpdateProfile
  * @extends Component
  */
-class UpdateProfile extends Component {
+export class UpdateProfile extends Component {
   /**
      * @constructor
      * @param {object} props
@@ -178,7 +178,6 @@ UpdateProfile.contextTypes = {
 UpdateProfile.propTypes = {
   getUserRequest: PropTypes.func.isRequired,
   updateUserRequest: PropTypes.func.isRequired,
-  searchBusinessesRequest: PropTypes.func.isRequired,
   userId: PropTypes.number.isRequired,
   currentUser: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,

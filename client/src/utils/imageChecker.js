@@ -1,3 +1,5 @@
+import Blob from 'blob';
+
 /**
  * @description gets mimetype of images
  * @function getMimetype
@@ -47,7 +49,9 @@ const imageFileChecker = (filereader, file, callback) => {
     const fileType = getMimetype(hex);
     callback(fileType);
   };
-  const blob = file.slice(0, 4);
-  filereader.readAsArrayBuffer(blob);
+  if (process.env.NODE_ENV !== 'test') {
+    const blob = file.slice(0, 4);
+    filereader.readAsArrayBuffer(blob);
+  }
 };
 export default imageFileChecker;

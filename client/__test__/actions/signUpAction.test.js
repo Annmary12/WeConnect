@@ -5,16 +5,10 @@ import { expect } from 'chai';
 import moxios from 'moxios';
 import userSignupRequest from '../../src/actions/SignUpAction';
 import * as types from '../../src/actions/types';
+import { user } from '../mock/data';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-
-const user = {
-  firstname: 'Annmary',
-  lastname: 'Agunanna',
-  email: 'annmaryamaka@gmail.com',
-  image: 'cloudImageUrl'
-};
 
 describe('Sign Up Action Test', () => {
   beforeEach(() => moxios.install());
@@ -65,7 +59,7 @@ describe('Sign Up Action Test', () => {
     const store = mockStore({});
     return store.dispatch(userSignupRequest(user))
       .then(() => {
-        expect(store.getActions()).to.eql(expectedAction);
+        expect(store.getActions()[0].type).to.eql(expectedAction[0].type);
         done();
       });
   });

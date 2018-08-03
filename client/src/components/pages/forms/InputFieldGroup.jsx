@@ -24,7 +24,7 @@ const InputFieldGroup = ({
       />
     <label htmlFor="icon_prefix" className="active">{label}</label>
   </div>
-  );
+);
 
 InputFieldGroup.propTypes = {
   type: PropTypes.string.isRequired,

@@ -11,7 +11,7 @@ import { searchBusinessesRequest } from '../../actions/business';
  *
  * @extends Component
 */
-class Search extends Component {
+export class Search extends Component {
   /**
    * @description creates an instance of Search
    *
@@ -94,7 +94,7 @@ class Search extends Component {
                   <div className="col s5 m4">
                     <div className="input-field">
                       <select  onChange={ this.onChange } name='searchType'>
-                        <option value="">Choose</option>
+                        <option value="">Filter By</option>
                         <option value='name'>Name</option>
                         <option value='location'>Location</option>
                         <option value='category'>Category</option>
@@ -115,11 +115,11 @@ class Search extends Component {
     );
   }
 }
-const mapStateToProps = state => ({
-  business: state.BusinessReducer,
-});
+// const mapStateToProps = state => ({
+//   business: state.BusinessReducer,
+// });
 
 Search.propTypes = {
   searchBusinessesRequest: PropTypes.func.isRequired,
 }
-export default connect(mapStateToProps, { searchBusinessesRequest })(Search);
+export default connect(null, { searchBusinessesRequest })(Search);

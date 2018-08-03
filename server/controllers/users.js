@@ -52,7 +52,9 @@ class User {
             id: user.id
           };
           // assign token to the user
-          const token = jwt.sign({ payload }, secret);
+          const token = jwt.sign({ payload }, secret, {
+            expiresIn: '24h'
+          });
 
           return res.status(201).json({
             name: newUser.firstname,
@@ -94,7 +96,7 @@ class User {
           };
           // asign token to the user
           const token = jwt.sign({ payload }, secret, {
-            expiresIn: '4h'
+            expiresIn: '24h'
           });
           // success
           return res.status(200).json({

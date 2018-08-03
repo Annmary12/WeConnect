@@ -16,7 +16,7 @@ import { getUserRequest, getUserBusinessesRequest } from '../../actions/getUser'
  *
  * @extends Component
  */
-class Profile extends Component {
+export class Profile extends Component {
   /**
    * @constructor
    * @param {object} props
@@ -141,7 +141,7 @@ class Profile extends Component {
           <div className="container profile-section">
             <div className="row section1">
               <div className="row right-align">
-                <Link to="/createBusiness" className="btn waves-effect waves-light btn_large " type="submit" name="action">Create New Business
+                <Link to="/createBusiness" id="createBusiness" className="btn waves-effect waves-light btn_large " type="submit" name="action">Create New Business
                   <i className="material-icons left">add</i>
                 </Link>
               </div>

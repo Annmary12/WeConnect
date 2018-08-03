@@ -78,6 +78,7 @@ const SignUpForm = ({
                   type="submit"
                   name="action"
                   disabled={ isLoading }
+                  id="signUp"
                 >
                   SIGNUP<i className="material-icons left">send</i>
               </button>

@@ -11,7 +11,12 @@ import PropTypes from 'prop-types';
    * @returns { jsx } jsx - renders business component
    */
 const Card = ({
-  name, description, id, image, totalLikes, averageRating
+  name,
+  description,
+  id,
+  image,
+  totalLikes,
+  averageRating
 }) => (
   <div className="card" style={ { overflow: 'visible' } }>
     <div className="card-image waves-effect waves-block waves-light">

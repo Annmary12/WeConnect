@@ -14,7 +14,7 @@ import userSignupRequest from '../../actions/SignUpAction';
  *
  * @returns { jsx } jsx - renders signup component
  */
-class SignUp extends Component {
+export class SignUp extends Component {
   /**
    * @description creates an instance of SignUpForm
    *
@@ -43,8 +43,9 @@ class SignUp extends Component {
    */
   componentWillReceiveProps(nextProps) {
     if (nextProps.signUpData.hasError) {
-      Materialize.toast(nextProps.signUpData.error.message, 4000, 'red accent-3 rounded');
+      Materialize.toast(nextProps.signUpData.error, 4000, 'red accent-3 rounded');
     } else {
+      Materialize.toast('Successfully Signed In', 4000, 'teal accent-3 rounded');
       this.context.router.history.push('/profile');
     }
   }

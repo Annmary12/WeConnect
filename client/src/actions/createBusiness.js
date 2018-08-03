@@ -42,9 +42,9 @@ const createBusiness = (business, cloudImageUrl) => (
  */
 const createBusinessRequest = business => (
   (dispatch) => {
+    
     dispatch(isRequesting(IS_REQUESTING, true));
     let cloudImageUrl = process.env.DEFAULT_IMAGE;
-
     if (!business.image.name) {
       return dispatch(createBusiness(business, cloudImageUrl));
     }
@@ -62,7 +62,7 @@ const createBusinessRequest = business => (
         dispatch(isRequesting(IS_REQUESTING, false));
       })
       .catch(() => {
-        dispatch(actionResponseFailure(CREATE_BUSINESS_FAILED, ' Failed to upload image. try again!!! '));
+        dispatch(actionResponseFailure(CREATE_BUSINESS_FAILED, 'Failed to upload image. try again!!!'));
         dispatch(isRequesting(IS_REQUESTING, false));
       });
   });

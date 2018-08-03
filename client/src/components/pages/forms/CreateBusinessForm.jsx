@@ -17,12 +17,12 @@ const CreateBusnessForm = ({
   website, imageSrc
 }) => (
   <div>
-      <div className="container">
-        <div className="row register-section">
-          <div className="col s10 offset-s1">
-            <div className="card">
-              <form onSubmit={ onSubmit }>
-                <div className="card-content">
+    <div className="container">
+      <div className="row register-section">
+        <div className="col s10 offset-s1">
+          <div className="card">
+            <form onSubmit={ onSubmit }>
+              <div className="card-content">
                   <div className="input-field">
                     <i className="material-icons prefix">face</i>
                     <input
@@ -63,7 +63,7 @@ const CreateBusnessForm = ({
                     <i className="material-icons prefix">local_phone</i>
                     <input
                       id="phoneNumber"
-                      type="number"
+                      type="text"
                       name="phoneNumber"
                       onChange={ onChange }
                       value={ phoneNumber }
@@ -72,40 +72,27 @@ const CreateBusnessForm = ({
                     <label htmlFor="last_name">Enter Phone Number</label>
                   </div>
 
-                  <Row>
-                    <Input
-                      s={ 12 }
-                      type="select"
-                      label="Select Location"
-                      icon="location_on"
-                      defaultValue={ location }
-                      name="location"
-                      onChange={ onChange }
-                    >
+                 
+                  <div className="input-field">
+                    <i className="material-icons prefix">location_on</i>
+                    <select onChange={ onChange } name="location">
                       <option value="">Select Location</option>
                       <option value="Abia">Abia</option>
                       <option value="Abuja">Abuja</option>
                       <option value="Lagos">Lagos</option>
-                    </Input>
-                  </Row>
+                    </select>
+                  </div>
 
-                  <Row>
-                    <Input
-                      s={ 12 }
-                      type="select"
-                      label="Select Category"
-                      icon="label"
-                      defaultValue={ category }
-                      name="category"
-                      onChange={ onChange }
-                    >
+                  <div className="input-field">
+                    <i className="material-icons prefix">label</i>
+                    <select onChange={ onChange } name="category">
                       <option value="">Select Category</option>
                       <option value="IT">IT</option>
                       <option value="Marketing">Marketing</option>
                       <option value="Sports">Sports</option>
-                    </Input>
-                  </Row>
-
+                    </select>
+                  </div>
+                 
                   <div className="input-field">
                     <i className="material-icons prefix">web</i>
                     <input
@@ -129,7 +116,7 @@ const CreateBusnessForm = ({
 
 
                   <div className="input-field center-align">
-                    <button className="btn waves-effect waves-light btn_large" type="submit" name="action">
+                    <button id="createBusiness" className="btn waves-effect waves-light btn_large" type="submit" name="action">
                       {isLoading
                         ?
                         'SAVING...'
@@ -142,11 +129,11 @@ const CreateBusnessForm = ({
                 </div>
               </form>
             </div>
-          </div>
         </div>
-
       </div>
+
     </div>
+  </div>
 );
 
 CreateBusnessForm.propTypes = {
@@ -157,7 +144,7 @@ CreateBusnessForm.propTypes = {
   name: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   address: PropTypes.string.isRequired,
-  phoneNumber: PropTypes.number.isRequired,
+  phoneNumber: PropTypes.string.isRequired,
   location: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   website: PropTypes.string.isRequired,

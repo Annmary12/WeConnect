@@ -21,7 +21,7 @@ const userSignupRequest = userData => dispatch => axios.post('/api/v1/auth/signu
     dispatch(setCurrentUser(jwt.decode(token)));
   })
   .catch((error) => {
-    dispatch(actionResponseFailure(SIGNUP_FAILED, error.response.data));
+    dispatch(actionResponseFailure(SIGNUP_FAILED, error.response.data.message));
   });
 
 export default userSignupRequest;

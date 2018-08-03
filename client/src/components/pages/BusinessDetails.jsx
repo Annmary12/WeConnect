@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
 import PropTypes from 'prop-types';
@@ -25,7 +24,7 @@ const BusinessDetails = ({
       <Link to={ `/editBusiness/${id}` } className="btn waves-effect waves-light btn_large">Edit
         <i className="material-icons left">send</i>
       </Link> &nbsp;
-      <button onClick={ onDelete } className="btn waves-effect waves-light btn_large " name="action">Delete
+      <button id="deleteBusiness" onClick={ onDelete } className="btn waves-effect waves-light btn_large " name="action">Delete
         <i className="material-icons left">send</i>
       </button>
     </div>
@@ -155,10 +154,6 @@ const BusinessDetails = ({
   );
 };
 
-const mapStateToProps = state => ({
-  authData: state.auth,
-  totalReview: state.allReviews.totalReview
-});
 BusinessDetails.propTypes = ({
   location: PropTypes.string,
   category: PropTypes.string,
@@ -175,4 +170,4 @@ BusinessDetails.propTypes = ({
   authData: PropTypes.object.isRequired,
   averageRating: PropTypes.number
 });
-export default connect(mapStateToProps)(BusinessDetails);
+export default BusinessDetails;
