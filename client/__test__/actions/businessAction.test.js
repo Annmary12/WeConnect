@@ -2,25 +2,14 @@ import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import { expect } from 'chai';
 import moxios from 'moxios';
-import { fetchBusinessesRequest, fetchOneBusinessRequest, updateBusinessRequest, deleteBusinessRequest, likeRequest } from '../../src/actions/business';
+import { fetchBusinessesRequest, searchBusinessesRequest, fetchOneBusinessRequest, updateBusinessRequest, deleteBusinessRequest, likeRequest } from '../../src/actions/business';
 import * as types from '../../src/actions/types';
+import { business, user, updatebusiness } from '../mock/data';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 
 const page = 1;
-const payload = {
-  name: 'name',
-  description: 'description',
-  phoneNumber: 'phoneNumber',
-  address: 'address',
-  image: 'cloudImageUrl',
-  imageFile: 'cloudImageUrl',
-  location: 'location',
-  category: 'category',
-  website: 'website'
-};
-
 
 describe('Business Action Test', () => {
   beforeEach(() => moxios.install());
@@ -36,7 +25,7 @@ describe('Business Action Test', () => {
           limit: 6,
           totalPages: 2,
           currentPage: 1,
-          allBusinesses: [{ ...payload }]
+          allBusinesses: [{ ...business }]
         }
       });
 
@@ -48,7 +37,7 @@ describe('Business Action Test', () => {
           limit: 6,
           totalPages: 2,
           currentPage: 1,
-          allBusinesses: [{ ...payload }]
+          allBusinesses: [{ ...business }]
         }
       }];
 
@@ -87,12 +76,77 @@ describe('Business Action Test', () => {
     });
   });
 
+  describe('search for business', () => {
+    const searchType = 'name';
+    const value = business.name;
+    it('creates FETCH_BUSINESS_SUCCESSFUL after successfully to fetched a searched businesses', (done) => {
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 200,
+          response: {
+            message: 'List of all businesses',
+            numberOfBusinesses: 9,
+            limit: 6,
+            totalPages: 2,
+            currentPage: 1,
+            allBusinesses: [{ ...business }]
+          }
+        });
+      });
+
+      const expectedAction = [{
+        type: types.FETCH_BUSINESS_SUCCESSFUL,
+        payload: {
+          message: 'List of all businesses',
+          numberOfBusinesses: 9,
+          limit: 6,
+          totalPages: 2,
+          currentPage: 1,
+          allBusinesses: [{ ...business }]
+        }
+      }];
+
+      const store = mockStore({});
+
+      return store.dispatch(searchBusinessesRequest(searchType, value))
+        .then(() => {
+          expect(store.getActions()).to.eql(expectedAction);
+          done();
+        });
+    });
+    it('creates FETCH_BUSINESS_FAILED after failed to fetched a searched business', (done) => {
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 400,
+          response: {
+            message: 'Business Not Found'
+          }
+        });
+      });
+      const expectedAction = [
+        {
+          type: types.FETCH_BUSINESS_FAILED,
+          error: 'Business Not Found'
+        },
+      ];
+      const store = mockStore({});
+
+      return store.dispatch(searchBusinessesRequest(searchType, value))
+        .then(() => {
+          expect(store.getActions()).to.eql(expectedAction);
+          done();
+        });
+    });
+  });
+
   describe('fetch one business', () => {
     it('creates FETCH_ONE_BUSINESS_SUCCESSFUL after successfully to fetched a businesses', (done) => {
       moxios.stubRequest('/api/v1/businesses/2', {
         status: 200,
         response: {
-          businesses: payload,
+          businesses: business,
           error: false
         }
       });
@@ -100,7 +154,7 @@ describe('Business Action Test', () => {
       const expectedAction = [
         {
           type: types.FETCH_ONE_BUSINESS_SUCCESSFUL,
-          payload
+          payload: business
         }
       ];
       const store = mockStore({});
@@ -144,7 +198,7 @@ describe('Business Action Test', () => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
           response: {
-            business: payload
+            business
           }
         });
       });
@@ -156,12 +210,12 @@ describe('Business Action Test', () => {
         },
         {
           type: types.UPDATE_BUSINESS_SUCCESSFUL,
-          payload
+          payload: business
         },
       ];
 
       const store = mockStore({});
-      return store.dispatch(updateBusinessRequest(payload))
+      return store.dispatch(updateBusinessRequest(business))
         .then(() => {
           expect(store.getActions()).to.eql(expectedAction);
           done();
@@ -191,7 +245,38 @@ describe('Business Action Test', () => {
       ];
 
       const store = mockStore({});
-      return store.dispatch(updateBusinessRequest(payload))
+      return store.dispatch(updateBusinessRequest(business))
+        .then(() => {
+          expect(store.getActions()).to.eql(expectedAction);
+          done();
+        });
+    });
+    it('creates SAVE_IMAGE_FAILED after successfuly failed to upload image', (done) => {
+      moxios.stubRequest('https://api.cloudinary.com/v1_1/annmary/image/upload', {
+        status: 400,
+        response: {
+          error: 'Failed to upload image. Try again'
+        }
+      });
+
+
+      const expectedAction = [
+        {
+          type: types.IS_REQUESTING,
+          bool: true
+        },
+        {
+          type: types.SAVE_IMAGE_FAILED,
+          error: 'Failed to upload image. Try again'
+        },
+        {
+          type: types.IS_REQUESTING,
+          bool: false
+        },
+      ];
+      const store = mockStore({});
+
+      return store.dispatch(updateBusinessRequest(updatebusiness))
         .then(() => {
           expect(store.getActions()).to.eql(expectedAction);
           done();
@@ -216,6 +301,29 @@ describe('Business Action Test', () => {
           payload: {
             message: 'Successfully deleted a business'
           },
+        },
+      ];
+      const store = mockStore({});
+      return store.dispatch(deleteBusinessRequest(1))
+        .then(() => {
+          expect(store.getActions()).to.eql(expectedAction);
+          done();
+        });
+    });
+    it('creates DELETE_BUSINESS_SUCCESSFUL after successfully deleted a business', (done) => {
+      moxios.wait(() => {
+        const request = moxios.requests.mostRecent();
+        request.respondWith({
+          status: 400,
+          response: {
+            message: 'Failed to delete a business'
+          }
+        });
+      });
+      const expectedAction = [
+        {
+          type: types.DELETE_BUSINESS_FAILED,
+          error: 'Failed to delete a business'
         },
       ];
       const store = mockStore({});

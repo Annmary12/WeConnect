@@ -4,6 +4,7 @@ import {
   FETCH_ONE_BUSINESS_SUCCESSFUL,
   UPDATE_BUSINESS_SUCCESSFUL,
   DELETE_BUSINESS_SUCCESSFUL,
+  DELETE_BUSINESS_FAILED,
   SAVE_IMAGE_FAILED,
   FETCH_BUSINESS_FAILED,
   UPDATE_BUSINESS_FAILED,
@@ -129,7 +130,7 @@ export const deleteBusinessRequest = id => dispatch => axios.delete(`/api/v1/bus
     dispatch(actionResponseSuccess(DELETE_BUSINESS_SUCCESSFUL, response.data));
   })
   .catch((error) => {
-    throw (error);
+    dispatch(actionResponseFailure(DELETE_BUSINESS_FAILED, error.response.data.message));
   });
 
   /**

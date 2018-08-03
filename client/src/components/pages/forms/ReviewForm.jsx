@@ -12,7 +12,7 @@ import { reviewRequest, getReviewRequest } from '../../../actions/review';
  *
  * @extends Component
 */
-class ReviewForm extends Component {
+export class ReviewForm extends Component {
   /**
    * @description creates an instance of LoginForm
    *
@@ -129,7 +129,7 @@ class ReviewForm extends Component {
                       />
                     </div>
                     <div className="input-field right-align">
-                      <button className="btn waves-effect waves-light btn_large " type="submit" onClick={ this.onSubmitReview } name="action">Post
+                      <button id="submitReview" className="btn waves-effect waves-light btn_large " type="submit" onClick={ this.onSubmitReview } name="action">Post
                         <i className="material-icons left">send</i>
                       </button>
                     </div><br />

@@ -9,7 +9,7 @@ import { logout } from '../../actions/login';
  * @class Navigation
  * @extends Component
 */
-class Navigation extends Component {
+export class Navigation extends Component {
   /**
    * @description creates an instance of Navigation
    * @constructor
@@ -21,7 +21,7 @@ class Navigation extends Component {
 
   /**
    * @description initials materialize side nav bar
-   * @returns {void} 
+   * @returns {void}
    */
   componentDidMount() {
     $('.sidenav').sideNav({
@@ -31,7 +31,7 @@ class Navigation extends Component {
       draggable: true,
     });
   }
-/**
+  /**
    * @description logs out a user
    * @method logout
    * @param { object } event - event object containing user details
@@ -48,7 +48,6 @@ class Navigation extends Component {
    * @returns { jsx } jsx - renders navigation links
    */
   render() {
-
     const { isAuthenticated } = this.props.auth;
 
     /**
@@ -57,10 +56,10 @@ class Navigation extends Component {
    */
     const authUserLink = (
       <ul id="nav-mobile" className="right hide-on-med-and-down">
-        <li><Link to='/business'>Business</Link></li>
-        <li><Link to='/profile'>Dashboard</Link></li>
-        <li><Link to='/updateProfile'>Update Profile</Link></li>
-        <li><Link to='/logout' onClick={ this.logout }>Logout</Link></li>
+        <li><Link to="/business">Business</Link></li>
+        <li><Link to="/profile">Dashboard</Link></li>
+        <li><Link to="/updateProfile">Update Profile</Link></li>
+        <li><button id="logout"><Link to="/logout" onClick={ this.logout }>Logout</Link></button></li>
       </ul>);
 
     /**
@@ -69,10 +68,10 @@ class Navigation extends Component {
    */
     const guestLink = (
       <ul id="nav-mobile" className="right hide-on-med-and-down">
-        <li><Link to='/' className="active">Home</Link></li>
-        <li><Link to='/business'>Business</Link></li>
+        <li><Link to="/" className="active">Home</Link></li>
+        <li><Link to="/business">Business</Link></li>
         <li><Link to="/login">Login</Link></li>
-        <li><Link to='/signUp'>SignUp</Link></li>
+        <li><Link to="/signUp">SignUp</Link></li>
 
       </ul>
     );
@@ -81,7 +80,7 @@ class Navigation extends Component {
       <div className="">
         <nav>
           <div className="nav-wrapper">
-            <Link to='/' className="brand-logo">weCo<span className="logo">nn</span>ect</Link>
+            <Link to="/" className="brand-logo">weCo<span className="logo">nn</span>ect</Link>
             {isAuthenticated ? authUserLink : guestLink}
             <a to="#" data-activates="slide-out" className="sidenav">
               <i className="material-icons">menu</i>
@@ -93,11 +92,9 @@ class Navigation extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    auth: state.auth
-  }
-}
+const mapStateToProps = state => ({
+  auth: state.auth
+});
 
 Navigation.propTypes = {
   auth: PropTypes.object.isRequired,

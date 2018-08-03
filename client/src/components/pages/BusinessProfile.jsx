@@ -14,7 +14,7 @@ import { getReviewRequest } from '../../actions/review';
  *
  * @extends component
  */
-class BusinessProfile extends Component {
+export class BusinessProfile extends Component {
   /**
    * @description creates an instance of BusinessProfile
    * @constructor
@@ -64,6 +64,7 @@ class BusinessProfile extends Component {
   onDelete() {
     this.props.deleteBusinessRequest(this.props.match.params.id).then(() => {
       if (this.props.isDeleted) {
+        this.props.fetchOneBusinessRequest(this.props.match.params.id);
         this.context.router.history.push('/business');
         Materialize.toast('Successfully deleted', 2000, 'teal rounded');
       }
@@ -91,7 +92,7 @@ class BusinessProfile extends Component {
   render() {
     const business = this.state.oneBusiness;
     const { name, description, category, location, website, id, userId, numberOfLikes, image, averageRating } = business;
-    const { reviews } = this.props;
+    const { reviews, authData, totalReview } = this.props;
     return (
       <div className="nav-business " style={ { backgroundImage: `url("${image}")` } }>
         <div className="pad">
@@ -117,6 +118,8 @@ class BusinessProfile extends Component {
               userId={ userId }
               numberOfLikes={ numberOfLikes }
               averageRating={ averageRating }
+              totalReview={ totalReview }
+              authData={ authData }
             />
           }
         </div>
@@ -130,6 +133,8 @@ const mapStateToProps = state => ({
   isDeleted: state.OneBusiness.isDeleted,
   reviews: state.allReviews.reviews,
   authId: state.auth.user.id,
+  authData: state.auth,
+  totalReview: state.allReviews.totalReview
 });
 
 BusinessProfile.contextTypes = {
@@ -144,7 +149,8 @@ BusinessProfile.propTypes = {
   isDeleted: PropTypes.bool,
   authId: PropTypes.number,
   likeRequest: PropTypes.func.isRequired,
- 
+  totalReview: PropTypes.number,
+  authData: PropTypes.object.isRequired,
 };
 export default connect(mapStateToProps, {
   fetchOneBusinessRequest,

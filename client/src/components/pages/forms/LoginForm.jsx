@@ -45,7 +45,7 @@ const LoginForm = ({
                 />
               <br />
               <div className="input-field">
-                <button className="btn waves-effect waves-light btn_large" type="submit" name="action">login
+                <button id="login" className="btn waves-effect waves-light btn_large" type="submit" name="action">login
                   <i className="material-icons left">send</i>
                 </button>
               </div><br />

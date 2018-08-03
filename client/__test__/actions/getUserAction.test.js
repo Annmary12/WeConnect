@@ -4,28 +4,13 @@ import { expect } from 'chai';
 import moxios from 'moxios';
 import * as types from '../../src/actions/types';
 import { getUserRequest, getUserBusinessesRequest, updateUser, updateUserRequest, } from '../../src/actions/getUser';
+import { business, user, userUpdate } from '../mock/data';
+
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
 const id = 1;
 const page = 1;
-const user = {
-  firstname: 'Annmary',
-  lastname: 'Agunanna',
-  email: 'annmaryamaka@gmail.com',
-  image: 'cloudImageUrl'
-};
-const business = {
-  name: 'name',
-  description: 'description',
-  phoneNumber: 'phoneNumber',
-  address: 'address',
-  image: 'cloudImageUrl',
-  imageFile: 'cloudImageUrl',
-  location: 'location',
-  category: 'category',
-  website: 'website'
-};
 
 describe('User Actions Test', () => {
   beforeEach(() => moxios.install());
@@ -211,6 +196,37 @@ describe('User Actions Test', () => {
 
       const store = mockStore({});
       return store.dispatch(updateUserRequest(user))
+        .then(() => {
+          expect(store.getActions()).to.eql(expectedAction);
+          done();
+        });
+    });
+    it('creates USER_UPDATE_FAILURE after successfuly failed to upload image', (done) => {
+      moxios.stubRequest('https://api.cloudinary.com/v1_1/annmary/image/upload', {
+        status: 400,
+        response: {
+          error: 'Failed to upload image. Try again'
+        }
+      });
+
+
+      const expectedAction = [
+        {
+          type: types.IS_REQUESTING,
+          bool: true
+        },
+        {
+          type: types.USER_UPDATE_FAILURE,
+          error: 'Failed to upload image. Try again'
+        },
+        {
+          type: types.IS_REQUESTING,
+          bool: false
+        },
+      ];
+      const store = mockStore({});
+
+      return store.dispatch(updateUserRequest(userUpdate))
         .then(() => {
           expect(store.getActions()).to.eql(expectedAction);
           done();

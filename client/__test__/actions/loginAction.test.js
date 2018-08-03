@@ -5,16 +5,10 @@ import { expect } from 'chai';
 import moxios from 'moxios';
 import { userLoginRequest, logout } from '../../src/actions/login';
 import * as types from '../../src/actions/types';
+import { user } from '../mock/data';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
-
-const user = {
-  firstname: 'Annmary',
-  lastname: 'Agunanna',
-  email: 'annmaryamaka@gmail.com',
-  image: 'cloudImageUrl'
-};
 
 describe('Login Action Test', () => {
   beforeEach(() => moxios.install());

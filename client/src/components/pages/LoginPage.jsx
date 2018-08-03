@@ -16,7 +16,7 @@ import { userLoginRequest } from '../../actions/login';
  *
  * @extends Component
 */
-class Login extends Component {
+export class Login extends Component {
   /**
    * @description creates an instance of LoginForm
    *

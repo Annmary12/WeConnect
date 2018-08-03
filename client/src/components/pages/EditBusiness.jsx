@@ -13,7 +13,7 @@ import { fetchOneBusinessRequest } from '../../actions/business';
  *
  * @extends component
  */
-class EditBusiness extends Component {
+export class EditBusiness extends Component {
 /**
    * @param {object} api call
    * @returns {object} performs an action

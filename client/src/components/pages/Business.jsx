@@ -15,7 +15,7 @@ import { fetchBusinessesRequest } from '../../actions/business';
  *
  * @extends component
  */
-class Business extends Component {
+export class Business extends Component {
   /**
      * @constructor
      * @param {object} props
@@ -142,9 +142,9 @@ const mapStateToProps = state => ({
 Business.propTypes = {
   fetchBusinessesRequest: PropTypes.func.isRequired,
   businesses: PropTypes.array,
-  limit: PropTypes.number, 
-  currentPage: PropTypes.number, 
-  totalBusiness: PropTypes.number, 
+  limit: PropTypes.number,
+  currentPage: PropTypes.number,
+  totalBusiness: PropTypes.number,
   totalPages: PropTypes.number,
 };
 export default connect(mapStateToProps, { fetchBusinessesRequest })(Business);

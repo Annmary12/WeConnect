@@ -119,6 +119,8 @@
     "FileReader": true,
     "window": true,
     "document": true,
-    "$": true
+    "$": true,
+    "jest": true,
+    "expect": true,
   }
 }

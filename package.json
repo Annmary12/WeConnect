@@ -15,14 +15,21 @@
       "report-coverage": "cat ./coverage/lcov.info | coveralls",
       "check-coverage": "nyc check-coverage --lines 70 --per-file",
       "coveralls": "nyc --reporter=lcov --reporter=text-lcov npm test",
-      "test-client": "jest"
+      "test-client": "NODE_ENV=test && jest",
+      "start-e2e-test": "NODE_ENV=test nodemon --watch server --exec babel-node app.js",
+      "e2e-test": "NODE_ENV=test npm run test-migrate && ./node_modules/.bin/nightwatch"
    },
    "jest": {
-    "verbose": true,
-     "collectCoverage": true,
-     "setupFiles": [
-       "./client/__test__/localStorageMock.js"
-     ]
+      "verbose": true,
+      "collectCoverage": true,
+      "setupFiles": [
+         "./client/__test__/mock/globalVariable.js",
+         "./client/__test__/mock/localStorageMock.js"
+      ],
+      "moduleNameMapper": {
+         "\\.(jpg|jpeg|png)$": "<rootDir>/client/__test__/mock/imageMock.js",
+         "\\.(css|less|sass|scss)$": "<rootDir>/client/__test__/mock/styleMock.js"
+      }
    },
    "devDependencies": {
       "babel": "^6.23.0",
@@ -30,6 +37,8 @@
       "codeclimate-test-reporter": "^0.5.0",
       "coveralls": "^3.0.0",
       "css-loader": "^0.28.11",
+      "enzyme": "^3.3.0",
+      "enzyme-adapter-react-16": "^1.1.1",
       "eslint": "^4.18.2",
       "eslint-config-airbnb": "^16.1.0",
       "eslint-config-airbnb-base": "^12.1.0",
@@ -43,6 +52,7 @@
       "mocha-lcov-reporter": "^1.3.0",
       "node-sass": "^4.8.3",
       "nodemon": "^1.17.1",
+      "react-test-renderer": "^16.4.1",
       "sass-loader": "^7.0.1",
       "style-loader": "^0.20.3",
       "url-loader": "^1.0.1",
@@ -60,6 +70,7 @@
       "babel-preset-stage-2": "^6.24.1",
       "babel-register": "^6.26.0",
       "bcrypt": "^2.0.1",
+      "blob": "0.0.4",
       "body-parser": "^1.18.2",
       "chai": "^4.1.2",
       "chai-http": "^3.0.0",
@@ -78,6 +89,7 @@
       "mocha": "^5.0.2",
       "moment": "^2.22.1",
       "moxios": "^0.4.0",
+      "nightwatch": "^0.9.21",
       "nyc": "^11.4.1",
       "pg": "^7.4.1",
       "pg-hstore": "^2.3.2",

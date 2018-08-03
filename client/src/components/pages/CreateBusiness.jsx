@@ -13,7 +13,7 @@ import checkImage from '../../utils/imageChecker';
  * @class CreateBusiness
  * @extends Component
  */
-class CreateBusiness extends Component {
+export class CreateBusiness extends Component {
   /**
    * @description create instance of create business form
    *
@@ -43,6 +43,17 @@ class CreateBusiness extends Component {
   }
 
   /**
+   * @description sets the materialize select
+   * @method componentWillMount
+   * @returns {void}
+   *
+   */
+  componentDidMount() {
+    $('select').material_select();
+    $('select').change(event => this.onChange(event));
+  }
+
+  /**
  * @description Handles change of values in state
  * @method onChange
  *
@@ -51,9 +62,10 @@ class CreateBusiness extends Component {
  * @returns {object} SyntheticEvent
  */
   onChange(event) {
+    event.preventDefault();
     this.setState({ [event.target.name]: event.target.value });
   }
-  
+
   /**
 * @description Submits business form
 * @method onSubmit
@@ -70,7 +82,7 @@ class CreateBusiness extends Component {
           Materialize.toast(error, 4000, 'teal accent-3 rounded');
         } else {
           this.context.router.history.push('/profile');
-          Materialize.toast('Successfully Created the business profile', 4000, 'teal accent-3 rounded');
+          Materialize.toast('Successfully Created a business', 4000, 'teal accent-3 rounded');
         }
       });
   }
@@ -83,27 +95,27 @@ class CreateBusiness extends Component {
   *
   * @returns {object} SyntheticEvent
   */
- handleImageChange(event) {
-  if (event.target.files && event.target.files[0]) {
-    const file = event.target.files[0];
-    const filereader = new FileReader();
-    checkImage(filereader, file, (fileType) => {
-      if (fileType === 'image/png' || fileType === 'image/gif' ||
+  handleImageChange(event) {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      const filereader = new FileReader();
+      checkImage(filereader, file, (fileType) => {
+        if (fileType === 'image/png' || fileType === 'image/gif' ||
         fileType === 'image/jpeg') {
-        this.setState({ image: file });
-        filereader.onload = (e) => {
-          this.setState({ imageSrc: e.target.result });
-        };
-        filereader.readAsDataURL(file);
-      } else {
-        this.setState({ imageSrc: '/images/noimageyet.jpg', image: '' });
-        Materialize.toast('please provide a valid image file', 2000, 'teal rounded');
-      }
-    });
-  } else {
-    this.setState({ imageSrc: '/images/noimageyet.jpg', image: '' });
+          this.setState({ image: file });
+          filereader.onload = (e) => {
+            this.setState({ imageSrc: e.target.result });
+          };
+          filereader.readAsDataURL(file);
+        } else {
+          this.setState({ imageSrc: '/images/noimageyet.jpg', image: '' });
+          Materialize.toast('please provide a valid image file', 2000, 'teal rounded');
+        }
+      });
+    } else {
+      this.setState({ imageSrc: '/images/noimageyet.jpg', image: '' });
+    }
   }
-}
 
   /**
      * @description renders create business form

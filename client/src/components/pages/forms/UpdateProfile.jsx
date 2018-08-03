@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import InputFieldGroup from './InputFieldGroup';
 
 
-
 /**
  * @description displays a form to create a business
  * @method UpdateProfile
@@ -13,13 +12,11 @@ import InputFieldGroup from './InputFieldGroup';
  *
  * @returns { jsx } jsx - renders createBusinessForm component
  */
-const UpdateProfile = (props) => {
-  const {
-    firstname, lastname, email, currentImageSrc,
-    isLoading, onChange, onUpdate, handleImageChange
-  } = props;
-  
-  return (
+const UpdateProfile = ({
+  firstname, lastname, email, currentImageSrc,
+  isLoading, onChange, onUpdate, handleImageChange
+}) =>
+  (
     <div className="container login">
       <div className="row">
         <div className="col s11 offset-s1 card">
@@ -41,32 +38,33 @@ const UpdateProfile = (props) => {
           <div className="col s7" id="login-card">
             <form onSubmit={ onUpdate }>
               <InputFieldGroup
-                type='text'
+                type="text"
                 value={ firstname }
                 onChange={ onChange }
                 name="firstname"
-                label='First Name'
-                icon='face'
+                label="First Name"
+                icon="face"
               />
               <InputFieldGroup
-                type='text'
+                type="text"
                 value={ lastname }
                 onChange={ onChange }
                 name="lastname"
-                label='Last Name'
-                icon='face'
+                label="Last Name"
+                icon="face"
               />
               <InputFieldGroup
-                type='email'
+                type="email"
                 value={ email }
                 onChange={ onChange }
                 name="email"
-                label='Email'
-                icon='email'
+                label="Email"
+                icon="email"
               />
               <br />
               <div className="input-field">
                 <button
+                  id="updateProfile"
                   className="btn waves-effect waves-light btn_large"
                   type="submit"
                   name="action"
@@ -78,8 +76,8 @@ const UpdateProfile = (props) => {
                    <span><i className="material-icons left">send</i>Update</span>
                  }
                 </button>
-                
-               
+
+
               </div>
               <br />
 
@@ -90,8 +88,6 @@ const UpdateProfile = (props) => {
       </div>
     </div>
   );
-};
-
 UpdateProfile.propTypes = {
   firstname: PropTypes.string.isRequired,
   lastname: PropTypes.string.isRequired,
@@ -101,6 +97,6 @@ UpdateProfile.propTypes = {
   onChange: PropTypes.func.isRequired,
   onUpdate: PropTypes.func.isRequired,
   handleImageChange: PropTypes.func.isRequired
-}
+};
 
 export default UpdateProfile;
