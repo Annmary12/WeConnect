@@ -1,4 +1,4 @@
-import reviewReducer from '../../src/reducers/allReviews';
+import reviewReducer from '../../src/reducers/review';
 import { ALL_REVIEW } from '../../src/actions/types';
 
 describe('Review Reducer', () => {

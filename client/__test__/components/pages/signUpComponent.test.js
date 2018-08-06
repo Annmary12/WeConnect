@@ -18,7 +18,7 @@ const setup = () => {
     onChange: jest.fn(),
     onSubmit: jest.fn(),
     signUpData: {
-      isAuthenticated: false
+      isAuthenticated: false,
     }
   };
   context = {
@@ -50,22 +50,22 @@ let wrapper = setup();
 const action = wrapper.instance();
 
 describe('Component: SignUp', () => {
-  it('it should render signup page', () => {
+  it('should render signup page', () => {
     expect(wrapper.find('div').length).toBe(3);
   });
 
-  it('it should not render the signup page', () => {
+  it('should not render the signup page', () => {
     wrapper = setup2();
     expect(wrapper.find('Redirect').length).toBe(1);
   });
 
-  it('it should receive props', () => {
+  it('should receive props', () => {
     const componentWillRecieveProps = jest.spyOn(action, 'componentWillReceiveProps');
     action.componentWillReceiveProps(props);
     expect(componentWillRecieveProps).toBeCalled();
   });
 
-  it('it should set the value of signup when changed', () => {
+  it('should set the value of signup when changed', () => {
     const event = {
       target: {
         name: 'email',
@@ -76,7 +76,7 @@ describe('Component: SignUp', () => {
     expect(action.state.email).toBe('annmaryamaka@gmail.com');
   });
 
-  it('it should submit signup form', () => {
+  it('should submit signup form', () => {
     const signUp = jest.spyOn(action, 'onSubmit');
     action.onSubmit({ preventDefault: () => 1 });
     expect(signUp).toBeCalled();
@@ -84,10 +84,13 @@ describe('Component: SignUp', () => {
 });
 
 describe('Connected: SignUp', () => {
-  it('it should render signup component sucessfully', () => {
+  it('should render signup component sucessfully', () => {
     const store = mockStore({
       auth: {
-        isAuthenticated: false
+        isAuthenticated: false,
+        user: {
+          id: 1
+        }
       }
     });
     wrapper = shallow(<ConnectedSignUp store={ store } />);

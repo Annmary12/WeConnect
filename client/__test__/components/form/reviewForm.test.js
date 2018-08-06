@@ -36,9 +36,9 @@ const setup = () => {
 };
 
 let wrapper = setup();
-let action = wrapper.instance();
+const action = wrapper.instance();
 describe('Component: ReviewForm', () => {
-  it('it should render review business form', () => {
+  it('should render review business form', () => {
     expect(wrapper.find('div').length).toBe(8);
     expect(wrapper.find('h5').length).toBe(1);
     expect(wrapper.find('textarea').length).toBe(1);
@@ -47,7 +47,7 @@ describe('Component: ReviewForm', () => {
     expect(wrapper.find('button').length).toBe(1);
   });
 
-  it('it should set review value when it changes', () => {
+  it('should set review value when it changes', () => {
     const event = {
       target: {
         name: 'context',
@@ -59,13 +59,13 @@ describe('Component: ReviewForm', () => {
     expect(action.state.context).toBe('context');
   });
 
-  it('it shoukd submit a review form', () => {
+  it('shoukd submit a review form', () => {
     const submitReview = jest.spyOn(wrapper.instance(), 'onSubmitReview');
     action.onSubmitReview({ preventDefault: () => 1 });
     expect(submitReview).toBeCalled();
   });
 
-  it('it should set the value of the rating when it is changed', () => {
+  it('should set the value of the rating when it is changed', () => {
     const newRating = 3;
     action.changeRating(newRating);
     expect(action.state.rating).toEqual(3);
@@ -73,7 +73,7 @@ describe('Component: ReviewForm', () => {
 });
 
 describe('Connected ReviewForm', () => {
-  it('it should render the component successfully', () => {
+  it('should render the component successfully', () => {
     const store = mockStore({
       OneBusiness: {
         business: {

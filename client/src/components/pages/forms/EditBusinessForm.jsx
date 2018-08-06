@@ -128,7 +128,6 @@ export class EditBusinessForm extends Component {
           this.setState({ imageFile: file });
           filereader.onload = (e) => {
             this.setState({ currentImageSrc: e.target.result });
-            // console.log('@result', e.target.result);
           };
           filereader.readAsDataURL(file);
         } else {
@@ -170,6 +169,7 @@ export class EditBusinessForm extends Component {
                   <div className="input-field">
                     <i className="material-icons prefix">face</i>
                     <input
+                      active="true"
                       id="last_name"
                       type="text"
                       name="name"

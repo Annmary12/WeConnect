@@ -22,7 +22,7 @@ const setup = () => {
 };
 
 describe('Component: UpdateProfile', () => {
-  it('it should render update profile component successfully', () => {
+  it('should render update profile component successfully', () => {
     const wrapper = setup();
     expect(wrapper.find('div').length).toBe(7);
     expect(wrapper.find('img').length).toBe(1);

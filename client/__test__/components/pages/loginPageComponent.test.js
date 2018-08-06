@@ -47,18 +47,18 @@ const setup2 = () => {
 };
 
 let wrapper = setup();
-let action = wrapper.instance();
+const action = wrapper.instance();
 describe('Component: LoginPage', () => {
-  it('it should render the login page', () => {
+  it('should render the login page', () => {
     expect(wrapper.find('div').length).toBe(3);
   });
 
-  it('it should not render login page', () => {
+  it('should not render login page', () => {
     wrapper = setup2();
     expect(wrapper.find('Redirect').length).toBe(1);
   });
 
-  it('it should set login value when it changes', () => {
+  it('should set login value when it changes', () => {
     const event = {
       target: {
         name: 'email',
@@ -69,7 +69,7 @@ describe('Component: LoginPage', () => {
     expect(action.state.email).toBe('anmmaryamaka@gmail.com');
   });
 
-  it('it should submit login form', () => {
+  it('should submit login form', () => {
     const userLogin = jest.spyOn(action, 'onSubmit');
     action.onSubmit({ preventDefault: () => 1 });
     expect(userLogin).toBeCalled();
@@ -77,7 +77,7 @@ describe('Component: LoginPage', () => {
 });
 
 describe('Connected: Login', () => {
-  it('it should render login component successfully', () => {
+  it('should render login component successfully', () => {
     const store = mockStore({
       auth: {
         isAuthenticated: false

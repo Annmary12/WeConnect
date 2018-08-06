@@ -95,7 +95,7 @@ describe('Review Action test', () => {
         });
     });
 
-    it('creates REVIEW_FAILED', (done) => {
+    it('creates REVIEW_FAILED after failed to get review(s)', (done) => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({

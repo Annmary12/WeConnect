@@ -60,6 +60,7 @@ export class ReviewForm extends Component {
       const { isCreated, hasError, error } = this.props.review;
       if (isCreated && !hasError) {
         this.setState({ context: '' });
+        Materialize.toast('Successfully Reviewed a business', 4000, 'teal accent-3 rounded');
         this.props.getReviewRequest(this.props.businessId);
       } else if (!isCreated && hasError) {
         Materialize.toast(error, 4000, 'red accent-3 rounded');

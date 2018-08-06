@@ -29,14 +29,14 @@ const setup = () => {
 };
 
 let wrapper = setup();
-let action = wrapper.instance();
+const action = wrapper.instance();
 describe('Component: EditBusiness', () => {
-  it('it should render edit business form', () => {
+  it('should render edit business form', () => {
     expect(wrapper.find('div').length).toBe(5);
     expect(wrapper.find('h3').length).toBe(1);
   });
 
-  it('it should fetch a businness', () => {
+  it('should fetch a businness', () => {
     const fetchOneBusiness = jest.spyOn(wrapper.instance(), 'componentWillMount');
     action.componentWillMount();
     expect(fetchOneBusiness).toBeCalled();
@@ -44,7 +44,7 @@ describe('Component: EditBusiness', () => {
 });
 
 describe('Connected: EditBusiness', () => {
-  it('it should render edit business successfully', () => {
+  it('should render edit business successfully', () => {
     const store = mockStore({
       OneBusiness: {
         business

@@ -4,7 +4,7 @@ import { shallow, configure } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import configureMockStore from 'redux-mock-store';
 import ConnectedCreateBusiness, { CreateBusiness } from '../../../src/components/pages/CreateBusiness';
-import { business } from '../../mock/data';
+import { business, user } from '../../mock/data';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -24,6 +24,7 @@ const setup = () => {
     onSubmit: jest.fn(),
     handleImageChange: jest.fn(),
     createBusinessRequest: jest.fn(() => Promise.resolve()),
+    getUserBusinessesRequest: jest.fn(() => Promise.resolve()),
   };
   context = {
     router: {
@@ -36,12 +37,12 @@ const setup = () => {
 let wrapper = setup();
 const action = wrapper.instance();
 describe('Component: CreateBusiness', () => {
-  it('it should render create business', () => {
+  it('should render create business', () => {
     expect(wrapper.find('div').length).toBe(5);
     expect(wrapper.find('h3').length).toBe(1);
   });
 
-  it('it should set business value when it changes', () => {
+  it('should set business value when it changes', () => {
     const event = {
       target: {
         name: 'name',
@@ -53,13 +54,13 @@ describe('Component: CreateBusiness', () => {
     expect(action.state.name).toBe('weconnect');
   });
 
-  it('it should submit business form', () => {
+  it('should submit business form', () => {
     const createBusiness = jest.spyOn(wrapper.instance(), 'onSubmit');
     action.onSubmit({ preventDefault: () => 1 });
     expect(createBusiness).toBeCalled();
   });
 
-  it('it should change image value when it changes', () => {
+  it('should change image value when it changes', () => {
     const event = {
       target: {
         files: [{
@@ -80,7 +81,7 @@ describe('Component: CreateBusiness', () => {
 });
 
 describe('Connected: CreateBusiness', () => {
-  it('it should render create business component successsfully', () => {
+  it('should render create business component successsfully', () => {
     const store = mockStore({
       createBusiness: {
         isCreated: false,
@@ -88,6 +89,9 @@ describe('Connected: CreateBusiness', () => {
         error: 'error',
         isLoading: true
       },
+      auth: {
+        user
+      }
     });
     wrapper = shallow(<ConnectedCreateBusiness store={ store } />);
     expect(wrapper.length).toBe(1);

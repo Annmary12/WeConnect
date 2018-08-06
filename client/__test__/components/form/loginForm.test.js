@@ -16,7 +16,7 @@ const setup = () => {
 };
 
 describe('Component: LoginForm', () => {
-  it('it should render login form component successfully', () => {
+  it('should render login form component successfully', () => {
     const wrapper = setup();
     expect(wrapper.find('div').length).toBe(6);
     expect(wrapper.find('p').length).toBe(1);

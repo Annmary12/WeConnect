@@ -36,23 +36,23 @@ const setup = () => {
 let wrapper = setup();
 const action = wrapper.instance();
 describe('Component: UpdateProfile', () => {
-  it('it should render the update profile page', () => {
+  it('should render the update profile page', () => {
     expect(wrapper.find('div').length).toBe(3);
     expect(wrapper.find('Footer').length).toBe(1);
   });
-  it('it should fetch a user', () => {
+  it('should fetch a user', () => {
     const getUser = jest.spyOn(action, 'componentDidMount');
     action.componentDidMount();
     expect(getUser).toBeCalled();
   });
 
-  it('it should receive the next props', () => {
+  it('should receive the next props', () => {
     const receiceProps = jest.spyOn(action, 'componentWillReceiveProps');
     action.componentWillReceiveProps(props);
     expect(receiceProps).toBeCalled();
   });
 
-  it('it should set user value when it changes', () => {
+  it('should set user value when it changes', () => {
     const event = {
       target: {
         name: 'firstname',
@@ -63,13 +63,13 @@ describe('Component: UpdateProfile', () => {
     expect(action.state.firstname).toBe('Annmary');
   });
 
-  it('it should update a profile', () => {
+  it('should update a profile', () => {
     const update = jest.spyOn(action, 'onUpdate');
     action.onUpdate({ preventDefault: () => 1 });
     expect(update).toBeCalled();
   });
 
-  it('it should change image value when it changes', () => {
+  it('should change image value when it changes', () => {
     const event = {
       target: {
         files: [{
@@ -90,7 +90,7 @@ describe('Component: UpdateProfile', () => {
 });
 
 describe('Connected: UpdateProfile', () => {
-  it('it should render update profile successfully', () => {
+  it('should render update profile successfully', () => {
     const store = mockStore({
       auth: {
         user: {

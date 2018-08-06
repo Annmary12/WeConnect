@@ -40,17 +40,17 @@ const setup = () => {
 let wrapper = setup();
 let action = wrapper.instance();
 describe('Component: BusinessProfile', () => {
-  it('it should render business profile', () => {
+  it('should render business profile', () => {
     expect(wrapper.find('div').length).toBe(6);
   });
 
-  it('it should fetch one business and get review(s) for the business', () => {
+  it('should fetch one business and get review(s) for the business', () => {
     const fetchOneBusiness = jest.spyOn(wrapper.instance(), 'componentWillMount');
     action.componentWillMount();
     expect(fetchOneBusiness).toBeCalled();
   });
 
-  it('it should receive next props', () => {
+  it('should receive next props', () => {
     const nextProps = {
       business
     };
@@ -60,13 +60,13 @@ describe('Component: BusinessProfile', () => {
     expect(willReceiveProps).toBeCalled();
   });
 
-  it('it should delete a business', () => {
+  it('should delete a business', () => {
     const deleteBusiness = jest.spyOn(wrapper.instance(), 'onDelete');
     action.onDelete();
     expect(deleteBusiness).toBeCalled();
   });
 
-  it('it should handle business like', () => {
+  it('should handle business like', () => {
     const likeBusiness = jest.spyOn(wrapper.instance(), 'handleLike');
     action.handleLike();
     expect(likeBusiness).toBeCalled();
@@ -83,7 +83,7 @@ describe('Connected: BusinessProfile', () => {
       auth: {
         user
       },
-      allReviews: [{ ...review }]
+      ReviewReducer: [{ ...review }]
     });
     wrapper = shallow(<ConnectedBusinessProfile store={ store } />);
     expect(wrapper.length).toBe(1);

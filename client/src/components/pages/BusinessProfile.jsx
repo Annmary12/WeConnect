@@ -131,10 +131,10 @@ export class BusinessProfile extends Component {
 const mapStateToProps = state => ({
   business: state.OneBusiness.business,
   isDeleted: state.OneBusiness.isDeleted,
-  reviews: state.allReviews.reviews,
+  reviews: state.ReviewReducer.reviews,
   authId: state.auth.user.id,
   authData: state.auth,
-  totalReview: state.allReviews.totalReview
+  totalReview: state.ReviewReducer.totalReview
 });
 
 BusinessProfile.contextTypes = {

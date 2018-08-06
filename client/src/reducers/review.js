@@ -1,6 +1,7 @@
 import {
   REVIEW_SUCCESSFUL,
-  REVIEW_FAILED
+  REVIEW_FAILED,
+  ALL_REVIEW
 } from '../actions/types';
 
 const initialState = {
@@ -8,6 +9,8 @@ const initialState = {
   error: '',
   isCreated: false,
   hasError: false,
+  reviews: [],
+  totalReview: 0,
 };
 
 /**
@@ -33,7 +36,14 @@ export default (state = initialState, action = {}) => {
       return {
         ...state,
         error: action.error,
-        hasError: true
+        hasError: true,
+        reviews: []
+      };
+
+    case ALL_REVIEW:
+      return {
+        reviews: action.payload.reviews,
+        totalReview: action.payload.totalReview
       };
 
     default: return state;

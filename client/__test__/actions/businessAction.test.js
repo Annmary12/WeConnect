@@ -79,7 +79,7 @@ describe('Business Action Test', () => {
   describe('search for business', () => {
     const searchType = 'name';
     const value = business.name;
-    it('creates FETCH_BUSINESS_SUCCESSFUL after successfully to fetched a searched businesses', (done) => {
+    it('creates FETCH_BUSINESS_SUCCESSFUL after successfully searched a business', (done) => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
@@ -142,7 +142,7 @@ describe('Business Action Test', () => {
   });
 
   describe('fetch one business', () => {
-    it('creates FETCH_ONE_BUSINESS_SUCCESSFUL after successfully to fetched a businesses', (done) => {
+    it('creates FETCH_ONE_BUSINESS_SUCCESSFUL after successfully fetched one business', (done) => {
       moxios.stubRequest('/api/v1/businesses/2', {
         status: 200,
         response: {
@@ -310,7 +310,7 @@ describe('Business Action Test', () => {
           done();
         });
     });
-    it('creates DELETE_BUSINESS_SUCCESSFUL after successfully deleted a business', (done) => {
+    it('creates DELETE_BUSINESS_FAILED after failed to delete a business', (done) => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
