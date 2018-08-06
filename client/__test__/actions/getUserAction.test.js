@@ -17,7 +17,7 @@ describe('User Actions Test', () => {
   afterEach(() => moxios.uninstall());
 
   describe('fetch a user', () => {
-    it('creates GET_USER_SUCCESS after successfuly fetch a user', (done) => {
+    it('creates GET_USER_SUCCESS after successfuly fetched a user', (done) => {
       moxios.stubRequest(`api/v1/auth/user/${id}`, {
         status: 200,
         response: {

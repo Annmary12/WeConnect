@@ -25,7 +25,7 @@ const setup = () => {
 };
 
 describe('Component: createBusinessForm', () => {
-  it('it should render the component successfully', () => {
+  it('should render the component successfully', () => {
     const wrapper = setup();
     expect(wrapper.find('form').length).toBe(1);
     expect(wrapper.find('div').length).toBe(17);

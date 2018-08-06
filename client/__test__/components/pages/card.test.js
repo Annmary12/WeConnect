@@ -21,7 +21,7 @@ const setup = () => {
 };
 
 describe('Component: Card', () => {
-  it('it should render business card', () => {
+  it('should render business card', () => {
     const wrapper = setup();
     expect(wrapper.find('div').length).toBe(8);
     expect(wrapper.find('span').length).toBe(3);

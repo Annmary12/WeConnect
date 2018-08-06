@@ -22,20 +22,20 @@ const setup = () => {
 };
 
 let wrapper = setup();
-let action = wrapper.instance();
+const action = wrapper.instance();
 describe('Component: Business', () => {
-  it('it should render all business', () => {
+  it('should render all business', () => {
     expect(wrapper.find('div').length).toBe(9);
     expect(wrapper.find('button').length).toBe(1);
   });
 
-  it('it should fetch all business', () => {
+  it('should fetch all business', () => {
     const fetchBusiness = jest.spyOn(wrapper.instance(), 'componentDidMount');
     action.componentDidMount();
     expect(fetchBusiness).toBeCalled();
   });
 
-  it('it should change the page', () => {
+  it('should change the page', () => {
     const page = 1;
     const fetchBusinessByPageNumber = jest.spyOn(wrapper.instance(), 'onPageChange');
     action.onPageChange(page);
@@ -44,7 +44,7 @@ describe('Component: Business', () => {
 });
 
 describe('Connected Business', () => {
-  it('it should render business component successfully', () => {
+  it('should render business component successfully', () => {
     const store = mockStore({
       BusinessReducer: {
         businesses: {

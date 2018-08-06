@@ -4,10 +4,10 @@ import { connect } from 'react-redux';
 import { logout } from '../actions/login';
 import decodeToken from '../utils/decodeToken';
 
- /**
+/**
  * @description verifies routes
  * @returns {*} - void
- * @param {component} VerifyComponent 
+ * @param {component} VerifyComponent
  * @extends component
  */
 export default function (VerifyComponent) {
@@ -17,7 +17,6 @@ export default function (VerifyComponent) {
  * @extends component
  */
   class VerifyRoute extends Component {
-    
     /**
      * @description - checks whether a user is login or user's token has expires
      * @returns {void}
@@ -34,25 +33,23 @@ export default function (VerifyComponent) {
       if (!decodeToken()) {
         Materialize.toast('Sorry your session has expired, Please SignIn again', 2000, 'red rounded');
         this.props.logout();
-        // this.context.router.history.push('/login');
+        this.context.router.history.push('/login');
       }
     }
 
-     /**
+    /**
      * @returns {void}
      * @memberof VerifyRoute
-     */       
+     */
     render() {
       return (
         <VerifyComponent { ...this.props } />
       );
     }
   }
-  const mapStateToProps = state => {
-    return {
-      auth: state.auth.isAuthenticated
-    }
-  };
+  const mapStateToProps = state => ({
+    auth: state.auth.isAuthenticated
+  });
 
   VerifyRoute.contextTypes = {
     router: PropTypes.object.isRequired
@@ -61,7 +58,7 @@ export default function (VerifyComponent) {
   VerifyRoute.propTypes = {
     logout: PropTypes.func.isRequired,
     auth: PropTypes.bool.isRequired,
-  }
+  };
   return connect(mapStateToProps, { logout })(VerifyRoute);
 }
 

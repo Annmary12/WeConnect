@@ -27,19 +27,19 @@ const setup = () => {
 let wrapper = setup();
 const action = wrapper.instance();
 describe('Component: Profile', () => {
-  it('it should render the profile page', () => {
+  it('should render the profile page', () => {
     expect(wrapper.find('div').length).toBe(14);
     expect(wrapper.find('img').length).toBe(1);
     expect(wrapper.find('Link').length).toBe(1);
   });
 
-  it('it should recieve current user and set it', () => {
+  it('should recieve current user and set it', () => {
     const componentWillReceiveProps = jest.spyOn(action, 'componentWillReceiveProps');
     action.componentWillReceiveProps(props);
     expect(componentWillReceiveProps).toBeCalled();  
   });
 
-  it('it should change the page', () => {
+  it('should change the page', () => {
     const page = 1;
     const userBusiness = jest.spyOn(action, 'onPageChange');
     action.onPageChange(page);
@@ -48,7 +48,7 @@ describe('Component: Profile', () => {
 });
 
 describe('Connected: Profile', () => {
-  it('it should render the profile component', () => {
+  it('should render the profile component', () => {
     const store = mockStore({
       auth: {
         user: user.id

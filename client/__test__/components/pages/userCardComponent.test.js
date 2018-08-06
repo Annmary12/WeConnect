@@ -18,7 +18,7 @@ const setup = () => {
 };
 
 describe('Component: UserCard', () => {
-  it('it should render the user card successfully', () => {
+  it('should render the user card successfully', () => {
     const wrapper = setup();
     expect(wrapper.find('div').length).toBe(6);
     expect(wrapper.find('img').length).toBe(1);

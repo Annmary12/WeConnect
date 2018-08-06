@@ -19,7 +19,7 @@ const setup = () => {
 };
 
 describe('Component: InputFieldGroup', () => {
-  it('it should render the input field successfully', () => {
+  it('should render the input field successfully', () => {
     const wrapper = setup();
     expect(wrapper.find('div').length).toBe(1);
     expect(wrapper.find('i').length).toBe(1);

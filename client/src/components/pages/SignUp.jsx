@@ -113,7 +113,7 @@ const mapStateToProps = state => ({
 
 SignUp.propTypes = {
   userSignupRequest: PropTypes.func.isRequired,
-  signUpData: PropTypes.object.isRequired
+  signUpData: PropTypes.object.isRequired,
 };
 
 SignUp.contextTypes = {

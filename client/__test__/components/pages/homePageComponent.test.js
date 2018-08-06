@@ -9,7 +9,7 @@ configure({ adapter: new Adapter() });
 const setup = () => shallow(<HomePage />);
 
 describe('Component: HomePage', () => {
-  it('it should render the home page sucessfully', () => {
+  it('should render the home page sucessfully', () => {
     const wrapper = setup();
     expect(wrapper.find('div').length).toBe(4);
     expect(wrapper.find('h1').length).toBe(1);

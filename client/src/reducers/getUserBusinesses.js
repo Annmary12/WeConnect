@@ -38,11 +38,13 @@ export default (state = initialState, action = {}) => {
         limit: action.payload.limit,
         totalPages: action.payload.totalPages,
         currentPage: action.payload.currentPage,
-        totalBusiness: action.payload.numberOfBusinesses
+        totalBusiness: action.payload.numberOfBusinesses,
+        error: ''
       };
     case USER_BUSINESSES_FAILURE:
       return {
         ...state,
+        businesses: [],
         error: action.error
       };
 

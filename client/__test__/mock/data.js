@@ -42,8 +42,16 @@ export const updatebusiness = {
 };
 
 export const review = {
-  content: 'context',
-  rating: 3
+  id: 2,
+  context: 'nice business',
+  userId: 4,
+  businessId: 5,
+  rating: 3,
+  reviewer: {
+    firstname: 'Sandra',
+    lastname: 'Agbala',
+    image: 'https://res.cloudinary.com/annmary/image/upload/v1530638224/n2inrs1sfydcbwdmv9un.jpg'
+  }
 };
 
 export const user = {

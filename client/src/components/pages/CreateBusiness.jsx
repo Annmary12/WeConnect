@@ -6,6 +6,7 @@ import Footer from './Footer';
 import CreateBusinessForm from './forms/CreateBusinessForm';
 import createBusinessRequest from '../../actions/createBusiness';
 import checkImage from '../../utils/imageChecker';
+import { getUserBusinessesRequest } from '../../actions/getUser';
 
 
 /**
@@ -81,6 +82,7 @@ export class CreateBusiness extends Component {
         if (!isCreated && hasError) {
           Materialize.toast(error, 4000, 'teal accent-3 rounded');
         } else {
+          this.props.getUserBusinessesRequest(this.props.authId, 1);
           this.context.router.history.push('/profile');
           Materialize.toast('Successfully Created a business', 4000, 'teal accent-3 rounded');
         }
@@ -149,6 +151,7 @@ export class CreateBusiness extends Component {
 }
 
 const mapStateToProps = state => ({
+  authId: state.auth.user.id,
   createBusinessResponse: state.createBusiness,
   isLoading: state.createBusiness.isLoading,
 });
@@ -156,8 +159,13 @@ CreateBusiness.propTypes = {
   createBusinessRequest: PropTypes.func.isRequired,
   createBusinessResponse: PropTypes.object.isRequired,
   isLoading: PropTypes.bool.isRequired,
+  getUserBusinessesRequest: PropTypes.func.isRequired,
+  authId: PropTypes.number.isRequired,
 };
 CreateBusiness.contextTypes = {
   router: PropTypes.object.isRequired
 };
-export default connect(mapStateToProps, { createBusinessRequest })(CreateBusiness);
+export default connect(
+  mapStateToProps,
+  { createBusinessRequest, getUserBusinessesRequest }
+)(CreateBusiness);

@@ -23,7 +23,7 @@ const setup = () => {
 let wrapper = setup();
 const action = wrapper.instance();
 describe('Component: Search', () => {
-  it('it should render search page', () => {
+  it('should render search page', () => {
     expect(wrapper.find('div').length).toBe(10);
     expect(wrapper.find('form').length).toBe(1);
     expect(wrapper.find('input').length).toBe(1);
@@ -32,7 +32,7 @@ describe('Component: Search', () => {
     expect(wrapper.find('option').length).toBe(4);
   });
 
-  it('it shoud set search type when changed', () => {
+  it('shoud set search type when changed', () => {
     const event = {
       target: {
         name: 'searchType',
@@ -44,7 +44,7 @@ describe('Component: Search', () => {
     expect(action.state.searchType).toBe('location');
   });
 
-  it('it should perform search', () => {
+  it('should perform search', () => {
     const searchBusiness = jest.spyOn(action, 'onSearch');
     action.onSearch({ preventDefault: () => 1 });
     expect(searchBusiness).toBeCalled();
@@ -52,7 +52,7 @@ describe('Component: Search', () => {
 });
 
 describe('Connected: Search', () => {
-  it('it should render search component successfully', () => {
+  it('should render search component successfully', () => {
     const store = mockStore({});
     wrapper = shallow(<ConnectedSearch store={ store } />);
     expect(wrapper.length).toBe(1);

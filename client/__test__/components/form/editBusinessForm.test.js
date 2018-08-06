@@ -53,23 +53,7 @@ const setup2 = () => {
 let wrapper = setup();
 const action = wrapper.instance();
 describe('Component: EditBusiness', () => {
-  const mockFile = () => ({});
-
-  mockFile.create = (name, size, mimeType) => {
-    name = name || 'mock.txt';
-    size = size || '1024';
-    mimeType = mimeType || 'plain/txt';
-
-    const file = new window.File([size], name, { type: mimeType });
-    return file;
-  };
-  console.log('fiiiiile', mockFile.create().name);
-
-  // const event = {
-  //   preventDefault: () => ({}),
-  //   target: { files: { 0: mockFile.create() } }
-  // };
-  it('it should render the edit business form', () => {
+  it('should render the edit business form', () => {
     expect(wrapper.find('div').length).toBe(14);
     expect(wrapper.find('form').length).toBe(1);
     expect(wrapper.find('input').length).toBe(5);
@@ -80,14 +64,14 @@ describe('Component: EditBusiness', () => {
     expect(wrapper.find('i').length).toBe(6);
   });
 
-  it('it should render the edit business form', () => {
+  it('should render the edit business form', () => {
     const wrapper2 = setup2();
     const action2 = wrapper2.instance();
 
     expect(wrapper2.find('p').length).toBe(1);
   });
 
-  it('it should set business value when it changes', () => {
+  it('should set business value when it changes', () => {
     const event = {
       target: {
         name: 'name',
@@ -99,13 +83,13 @@ describe('Component: EditBusiness', () => {
     expect(action.state.name).toBe('business name');
   });
 
-  it('it should update a business', () => {
+  it('should update a business', () => {
     const updateBusiness = jest.spyOn(wrapper.instance(), 'onUpdate');
     action.onUpdate({ preventDefault: () => 1 });
     expect(updateBusiness).toBeCalled();
   });
 
-  it('it should change image value when it changes', () => {
+  it('should change image value when it changes', () => {
     const event = {
       target: {
         files: [{
@@ -126,7 +110,7 @@ describe('Component: EditBusiness', () => {
 });
 
 describe('Connect EditBusinessForm', () => {
-  it('it should render the component successfully', () => {
+  it('should render the component successfully', () => {
     const store = mockStore({
       OneBusiness: {
         business

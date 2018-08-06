@@ -39,7 +39,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, './client/public')))
 
 app.use(validator());
-console.log(process.env.NODE_ENV)
 // router.get('*', (req, res) => res.status(404).send({
 //   message: 'Bad Request',
 //   error: true
