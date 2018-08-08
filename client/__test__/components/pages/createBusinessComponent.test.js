@@ -81,7 +81,7 @@ describe('Component: CreateBusiness', () => {
 });
 
 describe('Connected: CreateBusiness', () => {
-  it('should render create business component successsfully', () => {
+  it('should render create business component', () => {
     const store = mockStore({
       createBusiness: {
         isCreated: false,

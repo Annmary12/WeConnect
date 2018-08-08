@@ -77,7 +77,7 @@ describe('Component: LoginPage', () => {
 });
 
 describe('Connected: Login', () => {
-  it('should render login component successfully', () => {
+  it('should render login component', () => {
     const store = mockStore({
       auth: {
         isAuthenticated: false

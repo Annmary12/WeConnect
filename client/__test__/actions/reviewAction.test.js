@@ -19,7 +19,7 @@ describe('Review Action test', () => {
   afterEach(() => moxios.uninstall());
 
   describe('post review', () => {
-    it('creates REVIEW_SUCCESSFUL after successfuly reviewed a business', (done) => {
+    it('creates REVIEW_SUCCESSFUL after a successful business review', (done) => {
       moxios.stubRequest(`/api/v1/businesses/${id}/reviews`, {
         status: 200,
         response: {
@@ -68,7 +68,7 @@ describe('Review Action test', () => {
     });
   });
   describe('get review', () => {
-    it('creates ALL_REVIEW after successfuly fetched reviews', (done) => {
+    it('creates ALL_REVIEW after a successful fetch for all reviews', (done) => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
@@ -95,7 +95,7 @@ describe('Review Action test', () => {
         });
     });
 
-    it('creates REVIEW_FAILED after failed to get review(s)', (done) => {
+    it('creates REVIEW_FAILED after failure to get review(s)', (done) => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({

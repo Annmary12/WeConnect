@@ -36,7 +36,7 @@ const setup = () => {
 
 
 describe('Component: BusinessDetails', () => {
-  it('should render the business details successfully', () => {
+  it('should render the business details', () => {
     const wrapper = setup();
     expect(wrapper.find('div').length).toBe(38);
   });

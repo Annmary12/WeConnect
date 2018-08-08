@@ -16,7 +16,7 @@ describe('Business Action Test', () => {
   afterEach(() => moxios.uninstall());
 
   describe('fetch all businessses', () => {
-    it('creates FETCH_BUSINESS_SUCCESSFUL after successfuly fetched all businesses', (done) => {
+    it('creates FETCH_BUSINESS_SUCCESSFUL after successful fetch of all businesses', (done) => {
       moxios.stubRequest('/api/v1/businesses?page=1', {
         status: 200,
         response: {
@@ -50,7 +50,7 @@ describe('Business Action Test', () => {
         });
     });
 
-    it('creates FETCH_BUSINESS_FAILED after failed to fetched all businesses', (done) => {
+    it('creates FETCH_BUSINESS_FAILED after failure to get all businesses', (done) => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
@@ -79,7 +79,7 @@ describe('Business Action Test', () => {
   describe('search for business', () => {
     const searchType = 'name';
     const value = business.name;
-    it('creates FETCH_BUSINESS_SUCCESSFUL after successfully searched a business', (done) => {
+    it('creates FETCH_BUSINESS_SUCCESSFUL after a successful business search', (done) => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
@@ -115,7 +115,7 @@ describe('Business Action Test', () => {
           done();
         });
     });
-    it('creates FETCH_BUSINESS_FAILED after failed to fetched a searched business', (done) => {
+    it('creates FETCH_BUSINESS_FAILED after failure to fetch a searched business', (done) => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
@@ -142,7 +142,7 @@ describe('Business Action Test', () => {
   });
 
   describe('fetch one business', () => {
-    it('creates FETCH_ONE_BUSINESS_SUCCESSFUL after successfully fetched one business', (done) => {
+    it('creates FETCH_ONE_BUSINESS_SUCCESSFUL after a successful business fetch', (done) => {
       moxios.stubRequest('/api/v1/businesses/2', {
         status: 200,
         response: {
@@ -165,7 +165,7 @@ describe('Business Action Test', () => {
         });
     });
 
-    it('creates FETCH_BUSINESS_FAILED after failed to fetched all businesses', (done) => {
+    it('creates FETCH_BUSINESS_FAILED after failure to get a business', (done) => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
@@ -193,7 +193,7 @@ describe('Business Action Test', () => {
   });
 
   describe('update a business', () => {
-    it('creates UPDATE_BUSINESS_SUCCESSFUL after successfully updated a business', (done) => {
+    it('creates UPDATE_BUSINESS_SUCCESSFUL after a successful business update', (done) => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
@@ -222,7 +222,7 @@ describe('Business Action Test', () => {
         });
     });
 
-    it('creates UPDATE_BUSINESS_FAILED after failed to updated a business', (done) => {
+    it('creates UPDATE_BUSINESS_FAILED after failure to updated a business', (done) => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
@@ -251,7 +251,7 @@ describe('Business Action Test', () => {
           done();
         });
     });
-    it('creates SAVE_IMAGE_FAILED after successfuly failed to upload image', (done) => {
+    it('creates SAVE_IMAGE_FAILED after failure to upload an image', (done) => {
       moxios.stubRequest('https://api.cloudinary.com/v1_1/annmary/image/upload', {
         status: 400,
         response: {
@@ -285,7 +285,7 @@ describe('Business Action Test', () => {
   });
 
   describe('Delete business', () => {
-    it('creates DELETE_BUSINESS_SUCCESSFUL after successfully deleted a business', (done) => {
+    it('creates DELETE_BUSINESS_SUCCESSFUL after deleting a business', (done) => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
@@ -310,7 +310,7 @@ describe('Business Action Test', () => {
           done();
         });
     });
-    it('creates DELETE_BUSINESS_FAILED after failed to delete a business', (done) => {
+    it('creates DELETE_BUSINESS_FAILED after failure to delete a business', (done) => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({
@@ -336,7 +336,7 @@ describe('Business Action Test', () => {
   });
 
   describe('Like business', () => {
-    it('creates LIKE_SUCCESSFUL after successfully liked a business', (done) => {
+    it('creates LIKE_SUCCESSFUL after a successful business like action', (done) => {
       moxios.stubRequest('/api/v1/auth/user/like', {
         status: 200,
         response: {
@@ -357,7 +357,7 @@ describe('Business Action Test', () => {
         });
     });
 
-    it('creates LIKE_FAILED after it failed to like business', (done) => {
+    it('creates LIKE_FAILED after it failure to like a business', (done) => {
       moxios.wait(() => {
         const request = moxios.requests.mostRecent();
         request.respondWith({

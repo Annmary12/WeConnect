@@ -110,7 +110,7 @@ describe('Component: EditBusiness', () => {
 });
 
 describe('Connect EditBusinessForm', () => {
-  it('should render the component successfully', () => {
+  it('should render the component', () => {
     const store = mockStore({
       OneBusiness: {
         business

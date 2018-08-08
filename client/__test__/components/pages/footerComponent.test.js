@@ -9,7 +9,7 @@ configure({ adapter: new Adapter() });
 const setup = () => shallow(<Footer />);
 
 describe('Component: Footer', () => {
-  it('should render the footer page sucessfully', () => {
+  it('should render the footer page', () => {
     const wrapper = setup();
     expect(wrapper.find('div').length).toBe(2);
     expect(wrapper.find('footer').length).toBe(1);

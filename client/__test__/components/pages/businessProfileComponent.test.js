@@ -74,7 +74,7 @@ describe('Component: BusinessProfile', () => {
 });
 
 describe('Connected: BusinessProfile', () => {
-  it('should render business profile successfully', () => {
+  it('should render business profile', () => {
     const store = mockStore({
       OneBusiness: {
         business,

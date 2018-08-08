@@ -37,7 +37,7 @@ describe('Sign Up Action Test', () => {
       });
   });
 
-  it('creates SIGNUP_FAILED after it failed to signup', (done) => {
+  it('creates SIGNUP_FAILED after failure to signup', (done) => {
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
       request.respondWith({

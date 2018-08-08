@@ -84,7 +84,7 @@ describe('Component: SignUp', () => {
 });
 
 describe('Connected: SignUp', () => {
-  it('should render signup component sucessfully', () => {
+  it('should render signup component', () => {
     const store = mockStore({
       auth: {
         isAuthenticated: false,

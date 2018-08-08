@@ -15,7 +15,7 @@ describe('Login Action Test', () => {
   afterEach(() => moxios.uninstall());
   const token = jwtToken.sign(user, 'iwillnotlosecton');
 
-  it('creates SET_CURRENT_USER after successfuly logged in a user', (done) => {
+  it('creates SET_CURRENT_USER after successful login', (done) => {
     moxios.stubRequest('/api/v1/auth/login', {
       status: 200,
       response: {
@@ -38,7 +38,7 @@ describe('Login Action Test', () => {
       });
   });
 
-  it('creates LOGIN_FAILED after it failed to login', (done) => {
+  it('creates LOGIN_FAILED after failure to login', (done) => {
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
@@ -63,7 +63,7 @@ describe('Login Action Test', () => {
       });
   });
 
-  it('it should logout a user', (done) => {
+  it('should logout a user', (done) => {
     const expectedAction = [
       {
         type: types.SET_CURRENT_USER,

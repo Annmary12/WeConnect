@@ -52,7 +52,7 @@ describe('Component: Search', () => {
 });
 
 describe('Connected: Search', () => {
-  it('should render search component successfully', () => {
+  it('should render search component', () => {
     const store = mockStore({});
     wrapper = shallow(<ConnectedSearch store={ store } />);
     expect(wrapper.length).toBe(1);

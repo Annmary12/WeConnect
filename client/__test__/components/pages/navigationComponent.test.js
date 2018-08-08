@@ -44,7 +44,7 @@ describe('Component: Navigation', () => {
 });
 
 describe('Connected: Navigation', () => {
-  it('should render the navigation component successfully', () => {
+  it('should render the navigation component', () => {
     const store = mockStore({
       auth: {
         isAuthenticated: true,

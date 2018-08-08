@@ -21,7 +21,7 @@ const setup = () => {
 };
 
 describe('Component: ReviewList', () => {
-  it('should render review(es) successfully', () => {
+  it('should render review(es)', () => {
     const wrapper = setup();
     expect(wrapper.find('div').length).toBe(8);
     expect(wrapper.find('img').length).toBe(1);

@@ -13,7 +13,7 @@ describe('business Actiion', () => {
   beforeEach(() => moxios.install());
   afterEach(() => moxios.uninstall());
 
-  it('creates CREATE_BUSINESS_SUCCESSFUL after successfuly created a business', (done) => {
+  it('creates CREATE_BUSINESS_SUCCESSFUL after successful create a business', (done) => {
     moxios.stubRequest('/api/v1/businesses/', {
       status: 201,
       response: {
@@ -46,7 +46,7 @@ describe('business Actiion', () => {
       });
   });
 
-  it('creates CREATE_BUSINESS_FAIL after successfuly failed to create a business', (done) => {
+  it('creates CREATE_BUSINESS_FAIL after failure to create a business', (done) => {
     moxios.wait(() => {
       const request = moxios.requests.mostRecent();
       request.respondWith({
@@ -80,7 +80,7 @@ describe('business Actiion', () => {
       });
   });
 
-  it('creates CREATE_BUSINESS_FAILED after successfuly failed to upload image', (done) => {
+  it('creates CREATE_BUSINESS_FAILED after failure to upload an image', (done) => {
     moxios.stubRequest('https://api.cloudinary.com/v1_1/annmary/image/upload', {
       status: 400,
       response: {

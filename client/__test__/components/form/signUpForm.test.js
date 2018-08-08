@@ -21,7 +21,7 @@ const setup = () => {
 };
 
 describe('Component: SignUpForm', () => {
-  it('should render signup component successfully', () => {
+  it('should render signup component', () => {
     const wrapper = setup();
     expect(wrapper.find('div').length).toBe(6);
     expect(wrapper.find('form').length).toBe(1);

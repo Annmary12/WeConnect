@@ -24,7 +24,7 @@ const setup = () => {
 let wrapper = setup();
 const action = wrapper.instance();
 describe('Component: Business', () => {
-  it('should render all business', () => {
+  it('should render all businesses', () => {
     expect(wrapper.find('div').length).toBe(9);
     expect(wrapper.find('button').length).toBe(1);
   });
@@ -44,7 +44,7 @@ describe('Component: Business', () => {
 });
 
 describe('Connected Business', () => {
-  it('should render business component successfully', () => {
+  it('should render business component', () => {
     const store = mockStore({
       BusinessReducer: {
         businesses: {

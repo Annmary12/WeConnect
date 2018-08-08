@@ -90,7 +90,7 @@ describe('Component: UpdateProfile', () => {
 });
 
 describe('Connected: UpdateProfile', () => {
-  it('should render update profile successfully', () => {
+  it('should render update profile', () => {
     const store = mockStore({
       auth: {
         user: {
