@@ -201,6 +201,7 @@ class Business {
             message: 'Successfully Created',
             error: false
           }))
+
         // catches error
           .catch((error) => {
             const errorMessage = error.errors.map(value => value.message);
