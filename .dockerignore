@@ -1,0 +1,12 @@
+build
+node_modules
+.nyc_output
+.vscode
+coverage
+reports
+template
+.gitignore
+.dockerignore
+.env
+.eslintignore
+README.md
